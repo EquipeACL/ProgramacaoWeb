@@ -18,57 +18,82 @@
 
 		<div class="container-fluid">
 
-			<form method="POST" class="form-vertical  js-form-loading">
+			<form method="POST" class="form-vertical  js-form-loading"
+				th:object="${usuario}">
 				<!-- Linha do Nome -->
 				<div class="row">
-					<div class="form-group col-sm-12">
-						<label for="nome">Nome</label> <input id="nome" type="text"
-							class="form-control" autofocus="autofocus" />
+					<div class="form-group col-sm-3"
+						th:classappend="${#fields.hasErrors('cpf')}? has-error">
+						<label for="cpf">CPF</label> <input id="cpf" type="text"
+							class="form-control" autofocus="autofocus" th:field="*{cpf}" />
+					</div>
+					<div class="form-group col-sm-3"
+						th:classappend="${#fields.hasErrors('rg')}? has-error">
+						<label for="rg">RG</label> <input id="rg" type="text"
+							class="form-control" th:field="*{rg}" />
+					</div>
+					<div class="form-group col-sm-6"
+						th:classappend="${#fields.hasErrors('nomeCompleto')}? has-error">
+						<label for="nomeCompleto">Nome</label> <input id="nomeCompleto"
+							type="text" class="form-control" th:field="*{nomeCompleto}" />
 					</div>
 				</div>
 
-				<!-- Linha do Nome -->
 				<div class="row">
-					<div class="form-group col-sm-6">
+					<div class="form-group col-sm-3"
+						th:classappend="${#fields.hasErrors('email')}? has-error">
 						<label for="email">E-mail</label> <input id="email" type="text"
-							class="form-control" />
+							class="form-control" th:field="*{email}" />
 					</div>
-					<div class="form-group col-sm-3">
-						<label for="dataDeNascimento">Data de Nascimento</label> <input
-							id="dataDeNascimento" type="text" class="form-control" />
+					<div class="form-group col-sm-2"
+						th:classappend="${#fields.hasErrors('telefone')}? has-error">
+						<label for="telefone">Telefone</label> <input id="telefone"
+							type="text" class="form-control" th:field="*{telefone}" />
 					</div>
+					<div class="form-group col-sm-7"
+						th:classappend="${#fields.hasErrors('endereco')}? has-error">
+						<label for="endereco">Endereço</label><input id="endereco"
+							type="text" class="form-control" th:field="*{endereco}" />
+					</div>
+
 				</div>
 
 				<div class="row">
-					<div class="form-group col-sm-3">
-						<label for="senha">E-mail</label> <input id="Senha"
-							type="password" class="form-control" />
+					<div class="form-group col-sm-2"
+						th:classappend="${#fields.hasErrors('naturalidade')}? has-error">
+						<label for="naturalidade">Naturalidade</label><input
+							id="naturalidade" type="text" class="form-control"
+							th:field="*{naturalidade}" />
 					</div>
-					<div class="form-group col-sm-3">
+					<div class="form-group col-sm-2"
+						th:classappend="${#fields.hasErrors('nomeUsuario')}? has-error">
+						<label for="nomeUsuario">Login</label> <input id="nomeUsuario"
+							type="text" class="form-control" th:field="*{nomeUsuario}" />
+					</div>
+					<div class="form-group col-sm-2"
+						th:classappend="${#fields.hasErrors('senhaAcesso')}? has-error">
+						<label for="senhaAcesso">Senha</label> <input id="Senha"
+							type="password" class="form-control" th:field="*{senhaAcesso}" />
+					</div>
+					<div class="form-group col-sm-2"
+						th:classappend="${#fields.hasErrors('senhaAcesso')}? has-error">
 						<label for="confirmacaoSenha">Confirmação de Senha</label> <input
-							id="confirmacaoSenha" type="password" class="form-control" />
+							id="confirmacaoSenha" type="password" class="form-control"
+							th:field="*{senhaAcesso}" />
 					</div>
-					<div class="form-group col-sm-3">
-						<label class="control-label">Status</label>
-						<div class="checkbox">
-							<input type="checkbox" /> <label>Ativo</label>
-						</div>
-					</div>
-				</div>
-				
-				<div class="row">
-					<div class="form-group  col-sm-6">
+					<div class="form-group  col-sm-4 col-lg-3" >
 						<label class="control-label">Grupos</label>
 						<div>
 							<div class="checkbox  checkbox-inline">
 								<input type="checkbox" /> <label>Administrador</label>
 							</div>
 							<div class="checkbox  checkbox-inline">
-								<input type="checkbox" /> <label>Vendedor</label>
+								<input type="checkbox" /> <label>Funcionário</label>
 							</div>
 						</div>
 					</div>
 				</div>
+
 
 				<button type="submit" class="btn  btn-primary">Salvar</button>
 			</form>

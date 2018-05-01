@@ -7,7 +7,9 @@ package br.uepb.model.enums;
  */
 public enum Tipo_anal {
 	
-	ARTIGO("Artigo"),POSTER("Poster"),RESUMO("Resumo");
+	ARTIGO("Artigo"),
+	POSTER("Poster"),
+	RESUMO("Resumo");
 	
 	private String descricao;
 	
