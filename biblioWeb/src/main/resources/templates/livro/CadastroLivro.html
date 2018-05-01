@@ -39,9 +39,9 @@
 					</div>
 					<div class="form-group col-sm-4"
 						th:classappend="${#fields.hasErrors('editora')}? has-error">
-						<label for="titulo" class="control-label">Nome da Editora</label>
+						<label for="editora" class="control-label">Nome da Editora</label>
 						<div class="bw-field-action">
-							<select id="estilo" class="form-control" th:field="*{editora}">
+							<select id="editora" class="form-control" th:field="*{editora}">
 								<option value="">Selecione a Editora</option>
 								<option value="1">Editora 1</option>
 							</select>
@@ -93,7 +93,7 @@
 							th:field="*{edicao}" />
 					</div>
 				</div>
-				
+				<button type="submit" class="btn  btn-primary">Salvar</button>
 			</form>
 		</div>
 

@@ -18,8 +18,12 @@
 
 		<div class="container-fluid">
 
+			<th:block th:include="fragments/MensagemSucesso"></th:block>
+
 			<form method="POST" class="form-vertical  js-form-loading"
 				th:object="${usuario}">
+
+				<th:block th:include="fragments/MensagensErroValidacao"></th:block>
 				<!-- Linha do Nome -->
 				<div class="row">
 					<div class="form-group col-sm-3"
@@ -81,7 +85,7 @@
 							id="confirmacaoSenha" type="password" class="form-control"
 							th:field="*{senhaAcesso}" />
 					</div>
-					<div class="form-group  col-sm-4 col-lg-3" >
+					<div class="form-group  col-sm-4 col-lg-3">
 						<label class="control-label">Grupos</label>
 						<div>
 							<div class="checkbox  checkbox-inline">

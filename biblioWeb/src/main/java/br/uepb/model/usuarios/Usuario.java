@@ -1,6 +1,7 @@
 package br.uepb.model.usuarios;
 
 import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 
 import org.hibernate.validator.constraints.NotBlank;
 
@@ -31,7 +32,8 @@ public class Usuario {
 	@NotNull(message = "O telefone é obrigatório")
 	protected int telefone;
 	
-	@NotBlank(message = "O email é obrigatória")
+	@Size(min = 5, max = 20, message = "O tamanho do email deve estar entre 5 e 20")
+	@NotBlank(message = "O email é obrigatório")
 	protected String email;
 	
 	@NotBlank(message = "A senha é obrigatória")

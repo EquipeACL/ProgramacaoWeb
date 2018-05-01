@@ -99,6 +99,10 @@
 			</form>
 
 		</div>
+		<div th:replace="autor/CadastroRapidoAutor :: modal"></div>
 	</section>
+		<th:block layout:fragment="javascript-extra">
+		<script th:src="@{/javascripts/autor.cadastro-rapido.js}"></script>
+	</th:block>
 </body>
 </html>
