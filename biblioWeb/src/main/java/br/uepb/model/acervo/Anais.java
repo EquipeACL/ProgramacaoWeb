@@ -2,34 +2,47 @@ package br.uepb.model.acervo;
 
 import java.util.Date;
 
+import javax.persistence.Entity;
+import javax.validation.constraints.NotNull;
+
+import org.hibernate.validator.constraints.NotBlank;
+
 import br.uepb.interfaces.IFAcervo;
 import br.uepb.model.Autor;
 import br.uepb.model.Cidade;
 import br.uepb.model.enums.Tipo_anal;
 
 /**
- * Essa classe é utilizada como modelo para um objeto do tipo Anais.
- * A classe contém os respectivos getters and setters de seus atributos.
+ * Essa classe ï¿½ utilizada como modelo para um objeto do tipo Anais.
+ * A classe contï¿½m os respectivos getters and setters de seus atributos.
  * A classe Anais implementa a interface Acervo
  * @author EquipeACL
  */
+
 public class Anais extends ItemAcervo implements IFAcervo{
-	
+
+	@NotNull(message = "ANAL OD CARAHLS")
 	private Tipo_anal tipo;
+	
+	@NotNull
 	private Autor autor;
+	
+	@NotBlank
 	private String nome_congresso;
+	
+	@NotNull
 	private Cidade local;
 	
 	/**
-	 * Método construtor da classe Anais
-	 * Construtor vazio (utilizado para criar um objeto do tipo Anais sem parâmetros definidos)
+	 * Mï¿½todo construtor da classe Anais
+	 * Construtor vazio (utilizado para criar um objeto do tipo Anais sem parï¿½metros definidos)
 	 */
 	public Anais() {
 		
 	}
 	
 	/**
-	 * Método construtor da classe Anais (utilizado para criar um objeto do tipo Anais com parâmetros definidos)
+	 * Mï¿½todo construtor da classe Anais (utilizado para criar um objeto do tipo Anais com parï¿½metros definidos)
 	 * @param id, id do anal
 	 * @param tipo, Enum do tipo do anal
 	 * @param titulo, titulo do anal
