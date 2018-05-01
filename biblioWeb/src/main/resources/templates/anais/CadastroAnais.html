@@ -50,8 +50,47 @@
 							th:field="*{edicao}" />
 					</div>
 				</div>
-				<div class = "row">
-				
+				<div class="row">
+					<div class="form-grup col-sm-2"
+						th:classappend="${#fields.hasErrors('data')}? has-error">
+						<label for="data" class="control-label">Data de Publicação</label>
+						<input id="data" type="date" class="form-control"
+							th:field="*{data}">
+					</div>
+
+					<div class="form-group col-sm-4"
+						th:classappend="${#fields.hasErrors('local')}? has-error">
+						<label for="local" class="control-label">Nome da Cidade</label>
+						<div class="bw-field-action">
+							<select id="local" class="form-control" th:field="*{local}">
+								<option value="">Selecione a Cidade</option>
+								<option value="1">Cidade 1</option>
+							</select>
+							<div class="bw-field-action__icon">
+								<a href="#" data-toggle="modal"
+									data-target="#modalCadastroRapidoCidade"> <i
+									class="glyphicon  glyphicon-plus-sign  bw-glyphicon-large"></i>
+								</a>
+							</div>
+						</div>
+					</div>
+
+					<div class="form-group col-sm-6"
+						th:classappend="${#fields.hasErrors('autor')}? has-error">
+						<label for="autor" class="control-label">Nome do Autor</label>
+						<div class="bw-field-action">
+							<select id="autor" class="form-control" th:field="*{autor}">
+								<option value="">Selecione o Autor</option>
+								<option value="1">Autor 1</option>
+							</select>
+							<div class="bw-field-action__icon">
+								<a href="#" data-toggle="modal"
+									data-target="#modalCadastroRapidoAutor"> <i
+									class="glyphicon  glyphicon-plus-sign  bw-glyphicon-large"></i>
+								</a>
+							</div>
+						</div>
+					</div>
 				</div>
 
 				<div class="form-group">

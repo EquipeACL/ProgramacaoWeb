@@ -21,7 +21,7 @@ public class ItemAcervo {
 	@NotNull(message="Edicao é obrigatória")
 	private int edicao;
 	
-	@NotNull(message="Título é obrigatório")
+	@NotBlank(message="Título é obrigatório")
 	private String titulo;
 	
 	public int getId() {
