@@ -17,7 +17,7 @@ import br.uepb.model.Orientador;
 @RequestMapping("/orientadores")
 public class OrientadoresController {
 
-	@Autowired
+	
 	//CadastroAutorService cadastroAutorService;
 	
 	@RequestMapping("/novo")

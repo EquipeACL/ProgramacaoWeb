@@ -1,8 +1,13 @@
 package br.uepb.model;
 
+import java.util.List;
+
+import javax.persistence.OneToMany;
+
 import org.hibernate.validator.constraints.NotBlank;
 
 import br.uepb.interfaces.IFDependencia;
+import br.uepb.model.acervo.Livro;
 
 /**
  * Essa classe � utilizada como modelo para um objeto do tipo Editora.
@@ -12,10 +17,14 @@ import br.uepb.interfaces.IFDependencia;
 
 public class Editora implements IFDependencia{
 	
+	
 	private int id;
 
 	@NotBlank(message = "Nome é obrigatório")
 	private String nome;
+	
+	
+	private List<Livro> livros;
 	
 	/**
 	 * M�todo construtor da classe Editora
@@ -55,6 +64,15 @@ public class Editora implements IFDependencia{
 	public boolean validaDependencia() {
 		return true;
 	}
+
+	public List<Livro> getLivros() {
+		return livros;
+	}
+
+	public void setLivros(List<Livro> livros) {
+		this.livros = livros;
+	}
+	
 	
 	
 

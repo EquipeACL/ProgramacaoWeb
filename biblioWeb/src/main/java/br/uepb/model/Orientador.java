@@ -3,25 +3,27 @@ package br.uepb.model;
 import br.uepb.interfaces.IFDependencia;
 
 /**
- * Essa classe é utilizada como modelo para um objeto do tipo Orientador.
- * A classe contém os respectivos getters and setters de seus atributos.
+ * Essa classe ï¿½ utilizada como modelo para um objeto do tipo Orientador.
+ * A classe contï¿½m os respectivos getters and setters de seus atributos.
  * @author EquipeACL
  */
+
+
 public class Orientador implements IFDependencia{
 	private int id;
 	private String nome;
 	private String formacao;
 	
 	/**
-	 * Método construtor da classe Orientador
-	 * Construtor vazio (utilizado para criar um objeto do tipo Orientador sem parâmetros definidos)
+	 * Mï¿½todo construtor da classe Orientador
+	 * Construtor vazio (utilizado para criar um objeto do tipo Orientador sem parï¿½metros definidos)
 	 */
 	public Orientador(){		
 		
 	}
 	
 	/**
-	 * Método construtor da classe Orientador (utilizado para criar um objeto do tipo Orientador com parâmetros definidos)
+	 * Mï¿½todo construtor da classe Orientador (utilizado para criar um objeto do tipo Orientador com parï¿½metros definidos)
 	 * @param id, id do orientador
 	 * @param nome, nome do orientador
 	 * @param formacao, formacao do orientado

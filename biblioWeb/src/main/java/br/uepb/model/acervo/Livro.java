@@ -7,6 +7,9 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.validation.constraints.NotNull;
 
 import br.uepb.interfaces.IFAcervo;
 import br.uepb.model.AreaConhecimento;
@@ -30,7 +33,10 @@ public class Livro extends ItemAcervo implements IFAcervo{
 	private long isbn;
 	
 	private ArrayList<Autor> autores;
+	
+	@NotNull(message = "O nome da Editora é obrigatório")
 	private Editora editora;	
+	
 	private int numero_paginas;
 	private AreaConhecimento area;
 	
