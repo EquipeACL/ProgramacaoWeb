@@ -16,7 +16,7 @@ import br.uepb.model.Autor;
 
 @Controller
 @RequestMapping("/autores")
-public class AutorController {
+public class AutoresController {
 
 	@Autowired
 	CadastroAutorService cadastroAutorService;

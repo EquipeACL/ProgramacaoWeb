@@ -1,19 +1,25 @@
 package br.uepb.model;
 
+import org.hibernate.validator.constraints.NotBlank;
+
 import br.uepb.interfaces.IFDependencia;
 
 /**
- * Essa classe é utilizada como modelo para um objeto do tipo Editora.
- * A classe contém os respectivos getters and setters de seus atributos.
+ * Essa classe ï¿½ utilizada como modelo para um objeto do tipo Editora.
+ * A classe contï¿½m os respectivos getters and setters de seus atributos.
  * @author EquipeACL
  */
+
 public class Editora implements IFDependencia{
+	
 	private int id;
+
+	@NotBlank(message = "Nome Ã© obrigatÃ³rio")
 	private String nome;
 	
 	/**
-	 * Método construtor da classe Editora
-	 * Construtor vazio (utilizado para criar um objeto do tipo Editora sem parâmetros definidos)
+	 * Mï¿½todo construtor da classe Editora
+	 * Construtor vazio (utilizado para criar um objeto do tipo Editora sem parï¿½metros definidos)
 	 */
 	public Editora() {
 
@@ -24,7 +30,7 @@ public class Editora implements IFDependencia{
 	}
 	
 	/**
-	 * Método construtor da classe Editora (utilizado para criar um objeto do tipo Editora com parâmetros definidos)
+	 * Mï¿½todo construtor da classe Editora (utilizado para criar um objeto do tipo Editora com parï¿½metros definidos)
 	 * @param id, id da editora
 	 * @param nome, nome da editora
 	 */
@@ -49,5 +55,7 @@ public class Editora implements IFDependencia{
 	public boolean validaDependencia() {
 		return true;
 	}
+	
+	
 
 }

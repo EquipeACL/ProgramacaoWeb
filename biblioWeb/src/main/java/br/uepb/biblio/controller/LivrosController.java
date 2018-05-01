@@ -19,7 +19,7 @@ public class LivrosController {
 	@RequestMapping("/livros/novo")
 	public ModelAndView novo(Livro livro) {
 		ModelAndView mv = new ModelAndView("livro/CadastroLivro");
-		
+		//mv.addObject("editoras",edito);
 		return mv;
 	}
 	
