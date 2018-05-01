@@ -1,12 +1,21 @@
 package br.uepb.model.enums;
 
 /**
- * Essa classe é responsável por criar os Enum utilizados como atributo de um objeto do tipo Anais
+ * Essa classe ï¿½ responsï¿½vel por criar os Enum utilizados como atributo de um objeto do tipo Anais
  * @author EquipeACL
  *
  */
 public enum Tipo_anal {
 	
-	ARTIGO,POSTER,RESUMO;
+	ARTIGO("Artigo"),POSTER("Poster"),RESUMO("Resumo");
+	
+	private String descricao;
+	
+	Tipo_anal(String descricao){
+		this.descricao = descricao;
+	}
+	public String getDescricao() {
+		return descricao;
+	}
 
 }

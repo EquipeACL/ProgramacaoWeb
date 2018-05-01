@@ -28,8 +28,6 @@ public class Livro extends ItemAcervo implements IFAcervo{
 	
 	
 
-	private int id;
-
 	private long isbn;
 	
 	private ArrayList<Autor> autores;

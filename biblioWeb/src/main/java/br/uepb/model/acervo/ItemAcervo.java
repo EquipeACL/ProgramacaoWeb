@@ -2,22 +2,32 @@ package br.uepb.model.acervo;
 
 import java.util.Date;
 
+import javax.validation.constraints.NotNull;
+
+import org.hibernate.validator.constraints.NotBlank;
+
 /**
- * Essa classe é utilizada como modelo para um objeto do tipo ItemAcervo.
- * A classe contém os respectivos getters and setters de seus atributos.
- * A classe ItemAcervo é a super classe dos itens de acervo (jornal, livro, midias_eletrônicas)
+ * Essa classe ï¿½ utilizada como modelo para um objeto do tipo ItemAcervo.
+ * A classe contï¿½m os respectivos getters and setters de seus atributos.
+ * A classe ItemAcervo ï¿½ a super classe dos itens de acervo (jornal, livro, midias_eletrï¿½nicas)
  * @author EquipeACL
  */
 public class ItemAcervo {
+	
 	private int id;
+	@NotBlank(message="Data nao pode ser vazia")
 	private  Date data;
+	
+	@NotNull(message="Edicao Ã© obrigatÃ³ria")
 	private int edicao;
+	
+	@NotNull(message="TÃ­tulo Ã© obrigatÃ³rio")
 	private String titulo;
 	
 	public int getId() {
 		return id;
 	}
-
+	
 	public void setId(int id) {
 		this.id = id;
 	}

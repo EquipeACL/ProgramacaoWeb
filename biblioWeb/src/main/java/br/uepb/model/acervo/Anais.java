@@ -21,16 +21,16 @@ import br.uepb.model.enums.Tipo_anal;
 
 public class Anais extends ItemAcervo implements IFAcervo{
 
-	@NotNull(message = "ANAL OD CARAHLS")
+	@NotNull(message = "Tipo do Anal não pode ser Nulo")
 	private Tipo_anal tipo;
 	
-	@NotNull
+	@NotNull(message = "Nome do Autor não pode ser Nulo")
 	private Autor autor;
 	
-	@NotBlank
+	@NotBlank(message = "Nome do Congresso não pode ser Nulo")
 	private String nome_congresso;
 	
-	@NotNull
+	@NotNull(message = "Nome da Cidade não pode ser Nulo")
 	private Cidade local;
 	
 	/**
