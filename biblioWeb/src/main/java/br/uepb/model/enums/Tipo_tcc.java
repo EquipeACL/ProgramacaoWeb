@@ -1,10 +1,23 @@
 package br.uepb.model.enums;
 /**
- * Essa classe é responsável por criar os Enum utilizados como atributo de um objeto do tipo Tcc
+ * Essa classe ï¿½ responsï¿½vel por criar os Enum utilizados como atributo de um objeto do tipo Tcc
  * @author EquipeACL
  *
  */
 public enum Tipo_tcc {
+	MONOGRAFIA("Monografia"), TESE("Tese"), DISSERTACAO("DissertaÃ§Ã£o");
+	private String descricao;
 
-	MONOGRAFIA, TESE, DISSERTACAO;
+	private Tipo_tcc(String descricao) {
+		this.descricao = descricao;
+	}
+
+	public String getDescricao() {
+		return descricao;
+	}
+
+	public void setDescricao(String descricao) {
+		this.descricao = descricao;
+	}
+	
 }

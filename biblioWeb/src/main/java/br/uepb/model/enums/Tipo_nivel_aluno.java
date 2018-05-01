@@ -1,10 +1,20 @@
 package br.uepb.model.enums;
 /**
- * Essa classe é responsável por criar os Enum utilizados como atributo de um objeto do tipo Aluno
+ * Essa classe ï¿½ responsï¿½vel por criar os Enum utilizados como atributo de um objeto do tipo Aluno
  * @author EquipeACL
  *
  */
 public enum Tipo_nivel_aluno {
-	G,E,M,D,P; //G-Graduacao, E-Especialização, M-Mestrado, D-Doutorado, P-Pos-Doutorado
+	G("GraduaÃ§Ã£o"),E("EspecializaÃ§Ã£o"),M("Mestrado"),D("Doutorado"),P("PÃ³s-graduaÃ§Ã£o"); //G-Graduacao, E-Especializaï¿½ï¿½o, M-Mestrado, D-Doutorado, P-Pos-Doutorado
+	private String descricao;
+	private Tipo_nivel_aluno(String descricao) {
+		this.descricao = descricao;
+	}
+	public String getDescricao() {
+		return descricao;
+	}
+	public void setDescricao(String descricao) {
+		this.descricao = descricao;
+	}
 	
 }

@@ -2,30 +2,33 @@ package br.uepb.model.acervo;
 
 import java.util.Date;
 
+import javax.validation.constraints.NotNull;
+
 import br.uepb.interfaces.IFAcervo;
 import br.uepb.model.enums.Tipo_midia;
 
 /**
- * Essa classe é utilizada como modelo para um objeto do tipo Midias_Eletronicas.
- * A classe contém os respectivos getters and setters de seus atributos.
+ * Essa classe ï¿½ utilizada como modelo para um objeto do tipo Midias_Eletronicas.
+ * A classe contï¿½m os respectivos getters and setters de seus atributos.
  * A classe Midias_Eletronicas implementa a interface Acervo
  * @author EquipeACL
  */
 public class Midias_Eletronicas extends ItemAcervo implements IFAcervo{
+	@NotNull(message="Tipo nÃ£o pode ser nulo!")
 	private Tipo_midia tipo;
 	
 	/**
-	 * Método construtor da classe Midias_Eletronicas
-	 * Construtor vazio (utilizado para criar um objeto do tipo Midias_Eletronicas sem parâmetros definidos)
+	 * Mï¿½todo construtor da classe Midias_Eletronicas
+	 * Construtor vazio (utilizado para criar um objeto do tipo Midias_Eletronicas sem parï¿½metros definidos)
 	 */
 	public Midias_Eletronicas(){	
 	}
 	
 	/**
-	 * Método construtor da classe Midias_Eletronicas (utilizado para criar um objeto do tipo Midias_Eletronicas com parâmetros definidos)
-	 * @param titulo, título da mídia eletrônica
-	 * @param tipo, objeto Enum que define o tipo da mída eletrônica
-	 * @param data_gravacao, data da gravação da mídia eletrônica
+	 * Mï¿½todo construtor da classe Midias_Eletronicas (utilizado para criar um objeto do tipo Midias_Eletronicas com parï¿½metros definidos)
+	 * @param titulo, tï¿½tulo da mï¿½dia eletrï¿½nica
+	 * @param tipo, objeto Enum que define o tipo da mï¿½da eletrï¿½nica
+	 * @param data_gravacao, data da gravaï¿½ï¿½o da mï¿½dia eletrï¿½nica
 	 */
 	public Midias_Eletronicas(String titulo, Tipo_midia tipo, Date data_gravacao) {
 		setTitulo(titulo);
