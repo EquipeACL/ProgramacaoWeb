@@ -33,7 +33,6 @@ public class AutoresController {
 		if(result.hasErrors()) {
 			return novo(autor);
 		}
-		//salvar no banco
 		try {
 			cadastroAutorService.salvar(autor);
 		}

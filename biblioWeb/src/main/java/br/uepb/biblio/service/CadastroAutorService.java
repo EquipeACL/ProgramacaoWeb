@@ -20,7 +20,7 @@ public class CadastroAutorService {
 	public void salvar (Autor autor) {
 		Optional <Autor> autorOptional = autores.findByNomeIgnoreCase(autor.getNome());
 		if(autorOptional.isPresent()){
-			throw new NomeAutorJaCadastradoException("Autor já Cadastrado");
+			throw new NomeAutorJaCadastradoException("Autor já Cadastrado!");
 		}
 		autores.save(autor);
 	}
