@@ -12,6 +12,7 @@ import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import br.uepb.biblio.service.CadastroAutorService;
+import br.uepb.biblio.service.exception.NomeAutorJaCadastradoException;
 import br.uepb.model.Autor;
 
 @Controller
@@ -33,7 +34,14 @@ public class AutoresController {
 			return novo(autor);
 		}
 		//salvar no banco
-		cadastroAutorService.salvar(autor);
+		try {
+			cadastroAutorService.salvar(autor);
+		}
+		catch(NomeAutorJaCadastradoException e){
+			result.rejectValue("nome", e.getMessage(),e.getMessage());
+			return (novo(autor));
+		}
+		
 		attributes.addFlashAttribute("mensagem", "Autor salvo com sucesso!");
 		return new ModelAndView("redirect:/autores/novo");
 	}
