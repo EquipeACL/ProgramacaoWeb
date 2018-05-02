@@ -13,7 +13,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import br.uepb.model.usuarios.Usuario;
 
 @Controller
-@RequestMapping("/usuario")
+@RequestMapping("/usuarios")
 public class UsuariosController {
 
 	@RequestMapping("/novo")
