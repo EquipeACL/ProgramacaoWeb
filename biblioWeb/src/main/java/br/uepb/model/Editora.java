@@ -2,7 +2,11 @@ package br.uepb.model;
 
 import java.util.List;
 
-import javax.persistence.OneToMany;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.Table;
 
 import org.hibernate.validator.constraints.NotBlank;
 
@@ -14,17 +18,19 @@ import br.uepb.model.acervo.Livro;
  * A classe cont�m os respectivos getters and setters de seus atributos.
  * @author EquipeACL
  */
-
+@Entity
+@Table(name = "editora")
 public class Editora implements IFDependencia{
 	
-	
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
 
 	@NotBlank(message = "Nome é obrigatório")
 	private String nome;
 	
 	
-	private List<Livro> livros;
+	//private List<Livro> livros;
 	
 	/**
 	 * M�todo construtor da classe Editora
@@ -65,12 +71,27 @@ public class Editora implements IFDependencia{
 		return true;
 	}
 
-	public List<Livro> getLivros() {
-		return livros;
+
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + id;
+		return result;
 	}
 
-	public void setLivros(List<Livro> livros) {
-		this.livros = livros;
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Editora other = (Editora) obj;
+		if (id != other.id)
+			return false;
+		return true;
 	}
 	
 	

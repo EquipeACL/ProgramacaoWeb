@@ -43,8 +43,8 @@
 						<div class="bw-field-action">
 							<select id="editora" class="form-control" th:field="*{editora}">
 								<option value="">Selecione a Editora</option>
-								<option th:each="editora : ${editoras}" th:value="${editora}"
-									th:text="${editora}"></option>
+								<option th:each="editora : ${editoras}" th:value="${editora.id}"
+									th:text="${editora.nome}"></option>
 							</select>
 							<div class="bw-field-action__icon">
 								<a href="#" data-toggle="modal"
