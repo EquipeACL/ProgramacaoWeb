@@ -1,30 +1,46 @@
 package br.uepb.model;
 
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.Table;
+
+import org.hibernate.validator.constraints.NotBlank;
+
 /**
- * Essa classe é utilizada como modelo para um objeto do tipo Cidade.
- * A classe contém os respectivos getters and setters de seus atributos.
+ * Essa classe ï¿½ utilizada como modelo para um objeto do tipo Cidade.
+ * A classe contï¿½m os respectivos getters and setters de seus atributos.
  * @author EquipeACL
  */
+@Entity
+@Table(name = "cidade")
 public class Cidade {
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
+	
+	
 	private int codigo;
+	@NotBlank(message = "Nome da cidade Ã© obrigatÃ³rio")
 	private String nome;
+	@NotBlank(message = "CÃ³digo da cidade Ã© obrigatÃ³rio")
 	private String uf;
 	
 	/**
-	 * Método construtor da classe Cidade
-	 * Construtor vazio (utilizado para criar um objeto do tipo Cidade sem parâmetros definidos)
+	 * Mï¿½todo construtor da classe Cidade
+	 * Construtor vazio (utilizado para criar um objeto do tipo Cidade sem parï¿½metros definidos)
 	 */
 	public Cidade() {
 		
 	}
 	
 	/**
-	 * Método construtor da classe Cidade (utilizado para criar um objeto do tipo Cidade com parâmetros definidos)
+	 * Mï¿½todo construtor da classe Cidade (utilizado para criar um objeto do tipo Cidade com parï¿½metros definidos)
 	 * @param id, id da cidade
 	 * @param codigo, codigo da cidade
 	 * @param nome, nome da cidade
-	 * @param uf, união federativa da cidade
+	 * @param uf, uniï¿½o federativa da cidade
 	 */
 	public Cidade(int id, int codigo, String nome, String uf) {
 		setId(id);
@@ -56,6 +72,28 @@ public class Cidade {
 	}
 	public void setUf(String uf) {
 		this.uf = uf;
+	}
+
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + id;
+		return result;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Cidade other = (Cidade) obj;
+		if (id != other.id)
+			return false;
+		return true;
 	}
 	
 	

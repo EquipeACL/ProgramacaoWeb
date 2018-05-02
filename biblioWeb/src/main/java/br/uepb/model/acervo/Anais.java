@@ -2,7 +2,7 @@ package br.uepb.model.acervo;
 
 import java.util.Date;
 
-import javax.persistence.Entity;
+
 import javax.validation.constraints.NotNull;
 
 import org.hibernate.validator.constraints.NotBlank;
@@ -21,16 +21,16 @@ import br.uepb.model.enums.Tipo_anal;
 
 public class Anais extends ItemAcervo implements IFAcervo{
 
-	@NotNull(message = "Tipo do Anal não pode ser Nulo")
+	@NotNull(message = "Selecione o Tipo")
 	private Tipo_anal tipo;
 	
-	@NotNull(message = "Nome do Autor não pode ser Nulo")
+	@NotNull(message = "Nome do Autor é Obrigatório")
 	private Autor autor;
 	
-	@NotBlank(message = "Nome do Congresso não pode ser Nulo")
+	@NotBlank(message = "Nome do Congresso é Obrigatório")
 	private String nome_congresso;
 	
-	@NotNull(message = "Nome da Cidade não pode ser Nulo")
+	@NotNull(message = "Nome da Cidade é Obrigatório")
 	private Cidade local;
 	
 	/**

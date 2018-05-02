@@ -24,6 +24,10 @@ public class AnaisController {
 	public ModelAndView novo(Anais anal) {
 		ModelAndView mv = new ModelAndView("/anais/CadastroAnais");
 		mv.addObject("tipos", Tipo_anal.values());
+		mv.addObject("autores",new String[] {"Autor1","Autor2","Autor3"});
+		mv.addObject("cidades",new String[] {"Cidade1","Cidade2","Cidade3"});
+		mv.addObject("estados",new String[] {"AL","CE","PB"});
+		
 		return mv;
 	}
 	
