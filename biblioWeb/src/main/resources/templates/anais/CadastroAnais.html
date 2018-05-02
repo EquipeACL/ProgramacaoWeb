@@ -70,8 +70,8 @@
 						<label for="cidade" class="control-label">Local de Defesa</label>
 						<select id="cidade" th:field="*{local}" class="form-control">
 							<option value="cidade">Selecione a Cidade</option>
-							<option th:each="cidade: ${cidades}" th:value="${cidade}"
-								th:text="${cidade}"></option>
+							<option th:each="cidade: ${cidades}" th:value="${cidade.Id}"
+								th:text="${cidade.Nome}"></option>
 						</select>
 					</div>
 

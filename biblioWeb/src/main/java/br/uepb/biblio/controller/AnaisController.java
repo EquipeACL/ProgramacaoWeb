@@ -3,6 +3,7 @@ package br.uepb.biblio.controller;
 
 import javax.validation.Valid;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -11,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import br.uepb.biblio.repository.Cidades;
 import br.uepb.model.acervo.Anais;
 import br.uepb.model.enums.Tipo_anal;
 
@@ -20,12 +22,15 @@ import br.uepb.model.enums.Tipo_anal;
 @RequestMapping("/anais")
 public class AnaisController {
 	
+	@Autowired
+	Cidades cidades;
+	
 	@RequestMapping("/novo")
 	public ModelAndView novo(Anais anal) {
 		ModelAndView mv = new ModelAndView("/anais/CadastroAnais");
 		mv.addObject("tipos", Tipo_anal.values());
 		mv.addObject("autores",new String[] {"Autor1","Autor2","Autor3"});
-		mv.addObject("cidades",new String[] {"Cidade1","Cidade2","Cidade3"});
+		mv.addObject("cidades",cidades.findAll());
 		mv.addObject("estados",new String[] {"AL","CE","PB"});
 		
 		return mv;
