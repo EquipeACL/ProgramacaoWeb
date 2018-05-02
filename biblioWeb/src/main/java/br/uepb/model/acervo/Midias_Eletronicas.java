@@ -14,7 +14,7 @@ import br.uepb.model.enums.Tipo_midia;
  * @author EquipeACL
  */
 public class Midias_Eletronicas extends ItemAcervo implements IFAcervo{
-	@NotNull(message="Tipo não pode ser nulo!")
+	@NotNull(message=" Tipo não pode ser nulo!")
 	private Tipo_midia tipo;
 	
 	/**

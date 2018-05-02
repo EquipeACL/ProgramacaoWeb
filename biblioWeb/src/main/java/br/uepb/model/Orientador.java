@@ -24,10 +24,10 @@ public class Orientador implements IFDependencia{
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
 	
-	@NotBlank(message = "Nome do Orientador é obrigatório!")
+	@NotBlank(message = " Nome do Orientador é obrigatório!")
 	private String nome;
 	
-	@NotBlank(message = "Formação é obrigatória !")
+	@NotBlank(message = " Formação é obrigatória !")
 	private String formacao;
 	
 	/**

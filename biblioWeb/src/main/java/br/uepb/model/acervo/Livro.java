@@ -32,7 +32,7 @@ public class Livro extends ItemAcervo implements IFAcervo{
 	
 	private ArrayList<Autor> autores;
 	
-	@NotNull(message = "O nome da Editora é obrigatório")
+	@NotNull(message = " O nome da Editora é obrigatório")
 	private Editora editora;	
 	
 	private int numero_paginas;

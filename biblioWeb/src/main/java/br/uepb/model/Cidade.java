@@ -22,9 +22,9 @@ public class Cidade {
 	
 	
 	private int codigo;
-	@NotBlank(message = "Nome da cidade é obrigatório")
+	@NotBlank(message = " Nome da cidade é obrigatório")
 	private String nome;
-	@NotBlank(message = "Código da cidade é obrigatório")
+	@NotBlank(message = " Código da cidade é obrigatório")
 	private String uf;
 	
 	/**

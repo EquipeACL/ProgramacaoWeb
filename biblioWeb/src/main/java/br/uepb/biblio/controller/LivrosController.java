@@ -2,6 +2,7 @@ package br.uepb.biblio.controller;
 
 import javax.validation.Valid;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -10,16 +11,19 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import br.uepb.biblio.repository.Editoras;
 import br.uepb.model.acervo.Livro;
 
 @Controller
 public class LivrosController {
 
+	@Autowired
+	Editoras editoras;
 	
 	@RequestMapping("/livros/novo")
 	public ModelAndView novo(Livro livro) {
 		ModelAndView mv = new ModelAndView("livro/CadastroLivro");
-		mv.addObject("editoras", new String[] {"Editora1","Editora2"});
+		mv.addObject("editoras", editoras.findAll());
 		mv.addObject("areas", new String[] {"Area1","Area2"});
 		
 		//mv.addObject("editoras",edito);

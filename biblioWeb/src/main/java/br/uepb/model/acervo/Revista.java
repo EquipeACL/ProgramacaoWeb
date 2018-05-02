@@ -14,11 +14,11 @@ import br.uepb.model.Editora;
  * @author EquipeACL
  */
 public class Revista extends ItemAcervo implements IFAcervo{
-	@NotNull(message="Editora não pode ser nula!")
+	@NotNull(message=" Editora não pode ser nula!")
 	private Editora editora;
 	
 	@NotNull
-	@Min(value = 1, message="Numero de paginas deve ser maior ou igual a 1.")
+	@Min(value = 1, message=" Numero de paginas deve ser maior ou igual a 1.")
 	private int num_pag;
 	
 	/**

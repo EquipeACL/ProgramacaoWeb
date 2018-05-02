@@ -43,8 +43,8 @@
 						<div class="bw-field-action">
 							<select id="editora" class="form-control" th:field="*{editora}">
 								<option value="">Selecione a Editora</option>
-								<option th:each="editora : ${editoras}" th:value="${editora}"
-									th:text="${editora}"></option>
+								<option th:each="editora : ${editoras}" th:value="${editora.id}"
+									th:text="${editora.nome}"></option>
 							</select>
 							<div class="bw-field-action__icon">
 								<a href="#" data-toggle="modal"
@@ -75,7 +75,7 @@
 							</select>
 							<div class="bw-field-action__icon">
 								<a href="#" data-toggle="modal"
-									data-target="#modalCadastroRapidoArea"> <i
+									data-target="#modalCadastroRapidoAreaConhecimento"> <i
 									class="glyphicon  glyphicon-plus-sign  bw-glyphicon-large"></i>
 								</a>
 							</div>
@@ -98,7 +98,12 @@
 				<button type="submit" class="btn  btn-primary">Salvar</button>
 			</form>
 		</div>
-
+		<div th:replace="areaConhecimento/CadastroRapidoAreaConhecimento :: modal"></div>
 	</section>
+	
+	<th:block layout:fragment="javascript-extra">
+		<script th:src="@{/javascripts/areaConhecimento.cadastro-rapido.js}"></script>	
+	</th:block>
+	
 </body>
 </html>

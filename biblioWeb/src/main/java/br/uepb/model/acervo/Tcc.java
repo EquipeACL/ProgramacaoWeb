@@ -16,16 +16,16 @@ import br.uepb.model.enums.Tipo_tcc;
  * @author EquipeACL
  */
 public class Tcc extends ItemAcervo implements IFAcervo{ 
-	@NotNull(message = "Autor não pode ser nulo!")
+	@NotNull(message = " Autor não pode ser nulo!")
 	private Autor autor;
 	
-	@NotNull(message = "Orientador não pode ser nulo!")
+	@NotNull(message = " Orientador não pode ser nulo!")
 	private Orientador orientador;
 	
-	@NotNull(message = "Tipo não pode ser nulo!")
+	@NotNull(message = " Tipo não pode ser nulo!")
 	private Tipo_tcc tipo;
 	
-	@NotNull(message = "Cidade não pode ser nula!")
+	@NotNull(message = " Cidade não pode ser nula!")
 	private Cidade cidade;
 	
 	/**

@@ -24,7 +24,7 @@ public class Autor implements IFDependencia{
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
 
-	@NotBlank(message = "Nome do Autor é obrigatório")
+	@NotBlank(message = " Nome do Autor é obrigatório")
 	private String nome;
 	
 	public Autor(){

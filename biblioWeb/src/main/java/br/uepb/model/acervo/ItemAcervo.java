@@ -15,13 +15,13 @@ import org.hibernate.validator.constraints.NotBlank;
 public class ItemAcervo {
 	
 	private int id;
-	@NotBlank(message="Data nao pode ser vazia")
+	@NotBlank(message=" Data nao pode ser vazia")
 	private  Date data;
 	
-	@NotNull(message="Edicao é obrigatória")
+	@NotNull(message=" Edicao é obrigatória")
 	private int edicao;
 	
-	@NotBlank(message="Título é obrigatório")
+	@NotBlank(message=" Título é obrigatório")
 	private String titulo;
 	
 	public int getId() {

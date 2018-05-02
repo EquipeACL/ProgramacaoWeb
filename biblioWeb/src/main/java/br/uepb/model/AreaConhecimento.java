@@ -1,28 +1,42 @@
 package br.uepb.model;
 
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.Table;
+
+import org.hibernate.validator.constraints.NotBlank;
+
 import br.uepb.interfaces.IFDependencia;
 
 /**
- * Essa classe é utilizada como modelo para um objeto do tipo AreaConhecimento.
- * A classe contém os respectivos getters and setters de seus atributos.
+ * Essa classe ï¿½ utilizada como modelo para um objeto do tipo AreaConhecimento.
+ * A classe contï¿½m os respectivos getters and setters de seus atributos.
  * @author EquipeACL
  */
+@Entity
+@Table(name = "area_conhecimento")
 public class AreaConhecimento implements IFDependencia{
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
+	
+	@NotBlank(message=" Area conhecimento Ã© obrigatorio!")
 	private String nome;
 	
 	/**
-	 * Método construtor da classe AreaConhecimento
-	 * Construtor vazio (utilizado para criar um objeto do tipo AreaConhecimento sem parâmetros definidos)
+	 * Mï¿½todo construtor da classe AreaConhecimento
+	 * Construtor vazio (utilizado para criar um objeto do tipo AreaConhecimento sem parï¿½metros definidos)
 	 */
 	public AreaConhecimento() {
 		
 	}
 	
 	/**
-	 * Método construtor da classe AreaConhecimento (utilizado para criar um objeto do tipo AreaConhecimento com parâmetros definidos)
-	 * @param id, id da área do conhecimento
-	 * @param nome, nome da área do conhecimento
+	 * Mï¿½todo construtor da classe AreaConhecimento (utilizado para criar um objeto do tipo AreaConhecimento com parï¿½metros definidos)
+	 * @param id, id da ï¿½rea do conhecimento
+	 * @param nome, nome da ï¿½rea do conhecimento
 	 */
 	public AreaConhecimento(int id, String nome) {
 		setId(id);

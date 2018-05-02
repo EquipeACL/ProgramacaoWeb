@@ -21,16 +21,16 @@ import br.uepb.model.enums.Tipo_anal;
 
 public class Anais extends ItemAcervo implements IFAcervo{
 
-	@NotNull(message = "Selecione o Tipo")
+	@NotNull(message = " Selecione o Tipo")
 	private Tipo_anal tipo;
 	
-	@NotNull(message = "Nome do Autor é Obrigatório")
+	@NotNull(message = " Nome do Autor é Obrigatório")
 	private Autor autor;
 	
-	@NotBlank(message = "Nome do Congresso é Obrigatório")
+	@NotBlank(message = " Nome do Congresso é Obrigatório")
 	private String nome_congresso;
 	
-	@NotNull(message = "Nome da Cidade é Obrigatório")
+	@NotNull(message = " Nome da Cidade é Obrigatório")
 	private Cidade local;
 	
 	/**
