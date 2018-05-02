@@ -43,7 +43,8 @@
 						<div class="bw-field-action">
 							<select id="editora" class="form-control" th:field="*{editora}">
 								<option value="">Selecione a Editora</option>
-								<option value="1">Editora 1</option>
+								<option th:each="editora : ${editoras}" th:value="${editora}"
+									th:text="${editora}"></option>
 							</select>
 							<div class="bw-field-action__icon">
 								<a href="#" data-toggle="modal"
@@ -64,12 +65,13 @@
 					</div>
 					<div class="form-group col-sm-4"
 						th:classappend="${#fields.hasErrors('editora')}? has-error">
-						<label for="titulo" class="control-label">Nome da Área de
+						<label for="area" class="control-label">Nome da Área de
 							Conhecimento</label>
 						<div class="bw-field-action">
-							<select id="estilo" class="form-control" th:field="*{editora}">
-								<option value="">Selecione a área</option>
-								<option value="1">Área 1</option>
+							<select id="area" class="form-control" th:field="*{area}">
+								<option value="">Selecione a Área</option>
+								<option th:each="area : ${areas}" th:value="${area}"
+									th:text="${area}"></option>
 							</select>
 							<div class="bw-field-action__icon">
 								<a href="#" data-toggle="modal"
