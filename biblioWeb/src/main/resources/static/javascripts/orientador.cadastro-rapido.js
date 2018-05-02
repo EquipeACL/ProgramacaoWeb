@@ -5,16 +5,16 @@ $(function() {
 	var form = modal.find('form');
 	form.on('submit', function(event) { event.preventDefault() });
 	var url = form.attr('action');
-	var inputNomeAutor = $('#nome');
+	var inputNomeOrientador = $('#nomeOrientador');
 	
 	modal.on('shown.bs.modal', onModalShow);
 	modal.on('hide.bs.modal', onModalClose);
 	
 	function onModalShow() {
-		inputNomeAutor.focus();
+		inputNomeOrientador.focus();
 	}
 	
 	function onModalClose() {
-		inputNomeAutor.val('');
+		inputNomeOrientador.val('');
 	}
 });
