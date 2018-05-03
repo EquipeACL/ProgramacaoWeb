@@ -14,6 +14,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import br.uepb.biblio.repository.Autores;
 import br.uepb.biblio.repository.Orientadores;
 import br.uepb.model.acervo.Tcc;
+import br.uepb.model.enums.Tipo_nivel_aluno;
 import br.uepb.model.enums.Tipo_tcc;
 
 @Controller
@@ -25,6 +26,7 @@ public class TccsController {
 	@Autowired
 	Orientadores orientadores;
 	
+	
 	@RequestMapping("/novo")
 	public ModelAndView novo(Tcc tcc) {
 		ModelAndView model = new ModelAndView("/tcc/CadastroTcc");
@@ -32,6 +34,7 @@ public class TccsController {
 		model.addObject("orientadores",orientadores.findAll());
 		model.addObject("cidades",new String[] {"Cidade1","Cidade2","Cidade3"});
 		model.addObject("estados",new String[] {"AL","CE","PB"});
+		model.addObject("formacoes",Tipo_nivel_aluno.values());
 		model.addObject("tipos",Tipo_tcc.values());
 		return model;
 	}
