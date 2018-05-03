@@ -70,8 +70,8 @@
 						<div class="bw-field-action">
 							<select id="area" class="form-control" th:field="*{area}">
 								<option value="">Selecione a Área</option>
-								<option th:each="area : ${areas}" th:value="${area}"
-									th:text="${area}"></option>
+								<option th:each="area : ${areas}" th:value="${area.id}"
+									th:text="${area.nome}"></option>
 							</select>
 							<div class="bw-field-action__icon">
 								<a href="#" data-toggle="modal"

@@ -18,6 +18,7 @@ import br.uepb.interfaces.IFDependencia;
 @Entity
 @Table(name = "area_conhecimento")
 public class AreaConhecimento implements IFDependencia{
+	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;

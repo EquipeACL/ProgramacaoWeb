@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import br.uepb.biblio.repository.AreasConhecimento;
 import br.uepb.biblio.repository.Editoras;
 import br.uepb.model.acervo.Livro;
 
@@ -19,12 +20,14 @@ public class LivrosController {
 
 	@Autowired
 	Editoras editoras;
+	@Autowired
+	AreasConhecimento areas;
 	
 	@RequestMapping("/livros/novo")
 	public ModelAndView novo(Livro livro) {
 		ModelAndView mv = new ModelAndView("livro/CadastroLivro");
 		mv.addObject("editoras", editoras.findAll());
-		mv.addObject("areas", new String[] {"Area1","Area2"});
+		mv.addObject("areas", areas.findAll());
 		
 		//mv.addObject("editoras",edito);
 		return mv;
