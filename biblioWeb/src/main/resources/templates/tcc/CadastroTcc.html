@@ -46,8 +46,8 @@
 						<div class="bw-field-action">
 							<select id="autor" class="form-control" th:field="*{autor}">
 								<option value="">Selecione o Autor</option>
-								<option th:each="autor: ${autores}" th:value="${autor}"
-									th:text="${autor}"></option>
+								<option th:each="autor: ${autores}" th:value="${autor.id}"
+									th:text="${autor.nome}"></option>
 							</select>
 							<div class="bw-field-action__icon">
 								<a href="#" data-toggle="modal"
@@ -66,7 +66,7 @@
 								th:field="*{orientador}">
 								<option value="">Selecione o Orientador</option>
 								<option th:each="orientador: ${orientadores}"
-									th:value="${orientador}" th:text="${orientador}"></option>
+									th:value="${orientador.id}" th:text="${orientador.nome}"></option>
 							</select>
 							<div class="bw-field-action__icon">
 								<a href="#" data-toggle="modal"

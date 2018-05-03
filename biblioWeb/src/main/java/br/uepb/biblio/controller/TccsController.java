@@ -2,6 +2,7 @@ package br.uepb.biblio.controller;
 
 import javax.validation.Valid;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -10,6 +11,8 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import br.uepb.biblio.repository.Autores;
+import br.uepb.biblio.repository.Orientadores;
 import br.uepb.model.acervo.Tcc;
 import br.uepb.model.enums.Tipo_tcc;
 
@@ -17,11 +20,16 @@ import br.uepb.model.enums.Tipo_tcc;
 @RequestMapping("/tccs")
 public class TccsController {
 
+	@Autowired
+	Autores autores;
+	@Autowired
+	Orientadores orientadores;
+	
 	@RequestMapping("/novo")
 	public ModelAndView novo(Tcc tcc) {
 		ModelAndView model = new ModelAndView("/tcc/CadastroTcc");
-		model.addObject("autores",new String[] {"Autor1","Autor2","Autor3"});
-		model.addObject("orientadores",new String[] {"Orientador1","Orientador2","Orientador3"});
+		model.addObject("autores",autores.findAll());
+		model.addObject("orientadores",orientadores.findAll());
 		model.addObject("cidades",new String[] {"Cidade1","Cidade2","Cidade3"});
 		model.addObject("estados",new String[] {"AL","CE","PB"});
 		model.addObject("tipos",Tipo_tcc.values());

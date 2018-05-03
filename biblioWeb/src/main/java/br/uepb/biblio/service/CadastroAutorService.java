@@ -17,12 +17,12 @@ public class CadastroAutorService {
 	private Autores autores;
 	
 	@Transactional
-	public void salvar (Autor autor) {
+	public Autor salvar (Autor autor) {
 		Optional <Autor> autorOptional = autores.findByNomeIgnoreCase(autor.getNome());
 		if(autorOptional.isPresent()){
 			throw new NomeAutorJaCadastradoException("Autor já Cadastrado!");
 		}
-		autores.save(autor);
+		return autores.saveAndFlush(autor);
 	}
-	
+
 }

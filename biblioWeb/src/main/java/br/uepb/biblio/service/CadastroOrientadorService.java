@@ -17,11 +17,11 @@ public class CadastroOrientadorService {
 	private Orientadores orientadores;
 	
 	@Transactional
-	public void salvar(Orientador orientador) {
+	public Orientador salvar(Orientador orientador) {
 		Optional <Orientador> optionalOrientador = orientadores.findByNomeIgnoreCase(orientador.getNome());
 		if(optionalOrientador.isPresent()) {
 			throw new NomeOrientadorJaCadastradoException("Orientador já Cadastrado!");
 		}
-		orientadores.save(orientador);
+		return orientadores.saveAndFlush(orientador);
 	}
 }
