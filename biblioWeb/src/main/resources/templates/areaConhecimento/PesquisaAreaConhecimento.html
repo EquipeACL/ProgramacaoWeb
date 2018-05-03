@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="pt" xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorator="'layout/LayoutPadrao'">
+
+<head>
+<title>Pesquisar Area do Conhecimento</title>
+</head>
+
+
+<body>
+	
+	<section layout:fragment="conteudo">
+		<div class="page-header">
+			<div class="container-fluid">
+				<h1>Pesquisar Area do Conhecimento</h1>
+			</div>
+		</div>
+		<section th:fragment="fragment-pesquisaAreaConhecimento">
+			<div class="container-fluid">
+			<form method="POST" class="form-vertical  js-form-loading" th:action="@{pesquisar}">
+			
+				<div class="row">
+					
+					<div class="form-group col-sm-6">
+						<input id="busca" name="busca" type="text" class="form-control" autofocus="autofocus" placeholder="Pesquisar Area do Conhecimento..."/>						
+					</div>
+					<div class="row">
+						<div class="form-group col-sm-2">
+							<button class="btn btn-primary" type="submit">Pesquisar</button>
+						</div>
+					</div>
+				</div>
+				
+				
+				
+			</form>
+			
+			<div class="container-fluid">
+				<table class="table table-striped">
+					<thead>
+						<tr>
+							<th><input name="tudo" type="checkbox"></th>
+							<th>#</th>
+							<th>Area do Conhecimento</th>	
+						</tr>
+					</thead>
+					<tbody>
+						<tr th:each="area : ${listaAreaConhecimento}">
+							<td><input type="checkbox"></td>
+							<td th:text="*{area.id}">1</td>
+							<td th:text="*{area.nome}">Teste1</td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+			
+		</div>
+		</section>
+
+	</section>
+</body>
+</html>
