@@ -5,7 +5,8 @@ $(function() {
 	var form = modal.find('form');
 	form.on('submit', function(event) { event.preventDefault() });
 	var url = form.attr('action');
-	var inputNomeOrientador = $('#nome');
+	var inputNomeOrientador = $('#nomeOrientador');
+	var comboFormacaoOrientador = $('#formacaoOrientador');
 	var containerMensagemErro = $('.js-mensagem-cadastro-rapido-orientador');
 	
 	
@@ -24,12 +25,14 @@ $(function() {
 	}
 	function onBotaoSalvarClick(){
 		var nome = inputNomeOrientador.val().trim();
+		var formacao = comboFormacaoOrientador.val();
+		
 		//console.log("nomeOrientador: ",)
 		$.ajax({
 			url:url,
 			method:'POST',
 			contentType:'application/json',
-			data: JSON.stringify({nome:nome}),
+			data: JSON.stringify({nome:nome,formacao:formacao}),
 			error:onErroSalvandoOrientador,
 			success:onOrientadorSalvo
 		});

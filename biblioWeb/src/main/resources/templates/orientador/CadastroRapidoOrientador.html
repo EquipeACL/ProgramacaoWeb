@@ -2,7 +2,8 @@
 <html lang="pt" xmlns="http://www.w3.org/1999/xhtml"
 	xmlns:th="http://www.thymeleaf.org">
 <body>
-	<div class="modal fade" id="modalCadastroRapidoOrientador" tabindex="-1" role="dialog"  th:fragment="modal">
+	<div class="modal fade" id="modalCadastroRapidoOrientador"
+		tabindex="-1" role="dialog" th:fragment="modal">
 		<div class="modal-dialog  modal-sm">
 			<div class="modal-content">
 				<div class="modal-header">
@@ -11,21 +12,32 @@
 					</button>
 					<h4 class="modal-title">Cadastro de Orientador</h4>
 				</div>
-				
+
 				<div class="modal-body">
-					<div class="alert  alert-danger  hidden  js-mensagem-cadastro-rapido-orientador" role="alert"></div>
-					
+					<div
+						class="alert  alert-danger  hidden  js-mensagem-cadastro-rapido-orientador"
+						role="alert"></div>
+
 					<form class="form-horizontal" th:action="@{/orientadores}">
 						<div class="form-group">
-							<label class="col-sm-2  control-label" for="nomeOrientador">Nome</label>
-							<div class="col-sm-10">
+							<label class="col-sm-4  control-label" for="nomeOrientador">Nome</label>
+							<div class="col-sm-8">
 								<input id="nomeOrientador" type="text" class="form-control">
+							</div>
+							<label class="col-sm-4  control-label" for="formacaoOrientador">Formacao</label>
+							<div class="col-sm-8">
+								<select id="formacaoOrientador" class="form-control">
+									<option value="">Selecione a Formação</option>
+									<option th:each="formacao: ${formacoes}" th:value="${formacao}"
+										th:text="${formacao.descricao}"></option>
+								</select>
 							</div>
 						</div>
 					</form>
-					
+
 					<button type="button" class="btn  btn-default" data-dismiss="modal">Cancelar</button>
-					<button type="button" class="btn  btn-primary  js-modal-cadastro-orientador-salvar-btn">Salvar</button>
+					<button type="button"
+						class="btn  btn-primary  js-modal-cadastro-orientador-salvar-btn">Salvar</button>
 				</div>
 			</div>
 		</div>

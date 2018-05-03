@@ -54,6 +54,7 @@ public class OrientadoresController {
 	
 	@RequestMapping(method = RequestMethod.POST,consumes = { MediaType.APPLICATION_JSON_VALUE })
 	public @ResponseBody  ResponseEntity<?> salvar(@RequestBody Orientador orientador, BindingResult result){
+
 		if(result.hasErrors()) {
 			return ResponseEntity.badRequest().body(result.getFieldError().getDefaultMessage());
 		}

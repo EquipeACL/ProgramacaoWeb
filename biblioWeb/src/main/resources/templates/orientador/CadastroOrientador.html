@@ -36,7 +36,7 @@
 						th:classappend="${#fields.hasErrors('formacao')}? has-error">
 						<label for="tipo" class="control-label">Formação do Orientador</label> <select
 							id="tipo" th:field="*{formacao}" class="form-control">
-							<option value="">Selecione o Tipo</option>
+							<option value="">Selecione a Formação</option>
 							<option th:each="formacao: ${formacoes}" th:value="${formacao}"
 								th:text="${formacao.descricao}"></option>
 						</select>
