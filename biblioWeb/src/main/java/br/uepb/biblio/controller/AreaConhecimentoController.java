@@ -1,7 +1,6 @@
 package br.uepb.biblio.controller;
 
 
-import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,45 +27,41 @@ public class AreaConhecimentoController {
 	private AreasConhecimento repositoryAreas;
 	
 	@RequestMapping("/novo")
-	public ModelAndView novo(AreaConhecimento areaConhecimento){
+	public ModelAndView novo(AreaConhecimento areaConhecimento,String busca){
 		ModelAndView model = new ModelAndView("areaConhecimento/CadastroAreaConhecimento");
-		model.addObject("listaAreaConhecimento",repositoryAreas.findAll());
+		
+		if(busca!=null){
+			model.addObject("listaAreaConhecimento",cadastroAreaConhecimento.buscarPorNome(busca));
+		}else{
+			model.addObject("listaAreaConhecimento",repositoryAreas.findAll());
+		}
 		return model;
 	}
 	
 	@RequestMapping("/pesquisar")
-	public ModelAndView pesquisar(){
+	public ModelAndView pesquisar(String busca){
 		ModelAndView model = new ModelAndView("areaConhecimento/PesquisaAreaConhecimento");
-		model.addObject("listaAreaConhecimento",repositoryAreas.findAll());
+		
+		if(busca!=null){
+			model.addObject("listaAreaConhecimento",cadastroAreaConhecimento.buscarPorNome(busca));
+		}else{
+			model.addObject("listaAreaConhecimento",repositoryAreas.findAll());
+		}
 		return model;
 	}
 	
 	@RequestMapping(value="/novo",method=RequestMethod.POST)
 	public ModelAndView cadastrar(@Valid AreaConhecimento areaConhecimento, BindingResult result, Model model, RedirectAttributes attributes){
 		if(result.hasErrors()){
-			return novo(areaConhecimento);
-		}
-		
+			return novo(areaConhecimento,null);
+		}		
 		try{
 			cadastroAreaConhecimento.salvar(areaConhecimento);
 		}catch(ItemDuplicadoException e){
 			result.rejectValue("nome", e.getMessage(),e.getMessage());
-			return (novo(areaConhecimento));
+			return (novo(areaConhecimento,null));
 		}
 		attributes.addFlashAttribute("mensagem", "Area de Conhecimento salva com sucesso!");
-		return new ModelAndView("redirect:/areasconhecimento/novo");
-	}
-	
-	@RequestMapping(value="/pesquisar",method=RequestMethod.POST)
-	public ModelAndView pesquisar(String busca, HttpServletRequest request){
-		System.out.println(request.getServletPath());
-		ModelAndView model;
-//		if(request.getServletPath().equals("/areasconhecimento/novo")){
-//			model = new ModelAndView("areaConhecimento/CadastroAreaConhecimento");
-//		}else{
-//			model = new ModelAndView("areaConhecimento/PesquisaAreaConhecimento");
-//		}
-//		model.addObject("listaAreaConhecimento",cadastroAreaConhecimento.buscarPorNome(busca));
 		return new ModelAndView("redirect:/areasconhecimento/novo");
 	}
 }

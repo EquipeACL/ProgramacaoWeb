@@ -1,6 +1,5 @@
 package br.uepb.biblio.controller;
 
-import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -32,24 +31,33 @@ public class TemaController{
 	private CadastroTemaService temaService;
 	
 	@RequestMapping("/novo")
-	public ModelAndView novo(Tema tema){
-		ModelAndView model = new ModelAndView("/tema/CadastroTema");
+	public ModelAndView novo(Tema tema,String busca){
+		ModelAndView model = new ModelAndView("tema/CadastroTema");
 		model.addObject("areas", areasRepository.findAll());
-		model.addObject("temas",temas.findAll());
+		if(busca!=null){
+			model.addObject("temas",temaService.buscarPorNome(busca));
+		}else{
+			model.addObject("temas",temas.findAll());
+		}
 		return model;
 	}
 	
 	@RequestMapping("/pesquisar")
-	public ModelAndView pesquisar(){
+	public ModelAndView pesquisar(String busca){
 		ModelAndView model = new ModelAndView("tema/PesquisaTema");
 		model.addObject("temas",temas.findAll());
+		if(busca!=null){
+			model.addObject("temas",temaService.buscarPorNome(busca));
+		}else{
+			model.addObject("temas",temas.findAll());
+		}
 		return model;
 	}
 	
 	@RequestMapping(value="/novo",method=RequestMethod.POST)
 	public ModelAndView cadastrar(@Valid Tema tema,BindingResult result, Model model, RedirectAttributes attributes){
 		if(result.hasErrors()){
-			return novo(tema);
+			return novo(tema,null);
 		}
 		//setando area do conhecimento de acordo com id selecionado
 		tema.setArea(areasRepository.findOne(Integer.parseInt(tema.getAreaconhecimento_id())));
@@ -58,22 +66,10 @@ public class TemaController{
 			temaService.salvar(tema);
 		}catch(ItemDuplicadoException e){
 			result.rejectValue("nome", e.getMessage(),e.getMessage());
-			return (novo(tema));
+			return (novo(tema,null));
 		}		
 		attributes.addFlashAttribute("mensagem"," Tema cadastrado com sucesso!");
 		return new ModelAndView("redirect:/temas/novo");
-	}
-	
-	@RequestMapping(value="/pesquisar",method=RequestMethod.POST)
-	public ModelAndView pesquisar(String busca, HttpServletRequest request){
-		ModelAndView model;
-		if(request.getServletPath().equals("/temas/novo")){
-			model = new ModelAndView("tema/CadastroTema");
-		}else{
-			 model = new ModelAndView("tema/PesquisaTema");
-		}
-		model.addObject("temas",temaService.buscarPorNome(busca));
-		return model;
-	}
+	}	
 
 }

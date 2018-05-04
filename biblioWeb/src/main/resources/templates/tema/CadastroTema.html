@@ -56,11 +56,13 @@
 				</div>
 				
 			</form>
-			<hr>
-			<!-- incluindo a pesquisa -->
-			<div th:insert="tema/PesquisaTema :: fragment-pesquisaTema"></div>
-			
-		</div>
+			</div>
+			<div class="container-fluid">			
+				<hr>
+				<!-- incluindo a pesquisa -->
+				<div th:insert="tema/PesquisaTema :: fragment-pesquisaTema"></div>
+			</div>
+		
 		<div th:replace="areaConhecimento/CadastroRapidoAreaConhecimento :: modal"></div>
 	</section>
 	<th:block layout:fragment="javascript-extra">
