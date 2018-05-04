@@ -16,7 +16,7 @@ import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import br.uepb.biblio.service.CadastroOrientadorService;
-import br.uepb.biblio.service.exception.NomeOrientadorJaCadastradoException;
+import br.uepb.biblio.service.exception.ItemDuplicadoException;
 import br.uepb.model.Orientador;
 import br.uepb.model.enums.Tipo_nivel_aluno;
 
@@ -43,7 +43,7 @@ public class OrientadoresController {
 		try {
 			cadastroOrientadorService.salvar(orientador);
 		}
-		catch(NomeOrientadorJaCadastradoException e) {
+		catch(ItemDuplicadoException e) {
 			result.rejectValue("nome", e.getMessage(),e.getMessage());
 			return novo(orientador);
 		}
@@ -61,7 +61,7 @@ public class OrientadoresController {
 		try {
 			cadastroOrientadorService.salvar(orientador);
 		}
-		catch(NomeOrientadorJaCadastradoException e) {
+		catch(ItemDuplicadoException e) {
 			return ResponseEntity.badRequest().body(e.getMessage());
 		}
 		return ResponseEntity.ok(orientador);

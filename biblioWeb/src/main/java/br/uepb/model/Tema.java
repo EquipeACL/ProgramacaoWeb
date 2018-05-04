@@ -1,27 +1,53 @@
 package br.uepb.model;
 
+import javax.persistence.CascadeType;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.Table;
+import javax.persistence.Transient;
+
+import org.hibernate.validator.constraints.NotBlank;
+
 import br.uepb.interfaces.IFDependencia;
 
 /**
- * Essa classe é utilizada como modelo para um objeto do tipo Tema.
- * A classe contém os respectivos getters and setters de seus atributos.
+ * Essa classe ï¿½ utilizada como modelo para um objeto do tipo Tema.
+ * A classe contï¿½m os respectivos getters and setters de seus atributos.
  * @author EquipeACL
  */
+@Entity
+@Table(name="tema")
 public class Tema implements IFDependencia{
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
+	
+	@NotBlank(message=" Nome Ã© obrigatÃ³rio.")
 	private String nome;
+	
+	
+	@ManyToOne(cascade=CascadeType.MERGE)
+	@JoinColumn(name = "areaconhecimento_id",nullable=false)
 	private AreaConhecimento area;
 	
+	@Transient
+	@NotBlank(message=" Area do conhecimento Ã© obrigatÃ³rio")
+	private String areaconhecimento_id;
+	
 	/**
-	 * Método construtor da classe Tema
-	 * Construtor vazio (utilizado para criar um objeto do tipo Tema sem parâmetros definidos)
+	 * Mï¿½todo construtor da classe Tema
+	 * Construtor vazio (utilizado para criar um objeto do tipo Tema sem parï¿½metros definidos)
 	 */
 	public Tema(){
 		
 	}
 	
 	/**
-	 * Método construtor da classe Tema (utilizado para criar um objeto do tipo Tema com parâmetros definidos)
+	 * Mï¿½todo construtor da classe Tema (utilizado para criar um objeto do tipo Tema com parï¿½metros definidos)
 	 * @param id, id do tema
 	 * @param nome, nome do tema
 	 * @param area, objeto do tipo Area, referente ao tema
@@ -54,6 +80,14 @@ public class Tema implements IFDependencia{
 
 	public void setArea(AreaConhecimento area) {
 		this.area = area;
+	}
+	
+	public String getAreaconhecimento_id() {
+		return areaconhecimento_id;
+	}
+
+	public void setAreaconhecimento_id(String areaconhecimento_id) {
+		this.areaconhecimento_id = areaconhecimento_id;
 	}
 
 	public boolean validaDependencia() {

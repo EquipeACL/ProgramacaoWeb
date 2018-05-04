@@ -16,7 +16,7 @@ import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import br.uepb.biblio.service.CadastroAutorService;
-import br.uepb.biblio.service.exception.NomeAutorJaCadastradoException;
+import br.uepb.biblio.service.exception.ItemDuplicadoException;
 import br.uepb.model.Autor;
 
 @Controller
@@ -39,7 +39,7 @@ public class AutoresController {
 		try {
 			cadastroAutorService.salvar(autor);
 		}
-		catch(NomeAutorJaCadastradoException e){
+		catch(ItemDuplicadoException e){
 			result.rejectValue("nome", e.getMessage(),e.getMessage());
 			return (novo(autor));
 		}
@@ -59,7 +59,7 @@ public class AutoresController {
 			//vai tentar salvar no banco
 			cadastroAutorService.salvar(autor);
 		}
-		catch(NomeAutorJaCadastradoException e) {
+		catch(ItemDuplicadoException e) {
 			//se ja tiver nome cadastrado vai lançar essa exceção
 			return ResponseEntity.badRequest().body(e.getMessage());
 		}

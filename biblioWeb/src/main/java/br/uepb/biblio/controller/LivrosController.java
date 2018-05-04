@@ -19,16 +19,18 @@ import br.uepb.model.acervo.Livro;
 public class LivrosController {
 
 	@Autowired
-	Editoras editoras;
+	private Editoras editoras;
 	@Autowired
-	AreasConhecimento areas;
+	private AreasConhecimento areas;
+	/*@Autowired
+	private Temas temas;*/
 	
 	@RequestMapping("/livros/novo")
 	public ModelAndView novo(Livro livro) {
 		ModelAndView mv = new ModelAndView("livro/CadastroLivro");
 		mv.addObject("editoras", editoras.findAll());
 		mv.addObject("areas", areas.findAll());
-		
+		//mv.addObject("temas",temas.findAll());
 		//mv.addObject("editoras",edito);
 		return mv;
 	}

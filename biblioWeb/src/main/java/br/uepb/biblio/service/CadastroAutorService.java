@@ -7,7 +7,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import br.uepb.biblio.repository.Autores;
-import br.uepb.biblio.service.exception.NomeAutorJaCadastradoException;
+import br.uepb.biblio.service.exception.ItemDuplicadoException;
 import br.uepb.model.Autor;
 
 @Service
@@ -20,7 +20,7 @@ public class CadastroAutorService {
 	public Autor salvar (Autor autor) {
 		Optional <Autor> autorOptional = autores.findByNomeIgnoreCase(autor.getNome());
 		if(autorOptional.isPresent()){
-			throw new NomeAutorJaCadastradoException("Autor já Cadastrado!");
+			throw new ItemDuplicadoException("Autor já Cadastrado!");
 		}
 		return autores.saveAndFlush(autor);
 	}

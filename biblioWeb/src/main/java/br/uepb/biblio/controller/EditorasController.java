@@ -12,7 +12,7 @@ import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import br.uepb.biblio.service.CadastroEditoraService;
-import br.uepb.biblio.service.exception.NomeEditoraJaCadastradoException;
+import br.uepb.biblio.service.exception.ItemDuplicadoException;
 import br.uepb.model.Editora;
 
 @Controller
@@ -34,7 +34,7 @@ public class EditorasController {
 		}
 		try {
 			cadastroEditoraService.salvar(editora);
-		}catch(NomeEditoraJaCadastradoException e) {
+		}catch(ItemDuplicadoException e) {
 			result.rejectValue("nome", e.getMessage(),e.getMessage());
 			return (novo(editora));
 		}

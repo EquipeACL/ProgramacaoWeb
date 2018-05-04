@@ -11,7 +11,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import br.uepb.biblio.repository.AreasConhecimento;
-import br.uepb.biblio.service.exception.NomeAreaConhecimentoJaCadastradaException;
+import br.uepb.biblio.service.exception.ItemDuplicadoException;
 import br.uepb.model.AreaConhecimento;
 
 
@@ -27,7 +27,7 @@ public class CadastroAreaConhecimento {
 	public void salvar (AreaConhecimento area) {
 		Optional <AreaConhecimento> areaOptional = areasConhecimento.findByNomeIgnoreCase(area.getNome());
 		if(areaOptional.isPresent()){
-			throw new NomeAreaConhecimentoJaCadastradaException(" Area já Cadastrada!");
+			throw new ItemDuplicadoException(" Area já Cadastrada!");
 		}
 		areasConhecimento.save(area);
 	}

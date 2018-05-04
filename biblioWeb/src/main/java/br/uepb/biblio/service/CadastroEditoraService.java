@@ -7,7 +7,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import br.uepb.biblio.repository.Editoras;
-import br.uepb.biblio.service.exception.NomeEditoraJaCadastradoException;
+import br.uepb.biblio.service.exception.ItemDuplicadoException;
 import br.uepb.model.Editora;
 
 @Service
@@ -20,7 +20,7 @@ public class CadastroEditoraService {
 	public void salvar(Editora editora) {
 		Optional <Editora> optionalEditora = editoras.findByNomeIgnoreCase(editora.getNome());
 		if(optionalEditora.isPresent()) {
-			throw new NomeEditoraJaCadastradoException("Editora já Cadastrada");
+			throw new ItemDuplicadoException("Editora já Cadastrada");
 		}
 		editoras.save(editora);
 	}

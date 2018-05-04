@@ -3,18 +3,13 @@ package br.uepb.model.acervo;
 import java.util.ArrayList;
 import java.util.Date;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
 import javax.validation.constraints.NotNull;
 
 import br.uepb.interfaces.IFAcervo;
 import br.uepb.model.AreaConhecimento;
 import br.uepb.model.Autor;
 import br.uepb.model.Editora;
+import br.uepb.model.Tema;
 
 /**
  * Essa classe � utilizada como modelo para um objeto do tipo Livro.
@@ -36,7 +31,7 @@ public class Livro extends ItemAcervo implements IFAcervo{
 	private Editora editora;	
 	
 	private int numero_paginas;
-	private AreaConhecimento area;
+	private Tema tema;
 	
 	/**
 	 * M�todo construtor da classe Livro
@@ -56,7 +51,7 @@ public class Livro extends ItemAcervo implements IFAcervo{
 	 * @param numero_paginas, numero de paginas do livro
 	 * @param area, objeto do tipo AreaConhecimento referente ao livro
 	 */
-	public Livro(long isbn, String titulo, ArrayList<Autor> autores, Editora editora, Date ano_publicacao, int edicao, int numero_paginas, AreaConhecimento area) {
+	public Livro(long isbn, String titulo, ArrayList<Autor> autores, Editora editora, Date ano_publicacao, int edicao, int numero_paginas, Tema tema) {
 		setIsbn(isbn);
 		setTitulo(titulo);
 		setAutores(autores);
@@ -64,7 +59,7 @@ public class Livro extends ItemAcervo implements IFAcervo{
 		setData(ano_publicacao);
 		setEdicao(edicao);
 		setNumero_paginas(numero_paginas);
-		setArea(area);
+		setTema(tema);
 	}
 
 	public long getIsbn() {
@@ -107,12 +102,12 @@ public class Livro extends ItemAcervo implements IFAcervo{
 		this.numero_paginas = numero_paginas;
 	}
 
-	public AreaConhecimento getArea() {
-		return area;
+	public Tema getTema() {
+		return tema;
 	}
 
-	public void setArea(AreaConhecimento area) {
-		this.area = area;
+	public void setTema(Tema tema) {
+		this.tema = tema;
 	}
 
 	public boolean validaItem() {
