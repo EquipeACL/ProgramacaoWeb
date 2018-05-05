@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import br.uepb.biblio.repository.Orientadores;
 import br.uepb.biblio.service.CadastroOrientadorService;
 import br.uepb.biblio.service.exception.ItemDuplicadoException;
 import br.uepb.model.Orientador;
@@ -25,19 +26,39 @@ import br.uepb.model.enums.Tipo_nivel_aluno;
 public class OrientadoresController {
 
 	@Autowired
+	private Orientadores orientadoresRepository;
+	
+	@Autowired
 	CadastroOrientadorService cadastroOrientadorService;
 	
 	@RequestMapping("/novo")
-	public ModelAndView novo(Orientador orientador) {
+	public ModelAndView novo(Orientador orientador,String busca) {
 		ModelAndView mv = new ModelAndView("/orientador/CadastroOrientador");
 		mv.addObject("formacoes", Tipo_nivel_aluno.values());
+		if(busca!=null){
+			mv.addObject("listaOrientador", cadastroOrientadorService.buscarPorNome(busca));
+		}else{
+			mv.addObject("listaOrientador", orientadoresRepository.findAll());
+		}
+		return mv;
+	}
+	
+	@RequestMapping("/pesquisar")
+	public ModelAndView pesquisar(String busca) {
+		ModelAndView mv = new ModelAndView("/orientador/PesquisaOrientador");
+		mv.addObject("formacoes", Tipo_nivel_aluno.values());
+		if(busca!=null){
+			mv.addObject("listaOrientador", cadastroOrientadorService.buscarPorNome(busca));
+		}else{
+			mv.addObject("listaOrientador", orientadoresRepository.findAll());
+		}
 		return mv;
 	}
 	
 	@RequestMapping(value = "/novo", method = RequestMethod.POST)
 	public ModelAndView cadastrar (@Valid Orientador orientador, BindingResult result, Model model, RedirectAttributes attributes) {
 		if(result.hasErrors()) {
-			return novo(orientador);
+			return novo(orientador,null);
 		}
 		//
 		try {
@@ -45,7 +66,7 @@ public class OrientadoresController {
 		}
 		catch(ItemDuplicadoException e) {
 			result.rejectValue("nome", e.getMessage(),e.getMessage());
-			return novo(orientador);
+			return novo(orientador,null);
 		}
 		
 		attributes.addFlashAttribute("mensagem", "Orientador salvo com sucesso!");

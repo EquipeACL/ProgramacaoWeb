@@ -5,7 +5,7 @@ package br.uepb.model.enums;
  *
  */
 public enum Tipo_nivel_aluno {
-	G("Graduação"),E("Especialização"),M("Mestrado"),D("Doutorado"),P("Pós-graduação"); //G-Graduacao, E-Especializa��o, M-Mestrado, D-Doutorado, P-Pos-Doutorado
+	GRADUAÇÃO("Graduação"),ESPECIALIZAÇÃO("Especialização"),MESTRADO("Mestrado"),DOUTORADO("Doutorado"),POSGRADUAÇÃO("Pós-graduação"); //G-Graduacao, E-Especializa��o, M-Mestrado, D-Doutorado, P-Pos-Doutorado
 	private String descricao;
 	private Tipo_nivel_aluno(String descricao) {
 		this.descricao = descricao;

@@ -16,17 +16,41 @@ import br.uepb.model.enums.Tipo_midia;
 @Controller
 @RequestMapping("/midias")
 public class MidiasController {
+	/*
+	@Autowired
+	private Midias midiasRepository;
+	
+	@Autowired
+	private CadastroMidiasService midiasService;*/
+	
 	@RequestMapping("/novo")
-	public ModelAndView novo(Midias_Eletronicas midia) {
-		ModelAndView model = new ModelAndView("midia/CadastroMidias");
+	public ModelAndView novo(Midias_Eletronicas midia, String busca) {
+		ModelAndView model = new ModelAndView("midia/CadastroMidia");
 		model.addObject("tipos", Tipo_midia.values());
+		if(busca!=null){
+			//model.addObject("listaMidias",midiasService.buscarPorNome(busca));
+		}else{
+			//model.addObject("listaMidias",midiasRepository.findAll());
+		}
+		return model;
+	}
+	
+	@RequestMapping("/pesquisar")
+	public ModelAndView pesquisar(String busca) {
+		ModelAndView model = new ModelAndView("midia/PesquisaMidia");
+		model.addObject("tipos", Tipo_midia.values());
+		if(busca!=null){
+			//model.addObject("listaMidias",midiasService.buscarPorNome(busca));
+		}else{
+			//model.addObject("listaMidias",midiasRepository.findAll());
+		}
 		return model;
 	}
 	
 	@RequestMapping(value = "/novo", method = RequestMethod.POST)
 	public ModelAndView cadastrar (@Valid Midias_Eletronicas midia, BindingResult result, Model model, RedirectAttributes attributes) {
 		if(result.hasErrors()) {
-			return novo(midia);
+			return novo(midia,null);
 		}
 		//salvar no banco
 		

@@ -15,33 +15,54 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import br.uepb.biblio.repository.Autores;
 import br.uepb.biblio.service.CadastroAutorService;
 import br.uepb.biblio.service.exception.ItemDuplicadoException;
 import br.uepb.model.Autor;
 
 @Controller
+@RequestMapping("/autores")
 public class AutoresController {
 
 	@Autowired
-	CadastroAutorService cadastroAutorService;
+	private Autores autoresRepository;
+	
+	@Autowired
+	private CadastroAutorService cadastroAutorService;
 	
 	@RequestMapping("/novo")
-	public ModelAndView novo(Autor autor) {
+	public ModelAndView novo(Autor autor,String busca) {
 		ModelAndView mv = new ModelAndView("autor/CadastroAutor");
+		if(busca!=null){
+			mv.addObject("listaAutores", cadastroAutorService.buscarPorNome(busca));
+		}else{
+			mv.addObject("listaAutores", autoresRepository.findAll());
+		}
 		return mv;
 	}
+	
+	@RequestMapping("/pesquisar")
+	public ModelAndView pesquisar(String busca) {
+		ModelAndView mv = new ModelAndView("autor/PesquisaAutor");
+		if(busca!=null){
+			mv.addObject("listaAutores", cadastroAutorService.buscarPorNome(busca));
+		}else{
+			mv.addObject("listaAutores", autoresRepository.findAll());
+		}
+		return mv;
+	}	
 	
 	@RequestMapping(value = "/novo", method = RequestMethod.POST)
 	public ModelAndView cadastrar (@Valid Autor autor, BindingResult result, Model model, RedirectAttributes attributes) {
 		if(result.hasErrors()) {
-			return novo(autor);
+			return novo(autor,null);
 		}
 		try {
 			cadastroAutorService.salvar(autor);
 		}
 		catch(ItemDuplicadoException e){
 			result.rejectValue("nome", e.getMessage(),e.getMessage());
-			return (novo(autor));
+			return (novo(autor,null));
 		}
 		
 		attributes.addFlashAttribute("mensagem", "Autor salvo com sucesso!");

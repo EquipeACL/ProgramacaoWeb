@@ -5,7 +5,7 @@
 	layout:decorator="'layout/LayoutPadrao'">
 
 <head>
-<title>Pesquisar Area do Conhecimento</title>
+<title>Pesquisar Editora</title>
 </head>
 
 
@@ -15,16 +15,16 @@
 		<div class="container-fluid">
 			<div class="page-header">
 				<div class="container-fluid">
-					<h1>Pesquisar Area do Conhecimento</h1>
+					<h1>Pesquisar Editora</h1>
 				</div>
 			</div>
 			<div class="container-fluid">
-				<section th:fragment="fragment-pesquisaAreaConhecimento">
+				<section th:fragment="fragment-pesquisaEditora">
 					<div class="row">
 					<form method="GET" class="form-vertical  js-form-loading" >
 					
 						<div class="form-group col-sm-6">
-								<input id="busca" name="busca" type="text" class="form-control" autofocus="autofocus" placeholder="Pesquisar Area do Conhecimento..."/>						
+								<input id="busca" name="busca" type="text" class="form-control" autofocus="autofocus" placeholder="Pesquisar Editora..."/>						
 						</div>
 						<div class="form-group col-sm-2">
 							<button class="btn btn-primary" type="submit">Pesquisar</button>
@@ -38,14 +38,14 @@
 								<tr>
 									<th><input name="tudo" type="checkbox"></th>
 									<th>#</th>
-									<th>Area do Conhecimento</th>	
+									<th>Editora</th>	
 								</tr>
 							</thead>
 							<tbody>
-								<tr th:each="area : ${listaAreaConhecimento}">
-									<td><input th:id="|check*{area.nome}|" th:name="|check*{area.nome}|" type="checkbox"></td>
-									<td th:text="*{area.id}">1</td>
-									<td th:text="*{area.nome}">Nome da Area deconhecimento</td>
+								<tr th:each="editora : ${listaEditora}">
+									<td><input th:id="|check*{editora.nome}|" th:name="|check*{editora.nome}|" type="checkbox"></td>
+									<td th:text="*{editora.id}">1</td>
+									<td th:text="*{editora.nome}">Nome Editora</td>
 								</tr>
 							</tbody>
 						</table>

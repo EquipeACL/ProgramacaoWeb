@@ -2,6 +2,10 @@ package br.uepb.model.acervo;
 
 import java.util.Date;
 
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.MappedSuperclass;
 import javax.validation.constraints.NotNull;
 
 import org.hibernate.validator.constraints.NotBlank;
@@ -12,9 +16,14 @@ import org.hibernate.validator.constraints.NotBlank;
  * A classe ItemAcervo � a super classe dos itens de acervo (jornal, livro, midias_eletr�nicas)
  * @author EquipeACL
  */
-public class ItemAcervo {
+
+//@MappedSuperclass
+public abstract class ItemAcervo {
 	
+	@Id
+	@GeneratedValue(strategy=GenerationType.AUTO)
 	private int id;
+	
 	@NotBlank(message=" Data nao pode ser vazia")
 	private  Date data;
 	

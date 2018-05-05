@@ -128,7 +128,7 @@
 //	public void gerarMatrcula() {
 //		
 //		this.matricula = "";
-//		this.matricula+= this.nivel+this.curso.getSigla()+this.anoIngresso.toString().substring(2, 4)+this.periodoIngresso;
+//		this.matricula+= this.nivel.charAt(0)+this.curso.getSigla()+this.anoIngresso.toString().substring(2, 4)+this.periodoIngresso;
 //		
 //	}
 //	

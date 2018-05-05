@@ -2,6 +2,11 @@ package br.uepb.model.acervo;
 
 import java.util.Date;
 
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 
 import br.uepb.interfaces.IFAcervo;
@@ -13,7 +18,10 @@ import br.uepb.model.enums.Tipo_midia;
  * A classe Midias_Eletronicas implementa a interface Acervo
  * @author EquipeACL
  */
+/*@Entity
+@Table(name="midia")*/
 public class Midias_Eletronicas extends ItemAcervo implements IFAcervo{
+	
 	@NotNull(message=" Tipo não pode ser nulo!")
 	private Tipo_midia tipo;
 	
