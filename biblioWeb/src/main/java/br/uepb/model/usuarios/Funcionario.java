@@ -1,4 +1,7 @@
 package br.uepb.model.usuarios;
+
+import org.hibernate.validator.constraints.NotBlank;
+
 /**
  * Essa classe � utilizada como modelo para um objeto do tipo Funcion�rio;
  * A classe cont�m os respectivos getters and setters de seus atributos.
@@ -6,6 +9,9 @@ package br.uepb.model.usuarios;
  * @author EquipeACL
  */
 public class Funcionario extends Usuario {
+	
+	@NotBlank(message = " Nome de usuário é obrigatório")
+	protected String nomeUsuario;
 	
 	
 	public Funcionario() {
@@ -27,5 +33,12 @@ public class Funcionario extends Usuario {
 			String email, String senhaAcesso, String nomeUsuario) {
 		super(cpf, nomeCompleto, rg, naturalidade, endereco, telefone, email, senhaAcesso);
 		setNomeUsuario(nomeUsuario);
+	}
+	
+	public String getNomeUsuario() {
+		return nomeUsuario;
+	}
+	public void setNomeUsuario(String nomeUsuario) {
+		this.nomeUsuario = nomeUsuario;
 	}
 }

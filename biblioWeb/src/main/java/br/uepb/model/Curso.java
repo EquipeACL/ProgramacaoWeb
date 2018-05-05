@@ -1,30 +1,63 @@
 package br.uepb.model;
 
+import javax.persistence.CascadeType;
+import javax.persistence.Entity;
+import javax.persistence.Enumerated;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.Table;
+import javax.persistence.Transient;
+import javax.validation.constraints.NotNull;
+import javax.persistence.EnumType;
+
+import org.hibernate.validator.constraints.NotBlank;
+
 import br.uepb.interfaces.IFDependencia;
 import br.uepb.model.enums.Tipo_curso;
 
 /**
- * Essa classe é utilizada como modelo para um objeto do tipo Curso.
- * A classe contém os respectivos getters and setters de seus atributos.
+ * Essa classe ï¿½ utilizada como modelo para um objeto do tipo Curso.
+ * A classe contï¿½m os respectivos getters and setters de seus atributos.
  * @author EquipeACL
  */
+@Entity
+@Table(name="curso")
 public class Curso implements IFDependencia{
+	@Id
+	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private int id;
+	
+	@NotBlank(message=" Nome Ã© obrigatÃ³rio")
 	private String nome;
-	private String sigla;
+	
+	@NotBlank(message=" Sigla do curso Ã© obrigatÃ³rio")
+	private String sigla;	
+
+	@ManyToOne(cascade=CascadeType.MERGE)
+	@JoinColumn(name = "area_conhecimento_id",nullable=false)
 	private AreaConhecimento area;
+	
+	@Transient
+	@NotBlank(message=" Area do conhecimento Ã© obrigatÃ³rio")
+	private String area_conhecimento_id;
+	
+	@NotNull(message=" Tipo do curso Ã© obrigatÃ³rio")
+	@Enumerated(EnumType.STRING)
 	private Tipo_curso tipo;
 	
 	/**
-	 * Método construtor da classe Curso
-	 * Construtor vazio (utilizado para criar um objeto do tipo Curso sem parâmetros definidos)
+	 * Mï¿½todo construtor da classe Curso
+	 * Construtor vazio (utilizado para criar um objeto do tipo Curso sem parï¿½metros definidos)
 	 */
 	public Curso(){
 		
 	}
 	
 	/**
-	 * Método construtor da classe Curso (utilizado para criar um objeto do tipo Curso com parâmetros definidos)
+	 * Mï¿½todo construtor da classe Curso (utilizado para criar um objeto do tipo Curso com parï¿½metros definidos)
 	 * @param nome, nome do curso
 	 * @param sigla, sigla do curso
 	 * @param area, objeto do tipo Area referente ao curso
@@ -53,6 +86,15 @@ public class Curso implements IFDependencia{
 	public String getNome() {
 		return nome;
 	}
+	
+	public String getArea_conhecimento_id() {
+		return area_conhecimento_id;
+	}
+
+	public void setArea_conhecimento_id(String area_conhecimento_id) {
+		this.area_conhecimento_id = area_conhecimento_id;
+	}
+
 	public void setNome(String nome) {
 		this.nome = nome;
 	}

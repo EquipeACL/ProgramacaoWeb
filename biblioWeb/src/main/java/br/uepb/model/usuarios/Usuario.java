@@ -1,9 +1,16 @@
 package br.uepb.model.usuarios;
 
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.Inheritance;
+import javax.persistence.InheritanceType;
+import javax.persistence.MappedSuperclass;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
 import org.hibernate.validator.constraints.NotBlank;
+import org.hibernate.validator.constraints.NotEmpty;
 
 
 /**
@@ -12,35 +19,38 @@ import org.hibernate.validator.constraints.NotBlank;
  * Essa classe � a super classe que os usuarios do sistema herdam seus m�todos e atributos, que s�o comuns a todos.
  * @author EquipeACL
  */
-public class Usuario {
+/*@MappedSuperclass*/
+public abstract class Usuario {
+	@Id
+	@GeneratedValue(strategy=GenerationType.AUTO)
+	private int id;
 	
-	@NotNull(message = "CPF é obrigatório")
+	@NotEmpty(message = " CPF é obrigatório")
 	protected int cpf;
 	
-	@NotBlank(message = "O nome é obrigatório")
+	@NotBlank(message = " O nome é obrigatório")
 	protected String nomeCompleto;
 	
-	@NotNull(message = "RG é obrigatório")
+	@NotEmpty(message = " RG é obrigatório")
 	protected int rg;
 	
-	@NotBlank(message = "A naturalidade é obrigatória")
+	@NotBlank(message = " A naturalidade é obrigatória")
 	protected String naturalidade;
 	
-	@NotBlank(message = "O endereço é obrigatório")
+	@NotBlank(message = " O endereço é obrigatório")
 	protected String endereco;
 	
-	@NotNull(message = "O telefone é obrigatório")
+	@NotEmpty(message = " O telefone é obrigatório")
 	protected int telefone;
 	
-	@Size(min = 5, max = 20, message = "O tamanho do email deve estar entre 5 e 20")
-	@NotBlank(message = "O email é obrigatório")
+	@Size(min = 5, max = 20, message = " O tamanho do email deve estar entre 5 e 20")
+	@NotBlank(message = " O email é obrigatório")
 	protected String email;
 	
-	@NotBlank(message = "A senha é obrigatória")
+	@NotBlank(message = " A senha é obrigatória")
 	protected String senhaAcesso;
 	
-	@NotBlank(message = "Nome de usuário é obrigatório")
-	protected String nomeUsuario;
+	
 	/**
 	 * M�todo Construtor da classe Usu�rio
 	 * Construtor vazio (utilizado para criar um objeto do tipo Usuario sem par�metros definidos)
@@ -74,39 +84,18 @@ public class Usuario {
 	}
 	
 
-	/**
-	 * M�todo respons�vel por inserir um objeto do tipo Aluno no sistema
-	 * @param aluno, que � um objeto do tipo Aluno
-	 * @return false, caso haja algum problema na valida��o do objeto recebido por par�metro ou caso haja algum problema durante a inser��o do objeto passado por par�metro no banco de dados.
-	 * @return true, caso haja sucesso na inser��o do objeto recebido por par�metro no Banco de Dados
-	 */
+	public int getId() {
+		return id;
+	}
 
-	/**
-	 * M�todo respons�vel por atualizar um objeto do tipo Aluno no sistema
-	 * @param aluno, que � um objeto do tipo Aluno
-	 * @return false, caso haja algum problema na valida��o do objeto recebido por par�metro ou caso haja algum problema durante a atualiza��o do objeto passado por par�metro no banco de dados.
-	 * @return true, caso haja sucesso na atualiza��o do objeto recebido por par�metro no Banco de Dados
-	 */
-
-	
-	/**
-	 * M�todo respons�vel por realizar uma busca de um ou mais objetos do tipo Aluno no sistema
-	 * @param aluno, que � um objeto do tipo Aluno
-	 * @return null, caso haja algum problema na valida��o do objeto recebido por par�metro ou caso a busca do objeto passado por par�metro no banco de dados n�o tenha sucesso.
-	 * @return ArrayList<Aluno>, caso haja sucesso na busca de um ou mais objetos do tipo Aluno passado por par�metro no Banco de Dados
-	 */
-
-	/**
-	 * M�todo respons�vel por validar um objeto do tipo Aluno
-	 * @param a, um objeto do tipo Aluno
-	 * @return false, caso haja algum problema ao longo da valida��o do objeto passado por par�metro
-	 * @return true, caso haja sucesso no processo de valida��o do objeto passado por par�metro
-	 */
-	
+	public void setId(int id) {
+		this.id = id;
+	}
 	
 	public int getCpf() {
 		return cpf;
 	}
+	
 	public void setCpf(int cpf) {
 		this.cpf = cpf;
 	}
@@ -152,10 +141,5 @@ public class Usuario {
 	public void setSenhaAcesso(String senhaAcesso) {
 		this.senhaAcesso = senhaAcesso;
 	}
-	public String getNomeUsuario() {
-		return nomeUsuario;
-	}
-	public void setNomeUsuario(String nomeUsuario) {
-		this.nomeUsuario = nomeUsuario;
-	}
+	
 }

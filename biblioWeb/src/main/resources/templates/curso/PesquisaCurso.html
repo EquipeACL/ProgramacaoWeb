@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="pt" xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorator="'layout/LayoutPadrao'">
+
+<head>
+<title>Pesquisar Cursos</title>
+</head>
+
+
+<body>
+	
+	<section layout:fragment="conteudo">
+		<div class="container-fluid">
+			<div class="page-header">
+				<div class="container-fluid">
+					<h1>Pesquisar Cursos</h1>
+				</div>
+			</div>
+			<div class="container-fluid">
+				<section th:fragment="fragment-pesquisaCurso">
+					<div class="row">
+					<form method="GET" class="form-vertical  js-form-loading" >
+					
+						<div class="form-group col-sm-6">
+								<input id="busca" name="busca" type="text" class="form-control" autofocus="autofocus" placeholder="Pesquisar Curso..."/>						
+						</div>
+						<div class="form-group col-sm-2">
+							<button class="btn btn-primary" type="submit">Pesquisar</button>
+						</div>						
+						
+					</form>
+					
+					<div class="container-fluid">
+						<table class="table table-striped">
+							<thead>
+								<tr>
+									<th><input name="tudo" type="checkbox"></th>
+									<th>#</th>
+									<th>Nome</th>
+									<th>Sigla</th>
+									<th>Tipo</th>
+									<th>Area do Conhecimento</th>	
+								</tr>
+							</thead>
+							<tbody>
+								<tr th:each="curso : ${listaCurso}">
+									<td><input th:id="|check*{curso.nome}|" th:name="|check*{curso.nome}|" type="checkbox"></td>
+									<td th:text="*{curso.id}">1</td>
+									<td th:text="*{curso.nome}">Nome curso</td>
+									<td th:text="*{curso.sigla}">Sigla do curso</td>
+									<td th:text="*{curso.tipo}">Tipo do curso</td>
+									<td th:text="*{curso.area.nome}">Area do curso</td>
+								</tr>
+							</tbody>
+						</table>
+					</div>
+					
+				</div>
+				</section>
+		   </div>
+	</div>
+	</section>
+</body>
+</html>
