@@ -2,26 +2,45 @@ package br.uepb.model.acervo;
 
 import java.util.Date;
 
+import javax.persistence.Entity;
+import javax.persistence.Table;
+import javax.persistence.Transient;
+
+import org.hibernate.validator.constraints.NotBlank;
+
 import br.uepb.interfaces.IFAcervo;
 
 /**
- * Essa classe é utilizada como modelo para um objeto do tipo Jornal.
- * A classe contém os respectivos getters and setters de seus atributos.
+ * Essa classe ï¿½ utilizada como modelo para um objeto do tipo Jornal.
+ * A classe contï¿½m os respectivos getters and setters de seus atributos.
  * A classe Jornal estende a classe ItemAcervo
  * @author EquipeACL
  */
+@Entity
+@Table(name="jornal")
 public class Jornal extends ItemAcervo implements IFAcervo{
 	
+	@Transient
+	@NotBlank(message="Data obrigatÃ³ria")
+	private String data_string;
+	public String getData_string() {
+		return data_string;
+	}
+
+	public void setData_string(String data_string) {
+		this.data_string = data_string;
+	}
+
 	/**
-	 * Método construtor da classe Jornal
-	 * Construtor vazio (utilizado para criar um objeto do tipo Jornal sem parâmetros definidos)
+	 * Mï¿½todo construtor da classe Jornal
+	 * Construtor vazio (utilizado para criar um objeto do tipo Jornal sem parï¿½metros definidos)
 	 */
 	public Jornal() {
 		
 	}
 	
 	/**
-	 * Método construtor da classe Jornal (utilizado para criar um objeto do tipo Jornal com parâmetros definidos)
+	 * Mï¿½todo construtor da classe Jornal (utilizado para criar um objeto do tipo Jornal com parï¿½metros definidos)
 	 * @param titulo, titulo do jornal
 	 * @param data, data do jornal
 	 * @param edicao, edicao do jornal

@@ -32,19 +32,19 @@
 							autofocus="autofocus" th:field="*{titulo}" />
 					</div>
 					<div class="form-group col-sm-2"
-						th:classappend="${#fields.hasErrors('data')}? has-error">
-						<label for="data" class="control-label">Data de Defesa</label>
-						<input id="data" type="date" class="form-control" th:field="*{data}"/>
+						th:classappend="${#fields.hasErrors('data_string')}? has-error">
+						<label for="data_string" class="control-label">Data de Defesa</label>
+						<input id="data_string" type="date" class="form-control" th:field="*{data_string}"/>
 					</div>
 				</div>
 
 				<div class="row">
 
 					<div class="form-group col-sm-3"
-						th:classappend="${#fields.hasErrors('autor')}? has-error">
-						<label for="autor" class="control-label">Nome do Autor</label>
+						th:classappend="${#fields.hasErrors('id_autor')}? has-error">
+						<label for="id_autor" class="control-label">Nome do Autor</label>
 						<div class="bw-field-action">
-							<select id="autor" class="form-control" th:field="*{autor}">
+							<select id="id_autor" class="form-control" th:field="*{id_autor}">
 								<option value="">Selecione o Autor</option>
 								<option th:each="autor: ${autores}" th:value="${autor.id}"
 									th:text="${autor.nome}"></option>
@@ -58,12 +58,12 @@
 						</div>
 					</div>
 					<div class="form-group col-sm-4"
-						th:classappend="${#fields.hasErrors('orientador')}? has-error">
-						<label for="orientador" class="control-label">Nome do
+						th:classappend="${#fields.hasErrors('id_orientador')}? has-error">
+						<label for="id_orientador" class="control-label">Nome do
 							Orientador</label>
 						<div class="bw-field-action">
-							<select id="orientador" class="form-control"
-								th:field="*{orientador}">
+							<select id="id_orientador" class="form-control"
+								th:field="*{id_orientador}">
 								<option value="">Selecione o Orientador</option>
 								<option th:each="orientador: ${orientadores}"
 									th:value="${orientador.id}" th:text="${orientador.nome}"></option>
@@ -105,8 +105,8 @@
 						<label for="cidade" class="control-label">Local de Defesa</label>
 						<select id="cidade" th:field="*{cidade}" class="form-control">
 							<option value="cidade">Selecione a cidade</option>
-							<option th:each="cidade: ${cidades}" th:value="${cidade}"
-								th:text="${cidade}"></option>
+							<option th:each="cidade: ${cidades}" th:value="${cidade.id}"
+								th:text="${cidade.nome}"></option>
 						</select>
 					</div>
 

@@ -12,8 +12,11 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import br.uepb.biblio.repository.Anais;
+import br.uepb.biblio.repository.Autores;
 import br.uepb.biblio.repository.Cidades;
-import br.uepb.model.acervo.Anais;
+import br.uepb.biblio.service.CrudAnaisService;
+import br.uepb.model.acervo.Anal;
 import br.uepb.model.enums.Tipo_anal;
 
 
@@ -22,27 +25,31 @@ import br.uepb.model.enums.Tipo_anal;
 @RequestMapping("/anais")
 public class AnaisController {
 	
-	/* 
+	/*
 	@Autowired
-	private AnaisRepository anaisRepository;
+	private Autores autoresRepository;
+	ManyTooMany
+	*/
 	
 	@Autowired
-	private CadastroAnaisService anaisService;*/
+	private Anais anaisRepository;
 	
 	@Autowired
-	private Cidades cidades;
+	private CrudAnaisService anaisService;
+	
+	@Autowired
+	private Cidades cidadesRepository;
 	
 	@RequestMapping("/novo")
-	public ModelAndView novo(Anais anal,String busca) {
+	public ModelAndView novo(Anal anal,String busca) {
 		ModelAndView mv = new ModelAndView("/anais/CadastroAnais");
 		mv.addObject("tipos", Tipo_anal.values());
 		mv.addObject("autores",new String[] {"Autor1","Autor2","Autor3"});
-		mv.addObject("cidades",cidades.findAll());
-		mv.addObject("estados",new String[] {"AL","CE","PB"});
+		mv.addObject("cidades",cidadesRepository.findAll());
 		if(busca!=null){
-			//mv.addObject("listaAnais",anaisService.buscarPorTitulo(busca));
+			mv.addObject("listaAnais",anaisService.buscarPorTitulo(busca));
 		}else{
-			//mv.addObject("listasAnais",anaisRepository.findAll());
+			mv.addObject("listasAnais",anaisRepository.findAll());
 		}
 		return mv;
 	}
@@ -52,21 +59,21 @@ public class AnaisController {
 		ModelAndView mv = new ModelAndView("/anais/PesquisaAnais");
 		mv.addObject("tipos", Tipo_anal.values());
 		mv.addObject("autores",new String[] {"Autor1","Autor2","Autor3"});
-		mv.addObject("cidades",cidades.findAll());
-		mv.addObject("estados",new String[] {"AL","CE","PB"});
+		mv.addObject("cidades",cidadesRepository.findAll());
 		if(busca!=null){
-			//mv.addObject("listaAnais",anaisService.buscarPorTitulo(busca));
+			mv.addObject("listaAnais",anaisService.buscarPorTitulo(busca));
 		}else{
-			//mv.addObject("listasAnais",anaisRepository.findAll());
+			mv.addObject("listasAnais",anaisRepository.findAll());
 		}
 		return mv;
 	}
 	
 	@RequestMapping(value="/novo",method = RequestMethod.POST)
-	public ModelAndView cadastrar(@Valid Anais anal, BindingResult result, Model model, RedirectAttributes attributes) {
+	public ModelAndView cadastrar(@Valid Anal anal, BindingResult result, Model model, RedirectAttributes attributes) {
 		if(result.hasErrors()) {
 			return novo(anal,null);
 		}
+		
 		//salvar no banco
 		attributes.addFlashAttribute("mensagem", "Anal salvo com sucesso!");
 		return new ModelAndView("redirect:/anais/novo");

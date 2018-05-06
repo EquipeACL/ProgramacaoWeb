@@ -17,14 +17,14 @@ import org.hibernate.validator.constraints.NotBlank;
  * @author EquipeACL
  */
 
-//@MappedSuperclass
+@MappedSuperclass
 public abstract class ItemAcervo {
 	
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private int id;
 	
-	@NotBlank(message=" Data nao pode ser vazia")
+	//@NotBlank(message=" Data nao pode ser vazia")
 	private  Date data;
 	
 	@NotNull(message=" Edicao é obrigatória")

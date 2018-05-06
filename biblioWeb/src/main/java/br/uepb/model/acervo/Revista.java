@@ -2,8 +2,16 @@ package br.uepb.model.acervo;
 
 import java.util.Date;
 
+import javax.persistence.CascadeType;
+import javax.persistence.Entity;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.Table;
+import javax.persistence.Transient;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
+
+import org.hibernate.validator.constraints.NotBlank;
 
 import br.uepb.interfaces.IFAcervo;
 import br.uepb.model.Editora;
@@ -13,8 +21,36 @@ import br.uepb.model.Editora;
  * A classe Revista implementa a interface Acervo
  * @author EquipeACL
  */
+@Entity
+@Table(name="revista")
 public class Revista extends ItemAcervo implements IFAcervo{
-	@NotNull(message=" Editora não pode ser nula!")
+	@Transient
+	@NotBlank(message="Data obrigatória")
+	private String data_string;
+	
+	@Transient
+	@NotBlank(message="Editora obrigatória")
+	private String id_editora;
+	
+	
+	public String getId_editora() {
+		return id_editora;
+	}
+
+	public void setId_editora(String id_editora) {
+		this.id_editora = id_editora;
+	}
+
+	public String getData_string() {
+		return data_string;
+	}
+
+	public void setData_string(String data_string) {
+		this.data_string = data_string;
+	}
+	
+	@ManyToOne(cascade=CascadeType.MERGE)
+	@JoinColumn(name = "editora_id",nullable=false)
 	private Editora editora;
 	
 	@NotNull

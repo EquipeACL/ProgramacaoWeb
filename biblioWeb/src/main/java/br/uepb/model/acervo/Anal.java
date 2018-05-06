@@ -2,7 +2,14 @@ package br.uepb.model.acervo;
 
 import java.util.Date;
 
-
+import javax.persistence.CascadeType;
+import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.Table;
+import javax.persistence.Transient;
 import javax.validation.constraints.NotNull;
 
 import org.hibernate.validator.constraints.NotBlank;
@@ -13,36 +20,48 @@ import br.uepb.model.Cidade;
 import br.uepb.model.enums.Tipo_anal;
 
 /**
- * Essa classe � utilizada como modelo para um objeto do tipo Anais.
+ * Essa classe � utilizada como modelo para um objeto do tipo Anal.
  * A classe cont�m os respectivos getters and setters de seus atributos.
- * A classe Anais implementa a interface Acervo
+ * A classe Anal implementa a interface Acervo
  * @author EquipeACL
  */
 
-public class Anais extends ItemAcervo implements IFAcervo{
+@Entity
+@Table(name="anal")
+public class Anal extends ItemAcervo implements IFAcervo{
 
-	@NotNull(message = " Selecione o Tipo")
+	@NotNull(message=" Tipo não pode ser nulo!")
+	@Enumerated(EnumType.STRING)
 	private Tipo_anal tipo;
 	
-	@NotNull(message = " Nome do Autor é Obrigatório")
+	@Transient
+	@NotBlank(message="Autor obrigatório")
+	private String id_autor;
+	
+	@Transient
+	@NotBlank(message="Cidade obrigatório")
+	private String id_cidade;
+
+	//ManyToMany
 	private Autor autor;
 	
 	@NotBlank(message = " Nome do Congresso é Obrigatório")
 	private String nome_congresso;
 	
-	@NotNull(message = " Nome da Cidade é Obrigatório")
+	@ManyToOne(cascade=CascadeType.MERGE)
+	@JoinColumn(name = "cidade_id",nullable=false)
 	private Cidade local;
 	
 	/**
-	 * M�todo construtor da classe Anais
-	 * Construtor vazio (utilizado para criar um objeto do tipo Anais sem par�metros definidos)
+	 * M�todo construtor da classe Anal
+	 * Construtor vazio (utilizado para criar um objeto do tipo Anal sem par�metros definidos)
 	 */
-	public Anais() {
+	public Anal() {
 		
 	}
 	
 	/**
-	 * M�todo construtor da classe Anais (utilizado para criar um objeto do tipo Anais com par�metros definidos)
+	 * M�todo construtor da classe Anal (utilizado para criar um objeto do tipo Anal com par�metros definidos)
 	 * @param id, id do anal
 	 * @param tipo, Enum do tipo do anal
 	 * @param titulo, titulo do anal
@@ -51,7 +70,7 @@ public class Anais extends ItemAcervo implements IFAcervo{
 	 * @param anoPublicacao, ano de publicacao do anal
 	 * @param local, objeto do tipo Cidade referente ao anal
 	 */
-	public Anais(int id,Tipo_anal tipo, String titulo, Autor autor, String nome_congresso, Date anoPublicacao, Cidade local){
+	public Anal(int id,Tipo_anal tipo, String titulo, Autor autor, String nome_congresso, Date anoPublicacao, Cidade local){
 		setId(id);
 		setTipo(tipo);
 		setTitulo(titulo);
