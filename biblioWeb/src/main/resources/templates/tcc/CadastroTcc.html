@@ -118,6 +118,11 @@
 				</div>
 			</form>
 		</div>
+		<div class="container-fluid">			
+				<hr>
+				<!-- incluindo a pesquisa -->
+				<div th:insert="tcc/PesquisaTcc :: fragment-pesquisaTcc"></div>
+		</div>
 		<div th:replace="autor/CadastroRapidoAutor :: modal"></div>
 		<div th:replace="orientador/CadastroRapidoOrientador :: modal"></div>
 	</section>

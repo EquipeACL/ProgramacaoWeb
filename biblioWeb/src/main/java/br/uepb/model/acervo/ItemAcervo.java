@@ -21,7 +21,7 @@ import org.hibernate.validator.constraints.NotBlank;
 public abstract class ItemAcervo {
 	
 	@Id
-	@GeneratedValue(strategy=GenerationType.AUTO)
+	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private int id;
 	
 	@NotBlank(message=" Data nao pode ser vazia")

@@ -99,6 +99,12 @@
 			</form>
 
 		</div>
+		<div class="container-fluid">	
+			<hr>
+			<!-- incluindo a pesquisa -->
+			<div th:insert="anais/PesquisaAnais :: fragment-pesquisaAnais"></div>
+			
+		</div>
 		<div th:replace="autor/CadastroRapidoAutor :: modal"></div>
 	</section>
 	<th:block layout:fragment="javascript-extra">

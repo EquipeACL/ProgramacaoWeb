@@ -34,10 +34,11 @@ public class JPAConfig {
 	@Bean
 	public JpaVendorAdapter jpaVendorAdapter() {
 		HibernateJpaVendorAdapter adapter = new HibernateJpaVendorAdapter();
-		adapter.setDatabase(Database.MYSQL);
+		adapter.setDatabase(Database.H2);
 		adapter.setShowSql(true);
 		//adapter.setGeneratedDbl(false); //Se tiver usando o flyway
 		adapter.setDatabasePlatform("org.hibernate.dialect.MySQLDialect");
+		//adapter.setDatabasePlatform("org.hibernate.dialect.H2Dialect");		
 		return adapter;
 	}
 	

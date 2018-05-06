@@ -11,5 +11,16 @@
             initialPoolSize="5" 
             minPoolSize="5"
             maxPoolSize="5" 
-     />
+     /> 
+    <!--  <Resource name="jdbc/h2" auth="Container" 
+            factory="org.apache.naming.factory.BeanFactory"
+            type="com.mchange.v2.c3p0.ComboPooledDataSource"
+            driverClass="org.h2.Driver"
+            jdbcUrl="jdbc:h2:file:~/h2db"
+            user="h2sa"
+            password="admin" 
+            initialPoolSize="5" 
+            minPoolSize="5"
+            maxPoolSize="5" 
+     /> -->
 </Context>

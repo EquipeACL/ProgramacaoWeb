@@ -4,6 +4,8 @@ import java.sql.Date;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
@@ -21,8 +23,8 @@ import br.uepb.model.enums.Tipo_nivel_aluno;
  * A classe Aluno extende a classe Usu�rio, que cont�m os atributos e m�todos comuns a todos os usu�rios do sistema.
  * @author EquipeACL
  */
-/*@Entity
-@Table(name="aluno")*/
+//@Entity
+//@Table(name="aluno")
 public class Aluno extends Usuario {
 	
 	private String matricula;
@@ -40,6 +42,7 @@ public class Aluno extends Usuario {
 	private String nome_curso;
 	
 	@NotNull(message=" Nivel do aluno é obrigatório")
+	@Enumerated(EnumType.STRING)
 	private Tipo_nivel_aluno nivel;
 	
 	@NotNull(message=" Data de ingresso é obrigatório")

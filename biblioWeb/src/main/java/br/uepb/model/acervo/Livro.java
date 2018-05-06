@@ -5,8 +5,9 @@ import java.util.Date;
 
 import javax.validation.constraints.NotNull;
 
+import org.hibernate.validator.constraints.NotEmpty;
+
 import br.uepb.interfaces.IFAcervo;
-import br.uepb.model.AreaConhecimento;
 import br.uepb.model.Autor;
 import br.uepb.model.Editora;
 import br.uepb.model.Tema;
@@ -22,7 +23,7 @@ import br.uepb.model.Tema;
 public class Livro extends ItemAcervo implements IFAcervo{
 	
 	
-
+	@NotEmpty(message=" ISBN é obrigatório")
 	private long isbn;
 	
 	private ArrayList<Autor> autores;
@@ -31,6 +32,8 @@ public class Livro extends ItemAcervo implements IFAcervo{
 	private Editora editora;	
 	
 	private int numero_paginas;
+	
+	
 	private Tema tema;
 	
 	/**

@@ -20,8 +20,7 @@
 
 			<th:block th:include="fragments/MensagemSucesso"></th:block>
 
-			<form method="POST" th:object="${livro}"
-				class="form-vertical  js-form-loading">
+			<form method="POST" th:object="${livro}" class="form-vertical  js-form-loading">
 				<th:block th:include="fragments/MensagensErroValidacao"></th:block>
 
 				<div class="row">
@@ -34,8 +33,7 @@
 					<div class="form-group col-sm-6"
 						th:classappend="${#fields.hasErrors('titulo')}? has-error">
 						<label for="titulo" class="control-label">Titulo do Livro</label>
-						<input id="titulo" type="text" class="form-control"
-							autofocus="autofocus" th:field="*{titulo}" />
+						<input id="titulo" type="text" class="form-control" th:field="*{titulo}" />
 					</div>
 					<div class="form-group col-sm-4"
 						th:classappend="${#fields.hasErrors('editora')}? has-error">
@@ -58,25 +56,24 @@
 
 				<div class="row">
 					<div class="form-group col-sm-2"
-						th:classappend="${#fields.hasErrors('editora')}? has-error">
+						th:classappend="${#fields.hasErrors('numero_paginas')}? has-error">
 						<label for="numero_paginas" class="control-label">Numero
 							de Páginas</label> <input id="numero_paginas" type="number"
 							class="form-control" th:field="*{numero_paginas}" />
 					</div>
-					<div class="form-group col-sm-4"
-						th:classappend="${#fields.hasErrors('area')}? has-error">
-						<label for="area" class="control-label">Nome da Área de
-							Conhecimento</label>
+					
+					<div class="form-group col-sm-4">
+						<label class="control-label">Nome da Área de Conhecimento</label>
 						<div class="bw-field-action">
-							<select id="area" class="form-control">
+							<select class="form-control" >
 								<option value="">Selecione a Área</option>
-								<option th:each="area : ${areas}" th:value="${area.id}"
-									th:text="${area.nome}"></option>
+								<option th:each="areaConhecimento : ${areas}" th:value="${areaConhecimento.id}"
+									th:text="${areaConhecimento.nome}"></option>
 							</select>
 							<div class="bw-field-action__icon">
 								<a href="#" data-toggle="modal"
-									data-target="#modalCadastroRapidoAreaConhecimento"> <i
-									class="glyphicon  glyphicon-plus-sign  bw-glyphicon-large"></i>
+									data-target="#modalCadastroRapidoAreaConhecimento">
+									<i class="glyphicon  glyphicon-plus-sign  bw-glyphicon-large"></i>
 								</a>
 							</div>
 						</div>
@@ -88,8 +85,8 @@
 						<div class="bw-field-action">
 							<select id="tema" class="form-control" th:field="*{tema}">
 								<option value="">Selecione o tema</option>
-								<option th:each="tema : ${temas}" th:value="${tema.id}"
-									th:text="${tema.nome}"></option>
+								<option th:each="temaSelect : ${temas}" th:value="${temaSelect.id}"
+									th:text="${temaSelect.nome}"></option>
 							</select>
 							<div class="bw-field-action__icon">
 								<a href="#" data-toggle="modal"
@@ -101,26 +98,39 @@
 					</div>
 					
 					<div class="form-grup col-sm-2"
-						th:classappend="${#fields.hasErrors('editora')}? has-error">
+						th:classappend="${#fields.hasErrors('data')}? has-error">
 						<label for="data" class="control-label">Data de Publicação</label>
 						<input id="data" type="date" class="form-control"
 							th:field="*{data}">
 					</div>
+				</div>
+				<div class="row">
 					<div class="form-group col-sm-2"
 						th:classappend="${#fields.hasErrors('edicao')}? has-error">
 						<label for="edicao" class="control-label">Edicao</label> <input
 							id="edicao" type="number" class="form-control"
 							th:field="*{edicao}" />
 					</div>
-				</div>
-				<button type="submit" class="btn  btn-primary">Salvar</button>
+					<div class="form-group col-sm-2">
+						<br>
+						<button type="submit" class="btn  btn-primary">Salvar</button>
+					</div>
+				</div>				
 			</form>
 		</div>
+		<div class="container-fluid">	
+			<hr>
+			<!-- incluindo a pesquisa -->
+			<div th:insert="livro/PesquisaLivro :: fragment-pesquisaLivro"></div>
+			
+		</div>
 		<div th:replace="areaConhecimento/CadastroRapidoAreaConhecimento :: modal"></div>
+		<div th:replace="tema/CadastroRapidoTema :: modal"></div>
 	</section>
 	
 	<th:block layout:fragment="javascript-extra">
-		<script th:src="@{/javascripts/areaConhecimento.cadastro-rapido.js}"></script>	
+		<script th:src="@{/javascripts/areaConhecimento.cadastro-rapido.js}"></script>
+		<script th:src="@{/javascripts/tema.cadastro-rapido.js}"></script>	
 	</th:block>
 	
 </body>

@@ -22,13 +22,19 @@ import br.uepb.model.enums.Tipo_tcc;
 public class TccsController {
 
 	@Autowired
-	Autores autores;
-	@Autowired
-	Orientadores orientadores;
+	private Autores autores;
 	
+	@Autowired
+	private Orientadores orientadores;
+	
+	/*@Autowired
+	private TccsRepository tccsRepository;
+	
+	@Autowired
+	private CadastroTccService tccService;*/
 	
 	@RequestMapping("/novo")
-	public ModelAndView novo(Tcc tcc) {
+	public ModelAndView novo(Tcc tcc,String busca) {
 		ModelAndView model = new ModelAndView("/tcc/CadastroTcc");
 		model.addObject("autores",autores.findAll());
 		model.addObject("orientadores",orientadores.findAll());
@@ -36,13 +42,35 @@ public class TccsController {
 		model.addObject("estados",new String[] {"AL","CE","PB"});
 		model.addObject("formacoes",Tipo_nivel_aluno.values());
 		model.addObject("tipos",Tipo_tcc.values());
+		if(busca!=null){
+			//model.addObject("listaTcc",tccService.buscaPorTitulo(busca));
+		}else{
+			//model.addObject("listaTcc",tccsRepository.findAll());
+		}
+		return model;
+	}
+	
+	@RequestMapping("/pesquisar")
+	public ModelAndView pesquisar(String busca) {
+		ModelAndView model = new ModelAndView("/tcc/PesquisaTcc");
+		model.addObject("autores",autores.findAll());
+		model.addObject("orientadores",orientadores.findAll());
+		model.addObject("cidades",new String[] {"Cidade1","Cidade2","Cidade3"});
+		model.addObject("estados",new String[] {"AL","CE","PB"});
+		model.addObject("formacoes",Tipo_nivel_aluno.values());
+		model.addObject("tipos",Tipo_tcc.values());
+		if(busca!=null){
+			//model.addObject("listaTcc",tccService.buscaPorTitulo(busca));
+		}else{
+			//model.addObject("listaTcc",tccsRepository.findAll());
+		}
 		return model;
 	}
 	
 	@RequestMapping(value="/novo",method = RequestMethod.POST)
 	public ModelAndView cadastrar(@Valid Tcc tcc, BindingResult result, Model model, RedirectAttributes attributes) {
 		if(result.hasErrors()) {
-			return novo(tcc);
+			return novo(tcc,null);
 		}
 		//salvar no banco
 		attributes.addFlashAttribute("mensagem", "Tcc salvo com sucesso!");

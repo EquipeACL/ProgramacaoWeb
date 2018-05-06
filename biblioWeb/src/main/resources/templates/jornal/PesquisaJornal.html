@@ -5,7 +5,7 @@
 	layout:decorator="'layout/LayoutPadrao'">
 
 <head>
-<title>Pesquisar Midias Eletrônicas</title>
+<title>Pesquisar Jornais</title>
 </head>
 
 
@@ -15,16 +15,16 @@
 		<div class="container-fluid">
 			<div class="page-header">
 				<div class="container-fluid">
-					<h1>Pesquisar Midias Eletrônicas</h1>
+					<h1>Pesquisar Jornais</h1>
 				</div>
 			</div>
 			<div class="container-fluid">
-				<section th:fragment="fragment-pesquisaMidiaEletronica">
+				<section th:fragment="fragment-pesquisaJornal">
 					<div class="row">
 					<form method="GET" class="form-vertical  js-form-loading" >
 					
 						<div class="form-group col-sm-6">
-								<input id="busca" name="busca" type="text" class="form-control" autofocus="autofocus" placeholder="Pesquisar Midia Eletrônica..."/>						
+								<input id="busca" name="busca" type="text" class="form-control" autofocus="autofocus" placeholder="Pesquisar jornais..."/>						
 						</div>
 						<div class="form-group col-sm-2">
 							<button class="btn btn-primary" type="submit">Pesquisar</button>
@@ -38,18 +38,18 @@
 								<tr>
 									<th><input name="tudo" type="checkbox"></th>
 									<th>#</th>
-									<th>Titulo</th>
-									<th>Tipo</th>
-									<th>Data de Gravação</th>	
+									<th>Titulo do Jornal</th>
+									<th>Data</th>
+									<th>Edição</th>	
 								</tr>
 							</thead>
 							<tbody>
-								<tr th:each="midia : ${listaMidias}">
-									<td><input th:id="|check*{midia.titulo}|" th:name="|check*{midia.titulo}|" type="checkbox"></td>
-									<td th:text="*{midia.id}">1</td>
-									<td th:text="*{midia.titulo}">Titulo da midia</td>
-									<td th:text="*{midia.tipo}">Tipo da midia</td>
-									<td th:text="*{midia.data_gravacao}">Data de gravação</td>
+								<tr th:each="jornal : ${listaJornais}">
+									<td><input th:id="|check*{jornal.titulo}|" th:name="|check*{jornal.titulo}|" type="checkbox"></td>
+									<td th:text="*{jornal.id}">1</td>
+									<td th:text="*{jornal.titulo}">Nome da Area deconhecimento</td>
+									<td th:text="*{jornal.data}">Tipo do Anal</td>
+									<td th:text="*{jornal.edicao}">Nome do Congresso</td>
 								</tr>
 							</tbody>
 						</table>

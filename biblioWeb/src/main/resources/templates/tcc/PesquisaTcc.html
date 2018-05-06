@@ -5,7 +5,7 @@
 	layout:decorator="'layout/LayoutPadrao'">
 
 <head>
-<title>Pesquisar Midias Eletrônicas</title>
+<title>Pesquisar TCC</title>
 </head>
 
 
@@ -15,16 +15,16 @@
 		<div class="container-fluid">
 			<div class="page-header">
 				<div class="container-fluid">
-					<h1>Pesquisar Midias Eletrônicas</h1>
+					<h1>Pesquisar Trabalho de Conclusão de Curso - TCC</h1>
 				</div>
 			</div>
 			<div class="container-fluid">
-				<section th:fragment="fragment-pesquisaMidiaEletronica">
+				<section th:fragment="fragment-pesquisaTcc">
 					<div class="row">
 					<form method="GET" class="form-vertical  js-form-loading" >
 					
 						<div class="form-group col-sm-6">
-								<input id="busca" name="busca" type="text" class="form-control" autofocus="autofocus" placeholder="Pesquisar Midia Eletrônica..."/>						
+								<input id="busca" name="busca" type="text" class="form-control" autofocus="autofocus" placeholder="Pesquisar Trabalho de Conclusão de Curso..."/>						
 						</div>
 						<div class="form-group col-sm-2">
 							<button class="btn btn-primary" type="submit">Pesquisar</button>
@@ -38,18 +38,24 @@
 								<tr>
 									<th><input name="tudo" type="checkbox"></th>
 									<th>#</th>
-									<th>Titulo</th>
+									<th>Titulo do TCC</th>
+									<th>Autor</th>
+									<th>Orientador</th>
 									<th>Tipo</th>
-									<th>Data de Gravação</th>	
+									<th>Data de defesa</th>
+									<th>Cidade</th>
 								</tr>
 							</thead>
 							<tbody>
-								<tr th:each="midia : ${listaMidias}">
-									<td><input th:id="|check*{midia.titulo}|" th:name="|check*{midia.titulo}|" type="checkbox"></td>
-									<td th:text="*{midia.id}">1</td>
-									<td th:text="*{midia.titulo}">Titulo da midia</td>
-									<td th:text="*{midia.tipo}">Tipo da midia</td>
-									<td th:text="*{midia.data_gravacao}">Data de gravação</td>
+								<tr th:each="tcc : ${listaTcc}">
+									<td><input th:id="|check*{tcc.titulo}|" th:name="|check*{tcc.titulo}|" type="checkbox"></td>
+									<td th:text="*{tcc.id}">id</td>
+									<td th:text="*{tcc.titulo}">Titulo do Tcc</td>
+									<td th:text="*{tcc.autor.nome}">Autor do Tcc</td>
+									<td th:text="*{tcc.orientador.nome}">Orientador do Tcc</td>
+									<td th:text="*{tcc.tipo}">Tipo do Tcc</td>
+									<td th:text="*{tcc.data}">Data de defesa</td>
+									<td th:text="*{tcc.cidade}">Cidade</td>
 								</tr>
 							</tbody>
 						</table>

@@ -78,6 +78,11 @@
 			<div th:insert="curso/PesquisaCurso :: fragment-pesquisaCurso"></div>
 			
 		</div>
+		<div th:replace="areaConhecimento/CadastroRapidoAreaConhecimento :: modal"></div>
 	</section>
+	
+	<th:block layout:fragment="javascript-extra">
+		<script th:src="@{/javascripts/areaConhecimento.cadastro-rapido.js}"></script>	
+	</th:block>
 </body>
 </html>
