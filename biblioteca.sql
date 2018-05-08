@@ -1,42 +1,11 @@
-# Host: localhost  (Version 8.0.11)
-# Date: 2018-05-06 19:13:02
-# Generator: MySQL-Front 6.0  (Build 2.20)
-
-#
-# Structure for table "anal"
-#
-
+﻿
 DROP DATABASE IF EXISTS `biblioteca`;
 CREATE DATABASE `biblioteca`;
 USE `biblioteca`;
-
-SET GLOBAL TIME_ZONE = "-03:00";
-
-
-DROP TABLE IF EXISTS `anal`;
-CREATE TABLE `anal` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `tipo` enum('ARTIGO','POSTER','RESUMO') NOT NULL,
-  `titulo` varchar(45) NOT NULL,
-  `congresso` varchar(45) NOT NULL,
-  `data` date NOT NULL DEFAULT '0000-00-00',
-  `cidade_id` int(11) NOT NULL,
-  `edicao` int(11) DEFAULT NULL,
-  PRIMARY KEY (`id`,`cidade_id`),
-  KEY `fk_anal_cidade1_idx` (`cidade_id`),
-  CONSTRAINT `fk_anal_cidade1` FOREIGN KEY (`cidade_id`) REFERENCES `cidade` (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
-#
-# Data for table "anal"
-#
-
-
 #
 # Structure for table "area_conhecimento"
 #
 
-DROP TABLE IF EXISTS `area_conhecimento`;
 CREATE TABLE `area_conhecimento` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `nome` varchar(45) NOT NULL,
@@ -53,36 +22,14 @@ INSERT INTO `area_conhecimento` VALUES (1,'EXATAS'),(2,'CIENCIAS NATURAIS'),(3,'
 # Structure for table "autor"
 #
 
-DROP TABLE IF EXISTS `autor`;
 CREATE TABLE `autor` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `nome` varchar(45) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=83 DEFAULT CHARSET=utf8;
-
-#
-# Data for table "autor"
-#
-
-INSERT INTO `autor` VALUES (82,'Adalcino');
-
-#
-# Structure for table "anal_has_autor"
-#
-
-DROP TABLE IF EXISTS `anal_has_autor`;
-CREATE TABLE `anal_has_autor` (
-  `anal_id` int(11) NOT NULL AUTO_INCREMENT,
-  `autor_id` int(11) NOT NULL,
-  PRIMARY KEY (`anal_id`,`autor_id`),
-  KEY `fk_anal_has_autor_autor1_idx` (`autor_id`),
-  KEY `fk_anal_has_autor_anal1_idx` (`anal_id`),
-  CONSTRAINT `fk_anal_has_autor_anal1` FOREIGN KEY (`anal_id`) REFERENCES `anal` (`id`),
-  CONSTRAINT `fk_anal_has_autor_autor1` FOREIGN KEY (`autor_id`) REFERENCES `autor` (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 #
-# Data for table "anal_has_autor"
+# Data for table "autor"
 #
 
 
@@ -90,7 +37,6 @@ CREATE TABLE `anal_has_autor` (
 # Structure for table "cidade"
 #
 
-DROP TABLE IF EXISTS `cidade`;
 CREATE TABLE `cidade` (
   `Id` int(11) NOT NULL AUTO_INCREMENT,
   `Codigo` int(11) NOT NULL,
@@ -110,7 +56,6 @@ INSERT INTO `cidade` VALUES (2983,3162948,'São José da Barra','MG'),(2984,3162
 # Structure for table "curso"
 #
 
-DROP TABLE IF EXISTS `curso`;
 CREATE TABLE `curso` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `nome` varchar(45) NOT NULL,
@@ -131,7 +76,6 @@ CREATE TABLE `curso` (
 # Structure for table "aluno"
 #
 
-DROP TABLE IF EXISTS `aluno`;
 CREATE TABLE `aluno` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `matricula` varchar(45) NOT NULL,
@@ -151,7 +95,7 @@ CREATE TABLE `aluno` (
   PRIMARY KEY (`id`,`curso_id`),
   KEY `fk_aluno_curso_idx` (`curso_id`),
   CONSTRAINT `fk_aluno_curso` FOREIGN KEY (`curso_id`) REFERENCES `curso` (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 #
 # Data for table "aluno"
@@ -162,29 +106,26 @@ CREATE TABLE `aluno` (
 # Structure for table "editora"
 #
 
-DROP TABLE IF EXISTS `editora`;
 CREATE TABLE `editora` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `nome` varchar(45) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 #
 # Data for table "editora"
 #
 
-INSERT INTO `editora` VALUES (1,'Jorge');
 
 #
 # Structure for table "estado"
 #
 
-DROP TABLE IF EXISTS `estado`;
 CREATE TABLE `estado` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `sigla` varchar(45) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=82 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=24 DEFAULT CHARSET=utf8;
 
 #
 # Data for table "estado"
@@ -196,7 +137,6 @@ INSERT INTO `estado` VALUES (1,'AC'),(2,'AL'),(3,'PA'),(4,'BA'),(5,'AP'),(6,'MA'
 # Structure for table "funcionario"
 #
 
-DROP TABLE IF EXISTS `funcionario`;
 CREATE TABLE `funcionario` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `cpf` int(10) unsigned NOT NULL,
@@ -210,7 +150,7 @@ CREATE TABLE `funcionario` (
   `senha` varchar(45) NOT NULL,
   `admin` tinyint(1) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=61 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 #
 # Data for table "funcionario"
@@ -221,26 +161,23 @@ CREATE TABLE `funcionario` (
 # Structure for table "jornal"
 #
 
-DROP TABLE IF EXISTS `jornal`;
 CREATE TABLE `jornal` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `titulo` varchar(45) NOT NULL,
   `data` date NOT NULL,
   `edicao` int(11) NOT NULL DEFAULT '0',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
 
 #
 # Data for table "jornal"
 #
 
-INSERT INTO `jornal` VALUES (3,'jhoashdusada','2018-06-03',0);
 
 #
 # Structure for table "livro"
 #
 
-DROP TABLE IF EXISTS `livro`;
 CREATE TABLE `livro` (
   `isbn` int(11) NOT NULL,
   `titulo` varchar(45) NOT NULL,
@@ -265,7 +202,6 @@ CREATE TABLE `livro` (
 # Structure for table "autor_has_livro"
 #
 
-DROP TABLE IF EXISTS `autor_has_livro`;
 CREATE TABLE `autor_has_livro` (
   `autor_id` int(11) NOT NULL AUTO_INCREMENT,
   `livro_isbn` int(11) NOT NULL,
@@ -285,7 +221,6 @@ CREATE TABLE `autor_has_livro` (
 # Structure for table "midia"
 #
 
-DROP TABLE IF EXISTS `midia`;
 CREATE TABLE `midia` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `titulo` varchar(45) NOT NULL,
@@ -293,37 +228,33 @@ CREATE TABLE `midia` (
   `data` date NOT NULL DEFAULT '0000-00-00',
   `edicao` int(11) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
 
 #
 # Data for table "midia"
 #
 
-INSERT INTO `midia` VALUES (1,'Dodo pressao','CD','2018-06-02',0),(2,'Avioes do Forro vol 3','CD','2018-06-01',0);
 
 #
 # Structure for table "orientador"
 #
 
-DROP TABLE IF EXISTS `orientador`;
 CREATE TABLE `orientador` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `nome` varchar(45) NOT NULL,
   `formacao` varchar(45) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 #
 # Data for table "orientador"
 #
 
-INSERT INTO `orientador` VALUES (1,'Jose','GRADUAÇÃO');
 
 #
 # Structure for table "revista"
 #
 
-DROP TABLE IF EXISTS `revista`;
 CREATE TABLE `revista` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `titulo` varchar(45) NOT NULL,
@@ -340,13 +271,11 @@ CREATE TABLE `revista` (
 # Data for table "revista"
 #
 
-INSERT INTO `revista` VALUES (1,'Playboy',1,'2018-06-01',23,231);
 
 #
 # Structure for table "tcc"
 #
 
-DROP TABLE IF EXISTS `tcc`;
 CREATE TABLE `tcc` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `titulo` varchar(45) NOT NULL,
@@ -361,7 +290,7 @@ CREATE TABLE `tcc` (
   KEY `fk_tcc_orientador1_idx` (`orientador_id`),
   KEY `fk_tcc_cidade1_idx` (`cidade_id`),
   CONSTRAINT `fk_tcc_autor1` FOREIGN KEY (`autor_id`) REFERENCES `autor` (`id`),
-  CONSTRAINT `fk_tcc_cidade1` FOREIGN KEY (`cidade_id`) REFERENCES `cidade` (`id`),
+  CONSTRAINT `fk_tcc_cidade1` FOREIGN KEY (`cidade_id`) REFERENCES `cidade` (`Id`),
   CONSTRAINT `fk_tcc_orientador1` FOREIGN KEY (`orientador_id`) REFERENCES `orientador` (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
@@ -374,7 +303,6 @@ CREATE TABLE `tcc` (
 # Structure for table "tema"
 #
 
-DROP TABLE IF EXISTS `tema`;
 CREATE TABLE `tema` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `nome` varchar(45) NOT NULL,
@@ -382,10 +310,10 @@ CREATE TABLE `tema` (
   PRIMARY KEY (`id`),
   KEY `areaconhecimento_id` (`areaconhecimento_id`),
   CONSTRAINT `tema_ibfk_1` FOREIGN KEY (`areaconhecimento_id`) REFERENCES `area_conhecimento` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=31 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8;
 
 #
 # Data for table "tema"
 #
 
-INSERT INTO `tema` VALUES (1,'COMPUTACAO',1),(2,'ENGENHARIA CIVIL',1),(3,'ENFERMAGEM',4),(4,'GEOGRAFIA',2),(5,'INGLES',5),(6,'FARMACIA',3),(13,'Programacao',1),(21,'Programacao',1),(29,'Programacao',1),(30,'Filosofia',1);
+INSERT INTO `tema` VALUES (1,'COMPUTACAO',1),(2,'ENGENHARIA CIVIL',1),(3,'ENFERMAGEM',4),(4,'GEOGRAFIA',2),(5,'INGLES',5),(6,'FARMACIA',3);

@@ -3,8 +3,13 @@ package br.uepb.model.acervo;
 import java.util.ArrayList;
 import java.util.Date;
 
+import javax.persistence.Entity;
+import javax.persistence.ManyToMany;
+import javax.persistence.Table;
+import javax.persistence.Transient;
 import javax.validation.constraints.NotNull;
 
+import org.hibernate.annotations.ManyToAny;
 import org.hibernate.validator.constraints.NotEmpty;
 
 import br.uepb.interfaces.IFAcervo;
@@ -18,23 +23,36 @@ import br.uepb.model.Tema;
  * A classe Livro estende a classe ItemAcervo
  * @author EquipeACL
  */
-
-
+/*@Entity
+@Table(name="livro")*/
 public class Livro extends ItemAcervo implements IFAcervo{
 	
 	
 	@NotEmpty(message=" ISBN é obrigatório")
 	private long isbn;
 	
+	//@ManyToMany
 	private ArrayList<Autor> autores;
 	
-	@NotNull(message = " O nome da Editora é obrigatório")
-	private Editora editora;	
 	
+	private Editora editora;
+	
+	@Transient
+	@NotNull(message = " Editora é obrigatório")
+	private String id_editora;
+	
+	@Transient
+	@NotNull(message = " Data é obrigatório")
+	private String string_data;
+	
+	@NotEmpty(message=" Numero de paginas é obrigatório")
 	private int numero_paginas;
 	
-	
 	private Tema tema;
+	
+	@Transient
+	@NotNull(message = " Tema é obrigatório")
+	private String id_tema;
 	
 	/**
 	 * M�todo construtor da classe Livro
@@ -111,6 +129,32 @@ public class Livro extends ItemAcervo implements IFAcervo{
 
 	public void setTema(Tema tema) {
 		this.tema = tema;
+	}
+	
+	
+	public String getId_editora() {
+		return id_editora;
+	}
+
+	public void setId_editora(String id_editora) {
+		this.id_editora = id_editora;
+	}
+
+	public String getId_tema() {
+		return id_tema;
+	}
+
+	public void setId_tema(String id_tema) {
+		this.id_tema = id_tema;
+	}
+	
+	
+	public String getString_data() {
+		return string_data;
+	}
+
+	public void setString_data(String string_data) {
+		this.string_data = string_data;
 	}
 
 	public boolean validaItem() {

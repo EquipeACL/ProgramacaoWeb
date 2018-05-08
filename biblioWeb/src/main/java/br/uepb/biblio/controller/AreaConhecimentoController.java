@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
@@ -48,6 +49,28 @@ public class AreaConhecimentoController {
 			model.addObject("listaAreaConhecimento",repositoryAreas.findAll());
 		}
 		return model;
+	}
+	
+	@RequestMapping("/editar")
+	public ModelAndView editar(String id){
+		ModelAndView model = new ModelAndView("areaConhecimento/CadastroAreaConhecimento");
+		model.addObject("areaConhecimento",repositoryAreas.findOne(Integer.parseInt(id)));
+		return model;
+	}
+	
+	@RequestMapping(value="/editar",method=RequestMethod.POST)
+	public ModelAndView editar(@Valid AreaConhecimento areaConhecimento, BindingResult result, Model model, RedirectAttributes attributes){
+		if(result.hasErrors()){
+			return novo(areaConhecimento,null);
+		}		
+		try{
+			cadastroAreaConhecimento.atualizar(areaConhecimento);
+		}catch(Exception e){
+			result.rejectValue("nome", e.getMessage(),e.getMessage());
+			return (novo(areaConhecimento,null));
+		}
+		attributes.addFlashAttribute("mensagem", "Area de Conhecimento atualizada com sucesso!");
+		return new ModelAndView("redirect:/areasconhecimento/novo");
 	}
 	
 	@RequestMapping(value="/novo",method=RequestMethod.POST)

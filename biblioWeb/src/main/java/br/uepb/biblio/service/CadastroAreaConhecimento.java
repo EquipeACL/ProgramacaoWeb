@@ -33,6 +33,15 @@ public class CadastroAreaConhecimento {
 	}
 	
 	@Transactional
+	public void atualizar(AreaConhecimento area) throws Exception {
+		try{
+			manager.refresh(area);
+		}catch(Exception e){
+			throw new Exception("Erro na atualização");
+		}
+	}
+	
+	@Transactional
 	public List<AreaConhecimento> buscarPorNome (String busca) {
 		return manager.createQuery("select a from AreaConhecimento a where a.nome like '%"+busca+"%'",AreaConhecimento.class).getResultList();
 	}

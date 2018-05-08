@@ -12,10 +12,10 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import br.uepb.biblio.repository.Anais;
+//import br.uepb.biblio.repository.Anais;
 import br.uepb.biblio.repository.Autores;
 import br.uepb.biblio.repository.Cidades;
-import br.uepb.biblio.service.CrudAnaisService;
+//import br.uepb.biblio.service.CrudAnaisService;
 import br.uepb.model.acervo.Anal;
 import br.uepb.model.enums.Tipo_anal;
 
@@ -31,11 +31,11 @@ public class AnaisController {
 	ManyTooMany
 	*/
 	
-	@Autowired
+	/*@Autowired
 	private Anais anaisRepository;
 	
 	@Autowired
-	private CrudAnaisService anaisService;
+	private CrudAnaisService anaisService;*/
 	
 	@Autowired
 	private Cidades cidadesRepository;
@@ -47,9 +47,9 @@ public class AnaisController {
 		mv.addObject("autores",new String[] {"Autor1","Autor2","Autor3"});
 		mv.addObject("cidades",cidadesRepository.findAll());
 		if(busca!=null){
-			mv.addObject("listaAnais",anaisService.buscarPorTitulo(busca));
+			//mv.addObject("listaAnais",anaisService.buscarPorTitulo(busca));
 		}else{
-			mv.addObject("listasAnais",anaisRepository.findAll());
+			//mv.addObject("listasAnais",anaisRepository.findAll());
 		}
 		return mv;
 	}
@@ -61,9 +61,9 @@ public class AnaisController {
 		mv.addObject("autores",new String[] {"Autor1","Autor2","Autor3"});
 		mv.addObject("cidades",cidadesRepository.findAll());
 		if(busca!=null){
-			mv.addObject("listaAnais",anaisService.buscarPorTitulo(busca));
+			//mv.addObject("listaAnais",anaisService.buscarPorTitulo(busca));
 		}else{
-			mv.addObject("listasAnais",anaisRepository.findAll());
+			//mv.addObject("listasAnais",anaisRepository.findAll());
 		}
 		return mv;
 	}

@@ -32,8 +32,8 @@ public class LivrosController {
 	private Livros livros;
 	
 	@Autowired
-	private CadastroLivrosService livrosService;
-	*/
+	private CadastroLivroService livrosService;*/
+
 	
 	@RequestMapping("/livros/novo")
 	public ModelAndView novo(Livro livro,String busca) {
@@ -43,7 +43,7 @@ public class LivrosController {
 		mv.addObject("temas",temas.findAll());
 		mv.addObject("editoras",editoras.findAll());
 		if(busca!=null){
-			//mv.addObject("listaLivros",livrosService.buscaPorTitulo(busca));
+			//mv.addObject("listaLivros",livrosService.buscarPorTitulo(busca));
 		}else{
 			//mv.addObject("listaLivros",livros.findAll());
 		}
@@ -54,7 +54,7 @@ public class LivrosController {
 	public ModelAndView pesquisar(String busca) {
 		ModelAndView mv = new ModelAndView("livro/PesquisaLivro");
 		if(busca!=null){
-			//mv.addObject("listaLivros",livrosService.buscaPorTitulo(busca));
+			//mv.addObject("listaLivros",livrosService.buscarPorTitulo(busca));
 		}else{
 			//mv.addObject("listaLivros",livros.findAll());
 		}
@@ -66,7 +66,20 @@ public class LivrosController {
 		if(result.hasErrors()) {
 			return novo(livro,null);
 		}
-		//salvar no banco
+		
+		// Convertendo a string da data do html em sql.Date
+				java.sql.Date dataSql = new java.sql.Date(Integer.parseInt(livro.getString_data().substring(2, 4)) + 100,
+						Integer.parseInt(livro.getString_data().substring(5, 7)),
+						Integer.parseInt(livro.getString_data().substring(8, 10)));
+		livro.setAnoPublicacao(dataSql);
+		
+		livro.setEditora(editoras.findOne(Integer.parseInt(livro.getId_editora())));
+		
+		livro.setTema(temas.findOne(Integer.parseInt(livro.getId_tema())));
+		
+		//FALTA ADICIONAR OS AUTORES
+		
+		//livrosService.save(livro);
 		
 		attributes.addFlashAttribute("mensagem", "Livro salvo com sucesso!");
 		return new ModelAndView("redirect:/livros/novo");

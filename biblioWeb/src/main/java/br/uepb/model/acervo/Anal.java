@@ -26,8 +26,8 @@ import br.uepb.model.enums.Tipo_anal;
  * @author EquipeACL
  */
 
-@Entity
-@Table(name="anal")
+/*@Entity
+@Table(name="anal")*/
 public class Anal extends ItemAcervo implements IFAcervo{
 
 	@NotNull(message=" Tipo não pode ser nulo!")
@@ -37,6 +37,10 @@ public class Anal extends ItemAcervo implements IFAcervo{
 	@Transient
 	@NotBlank(message="Autor obrigatório")
 	private String id_autor;
+	
+	@Transient
+	@NotBlank(message=" Data é obrigatório")
+	private String data_string;
 	
 	@Transient
 	@NotBlank(message="Cidade obrigatório")
@@ -109,6 +113,31 @@ public class Anal extends ItemAcervo implements IFAcervo{
 	public void setLocal(Cidade local) {
 		this.local = local;
 	}
+	
+	public String getId_autor() {
+		return id_autor;
+	}
+
+	public void setId_autor(String id_autor) {
+		this.id_autor = id_autor;
+	}
+
+	public String getData_string() {
+		return data_string;
+	}
+
+	public void setData_string(String data_string) {
+		this.data_string = data_string;
+	}
+
+	public String getId_cidade() {
+		return id_cidade;
+	}
+
+	public void setId_cidade(String id_cidade) {
+		this.id_cidade = id_cidade;
+	}
+
 	public boolean validaItem() {
 		return true;
 	}
