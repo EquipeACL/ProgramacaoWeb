@@ -4,10 +4,10 @@ package br.uepb.model.enums;
  * @author EquipeACL
  *
  */
-public enum Tipo_nivel_aluno {
+public enum Tipo_nivel {
 	GRADUAÇÃO("Graduação"),ESPECIALIZAÇÃO("Especialização"),MESTRADO("Mestrado"),DOUTORADO("Doutorado"),POSGRADUAÇÃO("Pós-graduação"); //G-Graduacao, E-Especializa��o, M-Mestrado, D-Doutorado, P-Pos-Doutorado
 	private String descricao;
-	private Tipo_nivel_aluno(String descricao) {
+	private Tipo_nivel(String descricao) {
 		this.descricao = descricao;
 	}
 	public String getDescricao() {

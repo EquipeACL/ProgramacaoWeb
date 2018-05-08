@@ -19,7 +19,7 @@ import br.uepb.biblio.repository.Orientadores;
 import br.uepb.biblio.service.CadastroOrientadorService;
 import br.uepb.biblio.service.exception.ItemDuplicadoException;
 import br.uepb.model.Orientador;
-import br.uepb.model.enums.Tipo_nivel_aluno;
+import br.uepb.model.enums.Tipo_nivel;
 
 @Controller
 @RequestMapping("/orientadores")
@@ -34,7 +34,7 @@ public class OrientadoresController {
 	@RequestMapping("/novo")
 	public ModelAndView novo(Orientador orientador,String busca) {
 		ModelAndView mv = new ModelAndView("/orientador/CadastroOrientador");
-		mv.addObject("formacoes", Tipo_nivel_aluno.values());
+		mv.addObject("formacoes", Tipo_nivel.values());
 		if(busca!=null){
 			mv.addObject("listaOrientador", cadastroOrientadorService.buscarPorNome(busca));
 		}else{
@@ -46,7 +46,7 @@ public class OrientadoresController {
 	@RequestMapping("/pesquisar")
 	public ModelAndView pesquisar(String busca) {
 		ModelAndView mv = new ModelAndView("/orientador/PesquisaOrientador");
-		mv.addObject("formacoes", Tipo_nivel_aluno.values());
+		mv.addObject("formacoes", Tipo_nivel.values());
 		if(busca!=null){
 			mv.addObject("listaOrientador", cadastroOrientadorService.buscarPorNome(busca));
 		}else{

@@ -16,7 +16,7 @@ import org.hibernate.validator.constraints.NotBlank;
 import org.hibernate.validator.constraints.NotEmpty;
 
 import br.uepb.model.Curso;
-import br.uepb.model.enums.Tipo_nivel_aluno;
+import br.uepb.model.enums.Tipo_nivel;
 /**
  * Essa classe � utilizada como modelo para um objeto do tipo Aluno;
  * A classe cont�m os respectivos getters and setters de seus atributos.
@@ -43,7 +43,7 @@ public class Aluno extends Usuario {
 	
 	@NotNull(message=" Nivel do aluno é obrigatório")
 	@Enumerated(EnumType.STRING)
-	private Tipo_nivel_aluno nivel;
+	private Tipo_nivel nivel;
 	
 	@NotNull(message=" Data de ingresso é obrigatório")
 	private Date anoIngresso;
@@ -76,7 +76,7 @@ public class Aluno extends Usuario {
 	 * @param senhaAcesso, a senha de acesso ao sistema do aluno
 	 */
 	public Aluno(String matricula, int cpf, int rg, String naturalidade, String nomeCompleto, String nomeMae,
-			String endereco, int telefone, Curso curso, Tipo_nivel_aluno nivel, String email, Date anoIngresso,
+			String endereco, int telefone, Curso curso, Tipo_nivel nivel, String email, Date anoIngresso,
 			int periodoIngresso, String senhaAcesso) {
 		super(cpf, nomeCompleto, rg, naturalidade, endereco, telefone, email, senhaAcesso);
 		setMatricula(matricula);
@@ -103,7 +103,7 @@ public class Aluno extends Usuario {
 	 * @param senhaAcesso, a senha de acesso ao sistema do aluno
 	 */
 	public Aluno(int cpf, int rg, String naturalidade, String nomeCompleto, String nomeMae,
-			String endereco, int telefone, Curso curso, Tipo_nivel_aluno nivel, String email, Date anoIngresso, int periodoIngresso,
+			String endereco, int telefone, Curso curso, Tipo_nivel nivel, String email, Date anoIngresso, int periodoIngresso,
 			String senhaAcesso) {
 		super(cpf, nomeCompleto, rg, naturalidade, endereco, telefone, email, senhaAcesso);
 
@@ -135,10 +135,10 @@ public class Aluno extends Usuario {
 	public void setCurso(Curso curso) {
 		this.curso = curso;
 	}
-	public Tipo_nivel_aluno getNivel() {
+	public Tipo_nivel getNivel() {
 		return nivel;
 	}
-	public void setNivel(Tipo_nivel_aluno nivel) {
+	public void setNivel(Tipo_nivel nivel) {
 		this.nivel = nivel;
 	}
 	public Date getAnoIngresso() {

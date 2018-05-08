@@ -18,7 +18,7 @@ import br.uepb.biblio.repository.Tccs;
 import br.uepb.biblio.service.CrudTccService;
 import br.uepb.biblio.service.exception.ItemDuplicadoException;
 import br.uepb.model.acervo.Tcc;
-import br.uepb.model.enums.Tipo_nivel_aluno;
+import br.uepb.model.enums.Tipo_nivel;
 import br.uepb.model.enums.Tipo_tcc;
 
 @Controller
@@ -46,7 +46,7 @@ public class TccsController {
 		model.addObject("autores",autoresRepository.findAll());
 		model.addObject("orientadores",orientadoresRepository.findAll());
 		model.addObject("cidades",cidadesRepository.findAll());
-		model.addObject("formacoes",Tipo_nivel_aluno.values());
+		model.addObject("formacoes",Tipo_nivel.values());
 		model.addObject("tipos",Tipo_tcc.values());
 		if(busca!=null){
 			model.addObject("listaTcc",tccService.buscarPorTitulo(busca));
@@ -61,7 +61,7 @@ public class TccsController {
 		ModelAndView model = new ModelAndView("/tcc/PesquisaTcc");
 		model.addObject("autores",autoresRepository.findAll());
 		model.addObject("orientadores",orientadoresRepository.findAll());
-		model.addObject("formacoes",Tipo_nivel_aluno.values());
+		model.addObject("formacoes",Tipo_nivel.values());
 		model.addObject("tipos",Tipo_tcc.values());
 		if(busca!=null){
 			model.addObject("listaTcc",tccService.buscarPorTitulo(busca));
@@ -78,6 +78,7 @@ public class TccsController {
 		}
 		//salvar no banco
 		// Convertendo a string da data do html em sql.Date
+		@SuppressWarnings("deprecation")
 		java.sql.Date dataSql = new java.sql.Date(Integer.parseInt(tcc.getData_string().substring(2, 4)) + 100,
 				Integer.parseInt(tcc.getData_string().substring(5, 7)),
 				Integer.parseInt(tcc.getData_string().substring(8, 10)));
