@@ -45,7 +45,7 @@ $(function() {
 	}
 	function onAutorSalvo(autor){
 		
-		var comboAutor =$('#autor');
+		var comboAutor =$('#id_autor');
 		comboAutor.append('<option value ='+autor.id+'>'+autor.nome+'</option>');
 		comboAutor.val(autor.id);
 		modal.modal('hide');

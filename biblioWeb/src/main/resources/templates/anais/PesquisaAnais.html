@@ -38,8 +38,8 @@
 								<tr>
 									<th><input name="tudo" type="checkbox"></th>
 									<th>#</th>
-									<th>Titulo do Anal</th>
-									<th>Tipo do Anal</th>
+									<th>Titulo</th>
+									<th>Tipo</th>
 									<th>Nome do Congresso</th>
 									<th>Ano de Publicação</th>
 									<th>Cidade</th>	
@@ -47,13 +47,13 @@
 							</thead>
 							<tbody>
 								<tr th:each="anal : ${listaAnais}">
-									<td><input th:id="|check*{anal.titulo}|" th:name="|check*{anal.nome}|" type="checkbox"></td>
+									<td><input th:id="|check*{anal.titulo}|" th:name="|check*{anal.titulo}|" type="checkbox"></td>
 									<td th:text="*{anal.id}">1</td>
 									<td th:text="*{anal.titulo}">Nome da Area deconhecimento</td>
 									<td th:text="*{anal.tipo}">Tipo do Anal</td>
 									<td th:text="*{anal.nome_congresso}">Nome do Congresso</td>
 									<td th:text="*{anal.data}">Data de Publicação</td>
-									<td th:text="*{anal.cidade.nome}">Cidade</td>
+									<td th:text="*{anal.local.nome}">Cidade</td>
 								</tr>
 							</tbody>
 						</table>

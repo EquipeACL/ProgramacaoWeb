@@ -69,7 +69,7 @@ public class AutoresController {
 		return new ModelAndView("redirect:/autores/novo");
 	}
 	
-	@RequestMapping(value = "/autores", method = RequestMethod.POST, consumes = { MediaType.APPLICATION_JSON_VALUE })
+	@RequestMapping(method = RequestMethod.POST, consumes = { MediaType.APPLICATION_JSON_VALUE })
 	public @ResponseBody ResponseEntity<?> salvar(@RequestBody Autor autor,BindingResult result){
 		
 		//Se deu erro ele vai retornar a msg padrão definida lá no @NotBlank ou de outra anotação se houver

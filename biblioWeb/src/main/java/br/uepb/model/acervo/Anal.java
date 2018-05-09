@@ -1,17 +1,25 @@
 package br.uepb.model.acervo;
 
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 import javax.persistence.CascadeType;
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
+import javax.persistence.FetchType;
 import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Transient;
 import javax.validation.constraints.NotNull;
 
+import org.hibernate.annotations.Fetch;
+import org.hibernate.annotations.FetchMode;
 import org.hibernate.validator.constraints.NotBlank;
 
 import br.uepb.interfaces.IFAcervo;
@@ -26,8 +34,8 @@ import br.uepb.model.enums.Tipo_anal;
  * @author EquipeACL
  */
 
-/*@Entity
-@Table(name="anal")*/
+@Entity
+@Table(name="anal")
 public class Anal extends ItemAcervo implements IFAcervo{
 
 	@NotNull(message=" Tipo não pode ser nulo!")
@@ -35,7 +43,7 @@ public class Anal extends ItemAcervo implements IFAcervo{
 	private Tipo_anal tipo;
 	
 	@Transient
-	@NotBlank(message="Autor obrigatório")
+	@NotBlank(message=" Autor obrigatório")
 	private String id_autor;
 	
 	@Transient
@@ -43,13 +51,25 @@ public class Anal extends ItemAcervo implements IFAcervo{
 	private String data_string;
 	
 	@Transient
-	@NotBlank(message="Cidade obrigatório")
+	@NotBlank(message=" Cidade obrigatório")
 	private String id_cidade;
 
-	//ManyToMany
-	private Autor autor;
+	@OneToMany(
+	        targetEntity=Autor.class,
+	        cascade=CascadeType.MERGE,
+	        fetch=FetchType.EAGER
+	)
+	@Fetch(FetchMode.SELECT)
+    @JoinTable(
+          name="autor_has_anal",
+          joinColumns=@JoinColumn(name="anal_id"),
+          inverseJoinColumns=@JoinColumn(name="autor_id")
+    )
+	private List<Autor> autores;
+	
 	
 	@NotBlank(message = " Nome do Congresso é Obrigatório")
+	@Column(name="congresso")
 	private String nome_congresso;
 	
 	@ManyToOne(cascade=CascadeType.MERGE)
@@ -74,11 +94,11 @@ public class Anal extends ItemAcervo implements IFAcervo{
 	 * @param anoPublicacao, ano de publicacao do anal
 	 * @param local, objeto do tipo Cidade referente ao anal
 	 */
-	public Anal(int id,Tipo_anal tipo, String titulo, Autor autor, String nome_congresso, Date anoPublicacao, Cidade local){
+	public Anal(int id,Tipo_anal tipo, String titulo, ArrayList<Autor> autores, String nome_congresso, Date anoPublicacao, Cidade local){
 		setId(id);
 		setTipo(tipo);
 		setTitulo(titulo);
-		setAutor(autor);
+		setAutor(autores);
 		setNome_congresso(nome_congresso);
 		setAnoPublicacao(anoPublicacao);
 		setLocal(local);
@@ -89,11 +109,11 @@ public class Anal extends ItemAcervo implements IFAcervo{
 	public void setTipo(Tipo_anal tipo) {
 		this.tipo = tipo;
 	}
-	public Autor getAutor() {
-		return autor;
+	public List<Autor> getAutor() {
+		return this.autores;
 	}
-	public void setAutor(Autor autor) {
-		this.autor = autor;
+	public void setAutor(ArrayList<Autor> autores) {
+		this.autores = autores;
 	}
 	public String getNome_congresso() {
 		return nome_congresso;
