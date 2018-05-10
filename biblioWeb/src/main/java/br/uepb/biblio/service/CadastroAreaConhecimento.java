@@ -35,7 +35,9 @@ public class CadastroAreaConhecimento {
 	@Transactional
 	public void atualizar(AreaConhecimento area) throws Exception {
 		try{
-			manager.refresh(area);
+			if(area.getId()!=0){
+				areasConhecimento.save(area);
+			}
 		}catch(Exception e){
 			throw new Exception("Erro na atualização");
 		}

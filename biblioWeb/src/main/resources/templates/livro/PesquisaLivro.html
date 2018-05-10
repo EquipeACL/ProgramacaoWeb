@@ -43,7 +43,7 @@
 									<th>Data</th>
 									<th>Edição</th>
 									<th>Quantidade de Paginas</th>
-									<th>Area do Conhecimento</th>
+									<th>Area do Conhecimento - Tema</th>
 								</tr>
 							</thead>
 							<tbody>
@@ -55,7 +55,7 @@
 									<td th:text="*{livro.data}">Data</td>
 									<td th:text="*{livro.edicao}">Edição</td>
 									<td th:text="*{livro.numero_paginas}">Quantidade de paginas</td>
-									<td th:text="*{livro.area.nome}">Area do conhecimento</td>
+									<td th:text="|*{livro.tema.area.nome}-*{livro.tema.nome}|">Area do conhecimento</td>
 								</tr>
 							</tbody>
 						</table>

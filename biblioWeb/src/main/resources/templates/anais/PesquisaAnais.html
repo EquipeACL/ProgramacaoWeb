@@ -53,7 +53,7 @@
 									<td th:text="*{anal.tipo}">Tipo do Anal</td>
 									<td th:text="*{anal.nome_congresso}">Nome do Congresso</td>
 									<td th:text="*{anal.data}">Data de Publicação</td>
-									<td th:text="*{anal.local.nome}">Cidade</td>
+									<td th:text="|*{anal.local.nome}-*{anal.local.uf}|">Cidade</td>
 								</tr>
 							</tbody>
 						</table>

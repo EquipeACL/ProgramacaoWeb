@@ -2,21 +2,30 @@
 <html lang="pt" xmlns="http://www.w3.org/1999/xhtml"
 	xmlns:th="http://www.thymeleaf.org">
 <body>
-	<div class="modal fade" id="modalRemoverAreaConhecimento" tabindex="-1" role="dialog"  th:fragment="modal">
+	<div class="modal fade" id="modalCadastroRapidoAreaConhecimento" tabindex="-1" role="dialog"  th:fragment="modal">
 		<div class="modal-dialog  modal-sm">
 			<div class="modal-content">
 				<div class="modal-header">
 					<button type="button" class="close" data-dismiss="modal">
 						<span aria-hidden="true">&times;</span>
 					</button>
-					<h4 class="modal-title">Remover Area do Conhecimento?</h4>
+					<h4 class="modal-title">Cadastro Area do Conhecimento</h4>
 				</div>
 				
 				<div class="modal-body">
-					<div class="alert  alert-danger  hidden " role="alert"></div>
-										
+					<div class="alert  alert-danger  hidden js-mensagem-cadastro-rapido-areaConhecimento" role="alert"></div>
+					
+					<form class="form-horizontal" th:action="@{/areasconhecimento}">
+						<div class="form-group">
+							<label class="col-sm-2  control-label" for="nome">Nome</label>
+							<div class="col-sm-10">
+								<input id="nome" type="text" class="form-control">
+							</div>
+						</div>
+					</form>
+									
 					<button type="button" class="btn  btn-cancel" data-dismiss="modal">Cancelar</button>
-					<button type="button" class="btn  btn-primary  js-modal-remover-AreaConhecimento-sim-btn">Sim</button>
+					<button type="button" class="btn  btn-primary js-modal-cadastro-AreaConhecimento-salvar-btn">Salvar</button>
 				</div>
 			</div>
 		</div>

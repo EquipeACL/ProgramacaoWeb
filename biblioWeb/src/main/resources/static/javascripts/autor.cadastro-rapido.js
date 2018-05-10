@@ -24,7 +24,7 @@ $(function() {
 	}
 	function onBotaoSalvarClick(){
 		var nome = inputNomeAutor.val().trim();
-		//console.log("nomeAutor: ",)
+		console.log("nomeAutor: "+nome);
 		$.ajax({
 			url:url,
 			method:'POST',
@@ -45,7 +45,7 @@ $(function() {
 	}
 	function onAutorSalvo(autor){
 		
-		var comboAutor =$('#id_autor');
+		var comboAutor =$('#autor');
 		comboAutor.append('<option value ='+autor.id+'>'+autor.nome+'</option>');
 		comboAutor.val(autor.id);
 		modal.modal('hide');

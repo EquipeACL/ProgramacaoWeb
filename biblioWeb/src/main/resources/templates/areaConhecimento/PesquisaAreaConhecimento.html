@@ -29,9 +29,6 @@
 						<div class="form-group col-sm-2">
 							<button class="btn btn-primary" type="submit">Pesquisar</button>
 						</div>						
-						<div class="form-group col-sm-2">
-							<button class="btn btn-danger" type="button">Remover selecionados</button>
-						</div>
 					</form>
 					
 					<div class="container-fluid">
@@ -51,8 +48,8 @@
 									<td><input th:id="|check*{area.nome}|" th:name="|check*{area.nome}|" type="checkbox"></td>
 									<td th:text="*{area.id}">1</td>
 									<td th:text="*{area.nome}">Nome da Area deconhecimento</td>
-									<td><button th:id="|removerAreaId*{area.id}|" class="btn btn-danger" th:onclick="|removerArea(*{area.id})|" type="button">Remover</button></td>
-									<td><button class="btn btn-default" name="id" th:value="*{area.id}" type="submit">Editar</button></td>
+									<td><button th:id="|removerAreaId*{area.id}|" class="btn btn-danger btn-sm" th:onclick="|removerArea(*{area.id})|" type="button">Remover</button></td>
+									<td><button class="btn btn-default btn-sm" name="id" th:value="*{area.id}" type="submit">Editar</button></td>
 								</form>
 								</tr>
 							

@@ -2,15 +2,22 @@ package br.uepb.model.acervo;
 
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
+import javax.persistence.CascadeType;
+import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.ManyToMany;
+import javax.persistence.FetchType;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Transient;
 import javax.validation.constraints.NotNull;
 
-import org.hibernate.annotations.ManyToAny;
-import org.hibernate.validator.constraints.NotEmpty;
+import org.hibernate.annotations.Fetch;
+import org.hibernate.annotations.FetchMode;
 
 import br.uepb.interfaces.IFAcervo;
 import br.uepb.model.Autor;
@@ -23,18 +30,33 @@ import br.uepb.model.Tema;
  * A classe Livro estende a classe ItemAcervo
  * @author EquipeACL
  */
-/*@Entity
-@Table(name="livro")*/
+@Entity
+@Table(name="livro")
 public class Livro extends ItemAcervo implements IFAcervo{
 	
 	
-	@NotEmpty(message=" ISBN é obrigatório")
-	private long isbn;
+	@NotNull(message=" ISBN é obrigatório")
+	private int isbn;
 	
-	//@ManyToMany
-	private ArrayList<Autor> autores;
+	@OneToMany(
+	        targetEntity=Autor.class,
+	        cascade=CascadeType.MERGE,
+	        fetch=FetchType.EAGER
+	)
+	@Fetch(FetchMode.SELECT)
+    @JoinTable(
+          name="autor_has_livro",
+          joinColumns=@JoinColumn(name="livro_id"),
+          inverseJoinColumns=@JoinColumn(name="autor_id")
+    )
+	private List<Autor> autores;
 	
+	@Transient
+	@NotNull(message = " Pelo menos um autor é obrigatório")
+	private String id_autor;
 	
+	@ManyToOne(cascade=CascadeType.MERGE)
+	@JoinColumn(name = "editora_id",nullable=false)
 	private Editora editora;
 	
 	@Transient
@@ -45,9 +67,12 @@ public class Livro extends ItemAcervo implements IFAcervo{
 	@NotNull(message = " Data é obrigatório")
 	private String string_data;
 	
-	@NotEmpty(message=" Numero de paginas é obrigatório")
+	@NotNull(message=" Numero de paginas é obrigatório")
+	@Column(name="num_pag")
 	private int numero_paginas;
 	
+	@ManyToOne(cascade=CascadeType.MERGE)
+	@JoinColumn(name = "tema_id",nullable=false)
 	private Tema tema;
 	
 	@Transient
@@ -72,7 +97,7 @@ public class Livro extends ItemAcervo implements IFAcervo{
 	 * @param numero_paginas, numero de paginas do livro
 	 * @param area, objeto do tipo AreaConhecimento referente ao livro
 	 */
-	public Livro(long isbn, String titulo, ArrayList<Autor> autores, Editora editora, Date ano_publicacao, int edicao, int numero_paginas, Tema tema) {
+	public Livro(int isbn, String titulo, ArrayList<Autor> autores, Editora editora, Date ano_publicacao, int edicao, int numero_paginas, Tema tema) {
 		setIsbn(isbn);
 		setTitulo(titulo);
 		setAutores(autores);
@@ -83,19 +108,19 @@ public class Livro extends ItemAcervo implements IFAcervo{
 		setTema(tema);
 	}
 
-	public long getIsbn() {
+	public int getIsbn() {
 		return isbn;
 	}
 
-	public void setIsbn(long isbn) {
+	public void setIsbn(int isbn) {
 		this.isbn = isbn;
 	}
 
-	public ArrayList<Autor> getAutores() {
+	public List<Autor> getAutores() {
 		return autores;
 	}
 
-	public void setAutores(ArrayList<Autor> autores) {
+	public void setAutores(List<Autor> autores) {
 		this.autores = autores;
 	}
 
@@ -155,6 +180,15 @@ public class Livro extends ItemAcervo implements IFAcervo{
 
 	public void setString_data(String string_data) {
 		this.string_data = string_data;
+	}
+	
+	
+	public String getId_autor() {
+		return id_autor;
+	}
+
+	public void setId_autor(String id_autor) {
+		this.id_autor = id_autor;
 	}
 
 	public boolean validaItem() {

@@ -1,8 +1,6 @@
-﻿
-DROP DATABASE IF EXISTS `biblioteca`;
+﻿DROP DATABASE IF EXISTS `biblioteca`;
 CREATE DATABASE `biblioteca`;
 USE `biblioteca`;
-
 #
 # Structure for table "area_conhecimento"
 #
@@ -27,7 +25,7 @@ CREATE TABLE `autor` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `nome` varchar(45) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8;
 
 #
 # Data for table "autor"
@@ -68,10 +66,15 @@ CREATE TABLE `anal` (
   PRIMARY KEY (`id`,`cidade_id`),
   KEY `fk_anal_cidade1_idx` (`cidade_id`),
   CONSTRAINT `fk_anal_cidade1` FOREIGN KEY (`cidade_id`) REFERENCES `cidade` (`Id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8;
 
 #
 # Data for table "anal"
+#
+
+
+#
+# Structure for table "autor_has_anal"
 #
 
 CREATE TABLE `autor_has_anal` (
@@ -80,9 +83,13 @@ CREATE TABLE `autor_has_anal` (
   PRIMARY KEY (`autor_id`,`anal_id`),
   KEY `fk_autor_has_anal_idx` (`anal_id`),
   KEY `fk_autor_has_anal_autor_idx` (`autor_id`),
-  CONSTRAINT `fk_autor_has_anal_autor` FOREIGN KEY (`autor_id`) REFERENCES `autor` (`id`),
-  CONSTRAINT `fk_autor_has_anal_anal1` FOREIGN KEY (`anal_id`) REFERENCES `anal` (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+  CONSTRAINT `fk_autor_has_anal_anal1` FOREIGN KEY (`anal_id`) REFERENCES `anal` (`id`),
+  CONSTRAINT `fk_autor_has_anal_autor` FOREIGN KEY (`autor_id`) REFERENCES `autor` (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
+
+#
+# Data for table "autor_has_anal"
+#
 
 
 #
@@ -143,7 +150,7 @@ CREATE TABLE `editora` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `nome` varchar(45) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
 
 #
 # Data for table "editora"
@@ -208,49 +215,6 @@ CREATE TABLE `jornal` (
 
 
 #
-# Structure for table "livro"
-#
-
-CREATE TABLE `livro` (
-  `isbn` int(11) NOT NULL,
-  `titulo` varchar(45) NOT NULL,
-  `editora_id` int(11) NOT NULL,
-  `data` date NOT NULL DEFAULT '0000-00-00',
-  `edicao` int(11) NOT NULL,
-  `num_pag` int(11) NOT NULL,
-  `area_conhecimento_id` int(11) NOT NULL,
-  PRIMARY KEY (`isbn`,`editora_id`,`area_conhecimento_id`),
-  KEY `fk_livro_editora1_idx` (`editora_id`),
-  KEY `fk_livro_area_conhecimento1_idx` (`area_conhecimento_id`),
-  CONSTRAINT `fk_livro_area_conhecimento1` FOREIGN KEY (`area_conhecimento_id`) REFERENCES `area_conhecimento` (`id`),
-  CONSTRAINT `fk_livro_editora1` FOREIGN KEY (`editora_id`) REFERENCES `editora` (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
-#
-# Data for table "livro"
-#
-
-
-#
-# Structure for table "autor_has_livro"
-#
-
-CREATE TABLE `autor_has_livro` (
-  `autor_id` int(11) NOT NULL AUTO_INCREMENT,
-  `livro_isbn` int(11) NOT NULL,
-  PRIMARY KEY (`autor_id`,`livro_isbn`),
-  KEY `fk_autor_has_livro_livro1_idx` (`livro_isbn`),
-  KEY `fk_autor_has_livro_autor_idx` (`autor_id`),
-  CONSTRAINT `fk_autor_has_livro_autor` FOREIGN KEY (`autor_id`) REFERENCES `autor` (`id`),
-  CONSTRAINT `fk_autor_has_livro_livro1` FOREIGN KEY (`livro_isbn`) REFERENCES `livro` (`isbn`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
-#
-# Data for table "autor_has_livro"
-#
-
-
-#
 # Structure for table "midia"
 #
 
@@ -277,7 +241,7 @@ CREATE TABLE `orientador` (
   `nome` varchar(45) NOT NULL,
   `formacao` varchar(45) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
 
 #
 # Data for table "orientador"
@@ -350,3 +314,46 @@ CREATE TABLE `tema` (
 #
 
 INSERT INTO `tema` VALUES (1,'COMPUTACAO',1),(2,'ENGENHARIA CIVIL',1),(3,'ENFERMAGEM',4),(4,'GEOGRAFIA',2),(5,'INGLES',5),(6,'FARMACIA',3);
+
+#
+# Structure for table "livro"
+#
+
+CREATE TABLE `livro` (
+  `id` int(11) NOT NULL,
+  `isbn` int(11) NOT NULL,
+  `titulo` varchar(45) NOT NULL,
+  `editora_id` int(11) NOT NULL,
+  `data` date NOT NULL DEFAULT '0000-00-00',
+  `edicao` int(11) NOT NULL,
+  `num_pag` int(11) NOT NULL,
+  `tema_id` int(11) NOT NULL,
+  PRIMARY KEY (`isbn`),
+  KEY `fk_livro_editora1_idx` (`editora_id`),
+  KEY `fk_livro_tema1_idx` (`tema_id`),
+  CONSTRAINT `fk_livro_editora1` FOREIGN KEY (`editora_id`) REFERENCES `editora` (`id`),
+  CONSTRAINT `fk_livro_tema1` FOREIGN KEY (`tema_id`) REFERENCES `tema` (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+#
+# Data for table "livro"
+#
+
+
+#
+# Structure for table "autor_has_livro"
+#
+
+CREATE TABLE `autor_has_livro` (
+  `autor_id` int(11) NOT NULL AUTO_INCREMENT,
+  `livro_isbn` int(11) NOT NULL,
+  PRIMARY KEY (`autor_id`,`livro_isbn`),
+  KEY `livro_isbn` (`livro_isbn`),
+  CONSTRAINT `autor_has_livro_ibfk_2` FOREIGN KEY (`livro_isbn`) REFERENCES `livro` (`isbn`),
+  CONSTRAINT `autor_has_livro_ibfk_1` FOREIGN KEY (`autor_id`) REFERENCES `autor` (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+#
+# Data for table "autor_has_livro"
+#
+

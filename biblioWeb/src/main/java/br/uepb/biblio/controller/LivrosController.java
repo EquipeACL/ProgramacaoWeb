@@ -1,5 +1,7 @@
 package br.uepb.biblio.controller;
 
+import java.util.ArrayList;
+
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,13 +14,21 @@ import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import br.uepb.biblio.repository.AreasConhecimento;
+import br.uepb.biblio.repository.Autores;
 import br.uepb.biblio.repository.Editoras;
+import br.uepb.biblio.repository.Livros;
 import br.uepb.biblio.repository.Temas;
+import br.uepb.biblio.service.CrudLivroService;
+import br.uepb.biblio.service.exception.ItemDuplicadoException;
+import br.uepb.model.Autor;
 import br.uepb.model.acervo.Livro;
 
 @Controller
 public class LivrosController {
 
+	@Autowired
+	private Autores autoresRepository;
+	
 	@Autowired
 	private Editoras editoras;
 	
@@ -28,11 +38,11 @@ public class LivrosController {
 	@Autowired
 	private Temas temas;
 	
-	/*@Autowired
+	@Autowired
 	private Livros livros;
 	
 	@Autowired
-	private CadastroLivroService livrosService;*/
+	private CrudLivroService livrosService;
 
 	
 	@RequestMapping("/livros/novo")
@@ -42,10 +52,11 @@ public class LivrosController {
 		mv.addObject("areas", areas.findAll());
 		mv.addObject("temas",temas.findAll());
 		mv.addObject("editoras",editoras.findAll());
+		mv.addObject("autores",autoresRepository.findAll());
 		if(busca!=null){
-			//mv.addObject("listaLivros",livrosService.buscarPorTitulo(busca));
+			mv.addObject("listaLivros",livrosService.buscarPorTitulo(busca));
 		}else{
-			//mv.addObject("listaLivros",livros.findAll());
+			mv.addObject("listaLivros",livros.findAll());
 		}
 		return mv;
 	}
@@ -54,9 +65,9 @@ public class LivrosController {
 	public ModelAndView pesquisar(String busca) {
 		ModelAndView mv = new ModelAndView("livro/PesquisaLivro");
 		if(busca!=null){
-			//mv.addObject("listaLivros",livrosService.buscarPorTitulo(busca));
+			mv.addObject("listaLivros",livrosService.buscarPorTitulo(busca));
 		}else{
-			//mv.addObject("listaLivros",livros.findAll());
+			mv.addObject("listaLivros",livros.findAll());
 		}
 		return mv;
 	}
@@ -68,7 +79,8 @@ public class LivrosController {
 		}
 		
 		// Convertendo a string da data do html em sql.Date
-				java.sql.Date dataSql = new java.sql.Date(Integer.parseInt(livro.getString_data().substring(2, 4)) + 100,
+		@SuppressWarnings("deprecation")
+		java.sql.Date dataSql = new java.sql.Date(Integer.parseInt(livro.getString_data().substring(2, 4)) + 100,
 						Integer.parseInt(livro.getString_data().substring(5, 7)),
 						Integer.parseInt(livro.getString_data().substring(8, 10)));
 		livro.setAnoPublicacao(dataSql);
@@ -77,9 +89,19 @@ public class LivrosController {
 		
 		livro.setTema(temas.findOne(Integer.parseInt(livro.getId_tema())));
 		
-		//FALTA ADICIONAR OS AUTORES
+		//Criando uma lista com os autores
+		ArrayList<Autor> listaAutores = new ArrayList<Autor>();
+		listaAutores.add(autoresRepository.findOne(Integer.parseInt(livro.getId_autor())));
 		
-		//livrosService.save(livro);
+		//atribuindo ao livro a lista de seus autores
+		livro.setAutores(listaAutores);
+		
+		try {
+			livrosService.salvar(livro);
+		} catch (ItemDuplicadoException e) {
+			result.rejectValue("titulo", e.getMessage(),e.getMessage());
+			return (novo(livro,null));
+		}
 		
 		attributes.addFlashAttribute("mensagem", "Livro salvo com sucesso!");
 		return new ModelAndView("redirect:/livros/novo");
