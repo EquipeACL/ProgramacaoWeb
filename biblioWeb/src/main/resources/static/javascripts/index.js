@@ -1,6 +1,23 @@
-function removerArea(id){
-	alert('Remover: '+id);
+function remover(id,url){
+	
+	$.ajax({
+		url:url,
+		method:'POST',
+		contentType:'application/json',
+		data: JSON.stringify({id:id}),
+		error:erroRemover,
+		success:removidoSucesso
+	});
 }
+
+function erroRemover(){
+	console.log('Erro ao remover!');
+}
+
+function removidoSucesso(){
+	console.log('Area removida com sucesso!');
+}
+
 
 $('.form').find('input, textarea').on('keyup blur focus', function (e) {
   

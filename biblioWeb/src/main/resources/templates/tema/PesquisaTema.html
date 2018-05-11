@@ -37,15 +37,20 @@
 								<th><input id="checktudo" name="checktudo" type="checkbox"></th>
 								<th>#</th>
 								<th>Tema</th>
-								<th>Area do Conhecimento</th>		
+								<th>Area do Conhecimento</th>
+								<th>Ações</th>		
 							</tr>
 						</thead>
 						<tbody>
 							<tr th:each="tema : ${temas}">
+							<form  method="GET" th:action="@{editar}">
 								<td><input th:id="|check*{tema.nome}|" th:name="|check*{tema.nome}|" type="checkbox"></td>
 								<td th:text="*{tema.id}">1</td>
 								<td th:text="*{tema.nome}">Tema</td>
 								<td th:text="*{tema.area.nome}">Area do conhecimento</td>
+								<td><button th:id="|removerTemaId*{tema.id}|" class="btn btn-danger btn-sm" th:onclick="|remover(*{tema.id},'@{/temas/remover}')|" type="button">Remover</button></td>
+								<td><button class="btn btn-default btn-sm" name="id" th:value="*{tema.id}" type="submit">Editar</button></td>
+							</form>
 							</tr>
 						</tbody>
 					</table>

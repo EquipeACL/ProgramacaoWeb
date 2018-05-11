@@ -48,4 +48,11 @@ public class CadastroAreaConhecimento {
 		return manager.createQuery("select a from AreaConhecimento a where a.nome like '%"+busca+"%'",AreaConhecimento.class).getResultList();
 	}
 
+	@Transactional
+	public void remover (int  id) {
+		if(id != 0){
+			areasConhecimento.delete(id);
+		}
+		
+	}
 }

@@ -12,6 +12,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import br.uepb.biblio.repository.Temas;
 import br.uepb.biblio.service.exception.ItemDuplicadoException;
+import br.uepb.model.AreaConhecimento;
 import br.uepb.model.Tema;
 
 @Service
@@ -35,5 +36,23 @@ public class CadastroTemaService {
 	@Transactional
 	public List<Tema> buscarPorNome (String busca) {
 		return manager.createQuery("select a from Tema a where a.nome like '%"+busca+"%'",Tema.class).getResultList();
+	}
+	
+	@Transactional
+	public void remover (int  id) {
+		if(id != 0){
+			temas.delete(id);
+		}
+		
+	}
+	@Transactional
+	public void atualizar(Tema tema) throws Exception {
+		try{
+			if(tema.getId()!=0){
+				temas.save(tema);
+			}
+		}catch(Exception e){
+			throw new Exception("Erro na atualização");
+		}
 	}
 }

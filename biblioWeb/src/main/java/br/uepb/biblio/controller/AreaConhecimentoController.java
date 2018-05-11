@@ -4,12 +4,15 @@ package br.uepb.biblio.controller;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
@@ -55,6 +58,7 @@ public class AreaConhecimentoController {
 	public ModelAndView editar(String id){
 		ModelAndView model = new ModelAndView("areaConhecimento/CadastroAreaConhecimento");
 		model.addObject("areaConhecimento",repositoryAreas.findOne(Integer.parseInt(id)));
+		model.addObject("listaAreaConhecimento",repositoryAreas.findAll());
 		return model;
 	}
 	
@@ -86,5 +90,18 @@ public class AreaConhecimentoController {
 		}
 		attributes.addFlashAttribute("mensagem", "Area de Conhecimento salva com sucesso!");
 		return new ModelAndView("redirect:/areasconhecimento/novo");
+	}
+	
+	@RequestMapping(value="/remover",method = RequestMethod.POST, consumes = { MediaType.APPLICATION_JSON_VALUE })
+	public @ResponseBody ResponseEntity<?> remover(@RequestBody AreaConhecimento area){
+		try {
+			//vai tentar remover no banco
+			cadastroAreaConhecimento.remover(area.getId());
+		}
+		catch(Exception e) {
+			return ResponseEntity.badRequest().body(e.getMessage());
+		}
+		//se tiver tudo ok, vem pra cá
+		return ResponseEntity.ok().build();
 	}
 }
