@@ -6,7 +6,7 @@ $(function() {
 	form.on('submit', function(event) { event.preventDefault() });
 	var url = form.attr('action');
 	var inputNomeTema = $('#nomeTema');
-	var comboAreaConhecimnento = $('#AreaConhecimento');
+	var comboAreaConhecimento = $('#areaConhecimento');
 	var containerMensagemErro = $('.js-mensagem-cadastro-rapido-tema');
 	
 	
@@ -16,7 +16,7 @@ $(function() {
 	
 	
 	function onModalShow() {
-		inputNomeOrientador.focus();
+		inputNomeTema.focus();
 	}
 	
 	function onModalClose() {
@@ -24,15 +24,15 @@ $(function() {
 		form.find('.form-group').removeClass('has-error');
 	}
 	function onBotaoSalvarClick(){
-		var nome = inputNomeTema.val().trim();
-		var area = comboAreaConhecimnento.val();
+		var nomeTema = inputNomeTema.val().trim();
+		var areaId = comboAreaConhecimento.val();
 		
-		//console.log("nomeOrientador: ",)
+		
 		$.ajax({
 			url:url,
 			method:'POST',
 			contentType:'application/json',
-			data: JSON.stringify({nome:nomeTema,area:AreaConhecimento}),
+			data: JSON.stringify({nome:nomeTema,areaconhecimento_id:areaId}),
 			error:onErroSalvandoTema,
 			success:onTemaSalvo
 		});

@@ -112,5 +112,26 @@ public class TemaController{
 		//se tiver tudo ok, vem pra cá
 		return ResponseEntity.ok().build();
 	}
+	
+	@RequestMapping(method = RequestMethod.POST, consumes = { MediaType.APPLICATION_JSON_VALUE })
+	public @ResponseBody ResponseEntity<?> salvar(@RequestBody Tema tema,BindingResult result){
+		
+		//Se deu erro ele vai retornar a msg padrão definida lá no @NotBlank ou de outra anotação se houver
+		if(result.hasErrors()) {
+			return ResponseEntity.badRequest().body(result.getFieldError().getDefaultMessage());
+		}
+		
+		tema.setArea(areasRepository.findOne(Integer.parseInt(tema.getAreaconhecimento_id())));
+		try {
+			//vai tentar salvar no banco
+			temaService.salvar(tema);
+		}
+		catch(ItemDuplicadoException e) {
+			//se ja tiver nome cadastrado vai lançar essa exceção
+			return ResponseEntity.badRequest().body(e.getMessage());
+		}
+		//se tiver tudo ok, vem pra cá
+		return ResponseEntity.ok(tema);
+	}
 
 }
