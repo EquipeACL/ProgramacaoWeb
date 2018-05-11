@@ -63,9 +63,9 @@
 					</div>
 					
 					<div class="form-group col-sm-4">
-						<label class="control-label">Nome da Área de Conhecimento</label>
+						<label class="control-label" for = "area">Nome da Área de Conhecimento</label>
 						<div class="bw-field-action">
-							<select class="form-control" >
+							<select class="form-control" id = "area">
 								<option value="">Selecione a Área</option>
 								<option th:each="areaConhecimento : ${areas}" th:value="${areaConhecimento.id}"
 									th:text="${areaConhecimento.nome}"></option>

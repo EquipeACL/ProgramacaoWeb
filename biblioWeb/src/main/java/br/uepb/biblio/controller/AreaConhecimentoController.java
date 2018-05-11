@@ -20,6 +20,7 @@ import br.uepb.biblio.repository.AreasConhecimento;
 import br.uepb.biblio.service.CadastroAreaConhecimento;
 import br.uepb.biblio.service.exception.ItemDuplicadoException;
 import br.uepb.model.AreaConhecimento;
+import br.uepb.model.Autor;
 
 @Controller
 @RequestMapping("/areasconhecimento")
@@ -103,5 +104,23 @@ public class AreaConhecimentoController {
 		}
 		//se tiver tudo ok, vem pra cá
 		return ResponseEntity.ok().build();
+	}
+	@RequestMapping(method = RequestMethod.POST, consumes = { MediaType.APPLICATION_JSON_VALUE })
+	public @ResponseBody ResponseEntity<?> salvar(@RequestBody AreaConhecimento area,BindingResult result){
+		
+		//Se deu erro ele vai retornar a msg padrão definida lá no @NotBlank ou de outra anotação se houver
+		if(result.hasErrors()) {
+			return ResponseEntity.badRequest().body(result.getFieldError().getDefaultMessage());
+		}
+		try {
+			//vai tentar salvar no banco
+			cadastroAreaConhecimento.salvar(area);
+		}
+		catch(ItemDuplicadoException e) {
+			//se ja tiver nome cadastrado vai lançar essa exceção
+			return ResponseEntity.badRequest().body(e.getMessage());
+		}
+		//se tiver tudo ok, vem pra cá
+		return ResponseEntity.ok(area);
 	}
 }
