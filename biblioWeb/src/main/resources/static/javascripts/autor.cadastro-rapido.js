@@ -5,7 +5,7 @@ $(function() {
 	var form = modal.find('form');
 	form.on('submit', function(event) { event.preventDefault() });
 	var url = form.attr('action');
-	var inputNomeAutor = $('#nome');
+	var inputNomeAutor = $('#nomeAutor');
 	var containerMensagemErro = $('.js-mensagem-cadastro-rapido-autor');
 	
 	

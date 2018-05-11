@@ -3,20 +3,26 @@ package br.uepb.biblio.controller;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import br.uepb.biblio.repository.Editoras;
 import br.uepb.biblio.service.CadastroEditoraService;
 import br.uepb.biblio.service.exception.ItemDuplicadoException;
+import br.uepb.model.Autor;
 import br.uepb.model.Editora;
 
 @Controller
+@RequestMapping("/editoras")
 public class EditorasController {
 
 
@@ -26,7 +32,7 @@ public class EditorasController {
 	@Autowired
 	private CadastroEditoraService cadastroEditoraService;
 	
-	@RequestMapping("/editoras/novo")
+	@RequestMapping("/novo")
 	ModelAndView novo(Editora editora,String busca) {
 		ModelAndView mv = new ModelAndView("editora/CadastroEditora");
 		if(busca!=null){
@@ -37,7 +43,7 @@ public class EditorasController {
 		return mv;
 	}
 	
-	@RequestMapping("/editoras/pesquisar")
+	@RequestMapping("/pesquisar")
 	ModelAndView pesquisar(String busca) {
 		ModelAndView mv = new ModelAndView("editora/PesquisaEditora");
 		if(busca!=null){
@@ -63,5 +69,24 @@ public class EditorasController {
 		attributes.addFlashAttribute("mensagem", "Editora salva com sucesso!");
 		return new ModelAndView("redirect:/editoras/novo");
 
+	}
+	
+	@RequestMapping(method = RequestMethod.POST, consumes = { MediaType.APPLICATION_JSON_VALUE })
+	public @ResponseBody ResponseEntity<?> salvar(@RequestBody Editora editora,BindingResult result){
+		
+		//Se deu erro ele vai retornar a msg padrão definida lá no @NotBlank ou de outra anotação se houver
+		if(result.hasErrors()) {
+			return ResponseEntity.badRequest().body(result.getFieldError().getDefaultMessage());
+		}
+		try {
+			//vai tentar salvar no banco
+			cadastroEditoraService.salvar(editora);
+		}
+		catch(ItemDuplicadoException e) {
+			//se ja tiver nome cadastrado vai lançar essa exceção
+			return ResponseEntity.badRequest().body(e.getMessage());
+		}
+		//se tiver tudo ok, vem pra cá
+		return ResponseEntity.ok(editora);
 	}
 }

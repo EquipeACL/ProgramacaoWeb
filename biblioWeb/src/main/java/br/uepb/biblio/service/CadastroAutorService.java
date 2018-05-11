@@ -29,6 +29,7 @@ public class CadastroAutorService {
 		if(autorOptional.isPresent()){
 			throw new ItemDuplicadoException("Autor já Cadastrado!");
 		}
+		System.out.println("Nome do autor ta vindo: "+autor.getNome());
 		return autores.saveAndFlush(autor);
 	}
 	

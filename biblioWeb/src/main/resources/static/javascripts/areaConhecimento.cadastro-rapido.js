@@ -6,6 +6,7 @@ $(function() {
 	form.on('submit', function(event) { event.preventDefault() });
 	var url = form.attr('action');
 	var inputNomeAutor = $('#nome');
+	var containerMessagemErro = $('.js-mensagem-cadastro-rapido-editora');
 	
 	modal.on('shown.bs.modal', onModalShow);
 	modal.on('hide.bs.modal', onModalClose);
@@ -16,5 +17,9 @@ $(function() {
 	
 	function onModalClose() {
 		inputNomeAutor.val('');
+		form.find('form-group').removeClass('has-error');
 	}
+	
+	
+	
 });
