@@ -1,14 +1,22 @@
 package br.uepb.model.usuarios;
 
+import java.util.List;
+
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
 import javax.persistence.Table;
+import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
 import org.hibernate.validator.constraints.NotBlank;
 import org.hibernate.validator.constraints.NotEmpty;
+
+import br.uepb.model.Grupo;
 
 
 /**
@@ -60,6 +68,12 @@ public abstract class Usuario {
 	@NotBlank(message = " A senha é obrigatória")
 	protected String senhaAcesso;
 	
+	
+	@NotNull(message = "Selecione pelo menos um grupo")
+	@ManyToMany
+	@JoinTable(name = "usuario_has_grupo",joinColumns = @JoinColumn(name = "usuario_id")
+												, inverseJoinColumns = @JoinColumn(name = "grupo_id"))
+	private List <Grupo> grupos;
 	
 	/**
 	 * M�todo Construtor da classe Usu�rio
