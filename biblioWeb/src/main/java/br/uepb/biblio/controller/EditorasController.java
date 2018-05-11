@@ -54,7 +54,7 @@ public class EditorasController {
 		return mv;
 	}
 	
-	@RequestMapping(value = "/editoras/novo", method = RequestMethod.POST)
+	@RequestMapping(value = "/novo", method = RequestMethod.POST)
 	ModelAndView cadastro(@Valid Editora editora, BindingResult result, Model model, RedirectAttributes attributes) {
 		if (result.hasErrors()) {
 			return (novo(editora,null));

@@ -1,4 +1,4 @@
-﻿DROP DATABASE IF EXISTS `biblioteca`;
+DROP database `biblioteca`;
 CREATE DATABASE `biblioteca`;
 USE `biblioteca`;
 #
@@ -177,24 +177,55 @@ INSERT INTO `estado` VALUES (1,'AC'),(2,'AL'),(3,'PA'),(4,'BA'),(5,'AP'),(6,'MA'
 # Structure for table "funcionario"
 #
 
-CREATE TABLE `funcionario` (
+CREATE TABLE `usuario` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `cpf` int(10) unsigned NOT NULL,
   `rg` int(11) NOT NULL,
   `naturalidade` varchar(45) NOT NULL,
-  `nomeCompleto` varchar(45) NOT NULL,
-  `nomeUsuario` varchar(45) NOT NULL DEFAULT '',
+  `nome` varchar(45) NOT NULL,
+  `login` varchar(45) NOT NULL DEFAULT '',
   `endereco` varchar(45) NOT NULL,
   `telefone` int(11) NOT NULL,
   `email` varchar(45) NOT NULL,
   `senha` varchar(45) NOT NULL,
-  `admin` tinyint(1) DEFAULT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 #
 # Data for table "funcionario"
 #
+CREATE TABLE  `grupo`(
+	`id` int(11) NOT NULL AUTO_INCREMENT,
+    `nome` VARCHAR(50) NOT NULL,
+    PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+CREATE TABLE  `permissao`(
+	`id` int(11) NOT NULL AUTO_INCREMENT,
+    `nome` VARCHAR(50) NOT NULL,
+    PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+CREATE TABLE usuario_has_grupo(
+`usuario_id` int(11) NOT NULL AUTO_INCREMENT,
+`grupo_id` int(11) NOT NULL,
+PRIMARY KEY(`usuario_id`,`grupo_id`),
+  KEY `grupo_id` (`grupo_id`),
+  CONSTRAINT `usuario_has_grupo_ibfk_2` FOREIGN KEY (`grupo_id`) REFERENCES `grupo` (`id`),
+  CONSTRAINT `usuario_has_grupo_ibfk_1` FOREIGN KEY (`usuario_id`) REFERENCES `usuario` (`id`)
+
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+CREATE TABLE grupo_has_permissao(
+`grupo_id` int(11) NOT NULL AUTO_INCREMENT,
+`permissao_id` int(11) NOT NULL,
+PRIMARY KEY(`grupo_id`,`permissao_id`),
+  KEY `permissao_id` (`permissao_id`),
+  CONSTRAINT `grupo_has_permissao_ibfk_2` FOREIGN KEY (`permissao_id`) REFERENCES `permissao` (`id`),
+  CONSTRAINT `grupo_has_permissao_ibfk_1` FOREIGN KEY (`grupo_id`) REFERENCES `grupo` (`id`)
+
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
 
 
 #

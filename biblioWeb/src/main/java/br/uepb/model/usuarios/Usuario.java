@@ -1,9 +1,10 @@
 package br.uepb.model.usuarios;
 
+import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.MappedSuperclass;
+import javax.persistence.Table;
 import javax.validation.constraints.Size;
 
 import org.hibernate.validator.constraints.NotBlank;
@@ -17,7 +18,11 @@ import org.hibernate.validator.constraints.NotEmpty;
  * @author EquipeACL
  */
 //@MappedSuperclass
+@Entity
+@Table(name = "usuario")
+
 public abstract class Usuario {
+	
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private int id;
@@ -26,7 +31,15 @@ public abstract class Usuario {
 	protected int cpf;
 	
 	@NotBlank(message = " O nome é obrigatório")
-	protected String nomeCompleto;
+	protected String nome;
+	
+	@NotBlank(message = " Nome de usuário é obrigatório")
+	protected String login;
+	
+	
+	@NotBlank(message = "Matrícula é obrigatória")
+	private String matricula;
+	
 	
 	@NotEmpty(message = " RG é obrigatório")
 	protected int rg;
@@ -59,7 +72,7 @@ public abstract class Usuario {
 	/**
 	 * M�todo Construtor da classe Usu�rio
 	 * @param cpf, n�mero do cpf do Usu�rio
-	 * @param nomeCompleto, nome completo do Usu�rio
+	 * @param nome, nome completo do Usu�rio
 	 * @param rg, numero do rg do Usu�rio
 	 * @param naturalidade, cidade natal do Usu�rio
 	 * @param endereco, endere�o completo do Usu�rio
@@ -67,10 +80,10 @@ public abstract class Usuario {
 	 * @param email, endere�o de email do Usu�rio
 	 * @param senhaAcesso, senha de acesso ao sistema do Usu�rio
 	 */
-	public Usuario(int cpf, String nomeCompleto, int rg, String naturalidade, String endereco, int telefone,
+	public Usuario(int cpf, String nome, int rg, String naturalidade, String endereco, int telefone,
 			String email, String senhaAcesso) {
 		setCpf(cpf);
-		setNomeCompleto(nomeCompleto);
+		setNome(nome);
 		setRg(rg);
 		setNaturalidade(naturalidade);
 		setEndereco(endereco);
@@ -80,6 +93,28 @@ public abstract class Usuario {
 		
 	}
 	
+
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + id;
+		return result;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Usuario other = (Usuario) obj;
+		if (id != other.id)
+			return false;
+		return true;
+	}
 
 	public int getId() {
 		return id;
@@ -96,11 +131,11 @@ public abstract class Usuario {
 	public void setCpf(int cpf) {
 		this.cpf = cpf;
 	}
-	public String getNomeCompleto() {
-		return nomeCompleto;
+	public String getNome() {
+		return nome;
 	}
-	public void setNomeCompleto(String nomeCompleto) {
-		this.nomeCompleto = nomeCompleto;
+	public void setNome(String nome) {
+		this.nome = nome;
 	}
 	public int getRg() {
 		return rg;
@@ -138,5 +173,22 @@ public abstract class Usuario {
 	public void setSenhaAcesso(String senhaAcesso) {
 		this.senhaAcesso = senhaAcesso;
 	}
+
+	public String getLogin() {
+		return login;
+	}
+
+	public void setLogin(String login) {
+		this.login = login;
+	}
+
+	public String getMatricula() {
+		return matricula;
+	}
+
+	public void setMatricula(String matricula) {
+		this.matricula = matricula;
+	}
+	
 	
 }
