@@ -3,8 +3,8 @@ package br.uepb.model;
 import javax.persistence.Entity;
 import javax.persistence.Table;
 
-@Entity
-@Table(name = "permissao")
+//@Entity
+//@Table(name = "permissao")
 public class Permissao {
 	
 	private int id;

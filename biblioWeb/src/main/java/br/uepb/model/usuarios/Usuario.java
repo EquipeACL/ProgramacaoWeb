@@ -26,8 +26,8 @@ import br.uepb.model.Grupo;
  * @author EquipeACL
  */
 //@MappedSuperclass
-@Entity
-@Table(name = "usuario")
+//@Entity
+//@Table(name = "usuario")
 
 public abstract class Usuario {
 	

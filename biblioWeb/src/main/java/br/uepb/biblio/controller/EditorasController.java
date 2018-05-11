@@ -18,7 +18,6 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import br.uepb.biblio.repository.Editoras;
 import br.uepb.biblio.service.CadastroEditoraService;
 import br.uepb.biblio.service.exception.ItemDuplicadoException;
-import br.uepb.model.Autor;
 import br.uepb.model.Editora;
 
 @Controller
@@ -27,7 +26,7 @@ public class EditorasController {
 
 
 	@Autowired
-	private Editoras editorasRepoditory;
+	private Editoras editorasRepository;
 	
 	@Autowired
 	private CadastroEditoraService cadastroEditoraService;
@@ -38,7 +37,7 @@ public class EditorasController {
 		if(busca!=null){
 			mv.addObject("listaEditora", cadastroEditoraService.buscarPorNome(busca));
 		}else{
-			mv.addObject("listaEditora", editorasRepoditory.findAll());
+			mv.addObject("listaEditora", editorasRepository.findAll());
 		}
 		return mv;
 	}
@@ -49,7 +48,7 @@ public class EditorasController {
 		if(busca!=null){
 			mv.addObject("listaEditora", cadastroEditoraService.buscarPorNome(busca));
 		}else{
-			mv.addObject("listaEditora", editorasRepoditory.findAll());
+			mv.addObject("listaEditora", editorasRepository.findAll());
 		}
 		return mv;
 	}
@@ -69,6 +68,42 @@ public class EditorasController {
 		attributes.addFlashAttribute("mensagem", "Editora salva com sucesso!");
 		return new ModelAndView("redirect:/editoras/novo");
 
+	}
+	
+	@RequestMapping("/editar")
+	public ModelAndView editar(String id){
+		ModelAndView model = new ModelAndView("editora/CadastroEditora");
+		model.addObject("editora",editorasRepository.findOne(Integer.parseInt(id)));
+		model.addObject("listaEditora",editorasRepository.findAll());
+		return model;
+	}
+	
+	@RequestMapping(value="/editar",method=RequestMethod.POST)
+	public ModelAndView editar(@Valid Editora editora, BindingResult result, Model model, RedirectAttributes attributes){
+		if(result.hasErrors()){
+			return novo(editora,null);
+		}		
+		try{
+			cadastroEditoraService.atualizar(editora);
+		}catch(Exception e){
+			result.rejectValue("nome", e.getMessage(),e.getMessage());
+			return (novo(editora,null));
+		}
+		attributes.addFlashAttribute("mensagem", "Editora atualizada com sucesso!");
+		return new ModelAndView("redirect:/editoras/novo");
+	}
+	
+	@RequestMapping(value="/remover",method = RequestMethod.POST, consumes = { MediaType.APPLICATION_JSON_VALUE })
+	public @ResponseBody ResponseEntity<?> remover(@RequestBody Editora editora){
+		try {
+			//vai tentar remover no banco
+			cadastroEditoraService.remover(editora.getId());
+		}
+		catch(Exception e) {
+			return ResponseEntity.badRequest().body(e.getMessage());
+		}
+		//se tiver tudo ok, vem pra cá
+		return ResponseEntity.ok().build();
 	}
 	
 	@RequestMapping(method = RequestMethod.POST, consumes = { MediaType.APPLICATION_JSON_VALUE })

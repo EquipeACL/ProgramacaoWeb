@@ -12,7 +12,6 @@ import org.springframework.transaction.annotation.Transactional;
 
 import br.uepb.biblio.repository.Editoras;
 import br.uepb.biblio.service.exception.ItemDuplicadoException;
-import br.uepb.model.AreaConhecimento;
 import br.uepb.model.Editora;
 
 @Service
@@ -36,5 +35,24 @@ public class CadastroEditoraService {
 	@Transactional
 	public List<Editora> buscarPorNome (String busca) {
 		return manager.createQuery("select a from Editora a where a.nome like '%"+busca+"%'",Editora.class).getResultList();
+	}
+	
+	@Transactional
+	public void atualizar(Editora editora) throws Exception {
+		try{
+			if(editora.getId()>0){
+				editoras.save(editora);
+			}
+		}catch(Exception e){
+			throw new Exception("Erro na atualização");
+		}
+	}
+	
+	@Transactional
+	public void remover (int  id) {
+		if(id > 0){
+			editoras.delete(id);
+		}
+		
 	}
 }

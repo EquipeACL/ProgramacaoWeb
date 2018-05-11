@@ -10,8 +10,8 @@ import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 
-@Entity
-@Table(name = "grupo")
+//@Entity
+//@Table(name = "grupo")
 public class Grupo implements Serializable{
 
 	private static final long serialVersionUID = 1L;

@@ -43,9 +43,13 @@
 							</thead>
 							<tbody>
 								<tr th:each="editora : ${listaEditora}">
+								<form  method="GET" th:action="@{editar}">
 									<td><input th:id="|check*{editora.nome}|" th:name="|check*{editora.nome}|" type="checkbox"></td>
 									<td th:text="*{editora.id}">1</td>
 									<td th:text="*{editora.nome}">Nome Editora</td>
+									<td><button th:id="|removerEditoraId*{editora.id}|" class="btn btn-danger btn-sm" th:onclick="|remover(*{editora.id},'@{/editoras/remover}')|" type="button">Remover</button></td>
+									<td><button class="btn btn-default btn-sm" name="id" th:value="*{editora.id}" type="submit">Editar</button></td>
+								</form>
 								</tr>
 							</tbody>
 						</table>
