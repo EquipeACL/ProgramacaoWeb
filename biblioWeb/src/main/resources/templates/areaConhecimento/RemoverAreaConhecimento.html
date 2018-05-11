@@ -15,9 +15,10 @@
 				<div class="modal-body">
 					
 					<h4>Tem certeza que quer excluir este registro?</h4>
-					<input id="url" th:value="@{areasconhecimento/remover}">							
+					<input class="hidden" type="number" id="idRemover" name="idRemover"/>
+					<input class="hidden" type="text" id="urlRemover" name="urlRemover"/>
 					<button type="button" class="btn  btn-cancel" data-dismiss="modal">Cancelar</button>
-					<button type="button" class="btn  btn-primary js-modal-remover-AreaConhecimento-sim-btn">Sim</button>
+					<button type="button" class="btn  btn-primary js-remover-area-sim">Sim</button>
 				</div>
 			</div>
 		</div>

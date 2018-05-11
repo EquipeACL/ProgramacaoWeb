@@ -38,17 +38,17 @@
 									<th><input name="tudo" type="checkbox"></th>
 									<th>#</th>
 									<th>Area do Conhecimento</th>
-									<th>Ação</th>
+									<th colspan="2">Ações</th>
 								</tr>
 							</thead>
 							<tbody>
 								
-								<tr th:each="area : ${listaAreaConhecimento}">
+								<tr th:each="area : ${listaAreaConhecimento}" th:id="|area*{area.id}|">
 								<form  method="GET" th:action="@{editar}">
 									<td><input th:id="|check*{area.nome}|" th:name="|check*{area.nome}|" type="checkbox"></td>
 									<td th:text="*{area.id}">1</td>
 									<td th:text="*{area.nome}">Nome da Area deconhecimento</td>
-									<td><button th:id="|removerAreaId*{area.id}|" class="btn btn-danger btn-sm" th:onclick="|remover(*{area.id},'@{/areasconhecimento/remover}')|" type="button">Remover</button></td>
+									<td><button th:id="|removerAreaId*{area.id}|" class="btn btn-danger btn-sm" data-toggle="modal" data-target="#modalRemoverAreaConhecimento" th:onclick="|setValorRemover(*{area.id},'@{/areasconhecimento/remover}')|" type="button">Remover</button></td>
 									<td><button class="btn btn-default btn-sm" name="id" th:value="*{area.id}" type="submit">Editar</button></td>
 								</form>
 								</tr>
@@ -61,6 +61,10 @@
 				</section>
 		   </div>
 	</div>
+	<div th:replace="areaConhecimento/RemoverAreaConhecimento :: modal"></div>
 	</section>
+	<th:block layout:fragment="javascript-extra">
+		<script th:src="@{/javascripts/areaConhecimento.remover.js}"></script>
+	</th:block>
 </body>
 </html>

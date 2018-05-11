@@ -4,6 +4,7 @@ package br.uepb.biblio.controller;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
@@ -94,7 +95,7 @@ public class AreaConhecimentoController {
 	}
 	
 	@RequestMapping(value="/remover",method = RequestMethod.POST, consumes = { MediaType.APPLICATION_JSON_VALUE })
-	public @ResponseBody ResponseEntity<?> remover(@RequestBody AreaConhecimento area){
+	public @ResponseBody ResponseEntity<?> remover(@RequestBody AreaConhecimento area,RedirectAttributes attributes){
 		try {
 			//vai tentar remover no banco
 			cadastroAreaConhecimento.remover(area.getId());
@@ -102,7 +103,6 @@ public class AreaConhecimentoController {
 		catch(Exception e) {
 			return ResponseEntity.badRequest().body(e.getMessage());
 		}
-		//se tiver tudo ok, vem pra cá
 		return ResponseEntity.ok().build();
 	}
 	@RequestMapping(method = RequestMethod.POST, consumes = { MediaType.APPLICATION_JSON_VALUE })

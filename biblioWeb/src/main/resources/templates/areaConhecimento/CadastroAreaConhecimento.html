@@ -48,6 +48,10 @@
 			<div th:insert="areaConhecimento/PesquisaAreaConhecimento :: fragment-pesquisaAreaConhecimento"></div>
 			
 		</div>
+		<div th:replace="areaConhecimento/RemoverAreaConhecimento :: modal"></div>
 	</section>
+	<th:block layout:fragment="javascript-extra">
+		<script th:src="@{/javascripts/areaConhecimento.remover.js}"></script>
+	</th:block>
 </body>
 </html>
