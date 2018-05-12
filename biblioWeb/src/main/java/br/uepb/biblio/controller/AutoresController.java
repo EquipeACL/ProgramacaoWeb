@@ -87,5 +87,40 @@ public class AutoresController {
 		//se tiver tudo ok, vem pra cá
 		return ResponseEntity.ok(autor);
 	}
-	
+
+	@RequestMapping("/editar")
+	public ModelAndView editar(String id) {
+		ModelAndView model = new ModelAndView("autor/CadastroAutor");
+		model.addObject("autor", autoresRepository.findOne(Integer.parseInt(id)));
+		model.addObject("listaAutores", autoresRepository.findAll());
+		return model;
+	}
+
+	@RequestMapping(value = "/editar", method = RequestMethod.POST)
+	public ModelAndView editar(@Valid Autor autor, BindingResult result, Model model,
+			RedirectAttributes attributes) {
+		if (result.hasErrors()) {
+			return novo(autor, null);
+		}
+		try {
+			cadastroAutorService.atualizar(autor);
+		} catch (Exception e) {
+			result.rejectValue("nome", e.getMessage(), e.getMessage());
+			return (novo(autor, null));
+		}
+		attributes.addFlashAttribute("mensagem", "Autor atualizado com sucesso!");
+		return new ModelAndView("redirect:/autores/novo");
+	}
+
+	@RequestMapping(value = "/remover", method = RequestMethod.POST, consumes = { MediaType.APPLICATION_JSON_VALUE })
+	public @ResponseBody ResponseEntity<?> remover(@RequestBody Autor autor, RedirectAttributes attributes) {
+		try {
+			// vai tentar remover no banco
+			cadastroAutorService.remover(autor.getId());
+		} catch (Exception e) {
+			return ResponseEntity.badRequest().body(e.getMessage());
+		}
+		return ResponseEntity.ok().build();
+	}
+
 }

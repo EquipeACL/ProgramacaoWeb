@@ -54,6 +54,10 @@
 				<!-- incluindo a pesquisa -->
 				<div th:insert="orientador/PesquisaOrientador :: fragment-pesquisaOrientador"></div>
 			</div>
-	</section>
+		<div th:replace="orientador/RemoverOrientador :: modal"></div>
+		</section>
+	<th:block layout:fragment="javascript-extra">
+		<script th:src="@{/javascripts/orientador.remover.js}"></script>
+	</th:block>
 </body>
 </html>

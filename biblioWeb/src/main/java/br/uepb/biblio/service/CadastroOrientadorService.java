@@ -38,4 +38,25 @@ public class CadastroOrientadorService {
 	public List<EntityOrientador> buscarPorNome (String busca) {
 		return manager.createQuery("select a from EntityOrientador a where a.nome like '%"+busca+"%'",EntityOrientador.class).getResultList();
 	}
+	
+	@Transactional
+	public void atualizar(Orientador orientador) throws Exception {
+		EntityOrientador newEntity = new EntityOrientador(orientador);
+		try{
+			if(orientador.getId()!=0){
+				orientadores.save(newEntity);
+			}
+		}catch(Exception e){
+			throw new Exception("Erro na atualização");
+		}
+	}
+	@Transactional
+	public void remover (int  id) {
+		if(id != 0){
+			orientadores.delete(id);
+		}
+		
+	}
+	
+
 }

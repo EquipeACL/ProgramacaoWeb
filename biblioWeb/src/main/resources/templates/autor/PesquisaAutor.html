@@ -43,9 +43,13 @@
 							</thead>
 							<tbody>
 								<tr th:each="autor : ${listaAutores}">
-									<td><input th:id="|check*{autor.nome}|" th:name="|check*{autor.nome}|"type="checkbox"></td>
-									<td th:text="*{autor.id}">1</td>
-									<td th:text="*{autor.nome}">Teste1</td>
+									<form  method="GET" th:action="@{editar}">
+										<td><input th:id="|check*{autor.nome}|" th:name="|check*{autor.nome}|"type="checkbox"></td>
+										<td th:text="*{autor.id}">1</td>
+										<td th:text="*{autor.nome}">Teste1</td>
+										<td><button th:id="|removerAutorId*{autor.id}|" class="btn btn-danger btn-sm" data-toggle="modal" data-target="#modalRemoverAutor" th:onclick="|setValorRemover(*{autor.id},'@{/autores/remover}')|" type="button">Remover</button></td>
+										<td><button class="btn btn-default btn-sm" name="id" th:value="*{autor.id}" type="submit">Editar</button></td>
+									</form>
 								</tr>
 							</tbody>
 						</table>
@@ -55,6 +59,10 @@
 				</section>
 		   </div>
 	</div>
+	<div th:replace="autor/RemoverAutor :: modal"></div>
 	</section>
+	<th:block layout:fragment="javascript-extra">
+		<script th:src="@{/javascripts/autor.remover.js}"></script>
+	</th:block>
 </body>
 </html>

@@ -73,6 +73,41 @@ public class OrientadoresController {
 		return new ModelAndView("redirect:/orientadores/novo");
 	}
 	
+	@RequestMapping("/editar")
+	public ModelAndView editar(String id){
+		ModelAndView model = new ModelAndView("orientador/CadastroOrientador");
+		model.addObject("orientador",orientadoresRepository.findOne(Integer.parseInt(id)));
+		model.addObject("listaOrientador",orientadoresRepository.findAll());
+		return model;
+	}
+	
+	@RequestMapping(value="/editar",method=RequestMethod.POST)
+	public ModelAndView editar(@Valid Orientador orientador, BindingResult result, Model model, RedirectAttributes attributes){
+		if(result.hasErrors()){
+			return novo(orientador,null);
+		}		
+		try{
+			cadastroOrientadorService.atualizar(orientador);
+		}catch(Exception e){
+			result.rejectValue("nome", e.getMessage(),e.getMessage());
+			return (novo(orientador,null));
+		}
+		attributes.addFlashAttribute("mensagem", "Area de Conhecimento atualizada com sucesso!");
+		return new ModelAndView("redirect:/areasconhecimento/novo");
+	}
+	
+	@RequestMapping(value="/remover",method = RequestMethod.POST, consumes = { MediaType.APPLICATION_JSON_VALUE })
+	public @ResponseBody ResponseEntity<?> remover(@RequestBody Orientador orientador,RedirectAttributes attributes){
+		try {
+			//vai tentar remover no banco
+			cadastroOrientadorService.remover(orientador.getId());
+		}
+		catch(Exception e) {
+			return ResponseEntity.badRequest().body(e.getMessage());
+		}
+		return ResponseEntity.ok().build();
+	}
+	
 	@RequestMapping(method = RequestMethod.POST,consumes = { MediaType.APPLICATION_JSON_VALUE })
 	public @ResponseBody  ResponseEntity<?> salvar(@RequestBody Orientador orientador, BindingResult result){
 

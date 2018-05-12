@@ -45,6 +45,10 @@
 			<div th:insert="autor/PesquisaAutor :: fragment-pesquisaAutor"></div>
 			
 		</div>
+		<div th:replace="autor/RemoverAutor :: modal"></div>
 	</section>
+	<th:block layout:fragment="javascript-extra">
+		<script th:src="@{/javascripts/autor.remover.js}"></script>
+	</th:block>
 </body>
 </html>

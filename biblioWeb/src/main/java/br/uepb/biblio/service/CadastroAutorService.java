@@ -39,4 +39,24 @@ public class CadastroAutorService {
 		return manager.createQuery("select a from EntityAutor a where a.nome like '%"+busca+"%'",EntityAutor.class).getResultList();
 	}
 
+
+	@Transactional
+	public void atualizar(Autor autor) throws Exception {
+		EntityAutor newEntity = new EntityAutor(autor);
+		try {
+			if (autor.getId() != 0) {
+				autores.save(newEntity);
+			}
+		} catch (Exception e) {
+			throw new Exception("Erro na atualização");
+		}
+	}
+
+	@Transactional
+	public void remover(int id) {
+		if (id != 0) {
+			autores.delete(id);
+		}
+
+	}
 }

@@ -38,5 +38,25 @@ public class CrudAnaisService {
 	public List<EntityAnal> buscarPorTitulo (String busca) {
 		return manager.createQuery("select a from EntityAnal a where a.titulo like '%"+busca+"%'",EntityAnal.class).getResultList();
 	}	
+	
+	@Transactional
+	public void atualizar(Anal anal) throws Exception {
+		EntityAnal newEntity = new EntityAnal(anal);
+		try {
+			if (anal.getId() != 0) {
+				anais.save(newEntity);
+			}
+		} catch (Exception e) {
+			throw new Exception("Erro na atualização");
+		}
+	}
+
+	@Transactional
+	public void remover(int id) {
+		if (id != 0) {
+			anais.delete(id);
+		}
+
+	}
 
 }

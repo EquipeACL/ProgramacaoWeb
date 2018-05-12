@@ -44,10 +44,14 @@
 							</thead>
 							<tbody>
 								<tr th:each="orientador : ${listaOrientador}">
-									<td><input th:id="|check*{orientador.nome}|" th:name="|check*{orientador.nome}|" type="checkbox"></td>
-									<td th:text="*{orientador.id}">1</td>
-									<td th:text="*{orientador.nome}">Nome do Orientador</td>
-									<td th:text="*{orientador.formacao}">Formação do Orientador</td>
+									<form  method="GET" th:action="@{editar}">
+										<td><input th:id="|check*{orientador.nome}|" th:name="|check*{orientador.nome}|" type="checkbox"></td>
+										<td th:text="*{orientador.id}">1</td>
+										<td th:text="*{orientador.nome}">Nome do Orientador</td>
+										<td th:text="*{orientador.formacao}">Formação do Orientador</td>
+										<td><button th:id="|removerOrientadorId*{orientador.id}|" class="btn btn-danger btn-sm" data-toggle="modal" data-target="#modalRemoverOrientador" th:onclick="|setValorRemover(*{orientador.id},'@{/orientadores/remover}')|" type="button">Remover</button></td>
+										<td><button class="btn btn-default btn-sm" name="id" th:value="*{orientador.id}" type="submit">Editar</button></td>
+									</form>
 								</tr>
 							</tbody>
 						</table>
@@ -57,6 +61,10 @@
 				</section>
 		   </div>
 	</div>
+	<div th:replace="orientador/RemoverOrientador :: modal"></div>
 	</section>
+	<th:block layout:fragment="javascript-extra">
+		<script th:src="@{/javascripts/orientador.remover.js}"></script>
+	</th:block>
 </body>
 </html>
