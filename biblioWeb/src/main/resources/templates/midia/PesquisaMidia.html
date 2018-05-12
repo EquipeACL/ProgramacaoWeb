@@ -50,6 +50,7 @@
 									<td th:text="*{midia.titulo}">Titulo da midia</td>
 									<td th:text="*{midia.tipo}">Tipo da midia</td>
 									<td th:text="*{midia.data_gravacao}">Data de gravação</td>
+									<td><button th:id="|removerMidiaId*{midia.id}|" class="btn btn-danger btn-sm" data-toggle="modal" data-target="#modalRemoverMidia" th:onclick="|setValorRemover(*{midia.id},'@{/midias/remover}')|" type="button">Remover</button></td>
 								</tr>
 							</tbody>
 						</table>
@@ -59,6 +60,10 @@
 				</section>
 		   </div>
 	</div>
+	<div th:replace="midia/RemoverMidia :: modal"></div>
 	</section>
+	<th:block layout:fragment="javascript-extra">
+		<script th:src="@{/javascripts/midias.remover.js}"></script>
+	</th:block>
 </body>
 </html>

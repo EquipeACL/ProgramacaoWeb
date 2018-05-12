@@ -54,6 +54,8 @@
 									<td th:text="*{anal.nome_congresso}">Nome do Congresso</td>
 									<td th:text="*{anal.data}">Data de Publicação</td>
 									<td th:text="|*{anal.local.nome}-*{anal.local.uf}|">Cidade</td>
+									<td><button th:id="|removerAnalId*{anal.id}|" class="btn btn-danger btn-sm" data-toggle="modal" data-target="#modalRemoverAnal" th:onclick="|setValorRemover(*{anal.id},'@{/anais/remover}')|" type="button">Remover</button></td>
+									
 								</tr>
 							</tbody>
 						</table>
@@ -63,6 +65,10 @@
 				</section>
 		   </div>
 	</div>
-	</section>
+	<div th:replace="anais/RemoverAnal :: modal"></div>
+		</section>
+		<th:block layout:fragment="javascript-extra">
+			<script th:src="@{/javascripts/anal.remover.js}"></script>
+		</th:block>
 </body>
 </html>

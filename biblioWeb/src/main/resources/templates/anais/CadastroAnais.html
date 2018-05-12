@@ -107,9 +107,11 @@
 			<div th:insert="anais/PesquisaAnais :: fragment-pesquisaAnais"></div>
 			
 		</div>
+		<div th:replace="anais/RemoverAnal :: modal"></div>
 		<div th:replace="autor/CadastroRapidoAutor :: modal"></div>
 	</section>
 	<th:block layout:fragment="javascript-extra">
+		<script th:src="@{/javascripts/anal.remover.js}"></script>
 		<script th:src="@{/javascripts/autor.cadastro-rapido.js}"></script>
 	</th:block>
 </body>

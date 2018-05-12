@@ -42,4 +42,12 @@ public class CadastroCursosService {
 	public List<EntityCurso> buscarPorNome (String busca) {
 		return manager.createQuery("select a from EntityCurso a where a.nome like '%"+busca+"%'",EntityCurso.class).getResultList();
 	}
+	
+	@Transactional
+	public void remover(int id) {
+		if (id != 0) {
+			cursos.delete(id);
+		}
+
+	}
 }

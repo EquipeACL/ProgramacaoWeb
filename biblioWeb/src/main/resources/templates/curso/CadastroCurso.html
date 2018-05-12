@@ -79,10 +79,12 @@
 			
 		</div>
 		<div th:replace="areaConhecimento/CadastroRapidoAreaConhecimento :: modal"></div>
+		<div th:replace="curso/RemoverCurso :: modal"></div>
 	</section>
 	
 	<th:block layout:fragment="javascript-extra">
-		<script th:src="@{/javascripts/areaConhecimento.cadastro-rapido.js}"></script>	
+		<script th:src="@{/javascripts/areaConhecimento.cadastro-rapido.js}"></script>
+		<script th:src="@{/javascripts/curso.remover.js}"></script>	
 	</th:block>
 </body>
 </html>

@@ -28,41 +28,50 @@
 					<div class="form-group col-sm-6"
 						th:classappend="${#fields.hasErrors('titulo')}? has-error">
 						<label for="titulo" class="control-label">Titulo da Midia</label>
-						<input id="titulo" type="text" class="form-control" autofocus="autofocus" th:field="*{titulo}" />
+						<input id="titulo" type="text" class="form-control"
+							autofocus="autofocus" th:field="*{titulo}" />
 					</div>
-				
-				</div>	
-				
-				<div class="row">
-					<div class="form-group col-sm-4" th:classappend="${#fields.hasErrors('tipo')}? has-error">
-							<label for="tipo" class="control-label">Tipo da Midia</label>
-							<select id="tipo" th:field="*{tipo}" class="form-control">
-								<option value="">Selecione o Tipo</option>
-								<option th:each="tipo: ${tipos}" th:value="${tipo}" th:text="${tipo.descricao}"></option>
-							</select>
-					</div>
-		
-					<div class="form-group col-sm-2" th:classappend="${#fields.hasErrors('data')}? has-error">
-						<label for="data" class="control-label">Data de Gravação</label>
-						<input id="data" type="date" class="form-control" th:field="*{data}" />
-					</div>
-					
+
 				</div>
-				
+
+				<div class="row">
+					<div class="form-group col-sm-4"
+						th:classappend="${#fields.hasErrors('tipo')}? has-error">
+						<label for="tipo" class="control-label">Tipo da Midia</label> <select
+							id="tipo" th:field="*{tipo}" class="form-control">
+							<option value="">Selecione o Tipo</option>
+							<option th:each="tipo: ${tipos}" th:value="${tipo}"
+								th:text="${tipo.descricao}"></option>
+						</select>
+					</div>
+
+					<div class="form-group col-sm-2"
+						th:classappend="${#fields.hasErrors('data')}? has-error">
+						<label for="data" class="control-label">Data de Gravação</label> <input
+							id="data" type="date" class="form-control" th:field="*{data}" />
+					</div>
+
+				</div>
+
 				<div class="row">
 					<div class="form-group col-sm-2">
 						<button class="btn  btn-primary" type="submit">Salvar</button>
 					</div>
-				</div>				
-					
-				
+				</div>
+
+
 			</form>
 		</div>
-		<div class="container-fluid">			
-				<hr>
-				<!-- incluindo a pesquisa -->
-				<div th:insert="midia/PesquisaMidia :: fragment-pesquisaMidiaEletronica"></div>
-			</div>
+		<div class="container-fluid">
+			<hr>
+			<!-- incluindo a pesquisa -->
+			<div
+				th:insert="midia/PesquisaMidia :: fragment-pesquisaMidiaEletronica"></div>
+		</div>
+		<div th:replace="midia/RemoverMidia :: modal"></div>
 	</section>
+	<th:block layout:fragment="javascript-extra">
+		<script th:src="@{/javascripts/midias.remover.js}"></script>
+	</th:block>
 </body>
 </html>
