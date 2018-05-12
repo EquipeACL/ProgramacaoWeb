@@ -40,9 +40,9 @@
 						<input id="edicao" type="number" class="form-control" th:field="*{edicao}" />
 					</div>
 					<div class="form-group col-sm-2"
-						th:classappend="${#fields.hasErrors('data_string')}? has-error">
-						<label for="data_string" class="control-label">Data</label>
-						<input id="data_string" type="date" class="form-control" th:field="*{data_string}" />
+						th:classappend="${#fields.hasErrors('data')}? has-error">
+						<label for="data" class="control-label">Data</label>
+						<input id="data" type="date" class="form-control" th:field="*{data}" />
 					</div>
 				</div>
 				<div class="row">

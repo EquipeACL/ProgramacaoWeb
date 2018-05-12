@@ -5,10 +5,10 @@ import java.util.Date;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.MappedSuperclass;
 import javax.validation.constraints.NotNull;
 
 import org.hibernate.validator.constraints.NotBlank;
+import org.springframework.format.annotation.DateTimeFormat;
 
 /**
  * Essa classe � utilizada como modelo para um objeto do tipo ItemAcervo.
@@ -17,14 +17,15 @@ import org.hibernate.validator.constraints.NotBlank;
  * @author EquipeACL
  */
 
-@MappedSuperclass
+
 public abstract class ItemAcervo {
 	
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private int id;
 	
-	//@NotBlank(message=" Data nao pode ser vazia")
+	@NotNull(message=" Data é obrigatorio")
+	@DateTimeFormat(pattern = "yyyy-MM-dd")
 	private  Date data;
 	
 	@NotNull(message=" Edicao é obrigatória")

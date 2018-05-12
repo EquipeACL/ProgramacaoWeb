@@ -1,5 +1,7 @@
 package br.uepb.model;
 
+import javax.validation.constraints.NotNull;
+
 import org.hibernate.validator.constraints.NotBlank;
 
 import br.uepb.interfaces.IFDependencia;
@@ -18,10 +20,10 @@ public class Tema implements IFDependencia{
 	@NotBlank(message=" Nome é obrigatório.")
 	private String nome;	
 	
+	@NotNull(message=" Area é obrigatório.")
 	private AreaConhecimento area;
 	
-	@NotBlank(message=" Area do conhecimento é obrigatório")
-	private String areaconhecimento_id;
+	private String areaConhecimento_id;
 	
 	/**
 	 * Método construtor da classe Tema
@@ -71,14 +73,17 @@ public class Tema implements IFDependencia{
 
 	public void setArea(AreaConhecimento area) {
 		this.area = area;
-	}
-	
-	public String getAreaconhecimento_id() {
-		return areaconhecimento_id;
+	}	
+
+	public String getAreaConhecimento_id() {
+		return areaConhecimento_id;
 	}
 
-	public void setAreaconhecimento_id(String areaconhecimento_id) {
-		this.areaconhecimento_id = areaconhecimento_id;
+	public void setAreaConhecimento_id(String areaConhecimento_id) {
+		this.areaConhecimento_id = areaConhecimento_id;
+		AreaConhecimento a = new AreaConhecimento();
+		a.setId(Integer.parseInt(areaConhecimento_id));
+		setArea(a);
 	}
 
 	public boolean validaDependencia() {

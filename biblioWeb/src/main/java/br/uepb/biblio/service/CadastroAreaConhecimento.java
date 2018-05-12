@@ -25,13 +25,13 @@ public class CadastroAreaConhecimento {
     private EntityManager manager;
 	
 	@Transactional
-	public void salvar (AreaConhecimento area) {
+	public EntityAreaConhecimento salvar (AreaConhecimento area) {
 		EntityAreaConhecimento newEntity = new EntityAreaConhecimento(area);
 		Optional <EntityAreaConhecimento> areaOptional = areasConhecimento.findByNomeIgnoreCase(newEntity.getNome());
 		if(areaOptional.isPresent()){
 			throw new ItemDuplicadoException(" Area já Cadastrada!");
 		}
-		areasConhecimento.save(newEntity);
+		return areasConhecimento.saveAndFlush(newEntity);
 	}
 	
 	@Transactional

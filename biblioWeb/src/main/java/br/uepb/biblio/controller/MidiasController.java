@@ -57,11 +57,6 @@ public class MidiasController {
 			return novo(midia,null);
 		}
 		//salvar no banco
-		// Convertendo a string da data do html em sql.Date
-		java.sql.Date dataSql = new java.sql.Date(Integer.parseInt(midia.getData_string().substring(2, 4)) + 100,
-				Integer.parseInt(midia.getData_string().substring(5, 7)),
-				Integer.parseInt(midia.getData_string().substring(8, 10)));
-		midia.setData(dataSql);
 		try {
 			midiasService.salvar(midia);
 		} catch (ItemDuplicadoException e) {

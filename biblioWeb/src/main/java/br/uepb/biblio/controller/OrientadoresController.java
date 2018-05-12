@@ -114,13 +114,14 @@ public class OrientadoresController {
 		if(result.hasErrors()) {
 			return ResponseEntity.badRequest().body(result.getFieldError().getDefaultMessage());
 		}
+		Orientador retorno = new Orientador();
 		try {
-			cadastroOrientadorService.salvar(orientador);
+			retorno = new Orientador(cadastroOrientadorService.salvar(orientador));
 		}
 		catch(ItemDuplicadoException e) {
 			return ResponseEntity.badRequest().body(e.getMessage());
 		}
-		return ResponseEntity.ok(orientador);
+		return ResponseEntity.ok(retorno);
 		
 	}
 }

@@ -4,8 +4,6 @@ import java.util.Date;
 
 import javax.validation.constraints.NotNull;
 
-import org.hibernate.validator.constraints.NotBlank;
-
 import br.uepb.interfaces.IFAcervo;
 import br.uepb.model.Autor;
 import br.uepb.model.Cidade;
@@ -18,27 +16,18 @@ import br.uepb.model.enums.Tipo_tcc;
  * @author EquipeACL
  */
 public class Tcc extends ItemAcervo implements IFAcervo{ 
-	
+	@NotNull(message=" Autor é obrigatorio")
 	private Autor autor;
 	
+	@NotNull(message=" Orientador é obrigatorio")
 	private Orientador orientador;
 	
 	@NotNull(message=" Tipo não pode ser nulo!")
 	private Tipo_tcc tipo;
 	
+	@NotNull(message=" Cidade é obrigatorio")
 	private Cidade cidade;
 	
-	@NotBlank(message="Data obrigatória")
-	private String data_string;
-	
-	@NotBlank(message="Autor obrigatório")
-	private String id_autor;
-	
-	@NotBlank(message="Cidade obrigatório")
-	private String id_cidade;
-	
-	@NotBlank(message="Orientador obrigatório")
-	private String id_orientador;
 	/**
 	 * Método construtor da classe Tcc
 	 * Construtor vazio (utilizado para criar um objeto do tipo Tcc sem parametros definidos)
@@ -94,33 +83,8 @@ public class Tcc extends ItemAcervo implements IFAcervo{
 	}
 	public void setCidade(Cidade cidade) {
 		this.cidade = cidade;
-	}
+	}	
 	
-	
-	public String getData_string() {
-		return data_string;
-	}
-	public void setData_string(String data_string) {
-		this.data_string = data_string;
-	}
-	public String getId_autor() {
-		return id_autor;
-	}
-	public void setId_autor(String id_autor) {
-		this.id_autor = id_autor;
-	}
-	public String getId_cidade() {
-		return id_cidade;
-	}
-	public void setId_cidade(String id_cidade) {
-		this.id_cidade = id_cidade;
-	}
-	public String getId_orientador() {
-		return id_orientador;
-	}
-	public void setId_orientador(String id_orientador) {
-		this.id_orientador = id_orientador;
-	}
 	public boolean validaItem() {
 		return true;
 	}

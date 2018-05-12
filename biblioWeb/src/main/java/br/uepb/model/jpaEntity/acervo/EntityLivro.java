@@ -14,7 +14,6 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Transient;
-import javax.validation.constraints.NotNull;
 
 import org.hibernate.annotations.Fetch;
 import org.hibernate.annotations.FetchMode;
@@ -59,21 +58,12 @@ public class EntityLivro extends EntityItemAcervo implements IFAcervo{
 	@JoinColumn(name = "editora_id",nullable=false)
 	private EntityEditora editora;
 	
-	@Transient
-	private String id_editora;
-	
-	@Transient
-	private String string_data;
-	
 	@Column(name="num_pag")
 	private int numero_paginas;
 	
 	@ManyToOne(cascade=CascadeType.MERGE)
 	@JoinColumn(name = "tema_id",nullable=false)
 	private EntityTema tema;
-	
-	@Transient
-	private String id_tema;
 	
 	/**
 	 * Método construtor da classe
@@ -94,18 +84,20 @@ public class EntityLivro extends EntityItemAcervo implements IFAcervo{
 	 * @param area objeto do tipo AreaConhecimento referente ao livro
 	 */
 	public EntityLivro(Livro livro) {
-		setIsbn(livro.getIsbn());
-		setTitulo(livro.getTitulo());
-		ArrayList<EntityAutor> autores = new ArrayList<EntityAutor>();
-		for(Autor a : livro.getAutores()){
-			autores.add(new EntityAutor(a));
+		if(livro!=null){
+			setIsbn(livro.getIsbn());
+			setTitulo(livro.getTitulo());
+			ArrayList<EntityAutor> autores = new ArrayList<EntityAutor>();
+			for(Autor a : livro.getAutores()){
+				autores.add(new EntityAutor(a));
+			}
+			setAutores(autores);
+			setEditora(new EntityEditora(livro.getEditora()));
+			setData(livro.getAnoPublicacao());
+			setEdicao(livro.getEdicao());
+			setNumero_paginas(livro.getNumero_paginas());
+			setTema(new EntityTema(livro.getTema()));
 		}
-		setAutores(autores);
-		setEditora(new EntityEditora(livro.getEditora()));
-		setData(livro.getAnoPublicacao());
-		setEdicao(livro.getEdicao());
-		setNumero_paginas(livro.getNumero_paginas());
-		setTema(new EntityTema(livro.getTema()));
 	}
 
 	public int getIsbn() {
@@ -154,32 +146,6 @@ public class EntityLivro extends EntityItemAcervo implements IFAcervo{
 
 	public void setTema(EntityTema tema) {
 		this.tema = tema;
-	}
-	
-	
-	public String getId_editora() {
-		return id_editora;
-	}
-
-	public void setId_editora(String id_editora) {
-		this.id_editora = id_editora;
-	}
-
-	public String getId_tema() {
-		return id_tema;
-	}
-
-	public void setId_tema(String id_tema) {
-		this.id_tema = id_tema;
-	}
-	
-	
-	public String getString_data() {
-		return string_data;
-	}
-
-	public void setString_data(String string_data) {
-		this.string_data = string_data;
 	}
 	
 	

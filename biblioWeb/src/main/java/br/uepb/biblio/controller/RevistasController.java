@@ -15,7 +15,6 @@ import br.uepb.biblio.repository.Editoras;
 import br.uepb.biblio.repository.Revistas;
 import br.uepb.biblio.service.CrudRevistaService;
 import br.uepb.biblio.service.exception.ItemDuplicadoException;
-import br.uepb.model.Editora;
 import br.uepb.model.acervo.Revista;
 
 @Controller
@@ -34,7 +33,6 @@ public class RevistasController {
 	@RequestMapping("/novo")
 	public ModelAndView novo(Revista revista, String busca) {
 		ModelAndView model = new ModelAndView("/revista/CadastroRevista");
-		System.out.println(editoraRepository.findAll().get(0).getNome());
 		model.addObject("listaEditoras",editoraRepository.findAll());
 		if(busca!=null){
 			model.addObject("listaRevistas", revistaService.buscarPorTitulo(busca));
@@ -60,15 +58,7 @@ public class RevistasController {
 		if(result.hasErrors()) {
 			return novo(revista,null);
 		}
-		//salvar no banco
-		
-		// Convertendo a string da data do html em sql.Date
-				java.sql.Date dataSql = new java.sql.Date(Integer.parseInt(revista.getData_string().substring(2, 4)) + 100,
-						Integer.parseInt(revista.getData_string().substring(5, 7)),
-						Integer.parseInt(revista.getData_string().substring(8, 10)));
-				revista.setData(dataSql);
-		// Setando a editora que irá aparecer na view 				
-		revista.setEditora(new Editora(editoraRepository.findOne(Integer.parseInt(revista.getId_editora()))));
+		//salvar no banco		
 		
 		try {
 			revistaService.salvar(revista);

@@ -40,9 +40,9 @@
 
 				<div class="row">
 										
-					<div class="form-group col-sm-2" th:classappend="${#fields.hasErrors('data_string')}? has-error">
+					<div class="form-group col-sm-2" th:classappend="${#fields.hasErrors('data')}? has-error">
 						<label for="data_string" class="control-label">Data</label>
-						<input id="data_string" type="date" class="form-control" th:field="*{data_string}" />
+						<input id="data_string" type="date" class="form-control" th:field="*{data}" />
 					</div>
 					
 					<div class="form-group col-sm-2" th:classappend="${#fields.hasErrors('num_pag')}? has-error">
@@ -52,11 +52,11 @@
 					</div>
 					
 					<div class="form-group col-sm-4"
-						th:classappend="${#fields.hasErrors('id_editora')}? has-error">
-						<label for="id_editora" class="control-label">Nome da Editora</label>
+						th:classappend="${#fields.hasErrors('editora')}? has-error">
+						<label for="editora" class="control-label">Nome da Editora</label>
 						<div class="bw-field-action">
-							<select id="id_editora" class="form-control" th:field="*{id_editora}">
-								<option value="">Selecione a Editora</option>
+							<select id="editora" class="form-control" th:field="*{editora.id}">
+								<option value="0">Selecione a Editora</option>
 								<option th:each="editoraSelect:${listaEditoras}" th:value="${editoraSelect.id}" th:text="${editoraSelect.nome}">Editora 1</option>
 							</select>
 							<div class="bw-field-action__icon">
@@ -82,7 +82,10 @@
 				<!-- incluindo a pesquisa -->
 				<div th:insert="revista/PesquisaRevista :: fragment-pesquisaRevista"></div>
 		</div>
-
+		<div th:replace="editora/CadastroRapidoEditora :: modal"></div>
 	</section>
+	<th:block layout:fragment="javascript-extra">
+		<script th:src="@{/javascripts/editora.cadastro-rapido.js}"></script>
+	</th:block>
 </body>
 </html>

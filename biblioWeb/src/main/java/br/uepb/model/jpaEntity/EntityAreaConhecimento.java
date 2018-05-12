@@ -41,8 +41,10 @@ public class EntityAreaConhecimento implements IFDependencia{
 	 * @param nome nome da area do conhecimento
 	 */
 	public EntityAreaConhecimento(AreaConhecimento area) {
-		setId(area.getId());
-		setNome(area.getNome());
+		if(area!=null){
+			setId(area.getId());
+			setNome(area.getNome());
+		}
 	}
 
 	public int getId() {

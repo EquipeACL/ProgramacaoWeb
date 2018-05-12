@@ -55,10 +55,6 @@ public class JornaisController {
 			return novo(jornal,null);
 		}
 		//salvar no banco
-		
-		// Convertendo a string da data do html em sql.Date
-		java.sql.Date dataSql = new java.sql.Date(Integer.parseInt(jornal.getData_string().substring(2, 4))+100,Integer.parseInt(jornal.getData_string().substring(5, 7)),Integer.parseInt(jornal.getData_string().substring(8, 10)));		System.out.println("Data: ");
-		jornal.setData(dataSql);
 		try {
 			jornaisService.salvar(jornal);
 		} catch (ItemDuplicadoException e) {

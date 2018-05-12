@@ -6,7 +6,6 @@ import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
 import javax.persistence.Table;
-import javax.persistence.Transient;
 
 import br.uepb.interfaces.IFAcervo;
 import br.uepb.model.acervo.MidiasEletronicas;
@@ -21,19 +20,6 @@ import br.uepb.model.enums.Tipo_midia;
 @Entity
 @Table(name="midia")
 public class EntityMidiasEletronicas extends EntityItemAcervo implements IFAcervo{
-	
-	@Transient
-	private String data_string;
-	
-	public String getData_string() {
-		return data_string;
-	}
-
-	public void setData_string(String data_string) {
-		this.data_string = data_string;
-	}
-
-	
 	
 	@Enumerated(EnumType.STRING)
 	private Tipo_midia tipo;
@@ -52,9 +38,11 @@ public class EntityMidiasEletronicas extends EntityItemAcervo implements IFAcerv
 	 * @param data_gravacao data da gravação da  midia eletronica
 	 */
 	public EntityMidiasEletronicas(MidiasEletronicas midia) {
-		setTitulo(midia.getTitulo());
-		setTipo(midia.getTipo());
-		setData_gravacao(midia.getData_gravacao());
+		if(midia!=null){
+			setTitulo(midia.getTitulo());
+			setTipo(midia.getTipo());
+			setData_gravacao(midia.getData_gravacao());
+		}
 	}
 	
 	public Tipo_midia getTipo() {

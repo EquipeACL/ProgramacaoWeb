@@ -19,7 +19,6 @@ import br.uepb.biblio.repository.AreasConhecimento;
 import br.uepb.biblio.repository.Temas;
 import br.uepb.biblio.service.CadastroTemaService;
 import br.uepb.biblio.service.exception.ItemDuplicadoException;
-import br.uepb.model.AreaConhecimento;
 import br.uepb.model.Tema;
 
 @Controller
@@ -87,9 +86,7 @@ public class TemaController{
 		if(result.hasErrors()){
 			return novo(tema,null);
 		}
-		//setando area do conhecimento de acordo com id selecionado
-		tema.setArea(new AreaConhecimento(areasRepository.findOne(Integer.parseInt(tema.getAreaconhecimento_id()))));
-		
+			
 		try{
 			temaService.salvar(tema);
 		}catch(ItemDuplicadoException e){
@@ -120,18 +117,18 @@ public class TemaController{
 		if(result.hasErrors()) {
 			return ResponseEntity.badRequest().body(result.getFieldError().getDefaultMessage());
 		}
-		
-		tema.setArea(new AreaConhecimento(areasRepository.findOne(Integer.parseInt(tema.getAreaconhecimento_id()))));
+		//tema.setArea(new AreaConhecimento(areasRepository.findOne(Integer.parseInt(tema.getAreaConhecimento_id()))));
+		Tema retorno = new Tema();
 		try {
 			//vai tentar salvar no banco
-			temaService.salvar(tema);
+			retorno = new Tema(temaService.salvar(tema));
 		}
 		catch(ItemDuplicadoException e) {
 			//se ja tiver nome cadastrado vai lançar essa exceção
 			return ResponseEntity.badRequest().body(e.getMessage());
 		}
 		//se tiver tudo ok, vem pra cá
-		return ResponseEntity.ok(tema);
+		return ResponseEntity.ok(retorno);
 	}
 
 }

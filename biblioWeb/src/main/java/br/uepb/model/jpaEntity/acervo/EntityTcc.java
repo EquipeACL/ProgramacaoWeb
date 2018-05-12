@@ -9,13 +9,12 @@ import javax.persistence.Enumerated;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
-import javax.persistence.Transient;
 
 import br.uepb.interfaces.IFAcervo;
-import br.uepb.model.Cidade;
 import br.uepb.model.acervo.Tcc;
 import br.uepb.model.enums.Tipo_tcc;
 import br.uepb.model.jpaEntity.EntityAutor;
+import br.uepb.model.jpaEntity.EntityCidade;
 import br.uepb.model.jpaEntity.EntityOrientador;
 /**
  * Classe utilizada para fazer o mapeamento da classe Tcc para a base de dados
@@ -27,18 +26,6 @@ import br.uepb.model.jpaEntity.EntityOrientador;
 @Entity
 @Table(name="tcc")
 public class EntityTcc extends EntityItemAcervo implements IFAcervo{ 
-	
-	@Transient
-	private String data_string;
-	
-	@Transient
-	private String id_autor;
-	
-	@Transient
-	private String id_cidade;
-
-	@Transient
-	private String id_orientador;
 	
 	@ManyToOne(cascade=CascadeType.MERGE)
 	@JoinColumn(name = "autor_id",nullable=false)
@@ -54,7 +41,7 @@ public class EntityTcc extends EntityItemAcervo implements IFAcervo{
 	
 	@ManyToOne(cascade=CascadeType.MERGE)
 	@JoinColumn(name = "cidade_id",nullable=false)	
-	private Cidade cidade;
+	private EntityCidade cidade;
 	
 	
 	/**
@@ -74,13 +61,15 @@ public class EntityTcc extends EntityItemAcervo implements IFAcervo{
 	 * @param cidade cidade da defesa do tcc
 	 */
 	public EntityTcc(Tcc tcc) {
-		setId(tcc.getId());
-		setTitulo(tcc.getTitulo());
-		setAutor(new EntityAutor(tcc.getAutor()));
-		setOrientador(new EntityOrientador(tcc.getOrientador()));
-		setTipo(tcc.getTipo());
-		setAno_defesa(tcc.getAno_defesa());
-		setCidade(tcc.getCidade());
+		if(tcc!=null){
+			setId(tcc.getId());
+			setTitulo(tcc.getTitulo());
+			setAutor(new EntityAutor(tcc.getAutor()));
+			setOrientador(new EntityOrientador(tcc.getOrientador()));
+			setTipo(tcc.getTipo());
+			setAno_defesa(tcc.getAno_defesa());
+			setCidade(new EntityCidade(tcc.getCidade()));
+		}
 	}
 
 	public EntityAutor getAutor() {
@@ -107,37 +96,14 @@ public class EntityTcc extends EntityItemAcervo implements IFAcervo{
 	public void setAno_defesa(Date ano_defesa) {
 		setData(ano_defesa);
 	}
-	public Cidade getCidade() {
+	public EntityCidade getCidade() {
 		return cidade;
 	}
-	public void setCidade(Cidade cidade) {
+	public void setCidade(EntityCidade cidade) {
 		this.cidade = cidade;
 	}
 	public boolean validaItem() {
 		return true;
 	}
-	public String getData_string() {
-		return data_string;
-	}
-	public void setData_string(String data_string) {
-		this.data_string = data_string;
-	}
-	public String getId_autor() {
-		return id_autor;
-	}
-	public void setId_autor(String id_autor) {
-		this.id_autor = id_autor;
-	}
-	public String getId_cidade() {
-		return id_cidade;
-	}
-	public void setId_cidade(String id_cidade) {
-		this.id_cidade = id_cidade;
-	}
-	public String getId_orientador() {
-		return id_orientador;
-	}
-	public void setId_orientador(String id_orientador) {
-		this.id_orientador = id_orientador;
-	}
+	
 }

@@ -10,7 +10,7 @@ import br.uepb.biblio.config.ServiceConfig;
 import br.uepb.biblio.config.WebConfig;
 
 public class AppInitializer extends AbstractAnnotationConfigDispatcherServletInitializer {
-
+		
 	@Override
 	protected Class<?>[] getRootConfigClasses() {
 		//return new Class<?>[] { H2Config.class, ServiceConfig.class };

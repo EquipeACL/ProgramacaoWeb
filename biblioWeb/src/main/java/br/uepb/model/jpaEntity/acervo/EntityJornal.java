@@ -2,7 +2,6 @@ package br.uepb.model.jpaEntity.acervo;
 
 import javax.persistence.Entity;
 import javax.persistence.Table;
-import javax.persistence.Transient;
 
 import br.uepb.interfaces.IFAcervo;
 import br.uepb.model.acervo.Jornal;
@@ -17,16 +16,6 @@ import br.uepb.model.acervo.Jornal;
 @Table(name="jornal")
 public class EntityJornal extends EntityItemAcervo implements IFAcervo{
 	
-	@Transient
-	private String data_string;
-	public String getData_string() {
-		return data_string;
-	}
-
-	public void setData_string(String data_string) {
-		this.data_string = data_string;
-	}
-
 	/**
 	 * Método construtor da classe
 	 * Construtor vazio (utilizado para criar um objeto do tipo Jornal sem parametros definidos)
@@ -42,9 +31,12 @@ public class EntityJornal extends EntityItemAcervo implements IFAcervo{
 	 * @param edicao  edicao do jornal
 	 */
 	public EntityJornal(Jornal jornal) {
-		setTitulo(jornal.getTitulo());
-		setData(jornal.getData());
-		setEdicao(jornal.getEdicao());
+		if(jornal!=null){
+			setTitulo(jornal.getTitulo());
+			setData(jornal.getData());
+			setEdicao(jornal.getEdicao());
+		}
+		
 	}
 
 	public boolean validaItem() {

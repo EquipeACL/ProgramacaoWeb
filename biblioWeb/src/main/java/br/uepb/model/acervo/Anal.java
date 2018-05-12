@@ -1,11 +1,8 @@
 package br.uepb.model.acervo;
 
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-import javax.persistence.EnumType;
-import javax.persistence.Enumerated;
 import javax.validation.constraints.NotNull;
 
 import org.hibernate.validator.constraints.NotBlank;
@@ -28,21 +25,18 @@ public class Anal extends ItemAcervo implements IFAcervo{
 	@NotNull(message=" Tipo é obrigatório")
 	private Tipo_anal tipo;	
 	
+	//@NotNull(message=" Autor é obrigatório")
 	private List<Autor> autores;	
 	
 	@NotBlank(message = " Nome do Congresso é Obrigatório")
 	private String nome_congresso;	
 	
-	private Cidade local;
+	@NotBlank(message = " Pelo menos um autor.")
+	private String id_autor;	
 	
-	@NotBlank(message=" Autor é obrigatório")
-	private String id_autor;
+	@NotNull(message=" Cidade é obrigatório")
+	private Cidade local;	
 	
-	@NotBlank(message=" Data é obrigatório")
-	private String data_string;
-	
-	@NotBlank(message=" Cidade é obrigatório")
-	private String id_cidade;
 	/**
 	 * Método construtor da classe Anal
 	 * Construtor vazio (utilizado para criar um objeto do tipo Anal sem par�metros definidos)
@@ -61,7 +55,7 @@ public class Anal extends ItemAcervo implements IFAcervo{
 	 * @param anoPublicacao ano de publicacao do anal
 	 * @param local objeto do tipo Cidade referente ao anal
 	 */
-	public Anal(int id,Tipo_anal tipo, String titulo, ArrayList<Autor> autores, String nome_congresso, Date anoPublicacao, Cidade local){
+	public Anal(int id,Tipo_anal tipo, String titulo, List<Autor> autores, String nome_congresso, Date anoPublicacao, Cidade local){
 		setId(id);
 		setTipo(tipo);
 		setTitulo(titulo);
@@ -73,6 +67,14 @@ public class Anal extends ItemAcervo implements IFAcervo{
 	public Tipo_anal getTipo() {
 		return tipo;
 	}
+	public List<Autor> getAutores() {
+		return autores;
+	}
+
+	public void setAutores(List<Autor> autores) {
+		this.autores = autores;
+	}
+
 	public void setTipo(Tipo_anal tipo) {
 		this.tipo = tipo;
 	}
@@ -95,36 +97,13 @@ public class Anal extends ItemAcervo implements IFAcervo{
 		this.local = local;
 	}
 	
-	public List<Autor> getAutores() {
-		return autores;
-	}
-
-	public void setAutores(List<Autor> autores) {
-		this.autores = autores;
-	}
-
+	
 	public String getId_autor() {
 		return id_autor;
 	}
 
 	public void setId_autor(String id_autor) {
 		this.id_autor = id_autor;
-	}
-
-	public String getData_string() {
-		return data_string;
-	}
-
-	public void setData_string(String data_string) {
-		this.data_string = data_string;
-	}
-
-	public String getId_cidade() {
-		return id_cidade;
-	}
-
-	public void setId_cidade(String id_cidade) {
-		this.id_cidade = id_cidade;
 	}
 
 	public boolean validaItem() {

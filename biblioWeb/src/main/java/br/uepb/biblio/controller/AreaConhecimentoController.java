@@ -4,7 +4,6 @@ package br.uepb.biblio.controller;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
@@ -21,7 +20,6 @@ import br.uepb.biblio.repository.AreasConhecimento;
 import br.uepb.biblio.service.CadastroAreaConhecimento;
 import br.uepb.biblio.service.exception.ItemDuplicadoException;
 import br.uepb.model.AreaConhecimento;
-import br.uepb.model.Autor;
 
 @Controller
 @RequestMapping("/areasconhecimento")
@@ -112,15 +110,16 @@ public class AreaConhecimentoController {
 		if(result.hasErrors()) {
 			return ResponseEntity.badRequest().body(result.getFieldError().getDefaultMessage());
 		}
+		AreaConhecimento retorno = new AreaConhecimento();
 		try {
 			//vai tentar salvar no banco
-			cadastroAreaConhecimento.salvar(area);
+			retorno = new AreaConhecimento(cadastroAreaConhecimento.salvar(area));
 		}
 		catch(ItemDuplicadoException e) {
 			//se ja tiver nome cadastrado vai lançar essa exceção
 			return ResponseEntity.badRequest().body(e.getMessage());
 		}
 		//se tiver tudo ok, vem pra cá
-		return ResponseEntity.ok(area);
+		return ResponseEntity.ok(retorno);
 	}
 }

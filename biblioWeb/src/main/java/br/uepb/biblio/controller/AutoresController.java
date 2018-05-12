@@ -76,16 +76,17 @@ public class AutoresController {
 		if(result.hasErrors()) {
 			return ResponseEntity.badRequest().body(result.getFieldError().getDefaultMessage());
 		}
+		Autor retorno = new Autor();
 		try {
 			//vai tentar salvar no banco
-			cadastroAutorService.salvar(autor);
+			retorno = new Autor(cadastroAutorService.salvar(autor));
 		}
 		catch(ItemDuplicadoException e) {
 			//se ja tiver nome cadastrado vai lançar essa exceção
 			return ResponseEntity.badRequest().body(e.getMessage());
 		}
 		//se tiver tudo ok, vem pra cá
-		return ResponseEntity.ok(autor);
+		return ResponseEntity.ok(retorno);
 	}
 
 	@RequestMapping("/editar")

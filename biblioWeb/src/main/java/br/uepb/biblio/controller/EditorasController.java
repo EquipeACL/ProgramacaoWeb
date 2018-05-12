@@ -113,15 +113,16 @@ public class EditorasController {
 		if(result.hasErrors()) {
 			return ResponseEntity.badRequest().body(result.getFieldError().getDefaultMessage());
 		}
+		Editora retorno = new Editora();
 		try {
 			//vai tentar salvar no banco
-			cadastroEditoraService.salvar(editora);
+			retorno = new Editora(cadastroEditoraService.salvar(editora));
 		}
 		catch(ItemDuplicadoException e) {
 			//se ja tiver nome cadastrado vai lançar essa exceção
 			return ResponseEntity.badRequest().body(e.getMessage());
 		}
 		//se tiver tudo ok, vem pra cá
-		return ResponseEntity.ok(editora);
+		return ResponseEntity.ok(retorno);
 	}
 }

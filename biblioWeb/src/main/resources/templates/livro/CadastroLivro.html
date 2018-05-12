@@ -36,11 +36,11 @@
 						<input id="titulo" type="text" class="form-control" th:field="*{titulo}" />
 					</div>
 					<div class="form-group col-sm-4"
-						th:classappend="${#fields.hasErrors('id_editora')}? has-error">
+						th:classappend="${#fields.hasErrors('editora')}? has-error">
 						<label for="editora" class="control-label">Nome da Editora</label>
 						<div class="bw-field-action">
-							<select id="editora" class="form-control" th:field="*{id_editora}">
-								<option value="">Selecione a Editora</option>
+							<select id="editora" class="form-control" th:field="*{editora.id}">
+								<option value="0">Selecione a Editora</option>
 								<option th:each="editora : ${editoras}" th:value="${editora.id}"
 									th:text="${editora.nome}"></option>
 							</select>
@@ -66,7 +66,7 @@
 						<label class="control-label" for = "area">Nome da Área de Conhecimento</label>
 						<div class="bw-field-action">
 							<select class="form-control" id = "area">
-								<option value="">Selecione a Área</option>
+								<option value="0">Selecione a Área</option>
 								<option th:each="areaConhecimento : ${areas}" th:value="${areaConhecimento.id}"
 									th:text="${areaConhecimento.nome}"></option>
 							</select>
@@ -80,11 +80,11 @@
 					</div>
 					
 					<div class="form-group col-sm-4"
-						th:classappend="${#fields.hasErrors('id_tema')}? has-error">
+						th:classappend="${#fields.hasErrors('tema')}? has-error">
 						<label for="tema" class="control-label">Nome do tema(subarea)</label>
 						<div class="bw-field-action">
-							<select id="tema" class="form-control" th:field="*{id_tema}">
-								<option value="">Selecione o tema</option>
+							<select id="tema" class="form-control" th:field="*{tema.id}">
+								<option value="0">Selecione o tema</option>
 								<option th:each="temaSelect : ${temas}" th:value="${temaSelect.id}"
 									th:text="${temaSelect.nome}"></option>
 							</select>
@@ -98,10 +98,10 @@
 					</div>
 					
 					<div class="form-grup col-sm-2"
-						th:classappend="${#fields.hasErrors('string_data')}? has-error">
+						th:classappend="${#fields.hasErrors('data')}? has-error">
 						<label for="data" class="control-label">Data de Publicação</label>
 						<input id="data" type="date" class="form-control"
-							th:field="*{string_data}">
+							th:field="*{data}">
 					</div>
 				</div>
 				<div class="row">
@@ -115,7 +115,7 @@
 						<label for="autor" class="control-label">Nome do Autor</label>
 						<div class="bw-field-action">
 							<select id="autor" class="form-control" th:field="*{id_autor}">
-								<option value="">Selecione o Autor</option>
+								<option value="0">Selecione o Autor</option>
 								<option th:each="autor : ${autores}" th:value="${autor.id}" th:text="${autor.nome}">Autor 1</option>
 							</select>
 							<div class="bw-field-action__icon">

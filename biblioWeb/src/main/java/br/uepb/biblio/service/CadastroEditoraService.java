@@ -25,13 +25,13 @@ public class CadastroEditoraService {
     private EntityManager manager;
 	
 	@Transactional
-	public void salvar(Editora editora) {
+	public EntityEditora salvar(Editora editora) {
 		EntityEditora newEntity = new EntityEditora(editora);
 		Optional <EntityEditora> optionalEditora = editoras.findByNomeIgnoreCase(newEntity.getNome());
 		if(optionalEditora.isPresent()) {
 			throw new ItemDuplicadoException("Editora já Cadastrada");
 		}
-		editoras.save(newEntity);
+		return editoras.saveAndFlush(newEntity);
 	}
 	
 	@Transactional

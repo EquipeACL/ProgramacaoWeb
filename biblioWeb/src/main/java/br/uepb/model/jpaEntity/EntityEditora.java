@@ -36,8 +36,10 @@ public class EntityEditora implements IFDependencia{
 	}
 	
 	public EntityEditora(Editora editora){
-		setId(editora.getId());
-		setNome(editora.getNome());
+		if(editora!=null){
+			setId(editora.getId());
+			setNome(editora.getNome());
+		}
 	}
 	
 	/**

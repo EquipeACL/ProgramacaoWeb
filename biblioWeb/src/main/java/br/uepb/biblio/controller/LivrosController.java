@@ -21,8 +21,6 @@ import br.uepb.biblio.repository.Temas;
 import br.uepb.biblio.service.CrudLivroService;
 import br.uepb.biblio.service.exception.ItemDuplicadoException;
 import br.uepb.model.Autor;
-import br.uepb.model.Editora;
-import br.uepb.model.Tema;
 import br.uepb.model.acervo.Livro;
 
 @Controller
@@ -79,17 +77,6 @@ public class LivrosController {
 		if(result.hasErrors()) {
 			return novo(livro,null);
 		}
-		
-		// Convertendo a string da data do html em sql.Date
-		@SuppressWarnings("deprecation")
-		java.sql.Date dataSql = new java.sql.Date(Integer.parseInt(livro.getString_data().substring(2, 4)) + 100,
-						Integer.parseInt(livro.getString_data().substring(5, 7)),
-						Integer.parseInt(livro.getString_data().substring(8, 10)));
-		livro.setAnoPublicacao(dataSql);
-		
-		livro.setEditora(new Editora(editoras.findOne(Integer.parseInt(livro.getId_editora()))));
-		
-		livro.setTema(new Tema(temas.findOne(Integer.parseInt(livro.getId_tema()))));
 		
 		//Criando uma lista com os autores
 		ArrayList<Autor> listaAutores = new ArrayList<Autor>();

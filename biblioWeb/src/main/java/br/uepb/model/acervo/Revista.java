@@ -5,8 +5,6 @@ import java.util.Date;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
 
-import org.hibernate.validator.constraints.NotBlank;
-
 import br.uepb.interfaces.IFAcervo;
 import br.uepb.model.Editora;
 /**
@@ -16,18 +14,15 @@ import br.uepb.model.Editora;
  * @author EquipeACL
  */
 public class Revista extends ItemAcervo implements IFAcervo{
-		
+	
+	@NotNull(message=" Editora obrigatória")
 	private Editora editora;
 	
 	@NotNull
 	@Min(value = 1, message=" Numero de paginas deve ser maior ou igual a 1.")
 	private int num_pag;
 	
-	@NotBlank(message="Editora obrigatória")
-	private String id_editora;
 	
-	@NotBlank(message="Data obrigatória")
-	private String data_string;
 	/**
 	 * Método construtor da classe Revista
 	 * Construtor vazio (utilizado para criar um objeto do tipo Revista sem parametros definidos)
@@ -72,21 +67,8 @@ public class Revista extends ItemAcervo implements IFAcervo{
 
 	public void setNum_pag(int numeroDePaginas) {
 		this.num_pag = numeroDePaginas;
-	}
+	}	
 	
-	
-	public String getId_editora() {
-		return id_editora;
-	}
-	public void setId_editora(String id_editora) {
-		this.id_editora = id_editora;
-	}
-	public String getData_string() {
-		return data_string;
-	}
-	public void setData_string(String data_string) {
-		this.data_string = data_string;
-	}
 	public boolean validaItem() {
 		return true;
 	}

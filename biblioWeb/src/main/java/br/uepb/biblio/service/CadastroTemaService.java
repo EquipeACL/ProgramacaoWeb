@@ -25,13 +25,13 @@ public class CadastroTemaService {
     private EntityManager manager;
 	
 	@Transactional
-	public void salvar (Tema tema) {
+	public EntityTema salvar (Tema tema) {
 		EntityTema newEntity = new EntityTema(tema);
 		Optional <EntityTema> temaOptional = temas.findByNomeIgnoreCase(newEntity.getNome());
 		if(temaOptional.isPresent()){
 			throw new ItemDuplicadoException(" Tema já Cadastrado!");
 		}
-		temas.save(newEntity);
+		return temas.saveAndFlush(newEntity);
 	}
 		
 	@Transactional

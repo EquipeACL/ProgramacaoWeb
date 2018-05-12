@@ -26,24 +26,17 @@ public class Livro extends ItemAcervo implements IFAcervo{
 	
 	private List<Autor> autores;
 	
+	@NotNull(message=" Editora é obrigatório")
 	private Editora editora;
 	
 	@NotNull(message=" Numero de paginas é obrigatório")
 	private int numero_paginas;
 	
+	@NotNull(message=" Tema é obrigatório")
 	private Tema tema;
 	
 	@NotBlank(message = " Pelo menos um autor é obrigatório")
 	private String id_autor;
-	
-	@NotBlank(message = " Tema é obrigatório")
-	private String id_tema;
-	
-	@NotBlank(message = " Editora é obrigatório")
-	private String id_editora;
-	
-	@NotBlank(message = " Data é obrigatório")
-	private String string_data;
 	
 	/**
 	 * Método construtor da classe Livro
@@ -129,30 +122,6 @@ public class Livro extends ItemAcervo implements IFAcervo{
 
 	public void setId_autor(String id_autor) {
 		this.id_autor = id_autor;
-	}
-
-	public String getId_editora() {
-		return id_editora;
-	}
-
-	public void setId_editora(String id_editora) {
-		this.id_editora = id_editora;
-	}
-
-	public String getString_data() {
-		return string_data;
-	}
-
-	public void setString_data(String string_data) {
-		this.string_data = string_data;
-	}
-	
-	public String getId_tema() {
-		return id_tema;
-	}
-
-	public void setId_tema(String id_tema) {
-		this.id_tema = id_tema;
 	}
 
 	public boolean validaItem() {

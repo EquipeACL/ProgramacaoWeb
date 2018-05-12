@@ -15,19 +15,16 @@ import javax.persistence.JoinTable;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
-import javax.persistence.Transient;
-import javax.validation.constraints.NotNull;
 
 import org.hibernate.annotations.Fetch;
 import org.hibernate.annotations.FetchMode;
-import org.hibernate.validator.constraints.NotBlank;
 
 import br.uepb.interfaces.IFAcervo;
 import br.uepb.model.Autor;
-import br.uepb.model.Cidade;
 import br.uepb.model.acervo.Anal;
 import br.uepb.model.enums.Tipo_anal;
 import br.uepb.model.jpaEntity.EntityAutor;
+import br.uepb.model.jpaEntity.EntityCidade;
 
 /**
  * Essa classe utilizada para fazer o mapeamento da classe Anal para a base de dados.
@@ -43,15 +40,6 @@ public class EntityAnal extends EntityItemAcervo implements IFAcervo{
 	@Enumerated(EnumType.STRING)
 	private Tipo_anal tipo;
 	
-	@Transient
-	private String id_autor;
-	
-	@Transient
-	private String data_string;
-	
-	@Transient
-	private String id_cidade;
-
 	@OneToMany(
 	        targetEntity=EntityAutor.class,
 	        cascade=CascadeType.MERGE,
@@ -72,7 +60,7 @@ public class EntityAnal extends EntityItemAcervo implements IFAcervo{
 	
 	@ManyToOne(cascade=CascadeType.MERGE)
 	@JoinColumn(name = "cidade_id",nullable=false)
-	private Cidade local;
+	private EntityCidade local;
 	
 	/**
 	 * M�todo construtor da classe Anal
@@ -93,18 +81,20 @@ public class EntityAnal extends EntityItemAcervo implements IFAcervo{
 	 * @param local objeto do tipo Cidade referente ao anal
 	 */
 	public EntityAnal(Anal anal){
-		setId(anal.getId());
-		setTipo(anal.getTipo());
-		setTitulo(anal.getTitulo());
-		
-		ArrayList<EntityAutor> autores = new ArrayList<EntityAutor>();
-		for(Autor a : anal.getAutores()){
-			autores.add(new EntityAutor(a));
+		if(anal!=null){
+			setId(anal.getId());
+			setTipo(anal.getTipo());
+			setTitulo(anal.getTitulo());
+			
+			ArrayList<EntityAutor> autores = new ArrayList<EntityAutor>();
+			for(Autor a : anal.getAutores()){
+				autores.add(new EntityAutor(a));
+			}
+			setAutores(autores);
+			setNome_congresso(anal.getNome_congresso());
+			setAnoPublicacao(anal.getAnoPublicacao());
+			setLocal(new EntityCidade(anal.getLocal()));
 		}
-		setAutores(autores);
-		setNome_congresso(anal.getNome_congresso());
-		setAnoPublicacao(anal.getAnoPublicacao());
-		setLocal(anal.getLocal());
 	}
 	public Tipo_anal getTipo() {
 		return tipo;
@@ -130,36 +120,13 @@ public class EntityAnal extends EntityItemAcervo implements IFAcervo{
 	public void setAnoPublicacao(Date anoPublicacao) {
 		setData(anoPublicacao);
 	}
-	public Cidade getLocal() {
+	public EntityCidade getLocal() {
 		return local;
 	}
-	public void setLocal(Cidade local) {
+	public void setLocal(EntityCidade local) {
 		this.local = local;
 	}
 	
-	public String getId_autor() {
-		return id_autor;
-	}
-
-	public void setId_autor(String id_autor) {
-		this.id_autor = id_autor;
-	}
-
-	public String getData_string() {
-		return data_string;
-	}
-
-	public void setData_string(String data_string) {
-		this.data_string = data_string;
-	}
-
-	public String getId_cidade() {
-		return id_cidade;
-	}
-
-	public void setId_cidade(String id_cidade) {
-		this.id_cidade = id_cidade;
-	}
 
 	public boolean validaItem() {
 		return true;

@@ -25,7 +25,7 @@
 							<label class="col-sm-4  control-label">Área de Conhecimento</label>
 							<div class="col-sm-8">
 									<br>
-									<select class="form-control" id = "areaConhecimento" >
+									<select class="form-control" id = "area">
 										<option value="">Selecione a Área</option>
 										<option th:each="areaConhecimento : ${areas}" th:value="${areaConhecimento.id}"
 										th:text="${areaConhecimento.nome}"></option>

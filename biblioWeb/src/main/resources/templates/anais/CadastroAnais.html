@@ -56,10 +56,10 @@
 							th:field="*{edicao}" />
 					</div>
 					
-					<div class="form-grup col-sm-2" th:classappend ="${#fields.hasErrors('data_string')}? has-error">
+					<div class="form-grup col-sm-2" th:classappend ="${#fields.hasErrors('data')}? has-error">
 						<label for="data" class="control-label">Data de Publicação</label>
 						<input id="data" type="date" class="form-control"
-							th:field="*{data_string}">
+							th:field="*{data}">
 					</div>
 					<div class="form-group col-sm-2">
 						<label for="uf" class="control-label">Estado</label> <select
@@ -69,9 +69,9 @@
 								th:text="${estado}"></option>
 						</select>
 					</div>
-					<div class="form-group col-sm-3" th:classappend ="${#fields.hasErrors('id_cidade')}? has-error">
+					<div class="form-group col-sm-3" th:classappend ="${#fields.hasErrors('local')}? has-error">
 						<label for="cidade" class="control-label">Local de Defesa</label>
-						<select id="cidade" th:field="*{id_cidade}" class="form-control">
+						<select id="cidade" th:field="*{local.id}" class="form-control">
 							<option value="0">Selecione a Cidade</option>
 							<option th:each="cidade: ${cidades}" th:value="${cidade.Id}"
 								th:text="${cidade.Nome}"></option>
@@ -82,7 +82,7 @@
 						<label for="autor" class="control-label">Nome do Autor</label>
 						<div class="bw-field-action">
 							<select id="autor" class="form-control" th:field="*{id_autor}">
-								<option value="">Selecione o Autor</option>
+								<option value="0">Selecione o Autor</option>
 								<option th:each="autor : ${autores}" th:value="${autor.id}" th:text="${autor.nome}">Autor 1</option>
 							</select>
 							<div class="bw-field-action__icon">

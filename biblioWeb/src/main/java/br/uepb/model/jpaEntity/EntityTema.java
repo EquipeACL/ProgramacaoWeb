@@ -8,12 +8,8 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
-import javax.persistence.Transient;
-
-import org.hibernate.validator.constraints.NotBlank;
 
 import br.uepb.interfaces.IFDependencia;
-import br.uepb.model.AreaConhecimento;
 import br.uepb.model.Tema;
 
 /**
@@ -35,9 +31,6 @@ public class EntityTema implements IFDependencia{
 	@JoinColumn(name = "areaconhecimento_id",nullable=false)
 	private EntityAreaConhecimento area;
 	
-	@Transient
-	private String areaconhecimento_id;
-	
 	/**
 	 * Método construtor da classe
 	 * Construtor vazio (utilizado para criar um objeto do tipo Tema sem parametros definidos)
@@ -53,9 +46,11 @@ public class EntityTema implements IFDependencia{
 	 * @param area objeto do tipo Area, referente ao tema
 	 */
 	public EntityTema(Tema tema) {
-		setId(tema.getId());
-		setNome(tema.getNome());
-		setArea(new EntityAreaConhecimento(tema.getArea()));
+		if(tema!=null){
+			setId(tema.getId());
+			setNome(tema.getNome());
+			setArea(new EntityAreaConhecimento(tema.getArea()));
+		}
 	}
 
 	public int getId() {
@@ -82,13 +77,6 @@ public class EntityTema implements IFDependencia{
 		this.area = area;
 	}
 	
-	public String getAreaconhecimento_id() {
-		return areaconhecimento_id;
-	}
-
-	public void setAreaconhecimento_id(String areaconhecimento_id) {
-		this.areaconhecimento_id = areaconhecimento_id;
-	}
 
 	public boolean validaDependencia() {
 		return true;

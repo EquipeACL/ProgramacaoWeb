@@ -4,8 +4,6 @@ import java.util.Date;
 
 import javax.validation.constraints.NotNull;
 
-import org.hibernate.validator.constraints.NotBlank;
-
 import br.uepb.interfaces.IFAcervo;
 import br.uepb.model.enums.Tipo_midia;
 
@@ -16,11 +14,10 @@ import br.uepb.model.enums.Tipo_midia;
  * @author EquipeACL
  */
 public class MidiasEletronicas extends ItemAcervo implements IFAcervo{
+	
 	@NotNull(message=" Tipo não pode ser nulo!")
 	private Tipo_midia tipo;
 	
-	@NotBlank(message="Data obrigatória")
-	private String data_string;
 	/**
 	 * Método construtor da classe MidiasEletronicas
 	 * Construtor vazio (utilizado para criar um objeto do tipo MidiasEletronicas sem parametros definidos)
@@ -56,14 +53,6 @@ public class MidiasEletronicas extends ItemAcervo implements IFAcervo{
 		setData(data_gravacao);
 	}
 	
-	public String getData_string() {
-		return data_string;
-	}
-
-	public void setData_string(String data_string) {
-		this.data_string = data_string;
-	}
-
 	public boolean validaItem() {
 		return true;
 	}	

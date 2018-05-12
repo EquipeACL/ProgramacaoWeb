@@ -7,9 +7,6 @@ import javax.persistence.Entity;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
-import javax.persistence.Transient;
-import javax.validation.constraints.Min;
-import javax.validation.constraints.NotNull;
 
 import br.uepb.interfaces.IFAcervo;
 import br.uepb.model.acervo.Revista;
@@ -23,28 +20,8 @@ import br.uepb.model.jpaEntity.EntityEditora;
 @Entity
 @Table(name="revista")
 public class EntityRevista extends EntityItemAcervo implements IFAcervo{
-	@Transient
-	private String data_string;
+		
 	
-	@Transient
-	private String id_editora;
-	
-	
-	public String getId_editora() {
-		return id_editora;
-	}
-
-	public void setId_editora(String id_editora) {
-		this.id_editora = id_editora;
-	}
-
-	public String getData_string() {
-		return data_string;
-	}
-
-	public void setData_string(String data_string) {
-		this.data_string = data_string;
-	}
 	
 	@ManyToOne(cascade=CascadeType.MERGE)
 	@JoinColumn(name = "editora_id",nullable=false)
@@ -67,11 +44,13 @@ public class EntityRevista extends EntityItemAcervo implements IFAcervo{
 	 * @param numeroDePaginas numero de paginas da revista
 	 */
 	public EntityRevista(Revista revista) {
-		setTitulo(revista.getTitulo());
-		setEditora(new EntityEditora(revista.getEditora()));
-		setData(revista.getDataPublicacao());
-		setEdicao(revista.getEdicao());
-		setNum_pag(revista.getNum_pag());
+		if(revista!=null){
+			setTitulo(revista.getTitulo());
+			setEditora(new EntityEditora(revista.getEditora()));
+			setData(revista.getDataPublicacao());
+			setEdicao(revista.getEdicao());
+			setNum_pag(revista.getNum_pag());
+		}
 	}
 	
 	public EntityEditora getEditora() {

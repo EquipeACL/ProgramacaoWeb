@@ -25,8 +25,6 @@ import org.thymeleaf.spring4.view.ThymeleafViewResolver;
 import org.thymeleaf.templatemode.TemplateMode;
 import org.thymeleaf.templateresolver.ITemplateResolver;
 
-
-
 import br.uepb.biblio.controller.LivrosController;
 import nz.net.ultraq.thymeleaf.LayoutDialect;
 
@@ -34,7 +32,7 @@ import nz.net.ultraq.thymeleaf.LayoutDialect;
 @ComponentScan(basePackageClasses = { LivrosController.class })
 @EnableWebMvc
 public class WebConfig extends WebMvcConfigurerAdapter implements ApplicationContextAware {
-
+	
 	private ApplicationContext applicationContext;
 	
 	@Override
@@ -79,8 +77,7 @@ public class WebConfig extends WebMvcConfigurerAdapter implements ApplicationCon
 		registry.addResourceHandler("/**").addResourceLocations("classpath:/static/");
 		
 	}
-
-
+	
 	@Bean
 	public FormattingConversionService mvcConversionService() {
 		DefaultFormattingConversionService conversionService = new DefaultFormattingConversionService();
@@ -90,7 +87,7 @@ public class WebConfig extends WebMvcConfigurerAdapter implements ApplicationCon
 		
 		NumberStyleFormatter integerFormatter = new NumberStyleFormatter("#,##0");
 		conversionService.addFormatterForFieldType(Integer.class, integerFormatter);
-		
+				
 		return conversionService;
 	}
 	
@@ -98,5 +95,4 @@ public class WebConfig extends WebMvcConfigurerAdapter implements ApplicationCon
 		return new FixedLocaleResolver(new Locale("pt","BR"));
 	}
 	
-
 }

@@ -22,7 +22,6 @@ $(function() {
 	}
 	function onBotaoSalvarClick(){
 		var nome = inputNomeArea.val().trim();
-		console.log("nomeArea: "+nome);
 		$.ajax({
 			url:url,
 			method:'POST',
@@ -42,8 +41,7 @@ $(function() {
 
 	}
 	function onAreaSalvo(area){
-		
-		var comboArea =$('#area');
+		var comboArea =$('#area');		
 		comboArea.append('<option value ='+area.id+'>'+area.nome+'</option>');
 		comboArea.val(area.id);
 		modal.modal('hide');

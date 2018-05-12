@@ -9,4 +9,6 @@ import br.uepb.biblio.service.CadastroAutorService;
 @ComponentScan(basePackageClasses = CadastroAutorService.class)
 public class ServiceConfig {
 	
+	
+	
 }

@@ -6,7 +6,7 @@ $(function() {
 	form.on('submit', function(event) { event.preventDefault() });
 	var url = form.attr('action');
 	var inputNomeTema = $('#nomeTema');
-	var comboAreaConhecimento = $('#areaConhecimento');
+	var comboAreaConhecimento = $('#area');
 	var containerMensagemErro = $('.js-mensagem-cadastro-rapido-tema');
 	
 	

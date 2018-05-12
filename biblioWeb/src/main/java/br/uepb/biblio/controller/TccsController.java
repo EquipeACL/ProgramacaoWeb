@@ -78,19 +78,12 @@ public class TccsController {
 		if(result.hasErrors()) {
 			return novo(tcc,null);
 		}
-		//salvar no banco
-		// Convertendo a string da data do html em sql.Date
-		@SuppressWarnings("deprecation")
-		java.sql.Date dataSql = new java.sql.Date(Integer.parseInt(tcc.getData_string().substring(2, 4)) + 100,
-				Integer.parseInt(tcc.getData_string().substring(5, 7)),
-				Integer.parseInt(tcc.getData_string().substring(8, 10)));
-		tcc.setData(dataSql);
-		
+				
 		// Setando o autor do tcc 
-		tcc.setAutor(new Autor(autoresRepository.findOne(Integer.parseInt(tcc.getId_autor()))));
+		//tcc.setAutor(new Autor(autoresRepository.findOne(Integer.parseInt(tcc.getId_autor()))));
 		
 		// Setando os orientador do tcc
-		tcc.setOrientador(new Orientador(orientadoresRepository.findOne(Integer.parseInt(tcc.getId_orientador()))));
+		//tcc.setOrientador(new Orientador(orientadoresRepository.findOne(Integer.parseInt(tcc.getId_orientador()))));
 		
 		try {
 			tccService.salvar(tcc);

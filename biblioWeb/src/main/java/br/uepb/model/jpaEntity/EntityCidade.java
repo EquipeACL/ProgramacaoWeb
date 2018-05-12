@@ -1,33 +1,32 @@
-package br.uepb.model;
+package br.uepb.model.jpaEntity;
 
-import org.hibernate.validator.constraints.NotBlank;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.Table;
 
-import br.uepb.model.jpaEntity.EntityCidade;
+import br.uepb.model.Cidade;
 
-/**
- * Essa classe � utilizada como modelo para um objeto do tipo Cidade.
- * A classe cont�m os respectivos getters and setters de seus atributos.
- * @author EquipeACL
- */
-
-public class Cidade {
-	
+@Entity
+@Table(name="cidade")
+public class EntityCidade {
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
 	
 	
 	private int codigo;
 	
-	@NotBlank(message = " Nome da cidade é obrigatório")
 	private String nome;
 	
-	@NotBlank(message = " Código da cidade é obrigatório")
 	private String uf;
 	
 	/**
 	 * M�todo construtor da classe Cidade
 	 * Construtor vazio (utilizado para criar um objeto do tipo Cidade sem par�metros definidos)
 	 */
-	public Cidade() {
+	public EntityCidade() {
 		
 	}
 	
@@ -38,7 +37,7 @@ public class Cidade {
 	 * @param nome, nome da cidade
 	 * @param uf, uni�o federativa da cidade
 	 */
-	public Cidade(EntityCidade cidade) {
+	public EntityCidade(Cidade cidade) {
 		setId(cidade.getId());
 		setCodigo(cidade.getCodigo());
 		setNome(cidade.getNome());
@@ -87,10 +86,10 @@ public class Cidade {
 		if (getClass() != obj.getClass())
 			return false;
 		Cidade other = (Cidade) obj;
-		if (id != other.id)
+		if (id != other.getId())
 			return false;
 		return true;
 	}
 	
-	
+
 }
