@@ -1,13 +1,10 @@
-package br.uepb.model.acervo;
+package br.uepb.model.jpaEntity.acervo;
 
 import java.util.Date;
 
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
 import javax.persistence.Table;
 import javax.persistence.Transient;
 import javax.validation.constraints.NotNull;
@@ -15,17 +12,18 @@ import javax.validation.constraints.NotNull;
 import org.hibernate.validator.constraints.NotBlank;
 
 import br.uepb.interfaces.IFAcervo;
+import br.uepb.model.acervo.MidiasEletronicas;
 import br.uepb.model.enums.Tipo_midia;
 
 /**
- * Essa classe � utilizada como modelo para um objeto do tipo Midias_Eletronicas.
- * A classe cont�m os respectivos getters and setters de seus atributos.
- * A classe Midias_Eletronicas implementa a interface Acervo
+ * Classe utilizada para fazer o mapeamento da classe MidiasEletronicas para a base de dados.
+ * A classe contém os respectivos getters and setters de seus atributos.
+ * 
  * @author EquipeACL
  */
 @Entity
 @Table(name="midia")
-public class Midias_Eletronicas extends ItemAcervo implements IFAcervo{
+public class EntityMidiasEletronicas extends EntityItemAcervo implements IFAcervo{
 	
 	@Transient
 	@NotBlank(message="Data obrigatória")
@@ -44,22 +42,22 @@ public class Midias_Eletronicas extends ItemAcervo implements IFAcervo{
 	private Tipo_midia tipo;
 	
 	/**
-	 * M�todo construtor da classe Midias_Eletronicas
-	 * Construtor vazio (utilizado para criar um objeto do tipo Midias_Eletronicas sem par�metros definidos)
+	 * Método construtor da classe
+	 * Construtor vazio (utilizado para criar um objeto sem parametros definidos)
 	 */
-	public Midias_Eletronicas(){	
+	public EntityMidiasEletronicas(){	
 	}
 	
 	/**
-	 * M�todo construtor da classe Midias_Eletronicas (utilizado para criar um objeto do tipo Midias_Eletronicas com par�metros definidos)
-	 * @param titulo, t�tulo da m�dia eletr�nica
-	 * @param tipo, objeto Enum que define o tipo da m�da eletr�nica
-	 * @param data_gravacao, data da grava��o da m�dia eletr�nica
+	 * Método construtor da classe (utilizado para criar um objeto com par�metros definidos)
+	 * @param titulo título da mídia eletronica
+	 * @param tipo objeto Enum que define o tipo da midia eletronica
+	 * @param data_gravacao data da gravação da  midia eletronica
 	 */
-	public Midias_Eletronicas(String titulo, Tipo_midia tipo, Date data_gravacao) {
-		setTitulo(titulo);
-		setTipo(tipo);
-		setData_gravacao(data_gravacao);
+	public EntityMidiasEletronicas(MidiasEletronicas midia) {
+		setTitulo(midia.getTitulo());
+		setTipo(midia.getTipo());
+		setData_gravacao(midia.getData_gravacao());
 	}
 	
 	public Tipo_midia getTipo() {

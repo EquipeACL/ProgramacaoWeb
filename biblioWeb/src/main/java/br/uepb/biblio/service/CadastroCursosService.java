@@ -13,6 +13,7 @@ import org.springframework.transaction.annotation.Transactional;
 import br.uepb.biblio.repository.Cursos;
 import br.uepb.biblio.service.exception.ItemDuplicadoException;
 import br.uepb.model.Curso;
+import br.uepb.model.jpaEntity.EntityCurso;
 @Service
 public class CadastroCursosService {
 	
@@ -24,12 +25,13 @@ public class CadastroCursosService {
 	
 	@Transactional
 	public void salvar (Curso curso) {
-		Optional <Curso> cursoOptional = cursos.findByNomeIgnoreCase(curso.getNome());
+		EntityCurso newEntity = new EntityCurso(curso);
+		Optional <EntityCurso> cursoOptional = cursos.findByNomeIgnoreCase(newEntity.getNome());
 		if(cursoOptional.isPresent()){
 			throw new ItemDuplicadoException(" Curso já esta Cadastrado!");
 		}
 		try{
-			cursos.save(curso);
+			cursos.save(newEntity);
 		}catch(Exception e){
 			System.out.println(e);
 		}

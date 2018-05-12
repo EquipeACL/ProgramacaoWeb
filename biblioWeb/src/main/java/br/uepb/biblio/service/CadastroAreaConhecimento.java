@@ -13,6 +13,7 @@ import org.springframework.transaction.annotation.Transactional;
 import br.uepb.biblio.repository.AreasConhecimento;
 import br.uepb.biblio.service.exception.ItemDuplicadoException;
 import br.uepb.model.AreaConhecimento;
+import br.uepb.model.jpaEntity.EntityAreaConhecimento;
 
 
 @Service
@@ -25,18 +26,20 @@ public class CadastroAreaConhecimento {
 	
 	@Transactional
 	public void salvar (AreaConhecimento area) {
-		Optional <AreaConhecimento> areaOptional = areasConhecimento.findByNomeIgnoreCase(area.getNome());
+		EntityAreaConhecimento newEntity = new EntityAreaConhecimento(area);
+		Optional <EntityAreaConhecimento> areaOptional = areasConhecimento.findByNomeIgnoreCase(newEntity.getNome());
 		if(areaOptional.isPresent()){
 			throw new ItemDuplicadoException(" Area já Cadastrada!");
 		}
-		areasConhecimento.save(area);
+		areasConhecimento.save(newEntity);
 	}
 	
 	@Transactional
 	public void atualizar(AreaConhecimento area) throws Exception {
+		EntityAreaConhecimento newEntity = new EntityAreaConhecimento(area);
 		try{
 			if(area.getId()!=0){
-				areasConhecimento.save(area);
+				areasConhecimento.save(newEntity);
 			}
 		}catch(Exception e){
 			throw new Exception("Erro na atualização");

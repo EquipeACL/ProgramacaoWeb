@@ -12,8 +12,8 @@ import org.springframework.transaction.annotation.Transactional;
 
 import br.uepb.biblio.repository.Temas;
 import br.uepb.biblio.service.exception.ItemDuplicadoException;
-import br.uepb.model.AreaConhecimento;
 import br.uepb.model.Tema;
+import br.uepb.model.jpaEntity.EntityTema;
 
 @Service
 public class CadastroTemaService {
@@ -26,11 +26,12 @@ public class CadastroTemaService {
 	
 	@Transactional
 	public void salvar (Tema tema) {
-		Optional <Tema> temaOptional = temas.findByNomeIgnoreCase(tema.getNome());
+		EntityTema newEntity = new EntityTema(tema);
+		Optional <EntityTema> temaOptional = temas.findByNomeIgnoreCase(newEntity.getNome());
 		if(temaOptional.isPresent()){
 			throw new ItemDuplicadoException(" Tema já Cadastrado!");
 		}
-		temas.save(tema);
+		temas.save(newEntity);
 	}
 		
 	@Transactional
@@ -47,9 +48,10 @@ public class CadastroTemaService {
 	}
 	@Transactional
 	public void atualizar(Tema tema) throws Exception {
+		EntityTema newEntity = new EntityTema(tema);
 		try{
-			if(tema.getId()!=0){
-				temas.save(tema);
+			if(newEntity.getId()!=0){
+				temas.save(newEntity);
 			}
 		}catch(Exception e){
 			throw new Exception("Erro na atualização");

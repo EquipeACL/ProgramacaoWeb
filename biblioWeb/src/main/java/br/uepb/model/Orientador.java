@@ -9,7 +9,9 @@ import javax.persistence.Id;
 import org.hibernate.validator.constraints.NotBlank;
 
 
+
 import br.uepb.interfaces.IFDependencia;
+import br.uepb.model.jpaEntity.EntityOrientador;
 
 /**
  * Essa classe � utilizada como modelo para um objeto do tipo Orientador.
@@ -48,6 +50,12 @@ public class Orientador implements IFDependencia{
 		setId(id);
 		setNome(nome);
 		setFormacao(formacao);
+	}
+	
+	public Orientador(EntityOrientador entity){
+		setId(entity.getId());
+		setNome(entity.getNome());
+		setFormacao(entity.getFormacao());
 	}
 	
 	public int getId() {

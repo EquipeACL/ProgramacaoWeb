@@ -1,4 +1,4 @@
-package br.uepb.model.acervo;
+package br.uepb.model.jpaEntity.acervo;
 
 import java.util.Date;
 
@@ -15,38 +15,63 @@ import javax.validation.constraints.NotNull;
 import org.hibernate.validator.constraints.NotBlank;
 
 import br.uepb.interfaces.IFAcervo;
-import br.uepb.model.Autor;
 import br.uepb.model.Cidade;
-import br.uepb.model.Orientador;
+import br.uepb.model.acervo.Tcc;
 import br.uepb.model.enums.Tipo_tcc;
+import br.uepb.model.jpaEntity.EntityAutor;
+import br.uepb.model.jpaEntity.EntityOrientador;
 /**
- * Essa classe utilizada como modelo para um objeto do tipo Tcc.
+ * Classe utilizada para fazer o mapeamento da classe Tcc para a base de dados
  * A classe contém os respectivos getters and setters de seus atributos.
- * A classe Tcc extends da classe ItemAcervo e implementa a interface IFAcervo
+ * 
  * @author EquipeACL
  */
-public class Tcc extends ItemAcervo implements IFAcervo{ 
-	
-	private Autor autor;
-	
-	private Orientador orientador;
 
+@Entity
+@Table(name="tcc")
+public class EntityTcc extends EntityItemAcervo implements IFAcervo{ 
+	
+	@Transient
+	@NotBlank(message="Data obrigatória")
+	private String data_string;
+	
+	@Transient
+	@NotBlank(message="Autor obrigatório")
+	private String id_autor;
+	
+	@Transient
+	@NotBlank(message="Cidade obrigatório")
+	private String id_cidade;
+
+	@Transient
+	@NotBlank(message="Orientador obrigatório")
+	private String id_orientador;
+	
+	@ManyToOne(cascade=CascadeType.MERGE)
+	@JoinColumn(name = "autor_id",nullable=false)
+	private EntityAutor autor;
+	
+	@ManyToOne(cascade=CascadeType.MERGE)
+	@JoinColumn(name = "orientador_id",nullable=false)
+	private EntityOrientador orientador;
+
+	@NotNull(message=" Tipo não pode ser nulo!")
+	@Enumerated(EnumType.STRING)
 	private Tipo_tcc tipo;
 	
+	@ManyToOne(cascade=CascadeType.MERGE)
+	@JoinColumn(name = "cidade_id",nullable=false)	
 	private Cidade cidade;
 	
-	private String data_string;
-	private String id_autor;
-	private String id_cidade;
-	private String id_orientador;
+	
 	/**
-	 * Método construtor da classe Tcc
-	 * Construtor vazio (utilizado para criar um objeto do tipo Tcc sem parametros definidos)
+	 * Método construtor da classe
+	 * Construtor vazio (utilizado para criar um objeto sem par�metros definidos)
 	 */
-	public Tcc() {		
+	public EntityTcc() {		
 	}
 	/**
-	 * Método construtor da classe Tcc (utilizado para criar um objeto do tipo Tcc com parametros definidos)
+	 * Método construtor da classe (utilizado para criar um objeto com par�metros definidos)
 	 * @param id id do tcc
 	 * @param titulo titulo do tcc
 	 * @param autor objeto do tipo Autor referente ao tcc
@@ -55,26 +80,26 @@ public class Tcc extends ItemAcervo implements IFAcervo{
 	 * @param ano_defesa ano da defesa do tcc
 	 * @param cidade cidade da defesa do tcc
 	 */
-	public Tcc(int id, String titulo, Autor autor, Orientador orientador, Tipo_tcc tipo, Date ano_defesa, Cidade cidade) {
-		setId(id);
-		setTitulo(titulo);
-		setAutor(autor);
-		setOrientador(orientador);
-		setTipo(tipo);
-		setAno_defesa(ano_defesa);
-		setCidade(cidade);
+	public EntityTcc(Tcc tcc) {
+		setId(tcc.getId());
+		setTitulo(tcc.getTitulo());
+		setAutor(new EntityAutor(tcc.getAutor()));
+		setOrientador(new EntityOrientador(tcc.getOrientador()));
+		setTipo(tcc.getTipo());
+		setAno_defesa(tcc.getAno_defesa());
+		setCidade(tcc.getCidade());
 	}
 
-	public Autor getAutor() {
+	public EntityAutor getAutor() {
 		return autor;
 	}
-	public void setAutor(Autor autor) {
+	public void setAutor(EntityAutor autor) {
 		this.autor = autor;
 	}
-	public Orientador getOrientador() {
+	public EntityOrientador getOrientador() {
 		return orientador;
 	}
-	public void setOrientador(Orientador orientador) {
+	public void setOrientador(EntityOrientador orientador) {
 		this.orientador = orientador;
 	}
 	public Tipo_tcc getTipo() {
@@ -95,8 +120,9 @@ public class Tcc extends ItemAcervo implements IFAcervo{
 	public void setCidade(Cidade cidade) {
 		this.cidade = cidade;
 	}
-	
-	
+	public boolean validaItem() {
+		return true;
+	}
 	public String getData_string() {
 		return data_string;
 	}
@@ -120,8 +146,5 @@ public class Tcc extends ItemAcervo implements IFAcervo{
 	}
 	public void setId_orientador(String id_orientador) {
 		this.id_orientador = id_orientador;
-	}
-	public boolean validaItem() {
-		return true;
 	}
 }

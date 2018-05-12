@@ -13,6 +13,7 @@ import org.springframework.transaction.annotation.Transactional;
 import br.uepb.biblio.repository.Jornais;
 import br.uepb.biblio.service.exception.ItemDuplicadoException;
 import br.uepb.model.acervo.Jornal;
+import br.uepb.model.jpaEntity.acervo.EntityJornal;
 
 @Service
 public class CrudJornalService  {
@@ -24,11 +25,12 @@ public class CrudJornalService  {
 	
 	@Transactional
 	public void salvar (Jornal jornal) {
-		Optional <Jornal> jornalOptional = jornais.findByTituloIgnoreCase(jornal.getTitulo());
+		EntityJornal newEntity = new EntityJornal(jornal);
+		Optional <EntityJornal> jornalOptional = jornais.findByTituloIgnoreCase(newEntity.getTitulo());
 		if(jornalOptional.isPresent()){
 			throw new ItemDuplicadoException(" Jornal já Cadastrado!");
 		}
-		jornais.save(jornal);
+		jornais.save(newEntity);
 	}
 	
 	@Transactional

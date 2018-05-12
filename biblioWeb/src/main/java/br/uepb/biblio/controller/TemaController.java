@@ -88,7 +88,7 @@ public class TemaController{
 			return novo(tema,null);
 		}
 		//setando area do conhecimento de acordo com id selecionado
-		tema.setArea(areasRepository.findOne(Integer.parseInt(tema.getAreaconhecimento_id())));
+		tema.setArea(new AreaConhecimento(areasRepository.findOne(Integer.parseInt(tema.getAreaconhecimento_id()))));
 		
 		try{
 			temaService.salvar(tema);
@@ -121,7 +121,7 @@ public class TemaController{
 			return ResponseEntity.badRequest().body(result.getFieldError().getDefaultMessage());
 		}
 		
-		tema.setArea(areasRepository.findOne(Integer.parseInt(tema.getAreaconhecimento_id())));
+		tema.setArea(new AreaConhecimento(areasRepository.findOne(Integer.parseInt(tema.getAreaconhecimento_id()))));
 		try {
 			//vai tentar salvar no banco
 			temaService.salvar(tema);

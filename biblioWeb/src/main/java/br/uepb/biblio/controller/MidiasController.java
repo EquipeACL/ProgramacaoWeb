@@ -14,7 +14,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import br.uepb.biblio.repository.Midias;
 import br.uepb.biblio.service.CrudMidiasEletronicasService;
 import br.uepb.biblio.service.exception.ItemDuplicadoException;
-import br.uepb.model.acervo.Midias_Eletronicas;
+import br.uepb.model.acervo.MidiasEletronicas;
 import br.uepb.model.enums.Tipo_midia;
 
 @Controller
@@ -28,7 +28,7 @@ public class MidiasController {
 	private CrudMidiasEletronicasService midiasService;
 	
 	@RequestMapping("/novo")
-	public ModelAndView novo(Midias_Eletronicas midia, String busca) {
+	public ModelAndView novo(MidiasEletronicas midia, String busca) {
 		ModelAndView model = new ModelAndView("midia/CadastroMidia");
 		model.addObject("tipos", Tipo_midia.values());
 		if(busca!=null){
@@ -52,7 +52,7 @@ public class MidiasController {
 	}
 	
 	@RequestMapping(value = "/novo", method = RequestMethod.POST)
-	public ModelAndView cadastrar (@Valid Midias_Eletronicas midia, BindingResult result, Model model, RedirectAttributes attributes) {
+	public ModelAndView cadastrar (@Valid MidiasEletronicas midia, BindingResult result, Model model, RedirectAttributes attributes) {
 		if(result.hasErrors()) {
 			return novo(midia,null);
 		}

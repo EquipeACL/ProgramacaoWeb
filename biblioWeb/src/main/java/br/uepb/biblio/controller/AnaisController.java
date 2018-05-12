@@ -75,9 +75,9 @@ public class AnaisController {
 		}
 		//Criando uma lista com os autores
 		ArrayList<Autor> listaAutores = new ArrayList<Autor>();
-		listaAutores.add(autoresRepository.findOne(Integer.parseInt(anal.getId_autor())));
+		listaAutores.add(new Autor(autoresRepository.findOne(Integer.parseInt(anal.getId_autor()))));
 		//atrubuindo ao anal a lista de seus autores
-		anal.setAutor(listaAutores);
+		anal.setAutores(listaAutores);
 		
 		//adicionando ao anal o objeto cidade referente ao id selecionado
 		anal.setLocal(cidadesRepository.findOne(Integer.parseInt(anal.getId_cidade())));

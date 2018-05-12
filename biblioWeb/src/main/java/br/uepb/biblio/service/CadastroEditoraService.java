@@ -13,6 +13,7 @@ import org.springframework.transaction.annotation.Transactional;
 import br.uepb.biblio.repository.Editoras;
 import br.uepb.biblio.service.exception.ItemDuplicadoException;
 import br.uepb.model.Editora;
+import br.uepb.model.jpaEntity.EntityEditora;
 
 @Service
 public class CadastroEditoraService {
@@ -25,11 +26,12 @@ public class CadastroEditoraService {
 	
 	@Transactional
 	public void salvar(Editora editora) {
-		Optional <Editora> optionalEditora = editoras.findByNomeIgnoreCase(editora.getNome());
+		EntityEditora newEntity = new EntityEditora(editora);
+		Optional <EntityEditora> optionalEditora = editoras.findByNomeIgnoreCase(newEntity.getNome());
 		if(optionalEditora.isPresent()) {
 			throw new ItemDuplicadoException("Editora já Cadastrada");
 		}
-		editoras.save(editora);
+		editoras.save(newEntity);
 	}
 	
 	@Transactional
@@ -39,9 +41,10 @@ public class CadastroEditoraService {
 	
 	@Transactional
 	public void atualizar(Editora editora) throws Exception {
+		EntityEditora newEntity = new EntityEditora(editora);
 		try{
 			if(editora.getId()>0){
-				editoras.save(editora);
+				editoras.save(newEntity);
 			}
 		}catch(Exception e){
 			throw new Exception("Erro na atualização");

@@ -1,50 +1,43 @@
 package br.uepb.model;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.Table;
-
-import org.hibernate.validator.constraints.NotBlank;
-
 import br.uepb.interfaces.IFDependencia;
+import br.uepb.model.jpaEntity.EntityAutor;
 
 /**
- * Essa classe � utilizada como modelo para um objeto do tipo Autor.
- * A classe cont�m os respectivos getters and setters de seus atributos.
+ * Classe utilizada como modelo para um objeto do tipo Autor.
+ * A classe contém  os respectivos getters and setters de seus atributos.
  * @author EquipeACL
  */
 
-@Entity
-@Table(name = "autor")
 public class Autor implements IFDependencia{
 	
-	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
 
-	@NotBlank(message = " Nome do Autor é obrigatório")
 	private String nome;
 	
 	public Autor(){
 	}
 	/**
-	 * M�todo construtor da classe Autor
-	 * Construtor vazio (utilizado para criar um objeto do tipo Autor sem par�metros definidos)
+	 * Método construtor da classe Autor
+	 * Construtor vazio (utilizado para criar um objeto do tipo Autor sem parametros definidos)
 	 */
 	public Autor(String nome){
 		setNome(nome);
 	}
 	
 	/**
-	 * M�todo construtor da classe Autor (utilizado para criar um objeto do tipo Autor com par�metros definidos)
-	 * @param id, id do autor
-	 * @param nome, nome do autor
+	 * Método construtor da classe Autor (utilizado para criar um objeto do tipo Autor com parametros definidos)
+	 * @param id id do autor
+	 * @param nome nome do autor
 	 */
 	public Autor(int id, String nome) {
 		setId(id);
 		setNome(nome);
+	}
+	
+	public Autor(EntityAutor entity) {
+		setId(entity.getId());
+		setNome(entity.getNome());
 	}
 	
 	public int getId() {

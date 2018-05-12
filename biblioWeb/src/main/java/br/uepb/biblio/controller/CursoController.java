@@ -15,6 +15,7 @@ import br.uepb.biblio.repository.AreasConhecimento;
 import br.uepb.biblio.repository.Cursos;
 import br.uepb.biblio.service.CadastroCursosService;
 import br.uepb.biblio.service.exception.ItemDuplicadoException;
+import br.uepb.model.AreaConhecimento;
 import br.uepb.model.Curso;
 import br.uepb.model.enums.Tipo_curso;
 
@@ -62,7 +63,7 @@ public class CursoController {
 		}
 		
 		//setando a area do cohecimento de acordo com id selecionando
-		curso.setArea(areasRepository.findOne(Integer.parseInt(curso.getArea_conhecimento_id())));
+		curso.setArea(new AreaConhecimento(areasRepository.findOne(Integer.parseInt(curso.getArea_conhecimento_id()))));
 		curso.setTipo(Tipo_curso.valueOf(curso.getTipo().getDescricao()));
 		try{
 			cursosService.salvar(curso);

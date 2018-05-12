@@ -12,8 +12,8 @@ import org.springframework.transaction.annotation.Transactional;
 
 import br.uepb.biblio.repository.Midias;
 import br.uepb.biblio.service.exception.ItemDuplicadoException;
-import br.uepb.model.acervo.Jornal;
-import br.uepb.model.acervo.Midias_Eletronicas;
+import br.uepb.model.acervo.MidiasEletronicas;
+import br.uepb.model.jpaEntity.acervo.EntityMidiasEletronicas;
 
 @Service
 public class CrudMidiasEletronicasService {
@@ -25,17 +25,18 @@ public class CrudMidiasEletronicasService {
     private EntityManager manager;
 	
 	@Transactional
-	public void salvar (Midias_Eletronicas midia) {
-		Optional <Midias_Eletronicas> midiaOptional = midias.findByTituloIgnoreCase(midia.getTitulo());
+	public void salvar (MidiasEletronicas midia) {
+		EntityMidiasEletronicas newEntity = new EntityMidiasEletronicas(midia);
+		Optional <EntityMidiasEletronicas> midiaOptional = midias.findByTituloIgnoreCase(newEntity.getTitulo());
 		if(midiaOptional.isPresent()){
 			throw new ItemDuplicadoException(" Midia já Cadastrada!");
 		}
-		midias.save(midia);
+		midias.save(newEntity);
 	}
 	
 	@Transactional
-	public List<Midias_Eletronicas> buscarPorTitulo (String busca) {
-		return manager.createQuery("select m from Midias_Eletronicas m where m.titulo like '%"+busca+"%'",Midias_Eletronicas.class).getResultList();
+	public List<MidiasEletronicas> buscarPorTitulo (String busca) {
+		return manager.createQuery("select m from MidiasEletronicas m where m.titulo like '%"+busca+"%'",MidiasEletronicas.class).getResultList();
 	}	
 
 }

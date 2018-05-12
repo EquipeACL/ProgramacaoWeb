@@ -13,6 +13,7 @@ import org.springframework.transaction.annotation.Transactional;
 import br.uepb.biblio.repository.Livros;
 import br.uepb.biblio.service.exception.ItemDuplicadoException;
 import br.uepb.model.acervo.Livro;
+import br.uepb.model.jpaEntity.acervo.EntityLivro;
 @Service
 public class CrudLivroService {
 	
@@ -24,11 +25,12 @@ public class CrudLivroService {
 	
 	@Transactional
 	public void salvar (Livro livro) {
-		Optional <Livro> livroOptional = livros.findByTituloIgnoreCase(livro.getTitulo());
+		EntityLivro newEntity = new EntityLivro(livro);
+		Optional <EntityLivro> livroOptional = livros.findByTituloIgnoreCase(newEntity.getTitulo());
 		if(livroOptional.isPresent()){
 			throw new ItemDuplicadoException(" Livro já Cadastrado!");
 		}
-		livros.save(livro);
+		livros.save(newEntity);
 	}
 	
 	@Transactional

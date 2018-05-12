@@ -13,6 +13,7 @@ import org.springframework.transaction.annotation.Transactional;
 import br.uepb.biblio.repository.Orientadores;
 import br.uepb.biblio.service.exception.ItemDuplicadoException;
 import br.uepb.model.Orientador;
+import br.uepb.model.jpaEntity.EntityOrientador;
 
 @Service
 public class CadastroOrientadorService {
@@ -24,12 +25,13 @@ public class CadastroOrientadorService {
 	private EntityManager manager;
 	
 	@Transactional
-	public Orientador salvar(Orientador orientador) {
-		Optional <Orientador> optionalOrientador = orientadores.findByNomeIgnoreCase(orientador.getNome());
+	public EntityOrientador salvar(Orientador orientador) {
+		EntityOrientador newEntity = new EntityOrientador(orientador);
+		Optional <EntityOrientador> optionalOrientador = orientadores.findByNomeIgnoreCase(newEntity.getNome());
 		if(optionalOrientador.isPresent()) {
 			throw new ItemDuplicadoException("Orientador já Cadastrado!");
 		}
-		return orientadores.saveAndFlush(orientador);
+		return orientadores.saveAndFlush(newEntity);
 	}
 	
 	@Transactional

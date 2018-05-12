@@ -1,37 +1,24 @@
 package br.uepb.model;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.Table;
-
-import org.hibernate.validator.constraints.NotBlank;
-
 import br.uepb.interfaces.IFDependencia;
+import br.uepb.model.jpaEntity.EntityEditora;
 
 /**
- * Essa classe � utilizada como modelo para um objeto do tipo Editora.
- * A classe cont�m os respectivos getters and setters de seus atributos.
+ * Classe utilizada como modelo para um objeto do tipo Editora.
+ * A classe contém os respectivos getters and setters de seus atributos.
  * @author EquipeACL
  */
-@Entity
-@Table(name = "editora")
+
 public class Editora implements IFDependencia{
 	
-	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
 
-	@NotBlank(message = " Nome é obrigatório")
 	private String nome;
 	
 	
-	//private List<Livro> livros;
-	
 	/**
-	 * M�todo construtor da classe Editora
-	 * Construtor vazio (utilizado para criar um objeto do tipo Editora sem par�metros definidos)
+	 * Método construtor da classe Editora
+	 * Construtor vazio (utilizado para criar um objeto do tipo Editora sem parametros definidos)
 	 */
 	public Editora() {
 
@@ -42,13 +29,18 @@ public class Editora implements IFDependencia{
 	}
 	
 	/**
-	 * M�todo construtor da classe Editora (utilizado para criar um objeto do tipo Editora com par�metros definidos)
-	 * @param id, id da editora
-	 * @param nome, nome da editora
+	 * Método construtor da classe Editora (utilizado para criar um objeto do tipo Editora com parametros definidos)
+	 * @param id id da editora
+	 * @param nome nome da editora
 	 */
 	public Editora(int id, String nome) {
 		setId(id);
 		setNome(nome);
+	}
+	
+	public Editora(EntityEditora entity) {
+		setId(entity.getId());
+		setNome(entity.getNome());
 	}
 	
 	public int getId() {

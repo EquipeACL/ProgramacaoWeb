@@ -21,6 +21,8 @@ import br.uepb.biblio.repository.Temas;
 import br.uepb.biblio.service.CrudLivroService;
 import br.uepb.biblio.service.exception.ItemDuplicadoException;
 import br.uepb.model.Autor;
+import br.uepb.model.Editora;
+import br.uepb.model.Tema;
 import br.uepb.model.acervo.Livro;
 
 @Controller
@@ -85,13 +87,13 @@ public class LivrosController {
 						Integer.parseInt(livro.getString_data().substring(8, 10)));
 		livro.setAnoPublicacao(dataSql);
 		
-		livro.setEditora(editoras.findOne(Integer.parseInt(livro.getId_editora())));
+		livro.setEditora(new Editora(editoras.findOne(Integer.parseInt(livro.getId_editora()))));
 		
-		livro.setTema(temas.findOne(Integer.parseInt(livro.getId_tema())));
+		livro.setTema(new Tema(temas.findOne(Integer.parseInt(livro.getId_tema()))));
 		
 		//Criando uma lista com os autores
 		ArrayList<Autor> listaAutores = new ArrayList<Autor>();
-		listaAutores.add(autoresRepository.findOne(Integer.parseInt(livro.getId_autor())));
+		listaAutores.add(new Autor(autoresRepository.findOne(Integer.parseInt(livro.getId_autor()))));
 		
 		//atribuindo ao livro a lista de seus autores
 		livro.setAutores(listaAutores);

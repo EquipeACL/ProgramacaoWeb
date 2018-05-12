@@ -17,6 +17,8 @@ import br.uepb.biblio.repository.Orientadores;
 import br.uepb.biblio.repository.Tccs;
 import br.uepb.biblio.service.CrudTccService;
 import br.uepb.biblio.service.exception.ItemDuplicadoException;
+import br.uepb.model.Autor;
+import br.uepb.model.Orientador;
 import br.uepb.model.acervo.Tcc;
 import br.uepb.model.enums.Tipo_nivel;
 import br.uepb.model.enums.Tipo_tcc;
@@ -85,10 +87,10 @@ public class TccsController {
 		tcc.setData(dataSql);
 		
 		// Setando o autor do tcc 
-		tcc.setAutor(autoresRepository.findOne(Integer.parseInt(tcc.getId_autor())));
+		tcc.setAutor(new Autor(autoresRepository.findOne(Integer.parseInt(tcc.getId_autor()))));
 		
 		// Setando os orientador do tcc
-		tcc.setOrientador(orientadoresRepository.findOne(Integer.parseInt(tcc.getId_orientador())));
+		tcc.setOrientador(new Orientador(orientadoresRepository.findOne(Integer.parseInt(tcc.getId_orientador()))));
 		
 		try {
 			tccService.salvar(tcc);

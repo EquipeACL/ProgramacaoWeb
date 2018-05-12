@@ -13,6 +13,7 @@ import org.springframework.transaction.annotation.Transactional;
 import br.uepb.biblio.repository.Autores;
 import br.uepb.biblio.service.exception.ItemDuplicadoException;
 import br.uepb.model.Autor;
+import br.uepb.model.jpaEntity.EntityAutor;
 
 @Service
 public class CadastroAutorService {
@@ -24,13 +25,13 @@ public class CadastroAutorService {
     private EntityManager manager;
 	
 	@Transactional
-	public Autor salvar (Autor autor) {
-		Optional <Autor> autorOptional = autores.findByNomeIgnoreCase(autor.getNome());
+	public EntityAutor salvar (Autor autor) {
+		EntityAutor newEntity = new EntityAutor(autor);
+		Optional <EntityAutor> autorOptional = autores.findByNomeIgnoreCase(newEntity.getNome());
 		if(autorOptional.isPresent()){
 			throw new ItemDuplicadoException("Autor já Cadastrado!");
 		}
-		System.out.println("Nome do autor ta vindo: "+autor.getNome());
-		return autores.saveAndFlush(autor);
+		return autores.saveAndFlush(newEntity);
 	}
 	
 	@Transactional

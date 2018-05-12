@@ -15,6 +15,7 @@ import br.uepb.biblio.repository.Editoras;
 import br.uepb.biblio.repository.Revistas;
 import br.uepb.biblio.service.CrudRevistaService;
 import br.uepb.biblio.service.exception.ItemDuplicadoException;
+import br.uepb.model.Editora;
 import br.uepb.model.acervo.Revista;
 
 @Controller
@@ -67,7 +68,7 @@ public class RevistasController {
 						Integer.parseInt(revista.getData_string().substring(8, 10)));
 				revista.setData(dataSql);
 		// Setando a editora que irá aparecer na view 				
-		revista.setEditora(editoraRepository.findOne(Integer.parseInt(revista.getId_editora())));
+		revista.setEditora(new Editora(editoraRepository.findOne(Integer.parseInt(revista.getId_editora()))));
 		
 		try {
 			revistaService.salvar(revista);

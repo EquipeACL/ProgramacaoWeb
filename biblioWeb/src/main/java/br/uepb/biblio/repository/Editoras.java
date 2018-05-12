@@ -5,11 +5,11 @@ import java.util.Optional;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
-import br.uepb.model.Editora;
+import br.uepb.model.jpaEntity.EntityEditora;
 
 @Repository
-public interface Editoras extends JpaRepository<Editora,Integer> {
+public interface Editoras extends JpaRepository<EntityEditora,Integer> {
 	
-	public Optional<Editora> findByNomeIgnoreCase(String nome);
+	public Optional<EntityEditora> findByNomeIgnoreCase(String nome);
 
 }

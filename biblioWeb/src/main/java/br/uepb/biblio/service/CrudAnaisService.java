@@ -13,6 +13,7 @@ import org.springframework.transaction.annotation.Transactional;
 import br.uepb.biblio.repository.Anais;
 import br.uepb.biblio.service.exception.ItemDuplicadoException;
 import br.uepb.model.acervo.Anal;
+import br.uepb.model.jpaEntity.acervo.EntityAnal;
 
 @Service
 public class CrudAnaisService {
@@ -25,11 +26,12 @@ public class CrudAnaisService {
 	
 	@Transactional
 	public void salvar (Anal anal) {
-		Optional <Anal> analOptional = anais.findByTituloIgnoreCase(anal.getTitulo());
+		EntityAnal newEntity = new EntityAnal(anal);
+		Optional <EntityAnal> analOptional = anais.findByTituloIgnoreCase(newEntity.getTitulo());
 		if(analOptional.isPresent()){
 			throw new ItemDuplicadoException(" Anal de Congresso já Cadastrada!");
 		}
-		anais.save(anal);
+		anais.save(newEntity);
 	}
 	
 	@Transactional

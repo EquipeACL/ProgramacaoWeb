@@ -13,6 +13,7 @@ import org.springframework.transaction.annotation.Transactional;
 import br.uepb.biblio.repository.Tccs;
 import br.uepb.biblio.service.exception.ItemDuplicadoException;
 import br.uepb.model.acervo.Tcc;
+import br.uepb.model.jpaEntity.acervo.EntityTcc;
 
 @Service
 public class CrudTccService {
@@ -24,11 +25,12 @@ public class CrudTccService {
 	
 	@Transactional
 	public void salvar (Tcc tcc) {
-		Optional <Tcc> tccOptional = tccs.findByTituloIgnoreCase(tcc.getTitulo());
+		EntityTcc newEntity = new EntityTcc(tcc);
+		Optional<EntityTcc> tccOptional = tccs.findByTituloIgnoreCase(newEntity.getTitulo());
 		if(tccOptional.isPresent()){
 			throw new ItemDuplicadoException(" Revista já Cadastrada!");
 		}
-		tccs.save(tcc);
+		tccs.save(newEntity);
 	}
 	
 	@Transactional

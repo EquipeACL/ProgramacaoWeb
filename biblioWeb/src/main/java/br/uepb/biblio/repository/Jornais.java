@@ -5,10 +5,10 @@ import java.util.Optional;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
-import br.uepb.model.acervo.Jornal;
+import br.uepb.model.jpaEntity.acervo.EntityJornal;
 
 @Repository 
-public interface Jornais extends JpaRepository<Jornal,Integer> {
-	public Optional <Jornal> findByTituloIgnoreCase(String titulo);
+public interface Jornais extends JpaRepository<EntityJornal,Integer> {
+	public Optional <EntityJornal> findByTituloIgnoreCase(String titulo);
 
 }
