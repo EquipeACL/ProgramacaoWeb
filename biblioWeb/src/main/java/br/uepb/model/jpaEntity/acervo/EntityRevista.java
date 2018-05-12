@@ -11,8 +11,6 @@ import javax.persistence.Transient;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
 
-import org.hibernate.validator.constraints.NotBlank;
-
 import br.uepb.interfaces.IFAcervo;
 import br.uepb.model.acervo.Revista;
 import br.uepb.model.jpaEntity.EntityEditora;
@@ -26,11 +24,9 @@ import br.uepb.model.jpaEntity.EntityEditora;
 @Table(name="revista")
 public class EntityRevista extends EntityItemAcervo implements IFAcervo{
 	@Transient
-	@NotBlank(message="Data obrigatória")
 	private String data_string;
 	
 	@Transient
-	@NotBlank(message="Editora obrigatória")
 	private String id_editora;
 	
 	
@@ -54,8 +50,6 @@ public class EntityRevista extends EntityItemAcervo implements IFAcervo{
 	@JoinColumn(name = "editora_id",nullable=false)
 	private EntityEditora editora;
 	
-	@NotNull
-	@Min(value = 1, message=" Numero de paginas deve ser maior ou igual a 1.")
 	private int num_pag;
 	
 	/**

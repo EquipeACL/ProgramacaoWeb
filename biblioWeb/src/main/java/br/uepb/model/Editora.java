@@ -1,5 +1,7 @@
 package br.uepb.model;
 
+import org.hibernate.validator.constraints.NotBlank;
+
 import br.uepb.interfaces.IFDependencia;
 import br.uepb.model.jpaEntity.EntityEditora;
 
@@ -12,7 +14,8 @@ import br.uepb.model.jpaEntity.EntityEditora;
 public class Editora implements IFDependencia{
 	
 	private int id;
-
+	
+	@NotBlank(message = " Nome é obrigatório")
 	private String nome;
 	
 	

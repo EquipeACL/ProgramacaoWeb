@@ -28,7 +28,6 @@ public class EntityTema implements IFDependencia{
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
 	
-	@NotBlank(message=" Nome é obrigatório.")
 	private String nome;
 	
 	
@@ -37,7 +36,6 @@ public class EntityTema implements IFDependencia{
 	private EntityAreaConhecimento area;
 	
 	@Transient
-	@NotBlank(message=" Area do conhecimento é obrigatório")
 	private String areaconhecimento_id;
 	
 	/**

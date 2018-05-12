@@ -1,12 +1,8 @@
 package br.uepb.model.jpaEntity.acervo;
 
-import java.util.Date;
-
 import javax.persistence.Entity;
 import javax.persistence.Table;
 import javax.persistence.Transient;
-
-import org.hibernate.validator.constraints.NotBlank;
 
 import br.uepb.interfaces.IFAcervo;
 import br.uepb.model.acervo.Jornal;
@@ -22,7 +18,6 @@ import br.uepb.model.acervo.Jornal;
 public class EntityJornal extends EntityItemAcervo implements IFAcervo{
 	
 	@Transient
-	@NotBlank(message="Data obrigatória")
 	private String data_string;
 	public String getData_string() {
 		return data_string;

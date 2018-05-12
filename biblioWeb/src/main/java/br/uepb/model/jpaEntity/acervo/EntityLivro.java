@@ -37,7 +37,6 @@ import br.uepb.model.jpaEntity.EntityTema;
 public class EntityLivro extends EntityItemAcervo implements IFAcervo{
 	
 	
-	@NotNull(message=" ISBN é obrigatório")
 	private int isbn;
 	
 	@OneToMany(
@@ -54,7 +53,6 @@ public class EntityLivro extends EntityItemAcervo implements IFAcervo{
 	private List<EntityAutor> autores;
 	
 	@Transient
-	@NotNull(message = " Pelo menos um autor é obrigatório")
 	private String id_autor;
 	
 	@ManyToOne(cascade=CascadeType.MERGE)
@@ -62,14 +60,11 @@ public class EntityLivro extends EntityItemAcervo implements IFAcervo{
 	private EntityEditora editora;
 	
 	@Transient
-	@NotNull(message = " Editora é obrigatório")
 	private String id_editora;
 	
 	@Transient
-	@NotNull(message = " Data é obrigatório")
 	private String string_data;
 	
-	@NotNull(message=" Numero de paginas é obrigatório")
 	@Column(name="num_pag")
 	private int numero_paginas;
 	
@@ -78,7 +73,6 @@ public class EntityLivro extends EntityItemAcervo implements IFAcervo{
 	private EntityTema tema;
 	
 	@Transient
-	@NotNull(message = " Tema é obrigatório")
 	private String id_tema;
 	
 	/**

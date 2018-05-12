@@ -35,8 +35,8 @@ public class CrudAnaisService {
 	}
 	
 	@Transactional
-	public List<Anal> buscarPorTitulo (String busca) {
-		return manager.createQuery("select a from Anal a where a.titulo like '%"+busca+"%'",Anal.class).getResultList();
+	public List<EntityAnal> buscarPorTitulo (String busca) {
+		return manager.createQuery("select a from EntityAnal a where a.titulo like '%"+busca+"%'",EntityAnal.class).getResultList();
 	}	
 
 }

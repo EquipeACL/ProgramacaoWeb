@@ -2,6 +2,10 @@ package br.uepb.model.acervo;
 
 import java.util.Date;
 
+import javax.validation.constraints.NotNull;
+
+import org.hibernate.validator.constraints.NotBlank;
+
 import br.uepb.interfaces.IFAcervo;
 import br.uepb.model.enums.Tipo_midia;
 
@@ -12,8 +16,10 @@ import br.uepb.model.enums.Tipo_midia;
  * @author EquipeACL
  */
 public class MidiasEletronicas extends ItemAcervo implements IFAcervo{
-	
+	@NotNull(message=" Tipo não pode ser nulo!")
 	private Tipo_midia tipo;
+	
+	@NotBlank(message="Data obrigatória")
 	private String data_string;
 	/**
 	 * Método construtor da classe MidiasEletronicas

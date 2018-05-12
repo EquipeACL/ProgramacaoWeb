@@ -34,8 +34,8 @@ public class CrudTccService {
 	}
 	
 	@Transactional
-	public List<Tcc> buscarPorTitulo (String busca) {
-		return manager.createQuery("select t from Tcc t where t.titulo like '%"+busca+"%'",Tcc.class).getResultList();
+	public List<EntityTcc> buscarPorTitulo (String busca) {
+		return manager.createQuery("select t from EntityTcc t where t.titulo like '%"+busca+"%'",EntityTcc.class).getResultList();
 	}	
 
 }

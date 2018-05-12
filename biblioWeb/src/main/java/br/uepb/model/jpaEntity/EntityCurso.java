@@ -11,9 +11,6 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.persistence.Transient;
-import javax.validation.constraints.NotNull;
-
-import org.hibernate.validator.constraints.NotBlank;
 
 import br.uepb.interfaces.IFDependencia;
 import br.uepb.model.Curso;
@@ -31,10 +28,9 @@ public class EntityCurso implements IFDependencia{
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private int id;
 	
-	@NotBlank(message=" Nome é obrigatório")
 	private String nome;
 	
-	@NotBlank(message=" Sigla do curso é obrigatório")
+	
 	private String sigla;	
 
 	@ManyToOne(cascade=CascadeType.MERGE)
@@ -42,10 +38,9 @@ public class EntityCurso implements IFDependencia{
 	private EntityAreaConhecimento area;
 	
 	@Transient
-	@NotBlank(message=" Area do conhecimento é obrigatório")
 	private String area_conhecimento_id;
 	
-	@NotNull(message=" Tipo do curso é obrigatório")
+	
 	@Enumerated(EnumType.STRING)
 	private Tipo_curso tipo;
 	

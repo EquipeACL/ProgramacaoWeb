@@ -1,14 +1,6 @@
 package br.uepb.model;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Table;
-import javax.persistence.Id;
-
 import org.hibernate.validator.constraints.NotBlank;
-
-
 
 import br.uepb.interfaces.IFDependencia;
 import br.uepb.model.jpaEntity.EntityOrientador;
@@ -19,11 +11,8 @@ import br.uepb.model.jpaEntity.EntityOrientador;
  * @author EquipeACL
  */
 
-@Entity
-@Table(name = "orientador")
 public class Orientador implements IFDependencia{
-	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	
 	private int id;
 	
 	@NotBlank(message = " Nome do Orientador é obrigatório!")

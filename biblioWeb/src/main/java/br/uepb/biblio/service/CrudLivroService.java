@@ -34,8 +34,8 @@ public class CrudLivroService {
 	}
 	
 	@Transactional
-	public List<Livro> buscarPorTitulo (String busca) {
-		return manager.createQuery("select l from Livro l where l.titulo like '%"+busca+"%'",Livro.class).getResultList();
+	public List<EntityLivro> buscarPorTitulo (String busca) {
+		return manager.createQuery("select l from EntityLivro l where l.titulo like '%"+busca+"%'",EntityLivro.class).getResultList();
 	}	
 
 }

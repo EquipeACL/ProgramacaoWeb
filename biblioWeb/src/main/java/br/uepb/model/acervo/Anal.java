@@ -4,6 +4,12 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
+import javax.validation.constraints.NotNull;
+
+import org.hibernate.validator.constraints.NotBlank;
+
 import br.uepb.interfaces.IFAcervo;
 import br.uepb.model.Autor;
 import br.uepb.model.Cidade;
@@ -18,17 +24,24 @@ import br.uepb.model.enums.Tipo_anal;
 
 
 public class Anal extends ItemAcervo implements IFAcervo{
-		
-	private Tipo_anal tipo;
 	
-	private List<Autor> autores;
+	@NotNull(message=" Tipo é obrigatório")
+	private Tipo_anal tipo;	
 	
-	private String nome_congresso;
+	private List<Autor> autores;	
+	
+	@NotBlank(message = " Nome do Congresso é Obrigatório")
+	private String nome_congresso;	
 	
 	private Cidade local;
 	
+	@NotBlank(message=" Autor é obrigatório")
 	private String id_autor;
+	
+	@NotBlank(message=" Data é obrigatório")
 	private String data_string;
+	
+	@NotBlank(message=" Cidade é obrigatório")
 	private String id_cidade;
 	/**
 	 * Método construtor da classe Anal

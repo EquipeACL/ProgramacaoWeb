@@ -34,8 +34,8 @@ public class CrudJornalService  {
 	}
 	
 	@Transactional
-	public List<Jornal> buscarPorTitulo (String busca) {
-		return manager.createQuery("select j from Jornal j where j.titulo like '%"+busca+"%'",Jornal.class).getResultList();
+	public List<EntityJornal> buscarPorTitulo (String busca) {
+		return manager.createQuery("select j from EntityJornal j where j.titulo like '%"+busca+"%'",EntityJornal.class).getResultList();
 	}	
 
 }

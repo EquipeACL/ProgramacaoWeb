@@ -2,6 +2,11 @@ package br.uepb.model.acervo;
 
 import java.util.Date;
 
+import javax.validation.constraints.Min;
+import javax.validation.constraints.NotNull;
+
+import org.hibernate.validator.constraints.NotBlank;
+
 import br.uepb.interfaces.IFAcervo;
 import br.uepb.model.Editora;
 /**
@@ -14,8 +19,14 @@ public class Revista extends ItemAcervo implements IFAcervo{
 		
 	private Editora editora;
 	
+	@NotNull
+	@Min(value = 1, message=" Numero de paginas deve ser maior ou igual a 1.")
 	private int num_pag;
+	
+	@NotBlank(message="Editora obrigatória")
 	private String id_editora;
+	
+	@NotBlank(message="Data obrigatória")
 	private String data_string;
 	/**
 	 * Método construtor da classe Revista

@@ -1,5 +1,9 @@
 package br.uepb.model;
 
+import javax.validation.constraints.NotNull;
+
+import org.hibernate.validator.constraints.NotBlank;
+
 import br.uepb.interfaces.IFDependencia;
 import br.uepb.model.enums.Tipo_curso;
 
@@ -12,14 +16,18 @@ public class Curso implements IFDependencia{
 	
 	private int id;
 	
+	@NotBlank(message=" Nome é obrigatório")
 	private String nome;
 	
+	@NotBlank(message=" Sigla do curso é obrigatório")
 	private String sigla;	
 
 	private AreaConhecimento area;
 	
+	@NotBlank(message=" Area do conhecimento é obrigatório")
 	private String area_conhecimento_id;
 	
+	@NotNull(message=" Tipo do curso é obrigatório")
 	private Tipo_curso tipo;
 	
 	/**

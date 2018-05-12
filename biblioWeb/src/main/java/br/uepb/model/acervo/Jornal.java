@@ -2,6 +2,8 @@ package br.uepb.model.acervo;
 
 import java.util.Date;
 
+import org.hibernate.validator.constraints.NotBlank;
+
 import br.uepb.interfaces.IFAcervo;
 
 /**
@@ -11,6 +13,7 @@ import br.uepb.interfaces.IFAcervo;
  * @author EquipeACL
  */
 public class Jornal extends ItemAcervo implements IFAcervo{
+	@NotBlank(message="Data obrigatória")
 	private String data_string;
 	/**
 	 * Método construtor da classe Jornal

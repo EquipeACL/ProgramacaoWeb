@@ -7,9 +7,6 @@ import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
 import javax.persistence.Table;
 import javax.persistence.Transient;
-import javax.validation.constraints.NotNull;
-
-import org.hibernate.validator.constraints.NotBlank;
 
 import br.uepb.interfaces.IFAcervo;
 import br.uepb.model.acervo.MidiasEletronicas;
@@ -26,8 +23,8 @@ import br.uepb.model.enums.Tipo_midia;
 public class EntityMidiasEletronicas extends EntityItemAcervo implements IFAcervo{
 	
 	@Transient
-	@NotBlank(message="Data obrigatória")
 	private String data_string;
+	
 	public String getData_string() {
 		return data_string;
 	}
@@ -37,7 +34,7 @@ public class EntityMidiasEletronicas extends EntityItemAcervo implements IFAcerv
 	}
 
 	
-	@NotNull(message=" Tipo não pode ser nulo!")
+	
 	@Enumerated(EnumType.STRING)
 	private Tipo_midia tipo;
 	

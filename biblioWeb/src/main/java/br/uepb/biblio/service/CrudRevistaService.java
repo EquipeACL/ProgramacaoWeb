@@ -33,8 +33,8 @@ public class CrudRevistaService {
 	}
 	
 	@Transactional
-	public List<Revista> buscarPorTitulo (String busca) {
-		return manager.createQuery("select r from Revista r where r.titulo like '%"+busca+"%'",Revista.class).getResultList();
+	public List<EntityRevista> buscarPorTitulo (String busca) {
+		return manager.createQuery("select r from EntityRevista r where r.titulo like '%"+busca+"%'",EntityRevista.class).getResultList();
 	}	
 
 }

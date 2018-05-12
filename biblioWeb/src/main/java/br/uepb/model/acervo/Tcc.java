@@ -2,14 +2,6 @@ package br.uepb.model.acervo;
 
 import java.util.Date;
 
-import javax.persistence.CascadeType;
-import javax.persistence.Entity;
-import javax.persistence.EnumType;
-import javax.persistence.Enumerated;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
-import javax.persistence.Table;
-import javax.persistence.Transient;
 import javax.validation.constraints.NotNull;
 
 import org.hibernate.validator.constraints.NotBlank;
@@ -30,14 +22,22 @@ public class Tcc extends ItemAcervo implements IFAcervo{
 	private Autor autor;
 	
 	private Orientador orientador;
-
+	
+	@NotNull(message=" Tipo não pode ser nulo!")
 	private Tipo_tcc tipo;
 	
 	private Cidade cidade;
 	
+	@NotBlank(message="Data obrigatória")
 	private String data_string;
+	
+	@NotBlank(message="Autor obrigatório")
 	private String id_autor;
+	
+	@NotBlank(message="Cidade obrigatório")
 	private String id_cidade;
+	
+	@NotBlank(message="Orientador obrigatório")
 	private String id_orientador;
 	/**
 	 * Método construtor da classe Tcc

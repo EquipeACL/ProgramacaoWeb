@@ -35,7 +35,7 @@ public class CadastroOrientadorService {
 	}
 	
 	@Transactional
-	public List<Orientador> buscarPorNome (String busca) {
-		return manager.createQuery("select a from Orientador a where a.nome like '%"+busca+"%'",Orientador.class).getResultList();
+	public List<EntityOrientador> buscarPorNome (String busca) {
+		return manager.createQuery("select a from EntityOrientador a where a.nome like '%"+busca+"%'",EntityOrientador.class).getResultList();
 	}
 }

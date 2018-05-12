@@ -24,7 +24,7 @@ public class EntityAreaConhecimento implements IFDependencia{
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
 	
-	@NotBlank(message=" Area conhecimento é obrigatorio!")
+	
 	private String nome;
 	
 	/**

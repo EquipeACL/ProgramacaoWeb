@@ -10,9 +10,6 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.persistence.Transient;
-import javax.validation.constraints.NotNull;
-
-import org.hibernate.validator.constraints.NotBlank;
 
 import br.uepb.interfaces.IFAcervo;
 import br.uepb.model.Cidade;
@@ -32,19 +29,15 @@ import br.uepb.model.jpaEntity.EntityOrientador;
 public class EntityTcc extends EntityItemAcervo implements IFAcervo{ 
 	
 	@Transient
-	@NotBlank(message="Data obrigatória")
 	private String data_string;
 	
 	@Transient
-	@NotBlank(message="Autor obrigatório")
 	private String id_autor;
 	
 	@Transient
-	@NotBlank(message="Cidade obrigatório")
 	private String id_cidade;
 
 	@Transient
-	@NotBlank(message="Orientador obrigatório")
 	private String id_orientador;
 	
 	@ManyToOne(cascade=CascadeType.MERGE)
@@ -55,7 +48,7 @@ public class EntityTcc extends EntityItemAcervo implements IFAcervo{
 	@JoinColumn(name = "orientador_id",nullable=false)
 	private EntityOrientador orientador;
 
-	@NotNull(message=" Tipo não pode ser nulo!")
+	
 	@Enumerated(EnumType.STRING)
 	private Tipo_tcc tipo;
 	

@@ -4,6 +4,10 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import javax.validation.constraints.NotNull;
+
+import org.hibernate.validator.constraints.NotBlank;
+
 import br.uepb.interfaces.IFAcervo;
 import br.uepb.model.Autor;
 import br.uepb.model.Editora;
@@ -17,20 +21,28 @@ import br.uepb.model.Tema;
  */
 public class Livro extends ItemAcervo implements IFAcervo{
 	
-	
+	@NotNull(message=" ISBN é obrigatório")
 	private int isbn;
 	
 	private List<Autor> autores;
 	
 	private Editora editora;
 	
+	@NotNull(message=" Numero de paginas é obrigatório")
 	private int numero_paginas;
 	
 	private Tema tema;
 	
+	@NotBlank(message = " Pelo menos um autor é obrigatório")
 	private String id_autor;
+	
+	@NotBlank(message = " Tema é obrigatório")
 	private String id_tema;
+	
+	@NotBlank(message = " Editora é obrigatório")
 	private String id_editora;
+	
+	@NotBlank(message = " Data é obrigatório")
 	private String string_data;
 	
 	/**

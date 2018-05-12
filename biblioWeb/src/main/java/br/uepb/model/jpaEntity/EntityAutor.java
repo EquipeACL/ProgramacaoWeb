@@ -6,8 +6,6 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
-import org.hibernate.validator.constraints.NotBlank;
-
 import br.uepb.interfaces.IFDependencia;
 import br.uepb.model.Autor;
 
@@ -25,7 +23,7 @@ public class EntityAutor implements IFDependencia{
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
 
-	@NotBlank(message = " Nome do Autor é obrigatório")
+	
 	private String nome;
 	
 	/**

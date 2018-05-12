@@ -35,8 +35,8 @@ public class CadastroTemaService {
 	}
 		
 	@Transactional
-	public List<Tema> buscarPorNome (String busca) {
-		return manager.createQuery("select a from Tema a where a.nome like '%"+busca+"%'",Tema.class).getResultList();
+	public List<EntityTema> buscarPorNome (String busca) {
+		return manager.createQuery("select a from EntityTema a where a.nome like '%"+busca+"%'",EntityTema.class).getResultList();
 	}
 	
 	@Transactional

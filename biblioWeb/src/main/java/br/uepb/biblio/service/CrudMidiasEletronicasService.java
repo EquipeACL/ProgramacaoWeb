@@ -35,8 +35,8 @@ public class CrudMidiasEletronicasService {
 	}
 	
 	@Transactional
-	public List<MidiasEletronicas> buscarPorTitulo (String busca) {
-		return manager.createQuery("select m from MidiasEletronicas m where m.titulo like '%"+busca+"%'",MidiasEletronicas.class).getResultList();
+	public List<EntityMidiasEletronicas> buscarPorTitulo (String busca) {
+		return manager.createQuery("select m from EntityMidiasEletronicas m where m.titulo like '%"+busca+"%'",EntityMidiasEletronicas.class).getResultList();
 	}	
 
 }

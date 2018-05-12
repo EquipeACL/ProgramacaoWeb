@@ -1,5 +1,7 @@
 package br.uepb.model;
 
+import org.hibernate.validator.constraints.NotBlank;
+
 import br.uepb.interfaces.IFDependencia;
 import br.uepb.model.jpaEntity.EntityTema;
 
@@ -13,10 +15,12 @@ public class Tema implements IFDependencia{
 	
 	private int id;
 	
-	private String nome;
-		
+	@NotBlank(message=" Nome é obrigatório.")
+	private String nome;	
+	
 	private AreaConhecimento area;
 	
+	@NotBlank(message=" Area do conhecimento é obrigatório")
 	private String areaconhecimento_id;
 	
 	/**

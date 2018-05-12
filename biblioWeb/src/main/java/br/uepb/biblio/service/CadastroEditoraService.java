@@ -35,8 +35,8 @@ public class CadastroEditoraService {
 	}
 	
 	@Transactional
-	public List<Editora> buscarPorNome (String busca) {
-		return manager.createQuery("select a from Editora a where a.nome like '%"+busca+"%'",Editora.class).getResultList();
+	public List<EntityEditora> buscarPorNome (String busca) {
+		return manager.createQuery("select a from EntityEditora a where a.nome like '%"+busca+"%'",EntityEditora.class).getResultList();
 	}
 	
 	@Transactional

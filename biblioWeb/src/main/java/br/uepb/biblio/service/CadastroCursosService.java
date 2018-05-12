@@ -39,7 +39,7 @@ public class CadastroCursosService {
 	}
 	
 	@Transactional
-	public List<Curso> buscarPorNome (String busca) {
-		return manager.createQuery("select a from Curso a where a.nome like '%"+busca+"%'",Curso.class).getResultList();
+	public List<EntityCurso> buscarPorNome (String busca) {
+		return manager.createQuery("select a from EntityCurso a where a.nome like '%"+busca+"%'",EntityCurso.class).getResultList();
 	}
 }

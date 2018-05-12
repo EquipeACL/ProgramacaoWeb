@@ -40,20 +40,16 @@ import br.uepb.model.jpaEntity.EntityAutor;
 @Table(name="anal")
 public class EntityAnal extends EntityItemAcervo implements IFAcervo{
 
-	@NotNull(message=" Tipo não pode ser nulo!")
 	@Enumerated(EnumType.STRING)
 	private Tipo_anal tipo;
 	
 	@Transient
-	@NotBlank(message=" Autor obrigatório")
 	private String id_autor;
 	
 	@Transient
-	@NotBlank(message=" Data é obrigatório")
 	private String data_string;
 	
 	@Transient
-	@NotBlank(message=" Cidade obrigatório")
 	private String id_cidade;
 
 	@OneToMany(
@@ -70,7 +66,7 @@ public class EntityAnal extends EntityItemAcervo implements IFAcervo{
 	private List<EntityAutor> autores;
 	
 	
-	@NotBlank(message = " Nome do Congresso é Obrigatório")
+	
 	@Column(name="congresso")
 	private String nome_congresso;
 	
@@ -105,10 +101,10 @@ public class EntityAnal extends EntityItemAcervo implements IFAcervo{
 		for(Autor a : anal.getAutores()){
 			autores.add(new EntityAutor(a));
 		}
-		setAutor(autores);
+		setAutores(autores);
 		setNome_congresso(anal.getNome_congresso());
 		setAnoPublicacao(anal.getAnoPublicacao());
-		setLocal(local);
+		setLocal(anal.getLocal());
 	}
 	public Tipo_anal getTipo() {
 		return tipo;
@@ -116,10 +112,10 @@ public class EntityAnal extends EntityItemAcervo implements IFAcervo{
 	public void setTipo(Tipo_anal tipo) {
 		this.tipo = tipo;
 	}
-	public List<EntityAutor> getAutor() {
+	public List<EntityAutor> getAutores() {
 		return this.autores;
 	}
-	public void setAutor(ArrayList<EntityAutor> autores) {
+	public void setAutores(ArrayList<EntityAutor> autores) {
 		this.autores = autores;
 	}
 	public String getNome_congresso() {

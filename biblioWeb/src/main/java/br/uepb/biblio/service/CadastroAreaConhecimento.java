@@ -47,8 +47,8 @@ public class CadastroAreaConhecimento {
 	}
 	
 	@Transactional
-	public List<AreaConhecimento> buscarPorNome (String busca) {
-		return manager.createQuery("select a from AreaConhecimento a where a.nome like '%"+busca+"%'",AreaConhecimento.class).getResultList();
+	public List<EntityAreaConhecimento> buscarPorNome (String busca) {
+		return manager.createQuery("select a from EntityAreaConhecimento a where a.nome like '%"+busca+"%'",EntityAreaConhecimento.class).getResultList();
 	}
 
 	@Transactional

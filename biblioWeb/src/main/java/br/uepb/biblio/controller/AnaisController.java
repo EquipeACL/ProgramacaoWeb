@@ -21,7 +21,6 @@ import br.uepb.biblio.repository.Cidades;
 import br.uepb.biblio.service.CrudAnaisService;
 import br.uepb.biblio.service.exception.ItemDuplicadoException;
 import br.uepb.model.Autor;
-//import br.uepb.biblio.service.CrudAnaisService;
 import br.uepb.model.acervo.Anal;
 import br.uepb.model.enums.Tipo_anal;
 

@@ -35,8 +35,8 @@ public class CadastroAutorService {
 	}
 	
 	@Transactional
-	public List<Autor> buscarPorNome (String busca) {
-		return manager.createQuery("select a from Autor a where a.nome like '%"+busca+"%'",Autor.class).getResultList();
+	public List<EntityAutor> buscarPorNome (String busca) {
+		return manager.createQuery("select a from EntityAutor a where a.nome like '%"+busca+"%'",EntityAutor.class).getResultList();
 	}
 
 }
