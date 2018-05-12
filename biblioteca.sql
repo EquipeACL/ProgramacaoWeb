@@ -351,7 +351,7 @@ INSERT INTO `tema` VALUES (1,'COMPUTACAO',1),(2,'ENGENHARIA CIVIL',1),(3,'ENFERM
 #
 
 CREATE TABLE `livro` (
-  `id` int(11) NOT NULL,
+  `id` int(11) NOT NULL AUTO_INCREMENT,
   `isbn` int(11) NOT NULL,
   `titulo` varchar(45) NOT NULL,
   `editora_id` int(11) NOT NULL,
@@ -359,7 +359,7 @@ CREATE TABLE `livro` (
   `edicao` int(11) NOT NULL,
   `num_pag` int(11) NOT NULL,
   `tema_id` int(11) NOT NULL,
-  PRIMARY KEY (`isbn`),
+  PRIMARY KEY (`id`,`isbn`),
   KEY `fk_livro_editora1_idx` (`editora_id`),
   KEY `fk_livro_tema1_idx` (`tema_id`),
   CONSTRAINT `fk_livro_editora1` FOREIGN KEY (`editora_id`) REFERENCES `editora` (`id`),
@@ -377,12 +377,13 @@ CREATE TABLE `livro` (
 
 CREATE TABLE `autor_has_livro` (
   `autor_id` int(11) NOT NULL AUTO_INCREMENT,
-  `livro_isbn` int(11) NOT NULL,
-  PRIMARY KEY (`autor_id`,`livro_isbn`),
-  KEY `livro_isbn` (`livro_isbn`),
-  CONSTRAINT `autor_has_livro_ibfk_2` FOREIGN KEY (`livro_isbn`) REFERENCES `livro` (`isbn`),
-  CONSTRAINT `autor_has_livro_ibfk_1` FOREIGN KEY (`autor_id`) REFERENCES `autor` (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+  `livro_id` int(11) NOT NULL,
+  PRIMARY KEY (`autor_id`,`livro_id`),
+  KEY `livro_id` (`livro_id`),
+  CONSTRAINT `autor_has_livro_ibfk_1` FOREIGN KEY (`autor_id`) REFERENCES `autor` (`id`),
+  CONSTRAINT `autor_has_livro_ibfk_2` FOREIGN KEY (`livro_id`) REFERENCES `livro` (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8;
+
 
 #
 # Data for table "autor_has_livro"
