@@ -32,6 +32,7 @@ public class EntityJornal extends EntityItemAcervo implements IFAcervo{
 	 */
 	public EntityJornal(Jornal jornal) {
 		if(jornal!=null){
+			setId(jornal.getId());
 			setTitulo(jornal.getTitulo());
 			setData(jornal.getData());
 			setEdicao(jornal.getEdicao());

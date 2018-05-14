@@ -32,7 +32,7 @@ public class EditorasController {
 	private CadastroEditoraService cadastroEditoraService;
 	
 	@RequestMapping("/novo")
-	ModelAndView novo(Editora editora,String busca) {
+	public ModelAndView novo(Editora editora,String busca) {
 		ModelAndView mv = new ModelAndView("editora/CadastroEditora");
 		if(busca!=null){
 			mv.addObject("listaEditora", cadastroEditoraService.buscarPorNome(busca));
@@ -43,7 +43,7 @@ public class EditorasController {
 	}
 	
 	@RequestMapping("/pesquisar")
-	ModelAndView pesquisar(String busca) {
+	public ModelAndView pesquisar(String busca) {
 		ModelAndView mv = new ModelAndView("editora/PesquisaEditora");
 		if(busca!=null){
 			mv.addObject("listaEditora", cadastroEditoraService.buscarPorNome(busca));
@@ -51,6 +51,14 @@ public class EditorasController {
 			mv.addObject("listaEditora", editorasRepository.findAll());
 		}
 		return mv;
+	}
+	
+	@RequestMapping("/editar")
+	public ModelAndView editar(String id){
+		ModelAndView model = new ModelAndView("editora/CadastroEditora");
+		model.addObject("editora",editorasRepository.findOne(Integer.parseInt(id)));
+		model.addObject("listaEditora",editorasRepository.findAll());
+		return model;
 	}
 	
 	@RequestMapping(value = "/novo", method = RequestMethod.POST)
@@ -68,14 +76,6 @@ public class EditorasController {
 		attributes.addFlashAttribute("mensagem", "Editora salva com sucesso!");
 		return new ModelAndView("redirect:/editoras/novo");
 
-	}
-	
-	@RequestMapping("/editar")
-	public ModelAndView editar(String id){
-		ModelAndView model = new ModelAndView("editora/CadastroEditora");
-		model.addObject("editora",editorasRepository.findOne(Integer.parseInt(id)));
-		model.addObject("listaEditora",editorasRepository.findAll());
-		return model;
 	}
 	
 	@RequestMapping(value="/editar",method=RequestMethod.POST)

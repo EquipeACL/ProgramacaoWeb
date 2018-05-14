@@ -22,10 +22,8 @@ public class Curso implements IFDependencia{
 	@NotBlank(message=" Sigla do curso é obrigatório")
 	private String sigla;	
 
+	@NotNull(message=" Area do conhecimento é obrigatório")
 	private AreaConhecimento area;
-	
-	@NotBlank(message=" Area do conhecimento é obrigatório")
-	private String area_conhecimento_id;
 	
 	@NotNull(message=" Tipo do curso é obrigatório")
 	private Tipo_curso tipo;
@@ -69,14 +67,6 @@ public class Curso implements IFDependencia{
 		return nome;
 	}
 	
-	public String getArea_conhecimento_id() {
-		return area_conhecimento_id;
-	}
-
-	public void setArea_conhecimento_id(String area_conhecimento_id) {
-		this.area_conhecimento_id = area_conhecimento_id;
-	}
-
 	public void setNome(String nome) {
 		this.nome = nome;
 	}

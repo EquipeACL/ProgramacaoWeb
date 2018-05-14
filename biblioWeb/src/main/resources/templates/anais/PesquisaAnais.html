@@ -29,8 +29,8 @@
 						<div class="form-group col-sm-2">
 							<button class="btn btn-primary" type="submit">Pesquisar</button>
 						</div>
-						<div class="col-sm-2">
-							<label for="filtro" class="form-group">Pesquisar por:</label>
+						<div class="col-sm-1">
+							<label for="filtro" class="form-group">Por:</label>
 						</div>
 						<div class="col-sm-2">
 							<select class="form-control" id="filtro">							
@@ -59,6 +59,7 @@
 								</tr>
 							</thead>
 							<tbody>
+							<form  method="GET" th:action="@{editar}">
 								<tr th:each="anal : ${listaAnais}">
 									<td><input th:id="|check*{anal.titulo}|" th:name="|check*{anal.titulo}|" type="checkbox"></td>
 									<td th:text="*{anal.titulo}">Nome da Area deconhecimento</td>
@@ -69,11 +70,12 @@
 										</select>
 									</td>
 									<td th:text="*{anal.nome_congresso}">Nome do Congresso</td>
-									<td th:text="*{anal.data}">Data de Publicação</td>
+									<td th:text="${{anal.data}}">Data de Publicação</td>
 									<td th:text="|*{anal.local.nome}-*{anal.local.uf}|">Cidade</td>
 									<td><button th:id="|removerAnalId*{anal.id}|" class="btn btn-danger btn-sm" data-toggle="modal" data-target="#modalRemoverAnal" th:onclick="|setValorRemover(*{anal.id},'@{/anais/remover}')|" type="button">Remover</button></td>
-									<td><button class="btn btn-default btn-sm" type="button">Editar</button></td>
+									<td><button class="btn btn-default btn-sm" name="id" th:value="*{anal.id}" type="submit">Editar</button></td>
 								</tr>
+							</form>
 							</tbody>
 						</table>
 					</div>

@@ -39,6 +39,7 @@ public class EntityMidiasEletronicas extends EntityItemAcervo implements IFAcerv
 	 */
 	public EntityMidiasEletronicas(MidiasEletronicas midia) {
 		if(midia!=null){
+			setId(midia.getId());
 			setTitulo(midia.getTitulo());
 			setTipo(midia.getTipo());
 			setData_gravacao(midia.getData_gravacao());

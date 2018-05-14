@@ -67,6 +67,7 @@ public class TemaController{
 		ModelAndView model = new ModelAndView("tema/CadastroTema");
 		model.addObject("tema",temas.findOne(Integer.parseInt(id)));
 		model.addObject("temas",temas.findAll());
+		model.addObject("areas", areasRepository.findAll());
 		return model;
 	}
 	

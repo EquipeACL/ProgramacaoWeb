@@ -40,7 +40,7 @@ public class EntityLivro extends EntityItemAcervo implements IFAcervo{
 	
 	@OneToMany(
 	        targetEntity=EntityAutor.class,
-	        cascade=CascadeType.MERGE,
+	        cascade=CascadeType.REFRESH,
 	        fetch=FetchType.EAGER
 	)
 	@Fetch(FetchMode.SELECT)
@@ -54,14 +54,14 @@ public class EntityLivro extends EntityItemAcervo implements IFAcervo{
 	@Transient
 	private String id_autor;
 	
-	@ManyToOne(cascade=CascadeType.MERGE)
+	@ManyToOne(cascade=CascadeType.REFRESH)
 	@JoinColumn(name = "editora_id",nullable=false)
 	private EntityEditora editora;
 	
 	@Column(name="num_pag")
 	private int numero_paginas;
 	
-	@ManyToOne(cascade=CascadeType.MERGE)
+	@ManyToOne(cascade=CascadeType.REFRESH)
 	@JoinColumn(name = "tema_id",nullable=false)
 	private EntityTema tema;
 	
@@ -85,6 +85,7 @@ public class EntityLivro extends EntityItemAcervo implements IFAcervo{
 	 */
 	public EntityLivro(Livro livro) {
 		if(livro!=null){
+			setId(livro.getId());
 			setIsbn(livro.getIsbn());
 			setTitulo(livro.getTitulo());
 			ArrayList<EntityAutor> autores = new ArrayList<EntityAutor>();

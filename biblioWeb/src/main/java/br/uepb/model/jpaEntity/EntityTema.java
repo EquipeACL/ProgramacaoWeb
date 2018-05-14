@@ -27,7 +27,7 @@ public class EntityTema implements IFDependencia{
 	private String nome;
 	
 	
-	@ManyToOne(cascade=CascadeType.MERGE)
+	@ManyToOne(cascade=CascadeType.REFRESH)
 	@JoinColumn(name = "areaconhecimento_id",nullable=false)
 	private EntityAreaConhecimento area;
 	

@@ -10,7 +10,6 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
-import javax.persistence.Transient;
 
 import br.uepb.interfaces.IFDependencia;
 import br.uepb.model.Curso;
@@ -33,13 +32,9 @@ public class EntityCurso implements IFDependencia{
 	
 	private String sigla;	
 
-	@ManyToOne(cascade=CascadeType.MERGE)
+	@ManyToOne(cascade=CascadeType.REFRESH)
 	@JoinColumn(name = "area_conhecimento_id",nullable=false)
 	private EntityAreaConhecimento area;
-	
-	@Transient
-	private String area_conhecimento_id;
-	
 	
 	@Enumerated(EnumType.STRING)
 	private Tipo_curso tipo;
@@ -83,14 +78,6 @@ public class EntityCurso implements IFDependencia{
 		return nome;
 	}
 	
-	public String getArea_conhecimento_id() {
-		return area_conhecimento_id;
-	}
-
-	public void setArea_conhecimento_id(String area_conhecimento_id) {
-		this.area_conhecimento_id = area_conhecimento_id;
-	}
-
 	public void setNome(String nome) {
 		this.nome = nome;
 	}

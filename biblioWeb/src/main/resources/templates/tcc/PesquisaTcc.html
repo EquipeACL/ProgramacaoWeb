@@ -29,8 +29,8 @@
 						<div class="form-group col-sm-2">
 							<button class="btn btn-primary" type="submit">Pesquisar</button>
 						</div>
-						<div class="col-sm-2">
-							<label for="filtro" class="form-group">Pesquisar por:</label>
+						<div class="col-sm-1">
+							<label for="filtro" class="form-group">Por:</label>
 						</div>
 						<div class="col-sm-2">
 							<select class="form-control" id="filtro">							
@@ -59,17 +59,19 @@
 								</tr>
 							</thead>
 							<tbody>
+							<form method="GET" th:action="@{editar}">
 								<tr th:each="tcc : ${listaTcc}" th:id="|tcc*{tcc.id}|">
 									<td><input th:id="|check*{tcc.titulo}|" th:name="|check*{tcc.titulo}|" type="checkbox"></td>
 									<td th:text="*{tcc.titulo}">Titulo do Tcc</td>
 									<td th:text="*{tcc.autor.nome}">Autor do Tcc</td>
 									<td th:text="*{tcc.orientador.nome}">Orientador do Tcc</td>
 									<td th:text="*{tcc.tipo}">Tipo do Tcc</td>
-									<td th:text="*{tcc.data}">Data de defesa</td>
+									<td th:text="${{tcc.data}}">Data de defesa</td>
 									<td th:text="|*{tcc.cidade.nome}-*{tcc.cidade.uf}|">Cidade</td>
 									<td><button th:id="|removerTccId*{tcc.id}|" class="btn btn-danger btn-sm" data-toggle="modal" data-target="#modalRemoverTcc" th:onclick="|setValorRemover(*{tcc.id},'@{/tccs/remover}')|" type="button">Remover</button></td>
-									<td><button class="btn btn-default btn-sm" type="button">Editar</button></td>
+									<td><button class="btn btn-default btn-sm" name="id" th:value="*{tcc.id}" type="submit">Editar</button></td>
 								</tr>
+							</form>
 							</tbody>
 						</table>
 					</div>

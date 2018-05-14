@@ -1,13 +1,19 @@
 package br.uepb.biblio.controller;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.propertyeditors.CustomDateEditor;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.WebDataBinder;
+import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -80,6 +86,20 @@ public class TccsController {
 		return model;
 	}
 	
+	@RequestMapping("/editar")
+	public ModelAndView editar(String id) {
+		ModelAndView model = new ModelAndView("/tcc/CadastroTcc");
+		model.addObject("tcc", tccsRepository.findOne(Integer.parseInt(id)));
+		model.addObject("autores",autoresRepository.findAll());
+		model.addObject("orientadores",orientadoresRepository.findAll());
+		model.addObject("cidades",cidadesRepository.findAll());
+		model.addObject("formacoes",Tipo_nivel.values());
+		model.addObject("tipos",Tipo_tcc.values());
+		model.addObject("estados",estadosRepository.findAll());
+		model.addObject("listaTcc",tccsRepository.findAll());
+		return model;
+	}
+	
 	@RequestMapping(value="/remover",method = RequestMethod.POST, consumes = { MediaType.APPLICATION_JSON_VALUE })
 	public @ResponseBody ResponseEntity<?> remover(@RequestBody Tcc tcc,RedirectAttributes attributes){
 		try {
@@ -113,5 +133,28 @@ public class TccsController {
 	
 		attributes.addFlashAttribute("mensagem", "Tcc salvo com sucesso!");
 		return new ModelAndView("redirect:/tccs/novo");
+	}
+	
+	@RequestMapping(value="/editar",method = RequestMethod.POST)
+	public ModelAndView atualizar(@Valid Tcc tcc, BindingResult result, Model model, RedirectAttributes attributes) {
+		if(result.hasErrors()) {
+			return novo(tcc,null);
+		}
+		//atualiza no banco		
+		try {
+			tccService.atualizar(tcc);
+		} catch (ItemDuplicadoException e) {
+			result.rejectValue("titulo", e.getMessage(), e.getMessage());
+			return(novo(tcc, null));
+		}
+	
+		attributes.addFlashAttribute("mensagem", "Tcc atualizado com sucesso!");
+		return new ModelAndView("redirect:/tccs/novo");
+	}
+	
+	@InitBinder
+	public void initBinder(WebDataBinder binder) {
+	    CustomDateEditor editor = new CustomDateEditor(new SimpleDateFormat("yyyy-MM-dd"), true);
+	    binder.registerCustomEditor(Date.class, editor);
 	}
 }

@@ -3,6 +3,8 @@ package br.uepb.biblio.config;
 import java.math.BigDecimal;
 import java.util.Locale;
 
+import nz.net.ultraq.thymeleaf.LayoutDialect;
+
 import org.springframework.beans.BeansException;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.ApplicationContextAware;
@@ -26,7 +28,8 @@ import org.thymeleaf.templatemode.TemplateMode;
 import org.thymeleaf.templateresolver.ITemplateResolver;
 
 import br.uepb.biblio.controller.LivrosController;
-import nz.net.ultraq.thymeleaf.LayoutDialect;
+import br.uepb.model.formatter.DateToString;
+import br.uepb.model.formatter.StringToDate;
 
 @Configuration
 @ComponentScan(basePackageClasses = { LivrosController.class })
@@ -87,7 +90,11 @@ public class WebConfig extends WebMvcConfigurerAdapter implements ApplicationCon
 		
 		NumberStyleFormatter integerFormatter = new NumberStyleFormatter("#,##0");
 		conversionService.addFormatterForFieldType(Integer.class, integerFormatter);
-				
+		
+		conversionService.addConverter(new StringToDate());
+		
+		conversionService.addConverter(new DateToString());
+		
 		return conversionService;
 	}
 	

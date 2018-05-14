@@ -15,6 +15,7 @@ import javax.persistence.JoinTable;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 
 import org.hibernate.annotations.Fetch;
 import org.hibernate.annotations.FetchMode;
@@ -42,7 +43,7 @@ public class EntityAnal extends EntityItemAcervo implements IFAcervo{
 	
 	@OneToMany(
 	        targetEntity=EntityAutor.class,
-	        cascade=CascadeType.MERGE,
+	        cascade=CascadeType.REFRESH,
 	        fetch=FetchType.EAGER
 	)
 	@Fetch(FetchMode.SELECT)
@@ -53,12 +54,13 @@ public class EntityAnal extends EntityItemAcervo implements IFAcervo{
     )
 	private List<EntityAutor> autores;
 	
-	
+	@Transient
+	private String id_autor;	
 	
 	@Column(name="congresso")
 	private String nome_congresso;
 	
-	@ManyToOne(cascade=CascadeType.MERGE)
+	@ManyToOne(cascade=CascadeType.REFRESH)
 	@JoinColumn(name = "cidade_id",nullable=false)
 	private EntityCidade local;
 	
@@ -127,6 +129,14 @@ public class EntityAnal extends EntityItemAcervo implements IFAcervo{
 		this.local = local;
 	}
 	
+
+	public String getId_autor() {
+		return id_autor;
+	}
+
+	public void setId_autor(String id_autor) {
+		this.id_autor = id_autor;
+	}
 
 	public boolean validaItem() {
 		return true;

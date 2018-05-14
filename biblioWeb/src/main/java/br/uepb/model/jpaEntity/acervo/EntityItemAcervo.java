@@ -9,6 +9,7 @@ import javax.persistence.MappedSuperclass;
 import javax.validation.constraints.NotNull;
 
 import org.hibernate.validator.constraints.NotBlank;
+import org.springframework.format.annotation.DateTimeFormat;
 
 /**
  * Essa classe � utilizada como modelo para um objeto do tipo ItemAcervo.
@@ -24,7 +25,7 @@ public abstract class EntityItemAcervo {
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private int id;
 	
-	//@NotBlank(message=" Data nao pode ser vazia")
+	@DateTimeFormat(pattern = "dd/MM/yyyy")
 	private  Date data;
 	
 	@NotNull(message=" Edicao é obrigatória")

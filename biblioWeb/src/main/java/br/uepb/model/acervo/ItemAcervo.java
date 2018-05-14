@@ -25,7 +25,7 @@ public abstract class ItemAcervo {
 	private int id;
 	
 	@NotNull(message=" Data é obrigatorio")
-	@DateTimeFormat(pattern = "yyyy-MM-dd")
+	@DateTimeFormat(pattern = "dd/MM/yyyy")
 	private  Date data;
 	
 	@NotNull(message=" Edicao é obrigatória")

@@ -1,13 +1,19 @@
 package br.uepb.biblio.controller;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.propertyeditors.CustomDateEditor;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.WebDataBinder;
+import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -57,6 +63,15 @@ public class RevistasController {
 		return model;
 	}
 	
+	@RequestMapping("/editar")
+	public ModelAndView editar(String id) {
+		ModelAndView model = new ModelAndView("/revista/CadastroRevista");
+		model.addObject("revista",revistaRepository.findOne(Integer.parseInt(id)));
+		model.addObject("listaEditoras",editoraRepository.findAll());
+		model.addObject("listaRevistas", revistaRepository.findAll());
+		return model;
+	}
+		
 	@RequestMapping(value="/novo",method = RequestMethod.POST)
 	public ModelAndView cadastrar(@Valid Revista revista, BindingResult result, Model model, RedirectAttributes attributes) {
 		if(result.hasErrors()) {
@@ -72,6 +87,22 @@ public class RevistasController {
 		}
 		attributes.addFlashAttribute("mensagem", "Revista salva com sucesso!");	
 		return new ModelAndView("redirect:/revistas/novo");
+	}
+	
+	@RequestMapping(value="/editar",method = RequestMethod.POST)
+	public ModelAndView atualizar(@Valid Revista revista, BindingResult result, Model model, RedirectAttributes attributes) {
+		if(result.hasErrors()) {
+			return novo(revista,null);
+		}
+		//atualiza no banco		
+		try {
+			revistaService.atualizar(revista);
+		} catch (ItemDuplicadoException e) {
+			result.rejectValue("titulo", e.getMessage(), e.getMessage());
+			return(novo(revista, null));
+		}
+		attributes.addFlashAttribute("mensagem", "Revista atualizada com sucesso!");	
+		return new ModelAndView("redirect:/revistas/novo");
 		
 		
 	}
@@ -86,5 +117,11 @@ public class RevistasController {
 			return ResponseEntity.badRequest().body(e.getMessage());
 		}
 		return ResponseEntity.ok().build();
+	}
+	
+	@InitBinder
+	public void initBinder(WebDataBinder binder) {
+	    CustomDateEditor editor = new CustomDateEditor(new SimpleDateFormat("yyyy-MM-dd"), true);
+	    binder.registerCustomEditor(Date.class, editor);
 	}
 }

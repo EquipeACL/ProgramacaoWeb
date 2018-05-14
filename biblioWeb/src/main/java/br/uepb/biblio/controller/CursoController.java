@@ -19,7 +19,6 @@ import br.uepb.biblio.repository.AreasConhecimento;
 import br.uepb.biblio.repository.Cursos;
 import br.uepb.biblio.service.CadastroCursosService;
 import br.uepb.biblio.service.exception.ItemDuplicadoException;
-import br.uepb.model.AreaConhecimento;
 import br.uepb.model.Curso;
 import br.uepb.model.enums.Tipo_curso;
 
@@ -60,15 +59,22 @@ public class CursoController {
 		return model;
 	}
 	
+	@RequestMapping("/editar")
+	public ModelAndView editar(String id){
+		ModelAndView model = new ModelAndView("curso/CadastroCurso");
+		model.addObject("curso",cursosRepository.findOne(Integer.parseInt(id)));
+		model.addObject("tiposCursos", Tipo_curso.values());
+		model.addObject("areas", areasRepository.findAll());
+		model.addObject("listaCurso",cursosRepository.findAll());
+		return model;
+	}
+	
 	@RequestMapping(value="/novo",method = RequestMethod.POST)
 	public ModelAndView cadastrar(@Valid Curso curso, BindingResult result, Model model, RedirectAttributes attributes) {
 		if(result.hasErrors()) {
 			return novo(curso,null);
 		}
 		
-		//setando a area do cohecimento de acordo com id selecionando
-		curso.setArea(new AreaConhecimento(areasRepository.findOne(Integer.parseInt(curso.getArea_conhecimento_id()))));
-		curso.setTipo(Tipo_curso.valueOf(curso.getTipo().getDescricao()));
 		try{
 			cursosService.salvar(curso);
 		}catch(ItemDuplicadoException e){
@@ -76,6 +82,21 @@ public class CursoController {
 			return (novo(curso,null));
 		}
 		attributes.addFlashAttribute("mensagem", " Curso salvo com sucesso!");
+		return new ModelAndView("redirect:/cursos/novo");
+	}
+	
+	@RequestMapping(value="/editar",method = RequestMethod.POST)
+	public ModelAndView atualizar(@Valid Curso curso, BindingResult result, Model model, RedirectAttributes attributes) {
+		if(result.hasErrors()) {
+			return novo(curso,null);
+		}		
+		try{
+			cursosService.atualizar(curso);
+		}catch(ItemDuplicadoException e){
+			result.rejectValue("nome", e.getMessage(),e.getMessage());
+			return (novo(curso,null));
+		}
+		attributes.addFlashAttribute("mensagem", " Curso atualizado com sucesso!");
 		return new ModelAndView("redirect:/cursos/novo");
 	}
 	

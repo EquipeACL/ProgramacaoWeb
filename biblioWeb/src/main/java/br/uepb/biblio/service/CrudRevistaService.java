@@ -6,6 +6,7 @@ import java.util.Optional;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 
+import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -16,6 +17,7 @@ import br.uepb.model.acervo.Revista;
 import br.uepb.model.jpaEntity.acervo.EntityRevista;
 @Service
 public class CrudRevistaService {
+	private static Logger logger = Logger.getLogger(CadastroCursoService.class);
 	@Autowired
 	private Revistas revistas;
 	
@@ -29,12 +31,26 @@ public class CrudRevistaService {
 		if(revistaOptional.isPresent()){
 			throw new ItemDuplicadoException(" Revista já Cadastrada!");
 		}
-		revistas.save(newEntity);
+		try{
+			revistas.save(newEntity);
+		}catch(Exception e){
+			logger.error("Erro ao cadastar!",e);
+		}
 	}
 	
 	@Transactional
 	public List<EntityRevista> buscarPorTitulo (String busca) {
 		return manager.createQuery("select r from EntityRevista r where r.titulo like '%"+busca+"%'",EntityRevista.class).getResultList();
+	}
+	
+	@Transactional
+	public void atualizar (Revista revista) {
+		EntityRevista newEntity = new EntityRevista(revista);
+		try{
+			revistas.save(newEntity);
+		}catch(Exception e){
+			logger.error("Erro ao atualizar!",e);
+		}
 	}
 	
 	@Transactional

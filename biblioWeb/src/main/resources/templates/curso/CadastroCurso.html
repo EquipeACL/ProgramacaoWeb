@@ -37,18 +37,18 @@
 						<label for="tipo" class="control-label">Tipo do Curso</label>
 						<select id="tipo" th:field="*{tipo}" class="form-control">
 							<option value="">Selecione o Tipo</option>
-							<option th:each="tipoCurso: ${tiposCursos}" th:value="${tipoCurso}" th:text="${tipoCurso.descricao}"></option>
+							<option th:each="tipoCurso: ${tiposCursos}" th:value="${tipoCurso.descricao}" th:text="${tipoCurso.descricao}"></option>
 						</select>
 					</div>
 				</div>
 				
 				<div class="row">
 					
-					<div class="form-group col-sm-4" th:classappend ="${#fields.hasErrors('area_conhecimento_id')}? has-error">
-							<label for="area_conhecimento_id" class= "control-label">Area do Conhecimento</label>
+					<div class="form-group col-sm-4" th:classappend ="${#fields.hasErrors('area')}? has-error">
+							<label for="area" class= "control-label">Area do Conhecimento</label>
 							<div class="bw-field-action">							
-								<select id="area_conhecimento_id" class="form-control" th:field="*{area_conhecimento_id}" >
-									<option value="">Selecione a Area do Conhecimento</option>
+								<select id="area" class="form-control" th:field="*{area.id}" >
+									<option value="0">Selecione a Area do Conhecimento</option>
 									<option th:each="area : ${areas}" th:value="${area.id}" th:text="${area.nome}"> Opção 1</option>
 								</select>
 								<div class="bw-field-action__icon">

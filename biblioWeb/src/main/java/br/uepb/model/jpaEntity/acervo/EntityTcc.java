@@ -27,11 +27,11 @@ import br.uepb.model.jpaEntity.EntityOrientador;
 @Table(name="tcc")
 public class EntityTcc extends EntityItemAcervo implements IFAcervo{ 
 	
-	@ManyToOne(cascade=CascadeType.MERGE)
+	@ManyToOne(cascade=CascadeType.REFRESH)
 	@JoinColumn(name = "autor_id",nullable=false)
 	private EntityAutor autor;
 	
-	@ManyToOne(cascade=CascadeType.MERGE)
+	@ManyToOne(cascade=CascadeType.REFRESH)
 	@JoinColumn(name = "orientador_id",nullable=false)
 	private EntityOrientador orientador;
 
@@ -39,7 +39,7 @@ public class EntityTcc extends EntityItemAcervo implements IFAcervo{
 	@Enumerated(EnumType.STRING)
 	private Tipo_tcc tipo;
 	
-	@ManyToOne(cascade=CascadeType.MERGE)
+	@ManyToOne(cascade=CascadeType.REFRESH)
 	@JoinColumn(name = "cidade_id",nullable=false)	
 	private EntityCidade cidade;
 	

@@ -44,15 +44,17 @@
 								</tr>
 							</thead>
 							<tbody>
+							<form method="GET" th:action="@{editar}">
 								<tr th:each="midia : ${listaMidias}" th:id="|midia*{midia.id}|">
 									<td><input th:id="|check*{midia.titulo}|" th:name="|check*{midia.titulo}|" type="checkbox"></td>
 									<td th:text="*{midia.id}">1</td>
 									<td th:text="*{midia.titulo}">Titulo da midia</td>
 									<td th:text="*{midia.tipo}">Tipo da midia</td>
-									<td th:text="*{midia.data_gravacao}">Data de gravação</td>
+									<td th:text="${{midia.data_gravacao}}">Data de gravação</td>
 									<td><button th:id="|removerMidiaId*{midia.id}|" class="btn btn-danger btn-sm" data-toggle="modal" data-target="#modalRemoverMidia" th:onclick="|setValorRemover(*{midia.id},'@{/midias/remover}')|" type="button">Remover</button></td>
-									<td><button class="btn btn-default" type="button">Editar</button></td>
+									<td><button class="btn btn-default" name="id" th:value="*{midia.id}"type="submit">Editar</button></td>
 								</tr>
+							</form>
 							</tbody>
 						</table>
 					</div>

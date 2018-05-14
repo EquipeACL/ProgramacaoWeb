@@ -1,13 +1,19 @@
 package br.uepb.biblio.controller;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.propertyeditors.CustomDateEditor;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.WebDataBinder;
+import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -55,6 +61,15 @@ public class MidiasController {
 		return model;
 	}
 	
+	@RequestMapping("/editar")
+	public ModelAndView editar(String id) {
+		ModelAndView model = new ModelAndView("midia/CadastroMidia");
+		model.addObject("midiasEletronicas",midiasRepository.findOne(Integer.parseInt(id)));
+		model.addObject("tipos", Tipo_midia.values());
+		model.addObject("listaMidias",midiasRepository.findAll());
+		return model;
+	}
+	
 	@RequestMapping(value = "/novo", method = RequestMethod.POST)
 	public ModelAndView cadastrar (@Valid MidiasEletronicas midia, BindingResult result, Model model, RedirectAttributes attributes) {
 		if(result.hasErrors()) {
@@ -71,6 +86,22 @@ public class MidiasController {
 		return new ModelAndView("redirect:/midias/novo");
 	}
 	
+	@RequestMapping(value = "/editar", method = RequestMethod.POST)
+	public ModelAndView atualizar (@Valid MidiasEletronicas midia, BindingResult result, Model model, RedirectAttributes attributes) {
+		if(result.hasErrors()) {
+			return novo(midia,null);
+		}
+		//atualiza no banco
+		try {
+			midiasService.atualizar(midia);
+		} catch (ItemDuplicadoException e) {
+			result.rejectValue("titulo", e.getMessage(), e.getMessage());
+			return (novo(midia, null));
+		}
+		attributes.addFlashAttribute("mensagem", "Midia atualizada com sucesso!");
+		return new ModelAndView("redirect:/midias/novo");
+	}
+	
 	@RequestMapping(value = "/remover", method = RequestMethod.POST, consumes = { MediaType.APPLICATION_JSON_VALUE })
 	public @ResponseBody ResponseEntity<?> remover(@RequestBody MidiasEletronicas midia, RedirectAttributes attributes) {
 		try {
@@ -80,6 +111,12 @@ public class MidiasController {
 			return ResponseEntity.badRequest().body(e.getMessage());
 		}
 		return ResponseEntity.ok().build();
+	}
+	
+	@InitBinder
+	public void initBinder(WebDataBinder binder) {
+	    CustomDateEditor editor = new CustomDateEditor(new SimpleDateFormat("yyyy-MM-dd"), true);
+	    binder.registerCustomEditor(Date.class, editor);
 	}
 
 }

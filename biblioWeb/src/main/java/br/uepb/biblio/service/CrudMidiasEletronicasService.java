@@ -6,6 +6,7 @@ import java.util.Optional;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 
+import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -17,7 +18,7 @@ import br.uepb.model.jpaEntity.acervo.EntityMidiasEletronicas;
 
 @Service
 public class CrudMidiasEletronicasService {
-
+	private static Logger logger = Logger.getLogger(CrudMidiasEletronicasService.class);
 	@Autowired
 	private Midias midias;
 	
@@ -31,7 +32,22 @@ public class CrudMidiasEletronicasService {
 		if(midiaOptional.isPresent()){
 			throw new ItemDuplicadoException(" Midia já Cadastrada!");
 		}
-		midias.save(newEntity);
+		try {
+			midias.save(newEntity);
+		} catch (Exception e) {
+			logger.error("Erro ao cadastrar!",e);
+		}
+	}
+	
+	@Transactional
+	public void atualizar (MidiasEletronicas midia) {
+		EntityMidiasEletronicas newEntity = new EntityMidiasEletronicas(midia);
+		try{
+			midias.save(newEntity);
+		}catch(Exception e){
+			logger.error("Erro ao atualizar!",e);
+		}
+		
 	}
 	
 	@Transactional

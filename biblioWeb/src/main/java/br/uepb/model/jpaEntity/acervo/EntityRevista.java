@@ -23,7 +23,7 @@ public class EntityRevista extends EntityItemAcervo implements IFAcervo{
 		
 	
 	
-	@ManyToOne(cascade=CascadeType.MERGE)
+	@ManyToOne(cascade=CascadeType.REFRESH)
 	@JoinColumn(name = "editora_id",nullable=false)
 	private EntityEditora editora;
 	
@@ -45,6 +45,7 @@ public class EntityRevista extends EntityItemAcervo implements IFAcervo{
 	 */
 	public EntityRevista(Revista revista) {
 		if(revista!=null){
+			setId(revista.getId());
 			setTitulo(revista.getTitulo());
 			setEditora(new EntityEditora(revista.getEditora()));
 			setData(revista.getDataPublicacao());
