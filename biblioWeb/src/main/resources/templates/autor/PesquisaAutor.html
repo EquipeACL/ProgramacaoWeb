@@ -37,15 +37,14 @@
 							<thead>
 								<tr>
 									<th><input name="tudo" type="checkbox"></th>
-									<th>#</th>
-									<th>Autor</th>	
+									<th>Autor</th>
+									<th colspan="2">Ações</th>
 								</tr>
 							</thead>
 							<tbody>
-								<tr th:each="autor : ${listaAutores}">
+								<tr th:each="autor : ${listaAutores}" th:id="|autor*{autor.id}|">
 									<form  method="GET" th:action="@{editar}">
 										<td><input th:id="|check*{autor.nome}|" th:name="|check*{autor.nome}|"type="checkbox"></td>
-										<td th:text="*{autor.id}">1</td>
 										<td th:text="*{autor.nome}">Teste1</td>
 										<td><button th:id="|removerAutorId*{autor.id}|" class="btn btn-danger btn-sm" data-toggle="modal" data-target="#modalRemoverAutor" th:onclick="|setValorRemover(*{autor.id},'@{/autores/remover}')|" type="button">Remover</button></td>
 										<td><button class="btn btn-default btn-sm" name="id" th:value="*{autor.id}" type="submit">Editar</button></td>

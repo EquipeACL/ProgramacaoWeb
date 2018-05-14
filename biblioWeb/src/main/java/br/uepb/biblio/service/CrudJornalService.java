@@ -36,6 +36,13 @@ public class CrudJornalService  {
 	@Transactional
 	public List<EntityJornal> buscarPorTitulo (String busca) {
 		return manager.createQuery("select j from EntityJornal j where j.titulo like '%"+busca+"%'",EntityJornal.class).getResultList();
-	}	
+	}
+	
+	@Transactional
+	public void remover (int id) {
+		if(id>0){
+			jornais.delete(id);
+		}
+	}
 
 }

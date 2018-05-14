@@ -25,26 +25,22 @@
 				<th:block th:include="fragments/MensagensErroValidacao"></th:block>
 
 				<div class="row">
-					<div class="form-group col-sm-8"
+					<div class="form-group col-sm-10"
 						th:classappend="${#fields.hasErrors('titulo')}? has-error">
 						<label for="titulo" class="control-label">Titulo do TCC</label> <input
 							id="titulo" type="text" class="form-control"
 							autofocus="autofocus" th:field="*{titulo}" />
 					</div>
-					<div class="form-group col-sm-2"
-						th:classappend="${#fields.hasErrors('data')}? has-error">
-						<label for="data" class="control-label">Data de Defesa</label>
-						<input id="data" type="date" class="form-control" th:field="*{data}"/>
-					</div>
+					
 				</div>
 
 				<div class="row">
 
 					<div class="form-group col-sm-3"
 						th:classappend="${#fields.hasErrors('autor')}? has-error">
-						<label for="id_autor" class="control-label">Nome do Autor</label>
+						<label for="autor" class="control-label">Nome do Autor</label>
 						<div class="bw-field-action">
-							<select id="id_autor" class="form-control" th:field="*{autor.id}">
+							<select id="autor" class="form-control" th:field="*{autor.id}">
 								<option value="0">Selecione o Autor</option>
 								<option th:each="autor: ${autores}" th:value="${autor.id}"
 									th:text="${autor.nome}"></option>
@@ -90,13 +86,18 @@
 				</div>
 
 				<div class="row">
-
+					<div class="form-group col-sm-2"
+						th:classappend="${#fields.hasErrors('data')}? has-error">
+						<label for="data" class="control-label">Data de Defesa</label>
+						<input id="data" type="date" class="form-control" th:field="*{data}"/>
+					</div>
 					<div class="form-group col-sm-4">
-						<label for="uf" class="control-label">Estado</label> <select
+						<label for="uf" class="control-label">Estado</label>
+						<select onchange="selecionouEstado(this.value);"
 							id="uf" class="form-control">
 							<option value="uf">Selecione o estado</option>
-							<option th:each="estado: ${estados}" th:value="${estado}"
-								th:text="${estado}"></option>
+							<option th:each="estado: ${estados}" th:value="${estado.sigla}"
+								th:text="${estado.sigla}"></option>
 						</select>
 					</div>
 
@@ -125,10 +126,12 @@
 		</div>
 		<div th:replace="autor/CadastroRapidoAutor :: modal"></div>
 		<div th:replace="orientador/CadastroRapidoOrientador :: modal"></div>
+		<div th:replace="tcc/RemoverTcc :: modal"></div>
 	</section>
 	<th:block layout:fragment="javascript-extra">
 		<script th:src="@{/javascripts/orientador.cadastro-rapido.js}"></script>
-		<script th:src="@{/javascripts/autor.cadastro-rapido.js}"></script>	
+		<script th:src="@{/javascripts/autor.cadastro-rapido.js}"></script>
+		<script th:src="@{/javascripts/tcc.remover.js}"></script>	
 	</th:block>
 	
 </body>

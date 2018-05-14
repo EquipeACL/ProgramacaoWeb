@@ -1,5 +1,7 @@
 package br.uepb.biblio.controller;
 
+import java.util.List;
+
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,7 +21,9 @@ import br.uepb.biblio.repository.AreasConhecimento;
 import br.uepb.biblio.repository.Temas;
 import br.uepb.biblio.service.CadastroTemaService;
 import br.uepb.biblio.service.exception.ItemDuplicadoException;
+import br.uepb.model.AreaConhecimento;
 import br.uepb.model.Tema;
+import br.uepb.model.jpaEntity.EntityTema;
 
 @Controller
 @RequestMapping("/temas")
@@ -130,5 +134,13 @@ public class TemaController{
 		//se tiver tudo ok, vem pra cá
 		return ResponseEntity.ok(retorno);
 	}
+	
+	@RequestMapping(value="/buscar",method = RequestMethod.POST, consumes = { MediaType.APPLICATION_JSON_VALUE })
+	public @ResponseBody ResponseEntity<?> buscar(@RequestBody AreaConhecimento area){
+		
+		List<EntityTema> retorno = temaService.buscarPorArea(area.getId());
+		
+		return ResponseEntity.ok(retorno);
+	} 
 
 }

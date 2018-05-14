@@ -35,20 +35,19 @@
 						<thead>
 							<tr>
 								<th><input id="checktudo" name="checktudo" type="checkbox"></th>
-								<th>#</th>
 								<th>Tema</th>
 								<th>Area do Conhecimento</th>
-								<th>Ações</th>		
+								<th colspan="2">Ações</th>		
 							</tr>
 						</thead>
 						<tbody>
-							<tr th:each="tema : ${temas}">
+							<tr th:each="tema : ${temas}" th:id="|tema*{tema.id}|">
 							<form  method="GET" th:action="@{editar}">
 								<td><input th:id="|check*{tema.nome}|" th:name="|check*{tema.nome}|" type="checkbox"></td>
 								<td th:text="*{tema.id}">1</td>
 								<td th:text="*{tema.nome}">Tema</td>
 								<td th:text="*{tema.area.nome}">Area do conhecimento</td>
-								<td><button th:id="|removerTemaId*{tema.id}|" class="btn btn-danger btn-sm" th:onclick="|remover(*{tema.id},'@{/temas/remover}')|" type="button">Remover</button></td>
+								<td><button th:id="|removerTemaId*{tema.id}|" class="btn btn-danger btn-sm" data-toggle="modal" data-target="#modalRemoverTema" th:onclick="|setValorRemover(*{tema.id},'@{/temas/remover}')|" type="button">Remover</button></td>
 								<td><button class="btn btn-default btn-sm" name="id" th:value="*{tema.id}" type="submit">Editar</button></td>
 							</form>
 							</tr>
@@ -59,7 +58,10 @@
 			</div>
 			</section>
 		</div> 
-
+		<div th:replace="tema/RemoverTema :: modal"></div>
 	</section>
+	<th:block layout:fragment="javascript-extra">
+		<script th:src="@{/javascripts/tema.remover.js}"></script>
+	</th:block>
 </body>
 </html>

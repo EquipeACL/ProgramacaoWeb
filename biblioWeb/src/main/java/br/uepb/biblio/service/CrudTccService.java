@@ -36,6 +36,15 @@ public class CrudTccService {
 	@Transactional
 	public List<EntityTcc> buscarPorTitulo (String busca) {
 		return manager.createQuery("select t from EntityTcc t where t.titulo like '%"+busca+"%'",EntityTcc.class).getResultList();
-	}	
+	}
+	
+	@Transactional
+	public void remover(int id) {
+		
+		if(id>0){
+			tccs.delete(id);
+		}
+		
+	}
 
 }

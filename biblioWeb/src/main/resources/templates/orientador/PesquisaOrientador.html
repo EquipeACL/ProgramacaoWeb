@@ -37,16 +37,15 @@
 							<thead>
 								<tr>
 									<th><input name="tudo" type="checkbox"></th>
-									<th>#</th>
 									<th>Orientador</th>
-									<th>Formação</th>	
+									<th>Formação</th>
+									<th colspan="2">Ações</th>
 								</tr>
 							</thead>
 							<tbody>
-								<tr th:each="orientador : ${listaOrientador}">
+								<tr th:each="orientador : ${listaOrientador}" th:id="|orientador*{orientador.id}|">
 									<form  method="GET" th:action="@{editar}">
 										<td><input th:id="|check*{orientador.nome}|" th:name="|check*{orientador.nome}|" type="checkbox"></td>
-										<td th:text="*{orientador.id}">1</td>
 										<td th:text="*{orientador.nome}">Nome do Orientador</td>
 										<td th:text="*{orientador.formacao}">Formação do Orientador</td>
 										<td><button th:id="|removerOrientadorId*{orientador.id}|" class="btn btn-danger btn-sm" data-toggle="modal" data-target="#modalRemoverOrientador" th:onclick="|setValorRemover(*{orientador.id},'@{/orientadores/remover}')|" type="button">Remover</button></td>

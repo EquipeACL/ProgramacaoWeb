@@ -3,22 +3,25 @@ package br.uepb.biblio.controller;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import br.uepb.biblio.repository.Autores;
 import br.uepb.biblio.repository.Cidades;
+import br.uepb.biblio.repository.Estados;
 import br.uepb.biblio.repository.Orientadores;
 import br.uepb.biblio.repository.Tccs;
 import br.uepb.biblio.service.CrudTccService;
 import br.uepb.biblio.service.exception.ItemDuplicadoException;
-import br.uepb.model.Autor;
-import br.uepb.model.Orientador;
 import br.uepb.model.acervo.Tcc;
 import br.uepb.model.enums.Tipo_nivel;
 import br.uepb.model.enums.Tipo_tcc;
@@ -27,6 +30,9 @@ import br.uepb.model.enums.Tipo_tcc;
 @RequestMapping("/tccs")
 public class TccsController {
 
+	@Autowired
+	private Estados estadosRepository;
+	
 	@Autowired
 	private Autores autoresRepository;
 	
@@ -50,6 +56,7 @@ public class TccsController {
 		model.addObject("cidades",cidadesRepository.findAll());
 		model.addObject("formacoes",Tipo_nivel.values());
 		model.addObject("tipos",Tipo_tcc.values());
+		model.addObject("estados",estadosRepository.findAll());
 		if(busca!=null){
 			model.addObject("listaTcc",tccService.buscarPorTitulo(busca));
 		}else{
@@ -71,6 +78,18 @@ public class TccsController {
 			model.addObject("listaTcc",tccsRepository.findAll());
 		}
 		return model;
+	}
+	
+	@RequestMapping(value="/remover",method = RequestMethod.POST, consumes = { MediaType.APPLICATION_JSON_VALUE })
+	public @ResponseBody ResponseEntity<?> remover(@RequestBody Tcc tcc,RedirectAttributes attributes){
+		try {
+			//vai tentar remover no banco
+			tccService.remover(tcc.getId());
+		}
+		catch(Exception e) {
+			return ResponseEntity.badRequest().body(e.getMessage());
+		}
+		return ResponseEntity.ok().build();
 	}
 	
 	@RequestMapping(value="/novo",method = RequestMethod.POST)

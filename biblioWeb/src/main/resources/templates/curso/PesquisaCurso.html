@@ -38,24 +38,23 @@
 								<thead>
 									<tr>
 										<th><input name="tudo" type="checkbox"></th>
-										<th>#</th>
 										<th>Nome</th>
 										<th>Sigla</th>
 										<th>Tipo</th>
 										<th>Area do Conhecimento</th>
+										<th colspan="2">Ações</th>
 									</tr>
 								</thead>
 								<tbody>
-									<tr th:each="curso : ${listaCurso}">
+									<tr th:each="curso : ${listaCurso}" th:id="|curso*{curso.id}|">
 										<td><input th:id="|check*{curso.nome}|"
 											th:name="|check*{curso.nome}|" type="checkbox"></td>
-										<td th:text="*{curso.id}">1</td>
 										<td th:text="*{curso.nome}">Nome curso</td>
 										<td th:text="*{curso.sigla}">Sigla do curso</td>
 										<td th:text="*{curso.tipo}">Tipo do curso</td>
 										<td th:text="*{curso.area.nome}">Area do curso</td>
 										<td><button th:id="|removerCursoId*{curso.id}|" class="btn btn-danger btn-sm" data-toggle="modal" data-target="#modalRemoverCurso" th:onclick="|setValorRemover(*{curso.id},'@{/cursos/remover}')|" type="button">Remover</button></td>
-										
+										<td><button type="button">Editar</button></td>
 									</tr>
 								</tbody>
 							</table>

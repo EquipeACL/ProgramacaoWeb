@@ -37,19 +37,20 @@
 							<thead>
 								<tr>
 									<th><input name="tudo" type="checkbox"></th>
-									<th>#</th>
 									<th>Titulo do Jornal</th>
 									<th>Data</th>
-									<th>Edição</th>	
+									<th>Edição</th>
+									<th colspan="2">Ações</th>	
 								</tr>
 							</thead>
 							<tbody>
-								<tr th:each="jornal : ${listaJornais}">
+								<tr th:each="jornal : ${listaJornais}" th:id="|jornal*{jornal.id}|">
 									<td><input th:id="|check*{jornal.titulo}|" th:name="|check*{jornal.titulo}|" type="checkbox"></td>
-									<td th:text="*{jornal.id}">1</td>
 									<td th:text="*{jornal.titulo}">Nome da Area deconhecimento</td>
 									<td th:text="*{jornal.data}">Tipo do Anal</td>
 									<td th:text="*{jornal.edicao}">Nome do Congresso</td>
+									<td><button th:id="|removerJornalId*{jornal.id}|" class="btn btn-danger" data-toggle="modal" data-target="#modalRemoverJornal" th:onclick="|setValorRemover(*{jornal.id},'@{/jornais/remover}')|" type="button">Remover</button></td>
+									<td><button class="btn btn-default" type="button">Editar</button></td>
 								</tr>
 							</tbody>
 						</table>
@@ -59,6 +60,10 @@
 				</section>
 		   </div>
 	</div>
+	<div th:replace="jornal/RemoverJornal :: modal"></div>
 	</section>
+	<th:block layout:fragment="javascript-extra">
+		<script th:src="@{/javascripts/jornal.remover.js}"></script>
+	</th:block>
 </body>
 </html>

@@ -25,20 +25,20 @@
 				<th:block th:include="fragments/MensagensErroValidacao"></th:block>
 
 				<div class="row">
-					<div class="form-group col-sm-6"
+					<div class="form-group col-sm-8"
 						th:classappend="${#fields.hasErrors('titulo')}? has-error">
 						<label for="titulo" class="control-label">Titulo do Jornal</label>
 						<input id="titulo" type="text" class="form-control"
 							autofocus="autofocus" th:field="*{titulo}" />
 					</div>
-				</div>	
-
-				<div class="row">
+					
+					
 					<div class="form-group col-sm-2"
 						th:classappend="${#fields.hasErrors('edicao')}? has-error">
 						<label for="edicao" class="control-label">Edição</label>
 						<input id="edicao" type="number" class="form-control" th:field="*{edicao}" />
 					</div>
+					
 					<div class="form-group col-sm-2"
 						th:classappend="${#fields.hasErrors('data')}? has-error">
 						<label for="data" class="control-label">Data</label>
@@ -59,6 +59,10 @@
 			
 		</div>
 
+	<div th:replace="jornal/RemoverJornal :: modal"></div>
 	</section>
+	<th:block layout:fragment="javascript-extra">
+		<script th:src="@{/javascripts/jornal.remover.js}"></script>
+	</th:block>
 </body>
 </html>

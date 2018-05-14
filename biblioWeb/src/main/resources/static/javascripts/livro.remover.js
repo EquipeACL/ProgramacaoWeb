@@ -1,7 +1,7 @@
 $(function() {
 	
-	var modal = $('#modalRemoverAreaConhecimento');
-	var botaoSim = modal.find('.js-remover-area-sim');
+	var modal = $('#modalRemoverLivro');
+	var botaoSim = modal.find('.js-remover-livro-sim');
 	var idRemover = modal.find("#idRemover");
 	var urlRemover = modal.find("#urlRemover");
 	
@@ -26,7 +26,7 @@ $(function() {
 
 	function removidoSucesso(){
 		var id = idRemover.val();
-		var linha =$('#area'+id);
+		var linha =$('#livro'+id);
 		linha.remove();
 		modal.modal('hide');
 		var aviso = $('.alert');

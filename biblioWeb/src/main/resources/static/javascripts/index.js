@@ -1,3 +1,54 @@
+function selecionouEstado(sigla){
+	$.ajax({
+		url:'http://localhost:8080/biblioWeb/cidades',
+		method:'POST',
+		contentType:'application/json',
+		data: JSON.stringify({sigla:sigla}),
+		error:erroEstado,
+		success:selecionarCidade
+	});
+	
+	function selecionarCidade(cidades){
+		var comboCidade = $("#cidade");
+		comboCidade.html('<option value ='+0+'>Selecione a Cidade</option>');
+		
+		for ( var i in cidades) {
+			comboCidade.append('<option value ='+cidades[i].id+'>'+cidades[i].nome+'</option>');			
+		}
+		
+	}
+	function erroEstado(){
+		console.log('Erro em carregar as cidades!')
+	}
+	
+}
+function selecionouArea(area){
+	$.ajax({
+		url:'http://localhost:8080/biblioWeb/temas/buscar',
+		method:'POST',
+		contentType:'application/json',
+		data: JSON.stringify({id:area}),
+		error:erroArea,
+		success:selecionarTemas
+	});
+	
+	function selecionarTemas(temas){
+		var comboTema = $("#tema");
+		comboTema.html('<option value ='+0+'>Selecione o tema</option>');
+		
+		for ( var i in temas) {
+			comboTema.append('<option value ='+temas[i].id+'>'+temas[i].nome+'</option>');			
+		}
+		
+	}
+	function erroArea(){
+		console.log('Erro em carregar os temas!')
+	}
+	
+}
+
+
+
 $('.form').find('input, textarea').on('keyup blur focus', function (e) {
   
   var $this = $(this),

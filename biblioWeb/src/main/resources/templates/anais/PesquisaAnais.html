@@ -22,14 +22,26 @@
 				<section th:fragment="fragment-pesquisaAnais">
 					<div class="row">
 					<form method="GET" class="form-vertical  js-form-loading" >
-					
+					<div class="form-row">
 						<div class="form-group col-sm-6">
 								<input id="busca" name="busca" type="text" class="form-control" autofocus="autofocus" placeholder="Pesquisar Anais de Congresso..."/>						
 						</div>
 						<div class="form-group col-sm-2">
 							<button class="btn btn-primary" type="submit">Pesquisar</button>
-						</div>						
-						
+						</div>
+						<div class="col-sm-2">
+							<label for="filtro" class="form-group">Pesquisar por:</label>
+						</div>
+						<div class="col-sm-2">
+							<select class="form-control" id="filtro">							
+											<option>Titulo</option>
+											<option>Autor</option>
+											<option>Congresso</option>
+											<option>Tipo</option>
+											<option>Cidade</option>
+							</select>														
+						</div>								
+					</div>	
 					</form>
 					
 					<div class="container-fluid">
@@ -37,25 +49,30 @@
 							<thead>
 								<tr>
 									<th><input name="tudo" type="checkbox"></th>
-									<th>#</th>
 									<th>Titulo</th>
 									<th>Tipo</th>
+									<th>Autore(s)</th>
 									<th>Nome do Congresso</th>
 									<th>Ano de Publicação</th>
-									<th>Cidade</th>	
+									<th>Cidade</th>
+									<th colspan="2">Ações</th>	
 								</tr>
 							</thead>
 							<tbody>
 								<tr th:each="anal : ${listaAnais}">
 									<td><input th:id="|check*{anal.titulo}|" th:name="|check*{anal.titulo}|" type="checkbox"></td>
-									<td th:text="*{anal.id}">1</td>
 									<td th:text="*{anal.titulo}">Nome da Area deconhecimento</td>
 									<td th:text="*{anal.tipo}">Tipo do Anal</td>
+									<td>
+										<select class="form-control">
+											<option th:each="autor:${anal.autores}" th:text="${autor.nome}"></option>
+										</select>
+									</td>
 									<td th:text="*{anal.nome_congresso}">Nome do Congresso</td>
 									<td th:text="*{anal.data}">Data de Publicação</td>
 									<td th:text="|*{anal.local.nome}-*{anal.local.uf}|">Cidade</td>
 									<td><button th:id="|removerAnalId*{anal.id}|" class="btn btn-danger btn-sm" data-toggle="modal" data-target="#modalRemoverAnal" th:onclick="|setValorRemover(*{anal.id},'@{/anais/remover}')|" type="button">Remover</button></td>
-									
+									<td><button class="btn btn-default btn-sm" type="button">Editar</button></td>
 								</tr>
 							</tbody>
 						</table>

@@ -37,23 +37,24 @@
 							<thead>
 								<tr>
 									<th><input name="tudo" type="checkbox"></th>
-									<th>#</th>
 									<th>Titulo da Revista</th>
 									<th>Editora</th>
 									<th>Data</th>
 									<th>Edição</th>
 									<th>Quantidade de Paginas</th>
+									<th colspan="2">Ações</th>
 								</tr>
 							</thead>
 							<tbody>
-								<tr th:each="rev : ${listaRevistas}">
+								<tr th:each="rev : ${listaRevistas}" th:id="|revista*{rev.id}|">
 									<td><input th:id="|check*{rev.titulo}|" th:name="|check*{rev.titulo}|" type="checkbox"></td>
-									<td th:text="*{rev.id}">id</td>
 									<td th:text="*{rev.titulo}">Titulo da Revista</td>
 									<td th:text="*{rev.editora.nome}">Editora</td>
 									<td th:text="*{rev.data}">Data</td>
 									<td th:text="*{rev.edicao}">Edição</td>
 									<td th:text="*{rev.num_pag}">Quantidade de paginas</td>
+									<td><button th:id="|removerRevistaId*{rev.id}|" class="btn btn-danger" data-toggle="modal" data-target="#modalRemoverRevista" th:onclick="|setValorRemover(*{rev.id},'@{/revistas/remover}')|" type="button">Remover</button></td>
+									<td><button class="btn btn-default" type="button">Editar</button></td>
 								</tr>
 							</tbody>
 						</table>
@@ -63,6 +64,10 @@
 				</section>
 		   </div>
 	</div>
+	<div th:replace="revista/RemoverRevista :: modal"></div>
 	</section>
+	<th:block layout:fragment="javascript-extra">
+		<script th:src="@{/javascripts/revista.remover.js}"></script>
+	</th:block>
 </body>
 </html>

@@ -22,14 +22,26 @@
 				<section th:fragment="fragment-pesquisaTcc">
 					<div class="row">
 					<form method="GET" class="form-vertical  js-form-loading" >
-					
+					<div class="form-row">
 						<div class="form-group col-sm-6">
 								<input id="busca" name="busca" type="text" class="form-control" autofocus="autofocus" placeholder="Pesquisar Trabalho de Conclusão de Curso..."/>						
 						</div>
 						<div class="form-group col-sm-2">
 							<button class="btn btn-primary" type="submit">Pesquisar</button>
+						</div>
+						<div class="col-sm-2">
+							<label for="filtro" class="form-group">Pesquisar por:</label>
+						</div>
+						<div class="col-sm-2">
+							<select class="form-control" id="filtro">							
+											<option>Titulo</option>
+											<option>Autor</option>
+											<option>Orientador</option>
+											<option>Tipo</option>
+											<option>Cidade</option>
+							</select>														
 						</div>						
-						
+					</div>	
 					</form>
 					
 					<div class="container-fluid">
@@ -37,25 +49,26 @@
 							<thead>
 								<tr>
 									<th><input name="tudo" type="checkbox"></th>
-									<th>#</th>
 									<th>Titulo do TCC</th>
 									<th>Autor</th>
 									<th>Orientador</th>
 									<th>Tipo</th>
 									<th>Data de defesa</th>
 									<th>Cidade</th>
+									<th colspan="2">Ações</th>
 								</tr>
 							</thead>
 							<tbody>
-								<tr th:each="tcc : ${listaTcc}">
+								<tr th:each="tcc : ${listaTcc}" th:id="|tcc*{tcc.id}|">
 									<td><input th:id="|check*{tcc.titulo}|" th:name="|check*{tcc.titulo}|" type="checkbox"></td>
-									<td th:text="*{tcc.id}">id</td>
 									<td th:text="*{tcc.titulo}">Titulo do Tcc</td>
 									<td th:text="*{tcc.autor.nome}">Autor do Tcc</td>
 									<td th:text="*{tcc.orientador.nome}">Orientador do Tcc</td>
 									<td th:text="*{tcc.tipo}">Tipo do Tcc</td>
 									<td th:text="*{tcc.data}">Data de defesa</td>
-									<td th:text="*{tcc.cidade}">Cidade</td>
+									<td th:text="|*{tcc.cidade.nome}-*{tcc.cidade.uf}|">Cidade</td>
+									<td><button th:id="|removerTccId*{tcc.id}|" class="btn btn-danger btn-sm" data-toggle="modal" data-target="#modalRemoverTcc" th:onclick="|setValorRemover(*{tcc.id},'@{/tccs/remover}')|" type="button">Remover</button></td>
+									<td><button class="btn btn-default btn-sm" type="button">Editar</button></td>
 								</tr>
 							</tbody>
 						</table>
@@ -65,6 +78,10 @@
 				</section>
 		   </div>
 	</div>
+	<div th:replace="tcc/RemoverTcc :: modal"></div>
 	</section>
+	<th:block layout:fragment="javascript-extra">
+		<script th:src="@{/javascripts/tcc.remover.js}"></script>
+	</th:block>
 </body>
 </html>

@@ -30,27 +30,10 @@
 							id="isbn" type="text" class="form-control" autofocus="autofocus"
 							th:field="*{isbn}" />
 					</div>
-					<div class="form-group col-sm-6"
+					<div class="form-group col-sm-10"
 						th:classappend="${#fields.hasErrors('titulo')}? has-error">
 						<label for="titulo" class="control-label">Titulo do Livro</label>
 						<input id="titulo" type="text" class="form-control" th:field="*{titulo}" />
-					</div>
-					<div class="form-group col-sm-4"
-						th:classappend="${#fields.hasErrors('editora')}? has-error">
-						<label for="editora" class="control-label">Nome da Editora</label>
-						<div class="bw-field-action">
-							<select id="editora" class="form-control" th:field="*{editora.id}">
-								<option value="0">Selecione a Editora</option>
-								<option th:each="editora : ${editoras}" th:value="${editora.id}"
-									th:text="${editora.nome}"></option>
-							</select>
-							<div class="bw-field-action__icon">
-								<a href="#" data-toggle="modal"
-									data-target="#modalCadastroRapidoEditora"> <i
-									class="glyphicon  glyphicon-plus-sign  bw-glyphicon-large"></i>
-								</a>
-							</div>
-						</div>
 					</div>
 				</div>
 
@@ -65,7 +48,7 @@
 					<div class="form-group col-sm-4">
 						<label class="control-label" for = "area">Nome da Área de Conhecimento</label>
 						<div class="bw-field-action">
-							<select class="form-control" id = "area">
+							<select onChange="selecionouArea(this.value)" class="form-control" id = "area">
 								<option value="0">Selecione a Área</option>
 								<option th:each="areaConhecimento : ${areas}" th:value="${areaConhecimento.id}"
 									th:text="${areaConhecimento.nome}"></option>
@@ -126,6 +109,23 @@
 							</div>
 						</div>
 					</div>
+					<div class="form-group col-sm-4"
+						th:classappend="${#fields.hasErrors('editora')}? has-error">
+						<label for="editora" class="control-label">Nome da Editora</label>
+						<div class="bw-field-action">
+							<select id="editora" class="form-control" th:field="*{editora.id}">
+								<option value="0">Selecione a Editora</option>
+								<option th:each="editora : ${editoras}" th:value="${editora.id}"
+									th:text="${editora.nome}"></option>
+							</select>
+							<div class="bw-field-action__icon">
+								<a href="#" data-toggle="modal"
+									data-target="#modalCadastroRapidoEditora"> <i
+									class="glyphicon  glyphicon-plus-sign  bw-glyphicon-large"></i>
+								</a>
+							</div>
+						</div>
+					</div>
 					<div class="form-group col-sm-2">
 						<br>
 						<button type="submit" class="btn  btn-primary">Salvar</button>
@@ -143,6 +143,7 @@
 		<div th:replace="tema/CadastroRapidoTema :: modal"></div>
 		<div th:replace="editora/CadastroRapidoEditora :: modal"></div>
 		<div th:replace="autor/CadastroRapidoAutor :: modal"></div>
+		<div th:replace="livro/RemoverLivro :: modal"></div>
 	</section>
 	
 	<th:block layout:fragment="javascript-extra">
@@ -150,6 +151,7 @@
 		<script th:src="@{/javascripts/tema.cadastro-rapido.js}"></script>
 		<script th:src="@{/javascripts/editora.cadastro-rapido.js}"></script>
 		<script th:src="@{/javascripts/autor.cadastro-rapido.js}"></script>
+		<script th:src="@{/javascripts/livro.remover.js}"></script>
 	</th:block>
 	
 </body>

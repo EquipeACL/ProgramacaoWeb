@@ -18,6 +18,7 @@ import br.uepb.biblio.repository.Anais;
 //import br.uepb.biblio.repository.Anais;
 import br.uepb.biblio.repository.Autores;
 import br.uepb.biblio.repository.Cidades;
+import br.uepb.biblio.repository.Estados;
 import br.uepb.biblio.service.CrudAnaisService;
 import br.uepb.biblio.service.exception.ItemDuplicadoException;
 import br.uepb.model.Autor;
@@ -29,6 +30,9 @@ import br.uepb.model.enums.Tipo_anal;
 @Controller
 @RequestMapping("/anais")
 public class AnaisController {	
+	
+	@Autowired
+	private Estados estadosRepository;
 	
 	@Autowired
 	private Autores autoresRepository;
@@ -48,6 +52,7 @@ public class AnaisController {
 		mv.addObject("tipos", Tipo_anal.values());
 		mv.addObject("autores",autoresRepository.findAll());
 		mv.addObject("cidades",cidadesRepository.findAll());
+		mv.addObject("estados",estadosRepository.findAll());
 		if(busca!=null){
 			mv.addObject("listaAnais",anaisService.buscarPorTitulo(busca));
 		}else{

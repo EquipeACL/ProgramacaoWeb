@@ -57,4 +57,9 @@ public class CadastroTemaService {
 			throw new Exception("Erro na atualização");
 		}
 	}
+	
+	@Transactional
+	public List<EntityTema> buscarPorArea (int id) {
+		return manager.createQuery("select a from EntityTema a where a.area = '"+id+"'",EntityTema.class).getResultList();
+	}
 }

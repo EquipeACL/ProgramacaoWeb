@@ -29,6 +29,8 @@ $(function() {
 		var linha =$('#orientador'+id);
 		linha.remove();
 		modal.modal('hide');
+		var aviso = $('.alert');
+		aviso.remove();
 	}
 	
 });

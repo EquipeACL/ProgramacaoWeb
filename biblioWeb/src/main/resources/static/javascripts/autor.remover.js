@@ -29,6 +29,8 @@ $(function() {
 		var linha =$('#autor'+id);
 		linha.remove();
 		modal.modal('hide');
+		var aviso = $('.alert');
+		aviso.remove();
 	}
 	
 });
