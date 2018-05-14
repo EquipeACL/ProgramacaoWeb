@@ -60,7 +60,7 @@
 							</thead>
 							<tbody>
 							<form  method="GET" th:action="@{editar}">
-								<tr th:each="anal : ${listaAnais}">
+								<tr th:each="anal : ${listaAnais}" th:id="|anal*{anal.id}|">
 									<td><input th:id="|check*{anal.titulo}|" th:name="|check*{anal.titulo}|" type="checkbox"></td>
 									<td th:text="*{anal.titulo}">Nome da Area deconhecimento</td>
 									<td th:text="*{anal.tipo}">Tipo do Anal</td>

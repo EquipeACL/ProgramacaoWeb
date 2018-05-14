@@ -6,5 +6,6 @@ package br.uepb.interfaces;
  */
 public interface IFAcervo {
 	public boolean validaItem();
+	public String getTitulo();
 
 }
