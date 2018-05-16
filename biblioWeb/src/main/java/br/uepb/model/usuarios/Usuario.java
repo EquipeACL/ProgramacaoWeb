@@ -1,15 +1,16 @@
 package br.uepb.model.usuarios;
 
+import java.io.Serializable;
 import java.util.List;
 
-import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
-import javax.persistence.Table;
+import javax.persistence.MappedSuperclass;
+import javax.persistence.Transient;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
@@ -29,8 +30,11 @@ import br.uepb.model.Grupo;
 //@Entity
 //@Table(name = "usuario")
 
-public abstract class Usuario {
+@MappedSuperclass
+public class Usuario implements Serializable {
 	
+	private static final long serialVersionUID = 1L;
+
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private int id;
@@ -68,6 +72,8 @@ public abstract class Usuario {
 	@NotBlank(message = " A senha é obrigatória")
 	protected String senhaAcesso;
 	
+	@Transient
+	private String confirmacaoSenha;
 	
 	@NotNull(message = "Selecione pelo menos um grupo")
 	@ManyToMany
@@ -202,6 +208,22 @@ public abstract class Usuario {
 
 	public void setMatricula(String matricula) {
 		this.matricula = matricula;
+	}
+
+	public String getConfirmacaoSenha() {
+		return confirmacaoSenha;
+	}
+
+	public void setConfirmacaoSenha(String confirmacaoSenha) {
+		this.confirmacaoSenha = confirmacaoSenha;
+	}
+
+	public List<Grupo> getGrupos() {
+		return grupos;
+	}
+
+	public void setGrupos(List<Grupo> grupos) {
+		this.grupos = grupos;
 	}
 	
 	

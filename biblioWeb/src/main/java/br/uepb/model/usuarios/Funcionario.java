@@ -1,6 +1,9 @@
 package br.uepb.model.usuarios;
 
-import org.hibernate.validator.constraints.NotBlank;
+import javax.persistence.Entity;
+import javax.persistence.Table;
+
+import br.uepb.validation.AtributoConfirmacao;
 
 /**
  * Essa classe � utilizada como modelo para um objeto do tipo Funcion�rio;
@@ -8,12 +11,14 @@ import org.hibernate.validator.constraints.NotBlank;
  * A classe Aluno extende a classe Usu�rio, que cont�m os atributos e m�todos comuns a todos os usu�rios do sistema.
  * @author EquipeACL
  */
+
+@Entity
+@Table(name= "usuario")
+@AtributoConfirmacao(atributo = "senha", atributoConfirmacao = "confirmacaoSenha")
 public class Funcionario extends Usuario {
 	
-	@NotBlank(message = " Nome de usuário é obrigatório")
-	protected String nomeUsuario;
 	
-	
+	private static final long serialVersionUID = 1L;
 	public Funcionario() {
 		
 	}	
@@ -32,13 +37,6 @@ public class Funcionario extends Usuario {
 	public Funcionario(int cpf, String nomeCompleto, int rg, String naturalidade, String endereco, int telefone,
 			String email, String senhaAcesso, String nomeUsuario) {
 		super(cpf, nomeCompleto, rg, naturalidade, endereco, telefone, email, senhaAcesso);
-		setNomeUsuario(nomeUsuario);
 	}
 	
-	public String getNomeUsuario() {
-		return nomeUsuario;
-	}
-	public void setNomeUsuario(String nomeUsuario) {
-		this.nomeUsuario = nomeUsuario;
-	}
 }

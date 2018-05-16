@@ -24,7 +24,7 @@
 //	
 //	@Transactional
 //	public void salvar (Aluno aluno) {
-//		Optional <Aluno> alunoOptional = alunos.findByNomeIgnoreCase(aluno.getNomeCompleto());
+//		Optional <Aluno> alunoOptional = alunos.findByNomeIgnoreCase(aluno.getNome());
 //		if(alunoOptional.isPresent()){
 //			throw new ItemDuplicadoException(" Aluno(a) já Cadastrado!");
 //		}
