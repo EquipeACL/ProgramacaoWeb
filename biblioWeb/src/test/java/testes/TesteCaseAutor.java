@@ -1,6 +1,8 @@
 package testes;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.fail;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -15,14 +17,15 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.support.DependencyInjectionTestExecutionListener;
 import org.springframework.test.context.transaction.TransactionalTestExecutionListener;
 
+import com.github.springtestdbunit.DbUnitTestExecutionListener;
+
 import br.uepb.biblio.config.H2Config;
 import br.uepb.biblio.config.ServiceConfig;
 import br.uepb.biblio.config.init.AppInitializer;
 import br.uepb.biblio.service.CadastroAutorService;
+import br.uepb.biblio.service.exception.ItemDuplicadoException;
 import br.uepb.model.Autor;
 import br.uepb.model.jpaEntity.EntityAutor;
-
-import com.github.springtestdbunit.DbUnitTestExecutionListener;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(classes = {AppInitializer.class,H2Config.class,ServiceConfig.class})
@@ -55,7 +58,7 @@ public class TesteCaseAutor {
 			try {
 				assertTrue(autorDao.salvar(autor)!=null);//lança exception ItemDuplicado
 				fail();
-			} catch (Exception e1) {
+			} catch (ItemDuplicadoException e1) {
 				
 			}
 		}

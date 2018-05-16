@@ -51,6 +51,7 @@ public class CadastroOrientadorService {
 		try{
 			if(orientador.getId()!=0){
 				orientadores.save(newEntity);
+				logger.info("Orientador atualizado com sucesso.");
 			}
 		}catch(Exception e){
 			logger.error("Erro ao atualizar orientador!",e);
@@ -58,15 +59,18 @@ public class CadastroOrientadorService {
 		}
 		return true;
 	}
+	
 	@Transactional
 	public boolean remover (int  id) {
-		if(id != 0){
+		if(id > 0){
 			try {
 				orientadores.delete(id);
+				logger.info("Orientador removido com sucesso.");
+				return true;
 			} catch (Exception e) {
 				logger.error("Erro ao remover Orientador!",e);
 			}
-			return true;
+			
 		}
 		return false;
 	}

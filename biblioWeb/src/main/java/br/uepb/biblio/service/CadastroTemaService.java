@@ -47,15 +47,21 @@ public class CadastroTemaService {
 	
 	@Transactional
 	public boolean remover (int  id) {
-		if(id != 0){
+		if(id > 0){
 			try {
 				temas.delete(id);
+				logger.info("Tema removido com sucesso.");
+				return true;
 			} catch (Exception e) {
 				logger.error("Erro ao remover Tema!",e);
+				
 			}
 		}
-		return true;
+		return false;
+		
+		
 	}
+	
 	@Transactional
 	public boolean atualizar(Tema tema) throws Exception {
 		EntityTema newEntity = new EntityTema(tema);
@@ -66,6 +72,7 @@ public class CadastroTemaService {
 		}catch(Exception e){
 			throw new Exception("Erro na atualização",e);
 		}
+		logger.info("Tema atualizado com sucesso.");
 		return true;
 	}
 	

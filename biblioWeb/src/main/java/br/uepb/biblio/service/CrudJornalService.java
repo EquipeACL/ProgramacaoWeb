@@ -30,12 +30,15 @@ public class CrudJornalService  {
 		EntityJornal newEntity = new EntityJornal(jornal);
 		Optional <EntityJornal> jornalOptional = jornais.findByTituloIgnoreCase(newEntity.getTitulo());
 		if(jornalOptional.isPresent()){
-			throw new ItemDuplicadoException(" Jornal já Cadastrado!");
+			ItemDuplicadoException e = new ItemDuplicadoException(" Jornal já Cadastrado!");
+			logger.error("Erro ao cadastrar Jornal!",e);
+			throw e;
 		}
 		try{
 			jornais.save(newEntity);
+			logger.info("Jornal salvo com sucesso!");
 		}catch(Exception e){
-			logger.error("Erro ao cadastrar!",e);
+			logger.error("Erro ao cadastrar Jornal!",e);
 		}
 	}
 	
@@ -45,21 +48,34 @@ public class CrudJornalService  {
 	}
 	
 	@Transactional
-	public void atualizar(Jornal jornal) {
+	public boolean atualizar(Jornal jornal) {
 		EntityJornal newEntity = new EntityJornal(jornal);
 		try{
 			jornais.save(newEntity);
 		}catch(Exception e){
-			logger.error("Erro ao atualizar!",e);
+			logger.error("Erro ao atualizar jornal!",e);
+			return false;
 		}
-		
+		logger.info("Jornal atualizado com sucesso!");
+		return true;
 	}
 	
 	@Transactional
-	public void remover (int id) {
+	public boolean remover (int id) {
 		if(id>0){
-			jornais.delete(id);
+			try {
+				jornais.delete(id);
+				logger.info("Jornal removido com sucesso!");
+				return true;
+			} catch (Exception e) {
+				logger.error("Erro ao remover jornal",e);
+			}
+			
 		}
+		return false;
+		
+
+
 	}
 
 }

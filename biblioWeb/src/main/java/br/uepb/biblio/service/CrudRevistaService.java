@@ -29,12 +29,15 @@ public class CrudRevistaService {
 		EntityRevista newEntity = new EntityRevista(revista);
 		Optional <EntityRevista> revistaOptional = revistas.findByTituloIgnoreCase(newEntity.getTitulo());
 		if(revistaOptional.isPresent()){
-			throw new ItemDuplicadoException(" Revista já Cadastrada!");
+			ItemDuplicadoException e = new ItemDuplicadoException(" Revista já Cadastrada!");
+			logger.error("Erro ao cadastrar revista",e);
+			throw e;
 		}
 		try{
 			revistas.save(newEntity);
+			logger.info("Revista cadastrada com sucesso");
 		}catch(Exception e){
-			logger.error("Erro ao cadastar!",e);
+			logger.error("Erro ao cadastar Revista!",e);
 		}
 	}
 	
@@ -44,20 +47,33 @@ public class CrudRevistaService {
 	}
 	
 	@Transactional
-	public void atualizar (Revista revista) {
+	public boolean atualizar (Revista revista) {
 		EntityRevista newEntity = new EntityRevista(revista);
 		try{
 			revistas.save(newEntity);
+			logger.info("Revista atualizada com sucesso");
+			return true;
 		}catch(Exception e){
-			logger.error("Erro ao atualizar!",e);
+			logger.error("Erro ao atualizar Revista!",e);
+			return false;
 		}
+		
 	}
 	
 	@Transactional
-	public void remover(int id) {
+	public boolean remover(int id) {
 		if(id > 0){
-			revistas.delete(id);;
+			try {
+				revistas.delete(id);
+				logger.info("Revista deletada com sucesso");
+				return true;
+			}
+			catch(Exception e){
+				logger.error("Erro ao remover tcc",e);
+			}
+			
 		}		
+		return false;
 	}
 
 }

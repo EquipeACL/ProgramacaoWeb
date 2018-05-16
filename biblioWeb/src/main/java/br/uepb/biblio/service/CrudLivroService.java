@@ -25,16 +25,21 @@ public class CrudLivroService {
 	private EntityManager manager;
 	
 	@Transactional
-	public void salvar (Livro livro) {
+	public EntityLivro salvar (Livro livro) {
 		EntityLivro newEntity = new EntityLivro(livro);
 		Optional <EntityLivro> livroOptional = livros.findByTituloIgnoreCase(newEntity.getTitulo());
 		if(livroOptional.isPresent()){
-			throw new ItemDuplicadoException(" Livro já Cadastrado!");
+			ItemDuplicadoException e = new ItemDuplicadoException(" Livro já Cadastrado!");
+			logger.error("Erro ao cadastrar o livro",e);
+			throw e;
 		}
 		try {
-			livros.save(newEntity);
+			
+			return livros.saveAndFlush(newEntity);
+			
 		} catch (Exception e) {
 			logger.error("Erro ao cadastrar!",e);
+			return null;
 		}
 	}
 	
@@ -44,20 +49,33 @@ public class CrudLivroService {
 	}
 	
 	@Transactional
-	public void atualizar (Livro livro) {
+	public boolean atualizar (Livro livro) {
 		EntityLivro newEntity = new EntityLivro(livro);
 		try {
 			livros.save(newEntity);
+			logger.info("Livro atualizado com sucesso!");
+			return true;
 		} catch (Exception e) {
 			logger.error("Erro ao atualizar!",e);
+			return false;
 		}
+	
 	}
 	
 	@Transactional
-	public void remover(int id){
+	public boolean remover(int id){
 		if(id>0){
-			livros.delete(id);
+			try {
+				livros.delete(id);
+				logger.info("Livro removido com sucesso");
+				return true;
+			} catch (Exception e) {
+				logger.error("Erro ao remover livro",e);
+			}
+			
 		}
+		
+		return false;
 	}
 
 }

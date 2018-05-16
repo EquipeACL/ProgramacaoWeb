@@ -6,6 +6,7 @@ import java.util.Optional;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 
+import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -17,7 +18,7 @@ import br.uepb.model.jpaEntity.EntityEditora;
 
 @Service
 public class CadastroEditoraService {
-
+	private Logger logger = Logger.getLogger(CadastroEditoraService.class);
 	@Autowired
 	private Editoras editoras;
 	
@@ -45,17 +46,27 @@ public class CadastroEditoraService {
 		try{
 			if(editora.getId()>0){
 				editoras.save(newEntity);
+				logger.info("Editora atualizada com sucesso.");
 			}
 		}catch(Exception e){
-			throw new Exception("Erro na atualização");
+			logger.error("Erro ao atualizar", e);
 		}
 	}
 	
 	@Transactional
-	public void remover (int  id) {
+	public boolean remover (int  id) {
 		if(id > 0){
-			editoras.delete(id);
+			try {
+				editoras.delete(id);
+				logger.info("Editora removida com sucesso.");
+				return true;
+			} catch (Exception e) {
+				logger.error("Erro ao remover a editora",e);
+			}
+			
 		}
-		
+		return false;
+
+	
 	}
 }

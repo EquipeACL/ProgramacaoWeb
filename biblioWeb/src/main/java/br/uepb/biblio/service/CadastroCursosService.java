@@ -45,6 +45,7 @@ public class CadastroCursosService {
 		EntityCurso newEntity = new EntityCurso(curso);
 		try{
 			cursos.save(newEntity);
+			logger.info("Curso atualizado com sucesso.");
 			return true;
 		}catch(Exception e){
 			logger.error("Erro ao atualizar!",e);
@@ -62,13 +63,14 @@ public class CadastroCursosService {
 	public boolean remover(int id) {
 		if (id != 0) {
 			try{
-				cursos.delete(id);				
+				cursos.delete(id);	
+				logger.info("Curso deletado com sucesso!");
+				return true;
 			}catch(Exception e){
 				logger.error("Erro ao deletar!",e);
-				return false;
+				
 			}
 		}
-		logger.error("Curso deletado com sucesso!");
-		return true;
+		return false;
 	}
 }

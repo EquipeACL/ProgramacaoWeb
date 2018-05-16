@@ -6,6 +6,7 @@ import java.util.Optional;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 
+import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -18,6 +19,7 @@ import br.uepb.model.jpaEntity.EntityAreaConhecimento;
 
 @Service
 public class CadastroAreaConhecimento {
+	private Logger logger = Logger.getLogger(CadastroAreaConhecimento.class);
 	@Autowired
 	private AreasConhecimento areasConhecimento;
 	
@@ -29,9 +31,15 @@ public class CadastroAreaConhecimento {
 		EntityAreaConhecimento newEntity = new EntityAreaConhecimento(area);
 		Optional <EntityAreaConhecimento> areaOptional = areasConhecimento.findByNomeIgnoreCase(newEntity.getNome());
 		if(areaOptional.isPresent()){
-			throw new ItemDuplicadoException(" Area já Cadastrada!");
+			ItemDuplicadoException e =  new ItemDuplicadoException(" Area já Cadastrada!");
+			logger.error("Erro ao cadastrar Area",e);
 		}
-		return areasConhecimento.saveAndFlush(newEntity);
+		try {
+			return areasConhecimento.saveAndFlush(newEntity);
+		} catch (Exception e) {
+			logger.error("Erro ao cadastrar Area",e);
+			throw e;
+		}
 	}
 	
 	@Transactional
@@ -56,8 +64,17 @@ public class CadastroAreaConhecimento {
 	@Transactional
 	public boolean remover (int  id) {
 		if(id != 0){
-			areasConhecimento.delete(id);
-			return true;
+			
+			
+			try {
+				areasConhecimento.delete(id);
+				logger.info("");
+				return true;
+			} catch (Exception e) {
+				
+				
+			}
+			
 		}
 		return false;
 	}

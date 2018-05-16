@@ -62,16 +62,24 @@ public class CadastroAutorService {
 	public boolean remover(EntityAutor autor) {
 		if (autor != null && autor.getId()!=0) {
 			autores.delete(autor);
+			logger.info("Autor removido com sucesso.");
 			return true;
 		}
 		return false;
+		
 	}
 	
 	@Transactional
 	public boolean remover(int id) {
 		if (id != 0) {
-			autores.delete(id);
-			return true;
+			try {
+				autores.delete(id);
+				logger.info("Autor removido com sucesso.");
+				return true;
+			} catch (Exception e) {
+				logger.error("Erro ao remover autor",e);
+			}
+			
 		}
 		return false;
 	}

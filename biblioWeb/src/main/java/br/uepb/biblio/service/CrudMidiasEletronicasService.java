@@ -30,23 +30,30 @@ public class CrudMidiasEletronicasService {
 		EntityMidiasEletronicas newEntity = new EntityMidiasEletronicas(midia);
 		Optional <EntityMidiasEletronicas> midiaOptional = midias.findByTituloIgnoreCase(newEntity.getTitulo());
 		if(midiaOptional.isPresent()){
-			throw new ItemDuplicadoException(" Midia já Cadastrada!");
+			ItemDuplicadoException e = new ItemDuplicadoException(" Midia já Cadastrada!");
+			logger.error("Erro ao cadastrar midia",e);
+			throw e;
 		}
 		try {
 			midias.save(newEntity);
+			logger.info("Midia cadastrada com sucesso!");
 		} catch (Exception e) {
-			logger.error("Erro ao cadastrar!",e);
+			logger.error("Erro ao cadastrar Midia!",e);
 		}
 	}
 	
 	@Transactional
-	public void atualizar (MidiasEletronicas midia) {
+	public boolean atualizar (MidiasEletronicas midia) {
 		EntityMidiasEletronicas newEntity = new EntityMidiasEletronicas(midia);
 		try{
 			midias.save(newEntity);
+
 		}catch(Exception e){
-			logger.error("Erro ao atualizar!",e);
+			logger.error("Erro ao atualizar Midia!",e);
+			return false;
 		}
+		logger.info("Midia atualizada com sucesso");
+		return true;
 		
 	}
 	
@@ -56,10 +63,18 @@ public class CrudMidiasEletronicasService {
 	}	
 	
 	@Transactional
-	public void remover(int id) {
+	public boolean remover(int id) {
 		if (id != 0) {
-			midias.delete(id);
+			try {
+				midias.delete(id);
+				logger.info("Midia deletada com sucesso!");
+				return true;
+			} catch (Exception e) {
+				logger.error("Erro ao remover midia",e);
+			}
+			
 		}
+		return true;
 	}
 
 }

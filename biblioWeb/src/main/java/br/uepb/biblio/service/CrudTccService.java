@@ -13,6 +13,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import br.uepb.biblio.repository.Tccs;
 import br.uepb.biblio.service.exception.ItemDuplicadoException;
+import br.uepb.biblio.service.exception.ItemNaoEncontradoException;
 import br.uepb.model.acervo.Tcc;
 import br.uepb.model.jpaEntity.acervo.EntityTcc;
 
@@ -26,17 +27,22 @@ public class CrudTccService {
     private EntityManager manager;
 	
 	@Transactional
-	public void salvar (Tcc tcc) {
+	public EntityTcc salvar (Tcc tcc) {
 		EntityTcc newEntity = new EntityTcc(tcc);
 		Optional<EntityTcc> tccOptional = tccs.findByTituloIgnoreCase(newEntity.getTitulo());
 		if(tccOptional.isPresent()){
-			throw new ItemDuplicadoException(" Revista já Cadastrada!");
+			ItemDuplicadoException e = new ItemDuplicadoException(" TCC já Cadastrada!");
+			logger.error("Erro ao cadastrar TCC",e);
+			throw e;
 		}
 		try {
-			tccs.save(newEntity);
+			return tccs.save(newEntity);
+			
 		} catch (Exception e) {
-			logger.error("Erro ao cadastrar!",e);
+			logger.error("Erro ao cadastrar TCC!",e);
+			return null;
 		}
+
 	}
 	
 	@Transactional
@@ -45,21 +51,35 @@ public class CrudTccService {
 	}
 	
 	@Transactional
-	public void atualizar(Tcc tcc) {
+	public boolean atualizar(Tcc tcc) {
 		EntityTcc newEntity = new EntityTcc(tcc);
 		try {
 			tccs.save(newEntity);
+			logger.info("Tcc atualizado com sucesso");
+			return true;
 		} catch (Exception e) {
 			logger.error("Erro ao atualizar!",e);
+			return false;
 		}
+		 
+		
 	}
 	
 	@Transactional
-	public void remover(int id) {
+	public boolean remover(int id) throws ItemNaoEncontradoException {
 		
 		if(id>0){
-			tccs.delete(id);
+			try {
+				tccs.delete(id);
+				logger.info("Tcc deletado com sucesso");
+				return true;
+			} catch (Exception e) {
+				logger.error("Erro ao remover TCC",e);
+				
+			}
+			
 		}
+		return false;
 		
 	}
 
