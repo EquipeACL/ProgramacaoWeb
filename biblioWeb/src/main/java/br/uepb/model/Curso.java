@@ -6,6 +6,7 @@ import org.hibernate.validator.constraints.NotBlank;
 
 import br.uepb.interfaces.IFDependencia;
 import br.uepb.model.enums.Tipo_curso;
+import br.uepb.model.jpaEntity.EntityCurso;
 
 /**
  * Essa classe utilizada como modelo para um objeto do tipo Curso.
@@ -55,6 +56,14 @@ public class Curso implements IFDependencia{
 		setSigla(sigla);
 		setArea(area);
 		setTipo(tipo);
+	}
+	
+	public Curso(EntityCurso curso){
+		setId(curso.getId());
+		setNome(curso.getNome());
+		setSigla(curso.getSigla());
+		setArea(new AreaConhecimento(curso.getArea()));
+		setTipo(curso.getTipo());
 	}
 	
 	public int getId() {

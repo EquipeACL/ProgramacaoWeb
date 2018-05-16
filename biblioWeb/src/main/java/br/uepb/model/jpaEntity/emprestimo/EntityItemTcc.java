@@ -7,6 +7,7 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
+import br.uepb.interfaces.EmprestimoIF;
 import br.uepb.model.jpaEntity.acervo.EntityTcc;
 
 @Entity
@@ -29,14 +30,12 @@ public class EntityItemTcc extends EntityItemEmprestimo{
 		this.item = item;
 	}
 
-	public EntityEmprestimoTcc getEmprestimo() {
+	public EmprestimoIF getEmprestimo() {
 		return emprestimo;
 	}
 
 	public void setEmprestimo(EntityEmprestimoTcc emprestimo) {
 		this.emprestimo = emprestimo;
 	}
-	
-	
 
 }

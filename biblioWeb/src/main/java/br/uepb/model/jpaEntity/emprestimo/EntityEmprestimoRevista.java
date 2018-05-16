@@ -13,49 +13,51 @@ import org.hibernate.annotations.Fetch;
 import org.hibernate.annotations.FetchMode;
 
 import br.uepb.biblio.service.exception.ItemNaoEncontradoException;
+import br.uepb.interfaces.EmprestimoIF;
+import br.uepb.interfaces.ItemEmprestimoIF;
 import br.uepb.model.jpaEntity.usuarios.EntityAluno;
 @Entity
 @Table(name="emp_revista")
-public class EntityEmprestimoRevista extends EntityEmprestimo{
+public class EntityEmprestimoRevista extends EntityEmprestimo implements EmprestimoIF{
 	
-	@OneToMany(cascade = CascadeType.ALL,mappedBy="emprestimo",fetch=FetchType.EAGER)
+	@OneToMany(targetEntity=EntityItemRevista.class,cascade = CascadeType.ALL,mappedBy="emprestimo",fetch=FetchType.EAGER)
 	@Fetch(FetchMode.JOIN)
-	private List<EntityItemRevista> emprestimos;
+	private List<ItemEmprestimoIF> emprestimos;
 	
 	public EntityEmprestimoRevista(){
 		this.aluno = new EntityAluno();
-		this.emprestimos = new ArrayList<EntityItemRevista>();		
+		this.emprestimos = new ArrayList<ItemEmprestimoIF>();		
 	}
 	
-	public EntityEmprestimoRevista(ArrayList<EntityItemRevista> emprestimos) {
+	public EntityEmprestimoRevista(ArrayList<ItemEmprestimoIF> emprestimos) {
 		super();
 		setAluno(aluno);
 		setEmprestimos(emprestimos);
 	}
 	
-	public boolean adicionarItem(EntityItemRevista item){
+	public boolean adicionarItem(ItemEmprestimoIF item){
 		emprestimos.add(item);
 		return true;
 	}
 	
-	public boolean removerItem(EntityItemRevista item){
+	public boolean removerItem(ItemEmprestimoIF item){
 		emprestimos.remove(item);
 		return true;
 	}
 	
-	public EntityItemRevista buscaItem(String titulo) throws Exception{
+	public ItemEmprestimoIF buscaItem(String titulo) throws Exception{
 		
-		for(EntityItemRevista item : emprestimos){
+		for(ItemEmprestimoIF item : emprestimos){
 			if(item.getItem().getTitulo().equals(titulo)){
-				return item;
+					return item;
 			}
 		}
 		throw new ItemNaoEncontradoException("Item não encontrado");
 	}
-	public List<EntityItemRevista> getEmprestimos() {
+	public List<ItemEmprestimoIF> getEmprestimos() {
 		return emprestimos;
 	}
-	public void setEmprestimos(List<EntityItemRevista> emprestimos) {
+	public void setEmprestimos(List<ItemEmprestimoIF> emprestimos) {
 		this.emprestimos = emprestimos;
 	}
 

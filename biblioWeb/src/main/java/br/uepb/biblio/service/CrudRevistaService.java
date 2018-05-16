@@ -17,7 +17,7 @@ import br.uepb.model.acervo.Revista;
 import br.uepb.model.jpaEntity.acervo.EntityRevista;
 @Service
 public class CrudRevistaService {
-	private static Logger logger = Logger.getLogger(CadastroCursoService.class);
+	private static Logger logger = Logger.getLogger(CrudRevistaService.class);
 	@Autowired
 	private Revistas revistas;
 	

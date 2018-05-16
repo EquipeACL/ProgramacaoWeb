@@ -5,6 +5,9 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import javax.validation.constraints.NotNull;
+
+import org.hibernate.validator.constraints.NotBlank;
 
 import br.uepb.model.Cidade;
 
@@ -15,11 +18,11 @@ public class EntityCidade {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
 	
-	
+	@NotNull
 	private int codigo;
-	
+	@NotBlank
 	private String nome;
-	
+	@NotBlank
 	private String uf;
 	
 	/**

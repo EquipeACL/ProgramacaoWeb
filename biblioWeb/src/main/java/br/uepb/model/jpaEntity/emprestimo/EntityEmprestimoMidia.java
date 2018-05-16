@@ -13,49 +13,51 @@ import org.hibernate.annotations.Fetch;
 import org.hibernate.annotations.FetchMode;
 
 import br.uepb.biblio.service.exception.ItemNaoEncontradoException;
+import br.uepb.interfaces.EmprestimoIF;
+import br.uepb.interfaces.ItemEmprestimoIF;
 import br.uepb.model.jpaEntity.usuarios.EntityAluno;
 @Entity
 @Table(name="emp_midia")
-public class EntityEmprestimoMidia extends EntityEmprestimo{
+public class EntityEmprestimoMidia extends EntityEmprestimo implements EmprestimoIF{
 	
-	@OneToMany(cascade = CascadeType.ALL,mappedBy="emprestimo",fetch=FetchType.EAGER)
+	@OneToMany(targetEntity=EntityItemMidia.class,cascade = CascadeType.ALL,mappedBy="emprestimo",fetch=FetchType.EAGER)
 	@Fetch(FetchMode.JOIN)
-	private List<EntityItemMidia> emprestimos;
+	private List<ItemEmprestimoIF> emprestimos;
 	
 	public EntityEmprestimoMidia(){
 		this.aluno = new EntityAluno();
-		this.emprestimos = new ArrayList<EntityItemMidia>();		
+		this.emprestimos = new ArrayList<ItemEmprestimoIF>();		
 	}
 	
-	public EntityEmprestimoMidia(ArrayList<EntityItemMidia> emprestimos) {
+	public EntityEmprestimoMidia(ArrayList<ItemEmprestimoIF> emprestimos) {
 		super();
 		setAluno(aluno);
 		setEmprestimos(emprestimos);
 	}
 	
-	public boolean adicionarItem(EntityItemMidia item){
+	public boolean adicionarItem(ItemEmprestimoIF item){
 		emprestimos.add(item);
 		return true;
 	}
 	
-	public boolean removerItem(EntityItemMidia item){
+	public boolean removerItem(ItemEmprestimoIF item){
 		emprestimos.remove(item);
 		return true;
 	}
 	
-	public EntityItemMidia buscaItem(String titulo) throws Exception{
+	public ItemEmprestimoIF buscaItem(String titulo) throws Exception{
 		
-		for(EntityItemMidia item : emprestimos){
+		for(ItemEmprestimoIF item : emprestimos){
 			if(item.getItem().getTitulo().equals(titulo)){
 				return item;
 			}
 		}
 		throw new ItemNaoEncontradoException("Item não encontrado");
 	}
-	public List<EntityItemMidia> getEmprestimos() {
+	public List<ItemEmprestimoIF> getEmprestimos() {
 		return emprestimos;
 	}
-	public void setEmprestimos(List<EntityItemMidia> emprestimos) {
+	public void setEmprestimos(List<ItemEmprestimoIF> emprestimos) {
 		this.emprestimos = emprestimos;
 	}
 

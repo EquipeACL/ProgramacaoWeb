@@ -6,6 +6,8 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
+import org.hibernate.validator.constraints.NotBlank;
+
 import br.uepb.interfaces.IFDependencia;
 import br.uepb.model.AreaConhecimento;
 
@@ -22,7 +24,7 @@ public class EntityAreaConhecimento implements IFDependencia{
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
 	
-	
+	@NotBlank
 	private String nome;
 	
 	/**

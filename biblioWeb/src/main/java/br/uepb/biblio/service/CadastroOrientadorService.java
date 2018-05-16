@@ -6,6 +6,7 @@ import java.util.Optional;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 
+import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -17,7 +18,7 @@ import br.uepb.model.jpaEntity.EntityOrientador;
 
 @Service
 public class CadastroOrientadorService {
-
+	private static Logger logger = Logger.getLogger(CadastroOrientadorService.class);
 	@Autowired
 	private Orientadores orientadores;
 	
@@ -31,7 +32,12 @@ public class CadastroOrientadorService {
 		if(optionalOrientador.isPresent()) {
 			throw new ItemDuplicadoException("Orientador já Cadastrado!");
 		}
-		return orientadores.saveAndFlush(newEntity);
+		try {
+			return orientadores.saveAndFlush(newEntity);
+		} catch (Exception e) {
+			logger.error("Erro ao cadastrar Orientador!",e);
+			return null;
+		}
 	}
 	
 	@Transactional
@@ -40,22 +46,29 @@ public class CadastroOrientadorService {
 	}
 	
 	@Transactional
-	public void atualizar(Orientador orientador) throws Exception {
+	public boolean atualizar(Orientador orientador) throws Exception {
 		EntityOrientador newEntity = new EntityOrientador(orientador);
 		try{
 			if(orientador.getId()!=0){
 				orientadores.save(newEntity);
 			}
 		}catch(Exception e){
-			throw new Exception("Erro na atualização");
+			logger.error("Erro ao atualizar orientador!",e);
+			return false;
 		}
+		return true;
 	}
 	@Transactional
-	public void remover (int  id) {
+	public boolean remover (int  id) {
 		if(id != 0){
-			orientadores.delete(id);
+			try {
+				orientadores.delete(id);
+			} catch (Exception e) {
+				logger.error("Erro ao remover Orientador!",e);
+			}
+			return true;
 		}
-		
+		return false;
 	}
 	
 

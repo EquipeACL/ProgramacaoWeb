@@ -17,7 +17,7 @@ import br.uepb.model.Curso;
 import br.uepb.model.jpaEntity.EntityCurso;
 @Service
 public class CadastroCursosService {
-	private static Logger logger = Logger.getLogger(CadastroCursoService.class);
+	private static Logger logger = Logger.getLogger(CadastroCursosService.class);
 	@Autowired
 	private Cursos cursos;
 	
@@ -25,27 +25,30 @@ public class CadastroCursosService {
     private EntityManager manager;
 	
 	@Transactional
-	public void salvar (Curso curso) {
+	public EntityCurso salvar (Curso curso) {
 		EntityCurso newEntity = new EntityCurso(curso);
 		Optional <EntityCurso> cursoOptional = cursos.findByNomeIgnoreCase(newEntity.getNome());
 		if(cursoOptional.isPresent()){
 			throw new ItemDuplicadoException(" Curso já esta Cadastrado!");
 		}
 		try{
-			cursos.save(newEntity);
+			return cursos.saveAndFlush(newEntity);
 		}catch(Exception e){
 			logger.error("Erro ao cadastrar!",e);
+			return null;
 		}
 		
 	}
 	
 	@Transactional
-	public void atualizar (Curso curso) {
+	public boolean atualizar (Curso curso) {
 		EntityCurso newEntity = new EntityCurso(curso);
 		try{
 			cursos.save(newEntity);
+			return true;
 		}catch(Exception e){
 			logger.error("Erro ao atualizar!",e);
+			return false;
 		}
 		
 	}
@@ -56,14 +59,16 @@ public class CadastroCursosService {
 	}
 	
 	@Transactional
-	public void remover(int id) {
+	public boolean remover(int id) {
 		if (id != 0) {
 			try{
-				cursos.delete(id);
+				cursos.delete(id);				
 			}catch(Exception e){
 				logger.error("Erro ao deletar!",e);
+				return false;
 			}
 		}
 		logger.error("Curso deletado com sucesso!");
+		return true;
 	}
 }

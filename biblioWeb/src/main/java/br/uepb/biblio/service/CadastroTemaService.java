@@ -6,6 +6,7 @@ import java.util.Optional;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 
+import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -17,7 +18,7 @@ import br.uepb.model.jpaEntity.EntityTema;
 
 @Service
 public class CadastroTemaService {
-	
+	private static Logger logger = Logger.getLogger(CadastroTemaService.class);
 	@Autowired
 	private Temas temas;
 	
@@ -31,7 +32,12 @@ public class CadastroTemaService {
 		if(temaOptional.isPresent()){
 			throw new ItemDuplicadoException(" Tema já Cadastrado!");
 		}
-		return temas.saveAndFlush(newEntity);
+		try {
+			return temas.saveAndFlush(newEntity);
+		} catch (Exception e) {
+			logger.error("Erro ao cadastrar Tema!",e);
+			return null;
+		}
 	}
 		
 	@Transactional
@@ -40,22 +46,27 @@ public class CadastroTemaService {
 	}
 	
 	@Transactional
-	public void remover (int  id) {
+	public boolean remover (int  id) {
 		if(id != 0){
-			temas.delete(id);
+			try {
+				temas.delete(id);
+			} catch (Exception e) {
+				logger.error("Erro ao remover Tema!",e);
+			}
 		}
-		
+		return true;
 	}
 	@Transactional
-	public void atualizar(Tema tema) throws Exception {
+	public boolean atualizar(Tema tema) throws Exception {
 		EntityTema newEntity = new EntityTema(tema);
 		try{
 			if(newEntity.getId()!=0){
 				temas.save(newEntity);
 			}
 		}catch(Exception e){
-			throw new Exception("Erro na atualização");
+			throw new Exception("Erro na atualização",e);
 		}
+		return true;
 	}
 	
 	@Transactional

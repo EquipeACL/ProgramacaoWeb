@@ -6,6 +6,8 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
+import org.hibernate.validator.constraints.NotBlank;
+
 import br.uepb.interfaces.IFDependencia;
 import br.uepb.model.Orientador;
 
@@ -22,10 +24,10 @@ public class EntityOrientador implements IFDependencia{
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
 	
-	
+	@NotBlank
 	private String nome;
 	
-	
+	@NotBlank
 	private String formacao;
 	
 	/**
@@ -68,7 +70,10 @@ public class EntityOrientador implements IFDependencia{
 	}
 
 	public boolean validaDependencia() {
-		return true;
+		if(this.nome!="" && this.formacao != ""){
+			return true;
+		}
+		return false;
 	}
 
 	@Override

@@ -11,6 +11,8 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
+import org.hibernate.validator.constraints.NotBlank;
+
 import br.uepb.interfaces.IFDependencia;
 import br.uepb.model.Curso;
 import br.uepb.model.enums.Tipo_curso;
@@ -27,9 +29,10 @@ public class EntityCurso implements IFDependencia{
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private int id;
 	
+	@NotBlank
 	private String nome;
 	
-	
+	@NotBlank
 	private String sigla;	
 
 	@ManyToOne(cascade=CascadeType.REFRESH)
@@ -61,11 +64,13 @@ public class EntityCurso implements IFDependencia{
 		setTipo(tipo);
 	}
 	public EntityCurso(Curso curso) {
-		setId(curso.getId());
-		setNome(curso.getNome());
-		setSigla(curso.getSigla());
-		setArea(new EntityAreaConhecimento(curso.getArea()));
-		setTipo(curso.getTipo());
+		if(curso!=null){
+			setId(curso.getId());
+			setNome(curso.getNome());
+			setSigla(curso.getSigla());
+			setArea(new EntityAreaConhecimento(curso.getArea()));
+			setTipo(curso.getTipo());
+		}
 	}
 	
 	public int getId() {

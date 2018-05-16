@@ -13,49 +13,52 @@ import org.hibernate.annotations.Fetch;
 import org.hibernate.annotations.FetchMode;
 
 import br.uepb.biblio.service.exception.ItemNaoEncontradoException;
+import br.uepb.interfaces.EmprestimoIF;
+import br.uepb.interfaces.ItemEmprestimoIF;
 import br.uepb.model.jpaEntity.usuarios.EntityAluno;
 @Entity
 @Table(name="emp_tcc")
-public class EntityEmprestimoTcc extends EntityEmprestimo{
+public class EntityEmprestimoTcc extends EntityEmprestimo implements EmprestimoIF{
 	
-	@OneToMany(cascade = CascadeType.ALL,mappedBy="emprestimo",fetch=FetchType.EAGER)
+	@OneToMany(targetEntity=EntityItemTcc.class,cascade = CascadeType.ALL,mappedBy="emprestimo",fetch=FetchType.EAGER)
 	@Fetch(FetchMode.JOIN)
-	private List<EntityItemTcc> emprestimos;
+	private List<ItemEmprestimoIF> emprestimos;
 	
 	public EntityEmprestimoTcc(){
 		this.aluno = new EntityAluno();
-		this.emprestimos = new ArrayList<EntityItemTcc>();		
+		this.emprestimos = new ArrayList<ItemEmprestimoIF>();		
 	}
 	
-	public EntityEmprestimoTcc(ArrayList<EntityItemTcc> emprestimos) {
+	public EntityEmprestimoTcc(ArrayList<ItemEmprestimoIF> emprestimos) {
 		super();
 		setAluno(aluno);
 		setEmprestimos(emprestimos);
 	}
 	
-	public boolean adicionarItem(EntityItemTcc item){
+	public boolean adicionarItem(ItemEmprestimoIF item){
 		emprestimos.add(item);
 		return true;
 	}
 	
-	public boolean removerItem(EntityItemTcc item){
+	public boolean removerItem(ItemEmprestimoIF item){
 		emprestimos.remove(item);
 		return true;
 	}
 	
-	public EntityItemTcc buscaItem(String titulo) throws Exception{
+	public ItemEmprestimoIF buscaItem(String titulo) throws Exception{
 		
-		for(EntityItemTcc item : emprestimos){
+		for(ItemEmprestimoIF item : emprestimos){
 			if(item.getItem().getTitulo().equals(titulo)){
 				return item;
 			}
 		}
 		throw new ItemNaoEncontradoException("Item não encontrado");
 	}
-	public List<EntityItemTcc> getEmprestimos() {
+	public List<ItemEmprestimoIF> getEmprestimos() {
 		return emprestimos;
 	}
-	public void setEmprestimos(List<EntityItemTcc> emprestimos) {
+	public void setEmprestimos(List<ItemEmprestimoIF> emprestimos) {
 		this.emprestimos = emprestimos;
 	}
+
 }

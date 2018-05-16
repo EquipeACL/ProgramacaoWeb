@@ -35,7 +35,7 @@ public class CadastroAreaConhecimento {
 	}
 	
 	@Transactional
-	public void atualizar(AreaConhecimento area) throws Exception {
+	public boolean atualizar(AreaConhecimento area) throws Exception {
 		EntityAreaConhecimento newEntity = new EntityAreaConhecimento(area);
 		try{
 			if(area.getId()!=0){
@@ -43,7 +43,9 @@ public class CadastroAreaConhecimento {
 			}
 		}catch(Exception e){
 			throw new Exception("Erro na atualização");
+			
 		}
+		return true;
 	}
 	
 	@Transactional
@@ -52,10 +54,11 @@ public class CadastroAreaConhecimento {
 	}
 
 	@Transactional
-	public void remover (int  id) {
+	public boolean remover (int  id) {
 		if(id != 0){
 			areasConhecimento.delete(id);
+			return true;
 		}
-		
+		return false;
 	}
 }

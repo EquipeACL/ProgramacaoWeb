@@ -3,12 +3,10 @@ package br.uepb.model.usuarios;
 import java.sql.Date;
 
 import javax.persistence.CascadeType;
-import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
-import javax.persistence.Table;
 import javax.persistence.Transient;
 import javax.validation.constraints.NotNull;
 
@@ -17,6 +15,7 @@ import org.hibernate.validator.constraints.NotEmpty;
 
 import br.uepb.model.Curso;
 import br.uepb.model.enums.Tipo_nivel;
+import br.uepb.model.jpaEntity.usuarios.EntityAluno;
 /**
  * Essa classe � utilizada como modelo para um objeto do tipo Aluno;
  * A classe cont�m os respectivos getters and setters de seus atributos.
@@ -114,6 +113,23 @@ public class Aluno extends Usuario {
 		setPeriodoIngresso(periodoIngresso);
 		gerarMatrcula();
 		
+	}
+	
+	public Aluno(EntityAluno aluno){
+		setId(aluno.getId());
+		setCpf(aluno.getCpf());
+		setNome(aluno.getNome());
+		setRg(aluno.getRg());
+		setNaturalidade(aluno.getNaturalidade());
+		setEndereco(aluno.getEndereco());
+		setTelefone(aluno.getTelefone());
+		setEmail(aluno.getEmail());
+		setSenhaAcesso(aluno.getSenhaAcesso());
+		setNomeMae(aluno.getNomeMae());
+		setCurso(new Curso(aluno.getCurso()));
+		setNivel(aluno.getNivel());
+		setAnoIngresso(aluno.getAnoIngresso());
+		setPeriodoIngresso(aluno.getPeriodoIngresso());
 	}
 	
 	public String getMatricula() {
