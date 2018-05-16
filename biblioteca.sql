@@ -1,5 +1,4 @@
-﻿DROP database `biblioteca`;
-
+DROP DATABASE `biblioteca`;
 CREATE DATABASE `biblioteca`;
 
 USE `biblioteca`;
@@ -657,13 +656,13 @@ CREATE TABLE `item_livro` (
 
 CREATE TABLE `usuario` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
-  `cpf` int(10) unsigned NOT NULL,
-  `rg` int(11) NOT NULL,
-  `naturalidade` varchar(45) NOT NULL,
-  `nome` varchar(45) NOT NULL,
-  `login` varchar(45) NOT NULL DEFAULT '',
-  `endereco` varchar(45) NOT NULL,
-  `telefone` int(11) NOT NULL,
+  `cpf` VARCHAR(15)  NOT NULL,
+  `rg` VARCHAR(11) NOT NULL,
+  `naturalidade` VARCHAR(45) NOT NULL,
+  `nome` VARCHAR(45) NOT NULL,
+  `login` VARCHAR(45) NOT NULL DEFAULT '',
+  `endereco` VARCHAR(45) NOT NULL,
+  `telefone` VARCHAR(20) NOT NULL,
   `email` varchar(45) NOT NULL,
   `senha` varchar(45) NOT NULL,
   PRIMARY KEY (`id`)
