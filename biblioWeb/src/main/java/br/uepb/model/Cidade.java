@@ -38,6 +38,7 @@ public class Cidade {
 	 * @param nome, nome da cidade
 	 * @param uf, uni�o federativa da cidade
 	 */
+	
 	public Cidade(EntityCidade cidade) {
 		setId(cidade.getId());
 		setCodigo(cidade.getCodigo());
@@ -45,6 +46,14 @@ public class Cidade {
 		setUf(cidade.getUf());
 	}
 	
+	public Cidade(int id, int codigo, String nome, String uf) {
+		super();
+		this.id = id;
+		this.codigo = codigo;
+		this.nome = nome;
+		this.uf = uf;
+	}
+
 	public int getId() {
 		return id;
 	}

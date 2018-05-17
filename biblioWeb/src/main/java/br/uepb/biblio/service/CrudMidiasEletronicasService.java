@@ -26,7 +26,7 @@ public class CrudMidiasEletronicasService {
     private EntityManager manager;
 	
 	@Transactional
-	public void salvar (MidiasEletronicas midia) {
+	public EntityMidiasEletronicas salvar (MidiasEletronicas midia) {
 		EntityMidiasEletronicas newEntity = new EntityMidiasEletronicas(midia);
 		Optional <EntityMidiasEletronicas> midiaOptional = midias.findByTituloIgnoreCase(newEntity.getTitulo());
 		if(midiaOptional.isPresent()){
@@ -35,11 +35,13 @@ public class CrudMidiasEletronicasService {
 			throw e;
 		}
 		try {
-			midias.save(newEntity);
 			logger.info("Midia cadastrada com sucesso!");
+			return midias.saveAndFlush(newEntity);			
 		} catch (Exception e) {
 			logger.error("Erro ao cadastrar Midia!",e);
+			return null;
 		}
+		
 	}
 	
 	@Transactional
@@ -47,7 +49,6 @@ public class CrudMidiasEletronicasService {
 		EntityMidiasEletronicas newEntity = new EntityMidiasEletronicas(midia);
 		try{
 			midias.save(newEntity);
-
 		}catch(Exception e){
 			logger.error("Erro ao atualizar Midia!",e);
 			return false;

@@ -27,7 +27,7 @@ public class CrudAnaisService {
     private EntityManager manager;
 	
 	@Transactional
-	public void salvar (Anal anal) {
+	public EntityAnal salvar (Anal anal) {
 		EntityAnal newEntity = new EntityAnal(anal);
 		Optional <EntityAnal> analOptional = anais.findByTituloIgnoreCase(newEntity.getTitulo());
 		
@@ -36,7 +36,12 @@ public class CrudAnaisService {
 			logger.error("Erro ao cadastrar anal",e);
 			throw e;
 		}
-		anais.save(newEntity);
+		try {
+			return anais.saveAndFlush(newEntity);
+		} catch (Exception e) {
+			logger.error("Erro ao cadastrar anal",e);
+		}
+		return null;
 	}
 	
 	@Transactional
@@ -45,16 +50,18 @@ public class CrudAnaisService {
 	}	
 	
 	@Transactional
-	public void atualizar(Anal anal) throws Exception {
+	public boolean atualizar(Anal anal) throws Exception {
 		EntityAnal newEntity = new EntityAnal(anal);
 		try {
-			if (anal!=null || anal.getId()>0 ) {
+			if (anal!=null && anal.getId()>0 ) {
 				anais.save(newEntity);
 				logger.info("Anal atualizado com sucesso.");
+				return true;
 			}
 		} catch (Exception e) {
 			logger.error("Erro ao atualizar o anal",e);
 		}
+		return false;
 	}
 
 	@Transactional

@@ -7,6 +7,7 @@ import javax.validation.constraints.NotNull;
 
 import br.uepb.interfaces.IFAcervo;
 import br.uepb.model.Editora;
+import br.uepb.model.jpaEntity.acervo.EntityRevista;
 /**
  * Classe  utilizada como modelo para um objeto do tipo Revista.
  * A classe contém os respectivos getters and setters de seus atributos.
@@ -43,6 +44,17 @@ public class Revista extends ItemAcervo implements IFAcervo{
 		setData(dataDePublicacao);
 		setEdicao(edicao);
 		setNum_pag(numeroDePaginas);
+	}
+	
+	public Revista(EntityRevista revista){
+		if(revista!=null){
+			setId(revista.getId());
+			setTitulo(revista.getTitulo());
+			setEditora(new Editora(revista.getEditora()));
+			setData(revista.getDataPublicacao());
+			setEdicao(revista.getEdicao());
+			setNum_pag(revista.getNum_pag());
+		}
 	}
 	
 	public Editora getEditora() {

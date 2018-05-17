@@ -25,7 +25,7 @@ public class CrudRevistaService {
     private EntityManager manager;
 	
 	@Transactional
-	public void salvar (Revista revista) {
+	public EntityRevista salvar (Revista revista) {
 		EntityRevista newEntity = new EntityRevista(revista);
 		Optional <EntityRevista> revistaOptional = revistas.findByTituloIgnoreCase(newEntity.getTitulo());
 		if(revistaOptional.isPresent()){
@@ -34,10 +34,12 @@ public class CrudRevistaService {
 			throw e;
 		}
 		try{
-			revistas.save(newEntity);
+			EntityRevista retorno = revistas.saveAndFlush(newEntity);
 			logger.info("Revista cadastrada com sucesso");
+			return retorno;
 		}catch(Exception e){
 			logger.error("Erro ao cadastar Revista!",e);
+			return null;
 		}
 	}
 	

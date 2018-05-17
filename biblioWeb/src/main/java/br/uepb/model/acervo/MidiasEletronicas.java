@@ -6,6 +6,7 @@ import javax.validation.constraints.NotNull;
 
 import br.uepb.interfaces.IFAcervo;
 import br.uepb.model.enums.Tipo_midia;
+import br.uepb.model.jpaEntity.acervo.EntityMidiasEletronicas;
 
 /**
  * Classe utilizada como modelo para um objeto do tipo MidiasEletronicas.
@@ -35,6 +36,13 @@ public class MidiasEletronicas extends ItemAcervo implements IFAcervo{
 		setTitulo(titulo);
 		setTipo(tipo);
 		setData_gravacao(data_gravacao);
+	}
+	public MidiasEletronicas(EntityMidiasEletronicas midia){
+		if(midia!=null){
+			setTitulo(midia.getTitulo());
+			setTipo(midia.getTipo());
+			setData_gravacao(midia.getData_gravacao());
+		}
 	}
 	
 	public Tipo_midia getTipo() {

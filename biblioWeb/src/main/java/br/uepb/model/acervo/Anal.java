@@ -1,5 +1,6 @@
 package br.uepb.model.acervo;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -11,6 +12,8 @@ import br.uepb.interfaces.IFAcervo;
 import br.uepb.model.Autor;
 import br.uepb.model.Cidade;
 import br.uepb.model.enums.Tipo_anal;
+import br.uepb.model.jpaEntity.EntityAutor;
+import br.uepb.model.jpaEntity.acervo.EntityAnal;
 
 /**
  * Classe utilizada como modelo para um objeto do tipo Anal.
@@ -63,6 +66,21 @@ public class Anal extends ItemAcervo implements IFAcervo{
 		setNome_congresso(nome_congresso);
 		setAnoPublicacao(anoPublicacao);
 		setLocal(local);
+	}
+	public Anal(EntityAnal anal){
+		if(anal!=null){
+			setId(anal.getId());
+			setTipo(anal.getTipo());
+			setTitulo(anal.getTitulo());
+			ArrayList<Autor> autores = new ArrayList<Autor>();
+			for(EntityAutor a : anal.getAutores()){
+				autores.add(new Autor(a));
+			}
+			setAutores(autores);
+			setNome_congresso(anal.getNome_congresso());
+			setAnoPublicacao(anal.getAnoPublicacao());
+			setLocal(new Cidade(anal.getLocal()));
+		}
 	}
 	public Tipo_anal getTipo() {
 		return tipo;
