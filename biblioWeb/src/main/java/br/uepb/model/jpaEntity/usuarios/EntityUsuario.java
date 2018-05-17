@@ -24,7 +24,7 @@ public abstract class EntityUsuario {
 	private int id;
 	
 	@NotEmpty(message = " CPF é obrigatório")
-	protected int cpf;
+	protected String cpf;
 	
 	@NotBlank(message = " O nome é obrigatório")
 	protected String nome;
@@ -33,7 +33,7 @@ public abstract class EntityUsuario {
 	protected String login;	
 	
 	@NotEmpty(message = " RG é obrigatório")
-	protected int rg;
+	protected String rg;
 	
 	@NotBlank(message = " A naturalidade é obrigatória")
 	protected String naturalidade;
@@ -42,7 +42,7 @@ public abstract class EntityUsuario {
 	protected String endereco;
 	
 	@NotEmpty(message = " O telefone é obrigatório")
-	protected int telefone;
+	protected String telefone;
 	
 	@Size(min = 5, max = 20, message = " O tamanho do email deve estar entre 5 e 20")
 	@NotBlank(message = " O email é obrigatório")
@@ -77,7 +77,7 @@ public abstract class EntityUsuario {
 	 * @param email, endere�o de email do Usu�rio
 	 * @param senhaAcesso, senha de acesso ao sistema do Usu�rio
 	 */
-	public EntityUsuario(int cpf, String nome, int rg, String naturalidade, String endereco, int telefone,
+	public EntityUsuario(String cpf, String nome, String rg, String naturalidade, String endereco, String telefone,
 			String email, String senhaAcesso) {
 		setCpf(cpf);
 		setNome(nome);
@@ -121,11 +121,11 @@ public abstract class EntityUsuario {
 		this.id = id;
 	}
 	
-	public int getCpf() {
+	public String getCpf() {
 		return cpf;
 	}
 	
-	public void setCpf(int cpf) {
+	public void setCpf(String cpf) {
 		this.cpf = cpf;
 	}
 	public String getNome() {
@@ -134,10 +134,10 @@ public abstract class EntityUsuario {
 	public void setNome(String nome) {
 		this.nome = nome;
 	}
-	public int getRg() {
+	public String getRg() {
 		return rg;
 	}
-	public void setRg(int rg) {
+	public void setRg(String rg) {
 		this.rg = rg;
 	}
 	public String getNaturalidade() {
@@ -152,10 +152,10 @@ public abstract class EntityUsuario {
 	public void setEndereco(String endereco) {
 		this.endereco = endereco;
 	}
-	public int getTelefone() {
+	public String getTelefone() {
 		return telefone;
 	}
-	public void setTelefone(int telefone) {
+	public void setTelefone(String telefone) {
 		this.telefone = telefone;
 	}
 	public String getEmail() {

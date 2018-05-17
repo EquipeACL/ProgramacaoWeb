@@ -31,7 +31,6 @@ public class Aluno extends Usuario {
 	@NotBlank(message=" Nome da mãe é obrigatório")
 	private String nomeMae;
 	
-	
 	@ManyToOne(cascade=CascadeType.MERGE)
 	@JoinColumn(name = "curso_id",nullable=false)
 	private Curso curso;
@@ -74,8 +73,8 @@ public class Aluno extends Usuario {
 	 * @param periodoIngresso, o per�odo de ingresso do aluno no curso
 	 * @param senhaAcesso, a senha de acesso ao sistema do aluno
 	 */
-	public Aluno(String matricula, int cpf, int rg, String naturalidade, String nomeCompleto, String nomeMae,
-			String endereco, int telefone, Curso curso, Tipo_nivel nivel, String email, Date anoIngresso,
+	public Aluno(String matricula, String cpf, String rg, String naturalidade, String nomeCompleto, String nomeMae,
+			String endereco, String telefone, Curso curso, Tipo_nivel nivel, String email, Date anoIngresso,
 			int periodoIngresso, String senhaAcesso) {
 		super(cpf, nomeCompleto, rg, naturalidade, endereco, telefone, email, senhaAcesso);
 		setMatricula(matricula);
@@ -101,8 +100,8 @@ public class Aluno extends Usuario {
 	 * @param periodoIngresso, o per�odo de ingresso do aluno no curso
 	 * @param senhaAcesso, a senha de acesso ao sistema do aluno
 	 */
-	public Aluno(int cpf, int rg, String naturalidade, String nomeCompleto, String nomeMae,
-			String endereco, int telefone, Curso curso, Tipo_nivel nivel, String email, Date anoIngresso, int periodoIngresso,
+	public Aluno(String cpf, String rg, String naturalidade, String nomeCompleto, String nomeMae,
+			String endereco, String telefone, Curso curso, Tipo_nivel nivel, String email, Date anoIngresso, int periodoIngresso,
 			String senhaAcesso) {
 		super(cpf, nomeCompleto, rg, naturalidade, endereco, telefone, email, senhaAcesso);
 
@@ -124,7 +123,7 @@ public class Aluno extends Usuario {
 		setEndereco(aluno.getEndereco());
 		setTelefone(aluno.getTelefone());
 		setEmail(aluno.getEmail());
-		setSenhaAcesso(aluno.getSenhaAcesso());
+		setSenha(aluno.getSenhaAcesso());
 		setNomeMae(aluno.getNomeMae());
 		setCurso(new Curso(aluno.getCurso()));
 		setNivel(aluno.getNivel());

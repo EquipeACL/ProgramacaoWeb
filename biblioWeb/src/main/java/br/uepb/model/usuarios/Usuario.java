@@ -15,9 +15,9 @@ import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
 import org.hibernate.validator.constraints.NotBlank;
-import org.hibernate.validator.constraints.NotEmpty;
 
 import br.uepb.model.Grupo;
+import br.uepb.validation.AtributoConfirmacao;
 
 
 /**
@@ -31,6 +31,7 @@ import br.uepb.model.Grupo;
 //@Table(name = "usuario")
 
 @MappedSuperclass
+@AtributoConfirmacao(atributo = "senha", atributoConfirmacao = "confirmacaoSenha",message = "Senhas não conferem")
 public class Usuario implements Serializable {
 	
 	private static final long serialVersionUID = 1L;
@@ -39,8 +40,9 @@ public class Usuario implements Serializable {
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private int id;
 	
-	@NotEmpty(message = " CPF é obrigatório")
-	protected int cpf;
+	//@Cpf
+	@NotBlank(message = " CPF é obrigatório")
+	protected String cpf;
 	
 	@NotBlank(message = " O nome é obrigatório")
 	protected String nome;
@@ -49,33 +51,33 @@ public class Usuario implements Serializable {
 	protected String login;
 	
 	
-	@NotBlank(message = "Matrícula é obrigatória")
-	private String matricula;
+	//@NotBlank(message = "Matrícula é obrigatória")
 	
 	
-	@NotEmpty(message = " RG é obrigatório")
-	protected int rg;
+	
+	@NotBlank(message = " RG é obrigatório")
+	protected String rg;
 	
 	@NotBlank(message = " A naturalidade é obrigatória")
 	protected String naturalidade;
 	
 	@NotBlank(message = " O endereço é obrigatório")
 	protected String endereco;
-	
-	@NotEmpty(message = " O telefone é obrigatório")
-	protected int telefone;
+		
+	@NotBlank(message = " O telefone é obrigatório")
+	protected String telefone;
 	
 	@Size(min = 5, max = 20, message = " O tamanho do email deve estar entre 5 e 20")
 	@NotBlank(message = " O email é obrigatório")
 	protected String email;
 	
 	@NotBlank(message = " A senha é obrigatória")
-	protected String senhaAcesso;
+	protected String senha;
 	
 	@Transient
-	private String confirmacaoSenha;
+	protected String confirmacaoSenha;
 	
-	@NotNull(message = "Selecione pelo menos um grupo")
+	//@NotNull(message = "Selecione pelo menos um grupo")
 	@ManyToMany
 	@JoinTable(name = "usuario_has_grupo",joinColumns = @JoinColumn(name = "usuario_id")
 												, inverseJoinColumns = @JoinColumn(name = "grupo_id"))
@@ -98,10 +100,10 @@ public class Usuario implements Serializable {
 	 * @param endereco, endere�o completo do Usu�rio
 	 * @param telefone, telefone de contato do Usu�rio
 	 * @param email, endere�o de email do Usu�rio
-	 * @param senhaAcesso, senha de acesso ao sistema do Usu�rio
+	 * @param senha, senha de acesso ao sistema do Usu�rio
 	 */
-	public Usuario(int cpf, String nome, int rg, String naturalidade, String endereco, int telefone,
-			String email, String senhaAcesso) {
+	public Usuario(String cpf, String nome, String rg, String naturalidade, String endereco, String telefone,
+			String email, String senha) {
 		setCpf(cpf);
 		setNome(nome);
 		setRg(rg);
@@ -109,7 +111,7 @@ public class Usuario implements Serializable {
 		setEndereco(endereco);
 		setTelefone(telefone);
 		setEmail(email);
-		setSenhaAcesso(senhaAcesso);
+		setSenha(senha);
 		
 	}
 	
@@ -144,11 +146,11 @@ public class Usuario implements Serializable {
 		this.id = id;
 	}
 	
-	public int getCpf() {
+	public String getCpf() {
 		return cpf;
 	}
 	
-	public void setCpf(int cpf) {
+	public void setCpf(String cpf) {
 		this.cpf = cpf;
 	}
 	public String getNome() {
@@ -157,10 +159,10 @@ public class Usuario implements Serializable {
 	public void setNome(String nome) {
 		this.nome = nome;
 	}
-	public int getRg() {
+	public String getRg() {
 		return rg;
 	}
-	public void setRg(int rg) {
+	public void setRg(String rg) {
 		this.rg = rg;
 	}
 	public String getNaturalidade() {
@@ -175,10 +177,10 @@ public class Usuario implements Serializable {
 	public void setEndereco(String endereco) {
 		this.endereco = endereco;
 	}
-	public int getTelefone() {
+	public String getTelefone() {
 		return telefone;
 	}
-	public void setTelefone(int telefone) {
+	public void setTelefone(String telefone) {
 		this.telefone = telefone;
 	}
 	public String getEmail() {
@@ -187,11 +189,11 @@ public class Usuario implements Serializable {
 	public void setEmail(String email) {
 		this.email = email;
 	}
-	public String getSenhaAcesso() {
-		return senhaAcesso;
+	public String getSenha() {
+		return senha;
 	}
-	public void setSenhaAcesso(String senhaAcesso) {
-		this.senhaAcesso = senhaAcesso;
+	public void setSenha(String senha) {
+		this.senha = senha;
 	}
 
 	public String getLogin() {
@@ -202,13 +204,6 @@ public class Usuario implements Serializable {
 		this.login = login;
 	}
 
-	public String getMatricula() {
-		return matricula;
-	}
-
-	public void setMatricula(String matricula) {
-		this.matricula = matricula;
-	}
 
 	public String getConfirmacaoSenha() {
 		return confirmacaoSenha;

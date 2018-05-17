@@ -14,7 +14,6 @@ import br.uepb.validation.AtributoConfirmacao;
 
 @Entity
 @Table(name= "usuario")
-@AtributoConfirmacao(atributo = "senha", atributoConfirmacao = "confirmacaoSenha")
 public class Funcionario extends Usuario {
 	
 	
@@ -34,7 +33,7 @@ public class Funcionario extends Usuario {
 	 * @param senhaAcesso, senha de acesso ao sistema do Funcion�rio
 	 * @param nomeUsuario, nome de usuario no sistema do Funcion�rio
 	 */
-	public Funcionario(int cpf, String nomeCompleto, int rg, String naturalidade, String endereco, int telefone,
+	public Funcionario(String cpf, String nomeCompleto, String rg, String naturalidade, String endereco, String telefone,
 			String email, String senhaAcesso, String nomeUsuario) {
 		super(cpf, nomeCompleto, rg, naturalidade, endereco, telefone, email, senhaAcesso);
 	}

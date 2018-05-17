@@ -75,8 +75,8 @@ public class EntityAluno extends EntityUsuario {
 	 * @param periodoIngresso, o per�odo de ingresso do aluno no curso
 	 * @param senhaAcesso, a senha de acesso ao sistema do aluno
 	 */
-	public EntityAluno(String matricula, int cpf, int rg, String naturalidade, String nomeCompleto, String nomeMae,
-			String endereco, int telefone, EntityCurso curso, Tipo_nivel nivel, String email, Date anoIngresso,
+	public EntityAluno(String matricula, String cpf, String rg, String naturalidade, String nomeCompleto, String nomeMae,
+			String endereco, String telefone, EntityCurso curso, Tipo_nivel nivel, String email, Date anoIngresso,
 			int periodoIngresso, String senhaAcesso) {
 		super(cpf, nomeCompleto, rg, naturalidade, endereco, telefone, email, senhaAcesso);
 		setMatricula(matricula);
@@ -102,8 +102,8 @@ public class EntityAluno extends EntityUsuario {
 	 * @param periodoIngresso, o per�odo de ingresso do aluno no curso
 	 * @param senhaAcesso, a senha de acesso ao sistema do aluno
 	 */
-	public EntityAluno(int cpf, int rg, String naturalidade, String nomeCompleto, String nomeMae,
-			String endereco, int telefone, EntityCurso curso, Tipo_nivel nivel, String email, Date anoIngresso, int periodoIngresso,
+	public EntityAluno(String cpf, String rg, String naturalidade, String nomeCompleto, String nomeMae,
+			String endereco, String telefone, EntityCurso curso, Tipo_nivel nivel, String email, Date anoIngresso, int periodoIngresso,
 			String senhaAcesso) {
 		super(cpf, nomeCompleto, rg, naturalidade, endereco, telefone, email, senhaAcesso);
 

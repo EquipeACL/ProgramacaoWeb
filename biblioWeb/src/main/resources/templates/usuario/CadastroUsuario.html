@@ -21,7 +21,7 @@
 			<th:block th:include="fragments/MensagemSucesso"></th:block>
 
 			<form method="POST" class="form-vertical  js-form-loading"
-				th:object="${usuario}">
+				th:object="${funcionario}">
 
 				<th:block th:include="fragments/MensagensErroValidacao"></th:block>
 				<!-- Linha do Nome -->
@@ -29,7 +29,7 @@
 					<div class="form-group col-sm-3"
 						th:classappend="${#fields.hasErrors('cpf')}? has-error">
 						<label for="cpf">CPF</label> <input id="cpf" type="text"
-							class="form-control" autofocus="autofocus" th:field="*{cpf}" />
+							class="form-control js-cpf" autofocus="autofocus" th:field="*{cpf}" />
 					</div>
 					<div class="form-group col-sm-3"
 						th:classappend="${#fields.hasErrors('rg')}? has-error">
@@ -52,7 +52,7 @@
 					<div class="form-group col-sm-2"
 						th:classappend="${#fields.hasErrors('telefone')}? has-error">
 						<label for="telefone">Telefone</label> <input id="telefone"
-							type="text" class="form-control" th:field="*{telefone}" />
+							type="text" class="form-control js-phone-number" th:field="*{telefone}" />
 					</div>
 					<div class="form-group col-sm-7"
 						th:classappend="${#fields.hasErrors('endereco')}? has-error">
@@ -75,7 +75,7 @@
 							type="text" class="form-control" th:field="*{login}" />
 					</div>
 					<div class="form-group col-sm-2"
-						th:classappend="${#fields.hasErrors('senhaAcesso')}? has-error">
+						th:classappend="${#fields.hasErrors('senha')}? has-error">
 						<label for="senha">Senha</label> <input id="senha"
 							type="password" class="form-control" th:field="*{senha}" />
 					</div>
