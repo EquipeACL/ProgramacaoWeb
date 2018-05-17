@@ -153,6 +153,15 @@ public class TesteCaseAnais {
 		assertEquals("NovoTitulo",anais.getTitulo());
 		assertEquals(Tipo_anal.POSTER,anais.getTipo());
 		
+		for(EntityAnal a : anaisDao.buscarPorTitulo("Titulo")){
+			assertTrue(anaisDao.remover(a.getId()));
+		}
+		
+		for(EntityAutor aut : autorDao.buscarPorNome("Autor")){
+			autorDao.remover(aut.getId());
+		}
+		cidadesService.remover(cidade.getId());
+		
 	}
 		
 	

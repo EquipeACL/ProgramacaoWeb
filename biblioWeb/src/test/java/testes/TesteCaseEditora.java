@@ -45,29 +45,15 @@ public class TesteCaseEditora {
 	public void createEditora() {
 		editora.setNome("SARAAAAIVA");
 		assertTrue(editoraDAO.salvar(editora)!=null);
-		
 		editora = new Editora();
-		
-		try{
-			assertFalse(editoraDAO.salvar(editora)==null);
-			fail();
-		} catch (Exception e1){
-			editora.setNome("SARAAAAIVA");
-			try{
-				assertFalse(editoraDAO.salvar(editora)==null);
-				fail();
-			} catch (ItemDuplicadoException e2){
-				
-			}
-		}
 		
 	}
 
 	@Test
 	public void removeEditora(){
 		editora = new Editora(1,"SARAAAAIVA");
-		editoraDAO.salvar(editora);
-		
+		assertTrue(editoraDAO.salvar(editora)!=null);
+		editora = new Editora(editoraDAO.buscarPorNome("SARAAAAIVA").get(0));
 		assertTrue(editoraDAO.remover(editora.getId()));
 	}
 }

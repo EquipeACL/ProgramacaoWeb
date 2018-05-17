@@ -12,6 +12,8 @@ import br.uepb.interfaces.IFAcervo;
 import br.uepb.model.Autor;
 import br.uepb.model.Editora;
 import br.uepb.model.Tema;
+import br.uepb.model.jpaEntity.EntityAutor;
+import br.uepb.model.jpaEntity.acervo.EntityLivro;
 
 /**
  * Classe utilizada como modelo para um objeto do tipo Livro.
@@ -42,7 +44,22 @@ public class Livro extends ItemAcervo implements IFAcervo{
 	 * Método construtor da classe Livro
 	 * Construtor vazio (utilizado para criar um objeto do tipo Livro sem parametros definidos)
 	 */
-	public Livro() {		
+	public Livro(EntityLivro livro) {
+		if(livro!=null){
+			setId(livro.getId());
+			setIsbn(livro.getIsbn());
+			setTitulo(livro.getTitulo());
+			ArrayList<Autor> listaAutores = new ArrayList<>();
+			for(EntityAutor a: livro.getAutores()){
+				listaAutores.add(new Autor(a));
+			}
+			setAutores(listaAutores);
+			setEditora(new Editora(livro.getEditora()));
+			setData(livro.getAnoPublicacao());
+			setEdicao(livro.getEdicao());
+			setNumero_paginas(livro.getNumero_paginas());
+			setTema(new Tema(livro.getTema()));
+		}
 	}
 	
 	/**

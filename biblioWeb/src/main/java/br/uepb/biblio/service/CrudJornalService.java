@@ -26,7 +26,7 @@ public class CrudJornalService  {
     private EntityManager manager;
 	
 	@Transactional
-	public void salvar (Jornal jornal) {
+	public EntityJornal salvar (Jornal jornal) {
 		EntityJornal newEntity = new EntityJornal(jornal);
 		Optional <EntityJornal> jornalOptional = jornais.findByTituloIgnoreCase(newEntity.getTitulo());
 		if(jornalOptional.isPresent()){
@@ -35,11 +35,12 @@ public class CrudJornalService  {
 			throw e;
 		}
 		try{
-			jornais.save(newEntity);
-			logger.info("Jornal salvo com sucesso!");
+			return jornais.saveAndFlush(newEntity);
+		
 		}catch(Exception e){
 			logger.error("Erro ao cadastrar Jornal!",e);
 		}
+		return null;
 	}
 	
 	@Transactional

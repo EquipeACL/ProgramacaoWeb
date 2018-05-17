@@ -9,6 +9,7 @@ import br.uepb.model.Autor;
 import br.uepb.model.Cidade;
 import br.uepb.model.Orientador;
 import br.uepb.model.enums.Tipo_tcc;
+import br.uepb.model.jpaEntity.acervo.EntityTcc;
 /**
  * Essa classe utilizada como modelo para um objeto do tipo Tcc.
  * A classe contém os respectivos getters and setters de seus atributos.
@@ -31,8 +32,16 @@ public class Tcc extends ItemAcervo implements IFAcervo{
 	/**
 	 * Método construtor da classe Tcc
 	 * Construtor vazio (utilizado para criar um objeto do tipo Tcc sem parametros definidos)
+	 * @param entityTcc 
 	 */
-	public Tcc() {		
+	public Tcc(EntityTcc tcc) {	
+		setId(tcc.getId());
+		setTitulo(tcc.getTitulo());
+		setAutor(new Autor(tcc.getAutor()));
+		setOrientador(new Orientador(tcc.getOrientador()));
+		setTipo(tcc.getTipo());
+		setAno_defesa(tcc.getAno_defesa());
+		setCidade(new Cidade(tcc.getCidade()));
 	}
 	/**
 	 * Método construtor da classe Tcc (utilizado para criar um objeto do tipo Tcc com parametros definidos)
@@ -54,6 +63,8 @@ public class Tcc extends ItemAcervo implements IFAcervo{
 		setCidade(cidade);
 	}
 
+	public Tcc() {
+	}
 	public Autor getAutor() {
 		return autor;
 	}
