@@ -21,6 +21,11 @@ import br.uepb.biblio.service.CadastroAreaConhecimento;
 import br.uepb.biblio.service.exception.ItemDuplicadoException;
 import br.uepb.model.AreaConhecimento;
 
+/**
+ * Essa é a classe Controller da classe Area de Conhecimento, e é responsável por fazer a ponte entre as views referentes a esse objeto e os Models, de acordo com as solicitações realizadas nas rotas.
+ * @author EquipeACL
+ *
+ */
 @Controller
 @RequestMapping("/areasconhecimento")
 public class AreaConhecimentoController {
@@ -30,6 +35,12 @@ public class AreaConhecimentoController {
 	@Autowired
 	private AreasConhecimento repositoryAreas;
 	
+	/**
+	 * Esse método é responsável por adicionar os parâmetros que vão ser exibidos na view renderizada ao acessar a rota areasConhecimento/novo	
+	 * @param areaConhecimento, que é o objeto a ser acessado
+	 * @param busca, que é a string que serve como parâmetro para a busca de um objeto do tipo AreaConhecimento no banco de dados.
+	 * @return mv, que é um objeto ModelAndView que contém os parâmetros que foram adicionados para exibir na view.
+	 */
 	@RequestMapping("/novo")
 	public ModelAndView novo(AreaConhecimento areaConhecimento,String busca){
 		ModelAndView model = new ModelAndView("areaConhecimento/CadastroAreaConhecimento");
@@ -42,6 +53,11 @@ public class AreaConhecimentoController {
 		return model;
 	}
 	
+	/**
+	 * Esse método é responsável por adicionar os parâmetros que vão ser exibidos na view renderizada ao acessar a rota areasConhecimento/pesquisar	
+	 * @param busca, que é a string que serve como parâmetro para a busca de um objeto do tipo AreaConhecimento no banco de dados.
+	 * @return mv, que é um objeto ModelAndView que contém os parâmetros que foram adicionados para exibir na view.
+	 */
 	@RequestMapping("/pesquisar")
 	public ModelAndView pesquisar(String busca){
 		ModelAndView model = new ModelAndView("areaConhecimento/PesquisaAreaConhecimento");
@@ -54,6 +70,11 @@ public class AreaConhecimentoController {
 		return model;
 	}
 	
+	/**
+	 * Esse método é responsável por adicionar os parâmetros que vão ser exibidos na view renderizada ao acessar a rota areasConhecimento/editar	
+	 * @param id, que é o id do objeto que vai ser editado no banco de dados.
+	 * @return mv, que é um objeto ModelAndView que contém os parâmetros que foram adicionados para exibir na view.
+	 */
 	@RequestMapping("/editar")
 	public ModelAndView editar(String id){
 		ModelAndView model = new ModelAndView("areaConhecimento/CadastroAreaConhecimento");
@@ -62,6 +83,13 @@ public class AreaConhecimentoController {
 		return model;
 	}
 	
+	/**
+	 * Esse é o método que irá acessar a rota areaConhecimento/editar, porém com uma requisição do tipo POST, que servirá para alterar o objeto passado por parâmetro no banco
+	 * @param areaConhecimento, que é o objeto que será mapeado no formulário para alterar informações no banco de dados.
+	 * @param result, que serve para mapear se houve erros de preenchimento do formulário 
+	 * @param attributes, que serve para fornecer avisos na view (sucesso ou erro)
+	 * @return new ModelAndView("redirect:/areasConhecimento/novo"), que renderiza a página no endereço areasConhecimento/novo (caso haja sucesso na inserção) 
+	 */
 	@RequestMapping(value="/editar",method=RequestMethod.POST)
 	public ModelAndView editar(@Valid AreaConhecimento areaConhecimento, BindingResult result, Model model, RedirectAttributes attributes){
 		if(result.hasErrors()){
@@ -77,6 +105,13 @@ public class AreaConhecimentoController {
 		return new ModelAndView("redirect:/areasconhecimento/novo");
 	}
 	
+	/**
+	 * Esse é o método que irá acessar a rota areasConhecimento/novo, porém com uma requisição do tipo POST, que servirá para salvar o objeto passado por parâmetro no banco
+	 * @param areaConhecimento, que é o objeto que será mapeado no formulário para salvar informações no banco de dados.
+	 * @param result, que serve para mapear se houve erros de preenchimento do formulário 
+	 * @param attributes, que serve para fornecer avisos na view (sucesso ou erro)
+	 * @return new ModelAndView("redirect:/areasConhecimento/novo"), que renderiza a página no endereço areasConhecimento/novo (caso haja sucesso na inserção) 
+	 */
 	@RequestMapping(value="/novo",method=RequestMethod.POST)
 	public ModelAndView cadastrar(@Valid AreaConhecimento areaConhecimento, BindingResult result, Model model, RedirectAttributes attributes){
 		if(result.hasErrors()){
@@ -92,6 +127,12 @@ public class AreaConhecimentoController {
 		return new ModelAndView("redirect:/areasconhecimento/novo");
 	}
 	
+	/**
+	 * Esse é o método que irá acessar a rota areasConhecimento/remover, porém com uma requisição do tipo POST, que servirá para remover o objeto passado por parâmetro no banco
+	 * @param area, que é o objeto que será mapeado no formulário para remover informações no banco de dados.
+	 * @param attributes, que serve para fornecer avisos na view (sucesso ou erro)
+	 * @return ResponseEntity.ok().build(); , que é a confirmação da remoção
+	 */
 	@RequestMapping(value="/remover",method = RequestMethod.DELETE, consumes = { MediaType.APPLICATION_JSON_VALUE })
 	public @ResponseBody ResponseEntity<?> remover(@RequestBody AreaConhecimento area,RedirectAttributes attributes){
 		try {
@@ -103,6 +144,13 @@ public class AreaConhecimentoController {
 		}
 		return ResponseEntity.ok().build();
 	}
+	
+	/**
+	 * Esse método é responsável por salvar um objeto do tipo AreaConhecimento de maneira rápida, nas views que tem o objeto como parâmetro.
+	 * @param area, que é o objeto a ser salvo no banco
+	 * @param result, que serve para exibir na view se houve erro ou sucesso durante o processo de salvar
+	 * @return ResponseEntity.ok(retorno), que é a confirmação da inserção
+	 */
 	@RequestMapping(method = RequestMethod.POST, consumes = { MediaType.APPLICATION_JSON_VALUE })
 	public @ResponseBody ResponseEntity<?> salvar(@RequestBody AreaConhecimento area,BindingResult result){
 		
