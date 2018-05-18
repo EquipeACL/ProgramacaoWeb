@@ -120,7 +120,7 @@ CREATE TABLE `aluno` (
   `cpf` int(11) unsigned NOT NULL DEFAULT '0',
   `rg` int(11) unsigned NOT NULL DEFAULT '0',
   `naturalidade` varchar(45) NOT NULL,
-  `nomeCompleto` varchar(45) NOT NULL,
+  `nome` varchar(45) NOT NULL,
   `nomeMae` varchar(45) NOT NULL,
   `endereco` varchar(45) NOT NULL,
   `telefone` int(11) NOT NULL,
