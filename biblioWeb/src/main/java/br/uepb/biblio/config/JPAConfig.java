@@ -18,6 +18,11 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
 import br.uepb.biblio.repository.Autores;
 import br.uepb.model.Autor;
 
+/**
+ * Essa é a classe de configuração do JPA, responsável por estabelecer a conexão com o Banco de dados
+ * @author EquipeACL
+ *
+ */
 @Configuration
 @EnableJpaRepositories(basePackageClasses = Autores.class, enableDefaultTransactions = false)
 @EnableTransactionManagement
@@ -52,6 +57,7 @@ public class JPAConfig {
 		
 		return factory.getObject();
 	}
+	
 	@Bean
 	public PlatformTransactionManager transactionManager(EntityManagerFactory entityManagerFactory) {
 		JpaTransactionManager transactionManager = new JpaTransactionManager();

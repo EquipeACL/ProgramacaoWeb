@@ -18,11 +18,20 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
 import br.uepb.biblio.repository.Autores;
 import br.uepb.model.Autor;
 
+/**
+ * Essa é a classe de configuração para o H2, responsável por simular o banco de dados em memória para realização dos testes.
+ * @author EquipeACL
+ *
+ */
 @Configuration
 @EnableJpaRepositories(basePackageClasses = Autores.class, enableDefaultTransactions = false)
 @EnableTransactionManagement
 public class H2Config {
 
+	/**
+	 * 
+	 * @return
+	 */
 	@Bean
 	public DataSource dataSource() {
 		return new EmbeddedDatabaseBuilder().setType(EmbeddedDatabaseType.H2).build();

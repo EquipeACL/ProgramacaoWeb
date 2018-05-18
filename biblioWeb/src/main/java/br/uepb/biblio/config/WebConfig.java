@@ -30,7 +30,11 @@ import org.thymeleaf.templateresolver.ITemplateResolver;
 import br.uepb.biblio.controller.LivrosController;
 import br.uepb.model.formatter.DateToString;
 import br.uepb.model.formatter.StringToDate;
-
+/**
+ * Essa é a classe de configuração WEB, responsável por realizar as configurações na página sempre que for solicitada sua renderização.
+ * @author EquipeACL
+ *
+ */
 @Configuration
 @ComponentScan(basePackageClasses = { LivrosController.class })
 @EnableWebMvc
@@ -42,8 +46,11 @@ public class WebConfig extends WebMvcConfigurerAdapter implements ApplicationCon
 	public void setApplicationContext(ApplicationContext applicationContext) throws BeansException{
 		this.applicationContext = applicationContext;
 	}
-	
-	
+	/**
+	 * Método de configuração do Thymeleaf. Esse método especifica que a engine utilizada no front vai ser o Thymeleaf e especifica a configuração de carateres da página em UTF-8.
+	 * @return resolver, que é o objeto do tipo Thymeleaf com as configurações.
+	 */
+
 	@Bean
 	public ViewResolver viewResolver() {
 		ThymeleafViewResolver resolver = new ThymeleafViewResolver();
@@ -52,7 +59,11 @@ public class WebConfig extends WebMvcConfigurerAdapter implements ApplicationCon
 		return resolver;
 	}
 	
-	//Ele pega o templateResolver e o usa de fato
+	/**
+	 * Método de configuração do TemplateEngine. Esse método valida a utilização do TemplateResolver.
+	 * @return engine, que é o objeto do tipo TemplateEngine configurado.
+	 */
+	
 	@Bean
 	public TemplateEngine templateEngine() {
 		SpringTemplateEngine engine = new SpringTemplateEngine();
@@ -63,6 +74,10 @@ public class WebConfig extends WebMvcConfigurerAdapter implements ApplicationCon
 		return engine;
 	}
 	
+	/**
+	 * Método de configuração do TemplateResolver. Serve para resolver os templates do HTML e aplicar a extensão do arquivo configurado para .html.
+	 * @return resolver, que é o objeto do tipo TemplateResolver configurado.
+	 */
 	//resolve os templates do html e diz onde estão
 	private ITemplateResolver templateResolver() {
 		SpringResourceTemplateResolver resolver = new SpringResourceTemplateResolver();
@@ -74,6 +89,9 @@ public class WebConfig extends WebMvcConfigurerAdapter implements ApplicationCon
 		return resolver;
 	}
 	
+	/**
+	 * Método responsável por procurar todos os recursos estáticos aplicados na view no diretório especificado.
+	 */
 	@Override
 	public void addResourceHandlers(ResourceHandlerRegistry registry) {
 	//vai procurar todos os recursos estáticos aqui
@@ -81,6 +99,10 @@ public class WebConfig extends WebMvcConfigurerAdapter implements ApplicationCon
 		
 	}
 	
+	/**
+	 * Método de conversão de dados. Esse método é responsável por estabelecer máscaras para formatação de dados que serão renderizados na view.
+	 * @return conversionService, que é o objeto default do serviço de conversão com as formatações definidas.
+	 */
 	@Bean
 	public FormattingConversionService mvcConversionService() {
 		DefaultFormattingConversionService conversionService = new DefaultFormattingConversionService();
@@ -98,6 +120,11 @@ public class WebConfig extends WebMvcConfigurerAdapter implements ApplicationCon
 		return conversionService;
 	}
 	
+	/**
+	 * Método de definir região. Esse método é responsável por definir a região da linguagem que é utilizada nas views.
+	 * @return new FixedLocaleResolver(new Locale("pt","BR")); , que é o objeto da configuração da linguagem Português Brasileiro.
+	 */
+	//Define a região da linguagem utlizada nas views
 	@Bean LocaleResolver localeResolver() {
 		return new FixedLocaleResolver(new Locale("pt","BR"));
 	}
