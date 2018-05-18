@@ -20,6 +20,11 @@ import br.uepb.biblio.service.CadastroAutorService;
 import br.uepb.biblio.service.exception.ItemDuplicadoException;
 import br.uepb.model.Autor;
 
+/**
+ * Essa é a classe Controller da classe Autor, e é responsável por fazer a ponte entre as views referentes a esse objeto e os Models, de acordo com as solicitações realizadas nas rotas.
+ * @author EquipeACL
+ *
+ */
 @Controller
 @RequestMapping("/autores")
 public class AutoresController {
@@ -30,6 +35,12 @@ public class AutoresController {
 	@Autowired
 	private CadastroAutorService cadastroAutorService;
 	
+	/**
+	 * Esse método é responsável por adicionar os parâmetros que vão ser exibidos na view renderizada ao acessar a rota autores/novo	
+	 * @param autor, que é o objeto a ser acessado
+	 * @param busca, que é a string que serve como parâmetro para a busca de um objeto do tipo Autor no banco de dados.
+	 * @return mv, que é um objeto ModelAndView que contém os parâmetros que foram adicionados para exibir na view.
+	 */
 	@RequestMapping("/novo")
 	public ModelAndView novo(Autor autor,String busca) {
 		ModelAndView mv = new ModelAndView("autor/CadastroAutor");
@@ -41,6 +52,11 @@ public class AutoresController {
 		return mv;
 	}
 	
+	/**
+	 * Esse método é responsável por adicionar os parâmetros que vão ser exibidos na view renderizada ao acessar a rota autores/pesquisar	
+	 * @param busca, que é a string que serve como parâmetro para a busca de um objeto do tipo Autor no banco de dados.
+	 * @return mv, que é um objeto ModelAndView que contém os parâmetros que foram adicionados para exibir na view.
+	 */
 	@RequestMapping("/pesquisar")
 	public ModelAndView pesquisar(String busca) {
 		ModelAndView mv = new ModelAndView("autor/PesquisaAutor");
@@ -52,6 +68,13 @@ public class AutoresController {
 		return mv;
 	}	
 	
+	/**
+	 * Esse é o método que irá acessar a rota autores/novo, porém com uma requisição do tipo POST, que servirá para salvar o objeto passado por parâmetro no banco
+	 * @param autor, que é o objeto que será mapeado no formulário para salvar informações no banco de dados.
+	 * @param result, que serve para mapear se houve erros de preenchimento do formulário 
+	 * @param attributes, que serve para fornecer avisos na view (sucesso ou erro)
+	 * @return new ModelAndView("redirect:/autores/novo"), que renderiza a página no endereço autores/novo (caso haja sucesso na inserção) 
+	 */
 	@RequestMapping(value = "/novo", method = RequestMethod.POST)
 	public ModelAndView cadastrar (@Valid Autor autor, BindingResult result, Model model, RedirectAttributes attributes) {
 		if(result.hasErrors()) {
@@ -69,6 +92,12 @@ public class AutoresController {
 		return new ModelAndView("redirect:/autores/novo");
 	}
 	
+	/**
+	 * Esse método é responsável por salvar um objeto do tipo Autor de maneira rápida, nas views que tem o objeto como parâmetro.
+	 * @param autor, que é o objeto a ser salvo no banco
+	 * @param result, que serve para exibir na view se houve erro ou sucesso durante o processo de salvar
+	 * @return ResponseEntity.ok(retorno), que é a confirmação da inserção
+	 */
 	@RequestMapping(method = RequestMethod.POST, consumes = { MediaType.APPLICATION_JSON_VALUE })
 	public @ResponseBody ResponseEntity<?> salvar(@RequestBody Autor autor,BindingResult result){
 		
@@ -89,6 +118,7 @@ public class AutoresController {
 		return ResponseEntity.ok(retorno);
 	}
 
+
 	@RequestMapping("/editar")
 	public ModelAndView editar(String id) {
 		ModelAndView model = new ModelAndView("autor/CadastroAutor");
@@ -97,6 +127,13 @@ public class AutoresController {
 		return model;
 	}
 
+	/**
+	 * Esse é o método que irá acessar a rota autores/editar, porém com uma requisição do tipo POST, que servirá para alterar o objeto passado por parâmetro no banco
+	 * @param autor, que é o objeto que será mapeado no formulário para alterar informações no banco de dados.
+	 * @param result, que serve para mapear se houve erros de preenchimento do formulário 
+	 * @param attributes, que serve para fornecer avisos na view (sucesso ou erro)
+	 * @return new ModelAndView("redirect:/autores/novo"), que renderiza a página no endereço autores/novo (caso haja sucesso na inserção) 
+	 */
 	@RequestMapping(value = "/editar", method = RequestMethod.POST)
 	public ModelAndView editar(@Valid Autor autor, BindingResult result, Model model,
 			RedirectAttributes attributes) {
@@ -113,6 +150,12 @@ public class AutoresController {
 		return new ModelAndView("redirect:/autores/novo");
 	}
 
+	/**
+	 * Esse é o método que irá acessar a rota autores/remover, porém com uma requisição do tipo POST, que servirá para remover o objeto passado por parâmetro no banco
+	 * @param autor, que é o objeto que será mapeado no formulário para remover informações no banco de dados.
+	 * @param attributes, que serve para fornecer avisos na view (sucesso ou erro)
+	 * @return ResponseEntity.ok().build(); , que é a confirmação da remoção
+	 */
 	@RequestMapping(value = "/remover", method = RequestMethod.DELETE, consumes = { MediaType.APPLICATION_JSON_VALUE })
 	public @ResponseBody ResponseEntity<?> remover(@RequestBody Autor autor, RedirectAttributes attributes) {
 		try {
