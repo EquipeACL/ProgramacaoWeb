@@ -120,16 +120,16 @@ CREATE TABLE `aluno` (
   `cpf` int(11) unsigned NOT NULL DEFAULT '0',
   `rg` int(11) unsigned NOT NULL DEFAULT '0',
   `naturalidade` varchar(45) NOT NULL,
-  `nomeCompleto` varchar(45) NOT NULL,
+  `nome` varchar(45) NOT NULL,
   `nomeMae` varchar(45) NOT NULL,
   `endereco` varchar(45) NOT NULL,
   `telefone` int(11) NOT NULL,
   `email` varchar(45) NOT NULL,
   `anoIngresso` date NOT NULL,
   `periodoIngresso` int(11) NOT NULL,
-  `senha` varchar(45) NOT NULL,
+  `senha` varchar(120) NOT NULL,
   `curso_id` int(11) NOT NULL,
-  `nivel` enum('G','E','M','D','P') DEFAULT NULL,
+  `nivel` enum('GRADUACAO','ESPECIALIZACAO','MESTRADO','DOUTORADO','POSGRADUACAO') DEFAULT NULL,
   PRIMARY KEY (`id`,`curso_id`),
   KEY `fk_aluno_curso_idx` (`curso_id`),
   CONSTRAINT `fk_aluno_curso` FOREIGN KEY (`curso_id`) REFERENCES `curso` (`id`)
@@ -664,7 +664,7 @@ CREATE TABLE `usuario` (
   `endereco` VARCHAR(45) NOT NULL,
   `telefone` VARCHAR(20) NOT NULL,
   `email` varchar(45) NOT NULL,
-  `senha` varchar(45) NOT NULL,
+  `senha` varchar(120) NOT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
@@ -686,6 +686,15 @@ CREATE TABLE `usuario_has_grupo` (
   CONSTRAINT `usuario_has_grupo_ibfk_2` FOREIGN KEY (`grupo_id`) REFERENCES `grupo` (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
+CREATE TABLE `aluno_has_grupo` (
+  `aluno_id` int(11) NOT NULL AUTO_INCREMENT,
+  `grupo_id` int(11) NOT NULL,
+  PRIMARY KEY (`aluno_id`,`grupo_id`),
+  KEY `grupo_id` (`grupo_id`),
+  CONSTRAINT `aluno_has_grupo_ibfk_1` FOREIGN KEY (`aluno_id`) REFERENCES `aluno` (`id`),
+  CONSTRAINT `aluno_has_grupo_ibfk_2` FOREIGN KEY (`grupo_id`) REFERENCES `grupo` (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
 #
 # Data for table "usuario_has_grupo"
 #
@@ -693,3 +702,21 @@ CREATE TABLE `usuario_has_grupo` (
 insert into grupo (id,nome) values (1,'Administrador');
 insert into grupo (id,nome) values (2,'Funcionario');
 insert into grupo (id,nome) values (3,'Aluno');
+
+insert into usuario (id,cpf,rg,naturalidade,nome,login,endereco,telefone,email,senha) values (0,'097.035.854-77','34655','João Pessoa','Caio Lucena','caio','Rua Carlos Alberto Souza','(83) 99864-6328','caiolucena.cc@gmail.com','$2a$10$8IAlZZ5BX1huMcpp2kgrQ.pRfiWe2s1BDhH7YiKiqA8mdcsQvw24e');
+insert into usuario (id,cpf,rg,naturalidade,nome,login,endereco,telefone,email,senha) values (0,'700.640.484-89','34655','João Pessoa','Adalcino Junior','adal','Rua Campina Grande','(83) 99864-6328','adaljr@gmail.com','$2a$10$8IAlZZ5BX1huMcpp2kgrQ.pRfiWe2s1BDhH7YiKiqA8mdcsQvw24e');
+insert into usuario (id,cpf,rg,naturalidade,nome,login,endereco,telefone,email,senha) values (0,'123.040.484-89','34655','João Pessoa','Lucas Rocha','lucas','Rua Campina Grande','(83) 99864-6328','adaljr@gmail.com','$2a$10$8IAlZZ5BX1huMcpp2kgrQ.pRfiWe2s1BDhH7YiKiqA8mdcsQvw24e');
+
+insert into usuario_has_grupo values (1,1);
+insert into usuario_has_grupo values (1,2);
+
+
+insert into usuario_has_grupo values (2,1);
+insert into usuario_has_grupo values (2,2);
+
+
+insert into usuario_has_grupo values (3,1);
+insert into usuario_has_grupo values (3,2);
+
+                     
+caio	
