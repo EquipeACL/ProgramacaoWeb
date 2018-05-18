@@ -702,6 +702,20 @@ CREATE TABLE `aluno_has_grupo` (
 insert into grupo (id,nome) values (1,'Administrador');
 insert into grupo (id,nome) values (2,'Funcionario');
 insert into grupo (id,nome) values (3,'Aluno');
+
 insert into usuario (id,cpf,rg,naturalidade,nome,login,endereco,telefone,email,senha) values (0,'097.035.854-77','34655','João Pessoa','Caio Lucena','caio','Rua Carlos Alberto Souza','(83) 99864-6328','caiolucena.cc@gmail.com','$2a$10$8IAlZZ5BX1huMcpp2kgrQ.pRfiWe2s1BDhH7YiKiqA8mdcsQvw24e');
 insert into usuario (id,cpf,rg,naturalidade,nome,login,endereco,telefone,email,senha) values (0,'700.640.484-89','34655','João Pessoa','Adalcino Junior','adal','Rua Campina Grande','(83) 99864-6328','adaljr@gmail.com','$2a$10$8IAlZZ5BX1huMcpp2kgrQ.pRfiWe2s1BDhH7YiKiqA8mdcsQvw24e');
+insert into usuario (id,cpf,rg,naturalidade,nome,login,endereco,telefone,email,senha) values (0,'123.040.484-89','34655','João Pessoa','Lucas Rocha','lucas','Rua Campina Grande','(83) 99864-6328','adaljr@gmail.com','$2a$10$8IAlZZ5BX1huMcpp2kgrQ.pRfiWe2s1BDhH7YiKiqA8mdcsQvw24e');
+
+insert into usuario_has_grupo values (1,1);
+insert into usuario_has_grupo values (1,2);
+
+
+insert into usuario_has_grupo values (2,1);
+insert into usuario_has_grupo values (2,2);
+
+
+insert into usuario_has_grupo values (3,1);
+insert into usuario_has_grupo values (3,2);
+
                      
