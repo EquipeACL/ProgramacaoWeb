@@ -92,7 +92,7 @@ public class AreaConhecimentoController {
 		return new ModelAndView("redirect:/areasconhecimento/novo");
 	}
 	
-	@RequestMapping(value="/remover",method = RequestMethod.POST, consumes = { MediaType.APPLICATION_JSON_VALUE })
+	@RequestMapping(value="/remover",method = RequestMethod.DELETE, consumes = { MediaType.APPLICATION_JSON_VALUE })
 	public @ResponseBody ResponseEntity<?> remover(@RequestBody AreaConhecimento area,RedirectAttributes attributes){
 		try {
 			//vai tentar remover no banco

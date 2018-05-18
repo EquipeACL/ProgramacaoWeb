@@ -11,7 +11,6 @@ import org.springframework.beans.propertyeditors.CustomDateEditor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.validation.ObjectError;
 import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -56,9 +55,10 @@ public class EmprestimoController{
 	
 	@RequestMapping(value="/novo",method=RequestMethod.POST)
 	public ModelAndView cadastrar(@Valid Emprestimo emprestimo, BindingResult result, Model model, RedirectAttributes attributes){
+		System.out.println("Quantidade de itens: "+emprestimo.getEmprestimos().size());
 		if(result.hasErrors()){
 			if(emprestimo.getAluno().getId()==0){
-				result.addError(new ObjectError("aluno", " Selecione o aluno."));
+				result.reject("aluno","Selecione um aluno");
 			}			
 			return novo(emprestimo);
 		}		

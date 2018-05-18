@@ -58,14 +58,14 @@ public class AnaisController {
 	private Cidades cidadesRepository;
 	
 	@RequestMapping("/novo")
-	public ModelAndView novo(Anal anal,String busca) {
+	public ModelAndView novo(Anal anal,String busca,String filtro) {
 		ModelAndView mv = new ModelAndView("anais/CadastroAnais");
 		mv.addObject("tipos", Tipo_anal.values());
 		mv.addObject("autores",autoresRepository.findAll());
 		mv.addObject("cidades",cidadesRepository.findAll());
 		mv.addObject("estados",estadosRepository.findAll());
 		if(busca!=null){
-			mv.addObject("listaAnais",anaisService.buscarPorTitulo(busca));
+			mv.addObject("listaAnais",anaisService.buscarPorTitulo(busca));			
 		}else{
 			mv.addObject("listaAnais",anaisRepository.findAll());
 		}
@@ -73,7 +73,7 @@ public class AnaisController {
 	}
 	
 	@RequestMapping("/pesquisar")
-	public ModelAndView pesquisar(String busca) {
+	public ModelAndView pesquisar(String busca, String filtro) {
 		ModelAndView mv = new ModelAndView("anais/PesquisaAnais");
 		if(busca!=null){
 			mv.addObject("listaAnais",anaisService.buscarPorTitulo(busca));
@@ -98,7 +98,7 @@ public class AnaisController {
 	@RequestMapping(value="/novo",method = RequestMethod.POST)
 	public ModelAndView cadastrar(@Valid Anal anal, BindingResult result, Model model, RedirectAttributes attributes) {
 		if(result.hasErrors()) {
-			return novo(anal,null);
+			return novo(anal,null,null);
 		}
 		//Criando uma lista com os autores
 		ArrayList<Autor> listaAutores = new ArrayList<Autor>();
@@ -111,7 +111,7 @@ public class AnaisController {
 			anaisService.salvar(anal);
 		} catch (ItemDuplicadoException e) {
 			result.rejectValue("titulo", e.getMessage(),e.getMessage());
-			return (novo(anal,null));
+			return (novo(anal,null,null));
 		}
 		
 		attributes.addFlashAttribute("mensagem", "Anal salvo com sucesso!");
@@ -121,7 +121,7 @@ public class AnaisController {
 	@RequestMapping(value="/editar",method = RequestMethod.POST)
 	public ModelAndView atualizar(@Valid Anal anal, BindingResult result, Model model, RedirectAttributes attributes) {
 		if(result.hasErrors()) {
-			return novo(anal,null);
+			return novo(anal,null,null);
 		}
 		//Criando uma lista com os autores
 		ArrayList<Autor> listaAutores = new ArrayList<Autor>();
@@ -134,14 +134,14 @@ public class AnaisController {
 			anaisService.atualizar(anal);
 		} catch (Exception e) {
 			result.rejectValue("titulo", e.getMessage(),e.getMessage());
-			return (novo(anal,null));
+			return (novo(anal,null,null));
 		}
 		
 		attributes.addFlashAttribute("mensagem", "Anal atualizado com sucesso!");
 		return new ModelAndView("redirect:/anais/novo");
 	}
 	
-	@RequestMapping(value="/remover",method = RequestMethod.POST, consumes = { MediaType.APPLICATION_JSON_VALUE })
+	@RequestMapping(value="/remover",method = RequestMethod.DELETE, consumes = { MediaType.APPLICATION_JSON_VALUE })
 	public @ResponseBody ResponseEntity<?> remover(@RequestBody Anal anal,RedirectAttributes attributes){
 		try {
 			//vai tentar remover no banco

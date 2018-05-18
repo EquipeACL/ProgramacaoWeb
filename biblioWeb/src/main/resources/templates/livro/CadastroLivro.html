@@ -48,7 +48,7 @@
 					<div class="form-group col-sm-4">
 						<label class="control-label" for = "area">Nome da Área de Conhecimento</label>
 						<div class="bw-field-action">
-							<select onChange="selecionouArea(this.value)" class="form-control" id = "area">
+							<select th:onChange="|selecionouArea(this.value,'@{/temas/buscar}')|" class="form-control" id = "area">
 								<option value="0">Selecione a Área</option>
 								<option th:each="areaConhecimento : ${areas}" th:value="${areaConhecimento.id}"
 									th:text="${areaConhecimento.nome}"></option>

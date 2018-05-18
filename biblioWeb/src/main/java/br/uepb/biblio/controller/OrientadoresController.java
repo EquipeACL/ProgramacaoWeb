@@ -78,6 +78,7 @@ public class OrientadoresController {
 		ModelAndView model = new ModelAndView("orientador/CadastroOrientador");
 		model.addObject("orientador",orientadoresRepository.findOne(Integer.parseInt(id)));
 		model.addObject("listaOrientador",orientadoresRepository.findAll());
+		model.addObject("formacoes", Tipo_nivel.values());
 		return model;
 	}
 	
@@ -92,11 +93,11 @@ public class OrientadoresController {
 			result.rejectValue("nome", e.getMessage(),e.getMessage());
 			return (novo(orientador,null));
 		}
-		attributes.addFlashAttribute("mensagem", "Area de Conhecimento atualizada com sucesso!");
-		return new ModelAndView("redirect:/areasconhecimento/novo");
+		attributes.addFlashAttribute("mensagem", " Orientador atualizado com sucesso!");
+		return new ModelAndView("redirect:/orientadores/novo");
 	}
 	
-	@RequestMapping(value="/remover",method = RequestMethod.POST, consumes = { MediaType.APPLICATION_JSON_VALUE })
+	@RequestMapping(value="/remover",method = RequestMethod.DELETE, consumes = { MediaType.APPLICATION_JSON_VALUE })
 	public @ResponseBody ResponseEntity<?> remover(@RequestBody Orientador orientador,RedirectAttributes attributes){
 		try {
 			//vai tentar remover no banco

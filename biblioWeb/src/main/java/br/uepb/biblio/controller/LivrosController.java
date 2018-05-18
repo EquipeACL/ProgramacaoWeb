@@ -35,6 +35,7 @@ import br.uepb.model.acervo.Livro;
 import br.uepb.model.jpaEntity.acervo.EntityLivro;
 
 @Controller
+@RequestMapping("/livros")
 public class LivrosController {
 
 	@Autowired
@@ -56,7 +57,7 @@ public class LivrosController {
 	private CrudLivroService livrosService;
 
 	
-	@RequestMapping("/livros/novo")
+	@RequestMapping("/novo")
 	public ModelAndView novo(Livro livro,String busca) {
 		ModelAndView mv = new ModelAndView("livro/CadastroLivro");
 		mv.addObject("editoras", editoras.findAll());
@@ -72,7 +73,7 @@ public class LivrosController {
 		return mv;
 	}
 	
-	@RequestMapping("/livros/pesquisar")
+	@RequestMapping("/pesquisar")
 	public ModelAndView pesquisar(String busca) {
 		ModelAndView mv = new ModelAndView("livro/PesquisaLivro");
 		if(busca!=null){
@@ -83,7 +84,7 @@ public class LivrosController {
 		return mv;
 	}
 	
-	@RequestMapping("/livros/editar")
+	@RequestMapping("/editar")
 	public ModelAndView editar(String id) {
 		ModelAndView mv = new ModelAndView("livro/CadastroLivro");
 		mv.addObject("livro", livros.findOne(Integer.parseInt(id)));
@@ -96,7 +97,7 @@ public class LivrosController {
 		return mv;
 	}
 	
-	@RequestMapping(value = "/livros/novo", method = RequestMethod.POST)
+	@RequestMapping(value = "/novo", method = RequestMethod.POST)
 	public ModelAndView cadastrar (@Valid Livro livro, BindingResult result, Model model, RedirectAttributes attributes) {
 		if(result.hasErrors()) {
 			return novo(livro,null);
@@ -120,7 +121,7 @@ public class LivrosController {
 		return new ModelAndView("redirect:/livros/novo");
 	}
 	
-	@RequestMapping(value = "/livros/editar", method = RequestMethod.POST)
+	@RequestMapping(value = "/editar", method = RequestMethod.POST)
 	public ModelAndView atualizar (@Valid Livro livro, BindingResult result, Model model, RedirectAttributes attributes) {
 		if(result.hasErrors()) {
 			return novo(livro,null);
@@ -144,7 +145,7 @@ public class LivrosController {
 		return new ModelAndView("redirect:/livros/novo");
 	}
 	
-	@RequestMapping(value="/livros/remover",method = RequestMethod.POST, consumes = { MediaType.APPLICATION_JSON_VALUE })
+	@RequestMapping(value="/remover",method = RequestMethod.DELETE, consumes = { MediaType.APPLICATION_JSON_VALUE })
 	public @ResponseBody ResponseEntity<?> remover(@RequestBody Livro livro,RedirectAttributes attributes){
 		try {
 			//vai tentar remover no banco
@@ -156,7 +157,7 @@ public class LivrosController {
 		return ResponseEntity.ok().build();
 	}
 	
-	@RequestMapping(value="/livros/buscarAll",method = RequestMethod.POST, consumes = { MediaType.APPLICATION_JSON_VALUE })
+	@RequestMapping(value="/buscarAll",method = RequestMethod.POST, consumes = { MediaType.APPLICATION_JSON_VALUE })
 	public @ResponseBody ResponseEntity<?> buscarAll(){
 		
 		List<EntityLivro> retorno = livros.findAll();

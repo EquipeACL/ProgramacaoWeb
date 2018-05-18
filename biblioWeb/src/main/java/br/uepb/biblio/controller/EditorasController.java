@@ -93,7 +93,7 @@ public class EditorasController {
 		return new ModelAndView("redirect:/editoras/novo");
 	}
 	
-	@RequestMapping(value="/remover",method = RequestMethod.POST, consumes = { MediaType.APPLICATION_JSON_VALUE })
+	@RequestMapping(value="/remover",method = RequestMethod.DELETE, consumes = { MediaType.APPLICATION_JSON_VALUE })
 	public @ResponseBody ResponseEntity<?> remover(@RequestBody Editora editora){
 		try {
 			//vai tentar remover no banco

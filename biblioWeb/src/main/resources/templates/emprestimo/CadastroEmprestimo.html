@@ -30,9 +30,9 @@
 				<div class="row">
 					
 					<div class="form-group col-sm-3" th:classappend="${#fields.hasErrors('aluno')}? has-error">
-						<label for="autor" class="control-label">Aluno</label>
+						<label for="aluno" class="control-label">Aluno</label>
 						<div class="bw-field-action">
-							<select id="autor" class="form-control" th:field="*{aluno.id}" autofocus="autofocus">
+							<select id="aluno" class="form-control" th:field="*{aluno.id}" autofocus="autofocus">
 								<option value="0">Selecione o Aluno</option>
 								<option th:each="aluno : ${alunos}" th:value="${aluno.id}" th:text="${aluno.nome}"> Aluno 1</option>
 							</select>
@@ -55,8 +55,10 @@
 				<div class="row">
 					<div class="form-group col-sm-12">
 						<label for="autor" class="control-label">Iten(s)</label>
-						<div class="content-fluid" id="itensSelecionados">
-							
+						<div class="content-fluid">
+							<ul id="itensSelecionados" name="itensSelecionados"th:field="*{emprestimos}" >
+								
+							</ul>							
 						</div>
 					</div>
 				</div>

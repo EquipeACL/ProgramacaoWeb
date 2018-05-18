@@ -215,8 +215,9 @@ function selecionouMidias(){
 
 function adicionarItem(){
 	var combobox =$('#comboItens');
+	var index = document.getElementById('comboItens').selectedIndex;
 	var itens = $('#itensSelecionados');
-	itens.append('<div class="item-selecionado col-sm-auto"><button type="button" class="close" data-dismiss="alert"><span aria-hidden="true">&times;</span></button><span>'+tipoDeItem+': '+combobox['0'][combobox.val()].label+'</span></div>');
+	itens.append('<li class="item-selecionado col-sm-auto"><button type="button" class="close" data-dismiss="alert"><span aria-hidden="true">&times;</span></button><span>'+tipoDeItem+': '+combobox['0'][index].label+'</span></li>');
 	
 	
 }

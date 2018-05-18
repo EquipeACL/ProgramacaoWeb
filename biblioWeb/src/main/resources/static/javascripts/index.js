@@ -1,6 +1,6 @@
-function selecionouEstado(sigla){
+function selecionouEstado(sigla,url){
 	$.ajax({
-		url:'http://localhost:8080/biblioWeb/cidades',
+		url:url,
 		method:'POST',
 		contentType:'application/json',
 		data: JSON.stringify({sigla:sigla}),
@@ -22,9 +22,9 @@ function selecionouEstado(sigla){
 	}
 	
 }
-function selecionouArea(area){
+function selecionouArea(area,url){
 	$.ajax({
-		url:'http://localhost:8080/biblioWeb/temas/buscar',
+		url:url,
 		method:'POST',
 		contentType:'application/json',
 		data: JSON.stringify({id:area}),

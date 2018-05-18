@@ -12,7 +12,7 @@ $(function() {
 		var url = urlRemover.val();
 		$.ajax({
 			url:url,
-			method:'POST',
+			method:'DELETE',
 			contentType:'application/json',
 			data: JSON.stringify({id:id}),
 			error:erroRemover,

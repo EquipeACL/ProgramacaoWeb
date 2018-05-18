@@ -14,6 +14,7 @@ import org.springframework.transaction.annotation.Transactional;
 import br.uepb.biblio.repository.Anais;
 import br.uepb.biblio.service.exception.ItemDuplicadoException;
 import br.uepb.model.acervo.Anal;
+import br.uepb.model.jpaEntity.EntityAutor;
 import br.uepb.model.jpaEntity.acervo.EntityAnal;
 
 @Service
