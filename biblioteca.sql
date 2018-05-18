@@ -117,8 +117,8 @@ CREATE TABLE `curso` (
 CREATE TABLE `aluno` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `matricula` varchar(45) NOT NULL,
-  `cpf` varchar(15) unsigned NOT NULL DEFAULT '0',
-  `rg` varchar(15) unsigned NOT NULL DEFAULT '0',
+  `cpf` varchar(15) NOT NULL DEFAULT '0',
+  `rg` varchar(15) NOT NULL DEFAULT '0',
   `naturalidade` varchar(45) NOT NULL,
   `nome` varchar(45) NOT NULL,
   `nomeMae` varchar(45) NOT NULL,
@@ -717,6 +717,3 @@ insert into usuario_has_grupo values (2,2);
 
 insert into usuario_has_grupo values (3,1);
 insert into usuario_has_grupo values (3,2);
-
-                     
-caio	
