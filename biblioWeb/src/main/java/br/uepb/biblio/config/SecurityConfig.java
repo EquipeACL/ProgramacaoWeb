@@ -32,12 +32,58 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 	protected void configure(HttpSecurity http) throws Exception {
 		http
 			.authorizeRequests()
+			.antMatchers("/usuarios/novo").hasRole("CADASTRAR_USUARIO")
+			.antMatchers("/alunos/novo").hasRole("CADASTRAR_ALUNO")
+			.antMatchers("/tccs/novo").hasRole("CADASTRAR_ACERVO")
+			.antMatchers("/Autores/novo").hasRole("CADASTRAR_ACERVO")
+			.antMatchers("/areasconhecimento/novo").hasRole("CADASTRAR_ACERVO")
+			.antMatchers("/anais/novo").hasRole("CADASTRAR_ACERVO")
+			.antMatchers("/curso/novo").hasRole("CADASTRAR_ACERVO")
+			.antMatchers("/livros/novo").hasRole("CADASTRAR_ACERVO")
+			.antMatchers("/jornais/novo").hasRole("CADASTRAR_ACERVO")
+			.antMatchers("/editoras/novo").hasRole("CADASTRAR_ACERVO")
+			.antMatchers("/revistas/novo").hasRole("CADASTRAR_ACERVO")
+			.antMatchers("/editoras/novo").hasRole("CADASTRAR_ACERVO")
+			.antMatchers("/orientadores/novo").hasRole("CADASTRAR_ACERVO")
+			
+			.antMatchers("/usuarios/editar").hasRole("EDITAR_USUARIO")
+			.antMatchers("/alunos/editar").hasRole("EDITAR_ALUNO")
+			.antMatchers("/tccs/editar").hasRole("EDITAR_ACERVO")
+			.antMatchers("/Autores/editar").hasRole("EDITAR_ACERVO")
+			.antMatchers("/areasconhecimento/editar").hasRole("EDITAR_ACERVO")
+			.antMatchers("/anais/editar").hasRole("EDITAR_ACERVO")
+			.antMatchers("/curso/editar").hasRole("EDITAR_ACERVO")
+			.antMatchers("/livros/editar").hasRole("EDITAR_ACERVO")
+			.antMatchers("/jornais/editar").hasRole("EDITAR_ACERVO")
+			.antMatchers("/editoras/editar").hasRole("EDITAR_ACERVO")
+			.antMatchers("/revistas/editar").hasRole("EDITAR_ACERVO")
+			.antMatchers("/editoras/editar").hasRole("EDITAR_ACERVO")
+			.antMatchers("/orientadores/editar").hasRole("EDITAR_ACERVO")
+			
+			.antMatchers("/usuarios/remover").hasRole("DELETAR_USUARIO")
+			.antMatchers("/alunos/remover").hasRole("DELETAR_ALUNO")
+			.antMatchers("/tccs/remover").hasRole("DELETAR_ACERVO")
+			.antMatchers("/Autores/remover").hasRole("DELETAR_ACERVO")
+			.antMatchers("/areasconhecimento/remover").hasRole("DELETAR_ACERVO")
+			.antMatchers("/anais/remover").hasRole("DELETAR_ACERVO")
+			.antMatchers("/curso/remover").hasRole("DELETAR_ACERVO")
+			.antMatchers("/livros/remover").hasRole("DELETAR_ACERVO")
+			.antMatchers("/jornais/remover").hasRole("DELETAR_ACERVO")
+			.antMatchers("/editoras/remover").hasRole("DELETAR_ACERVO")
+			.antMatchers("/revistas/remover").hasRole("DELETAR_ACERVO")
+			.antMatchers("/editoras/remover").hasRole("DELETAR_ACERVO")
+			.antMatchers("/orientadores/remover").hasRole("DELETAR_ACERVO")			
+			
+			
 			.anyRequest().authenticated()
+			
 			.and()
 			.formLogin()
 				.loginPage("/login")
 				.permitAll()
 				.and()
+			.exceptionHandling().accessDeniedPage("/403")
+			.and()
 			.csrf().disable(); 
 		
 		

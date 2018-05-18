@@ -72,7 +72,7 @@ public abstract class EntityUsuario {
 
 	@Size(min=1,message = "Selecione pelo menos um grupo")
 	@ManyToMany
-	@JoinTable(name = "usuario_has_grupo",joinColumns = @JoinColumn(name = "usuario_id")
+	@JoinTable(name = "aluno_has_grupo",joinColumns = @JoinColumn(name = "aluno_id")
 												, inverseJoinColumns = @JoinColumn(name = "grupo_id"))
 	private List <Grupo> grupos;
 	

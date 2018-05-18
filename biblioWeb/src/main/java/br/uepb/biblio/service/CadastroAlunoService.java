@@ -51,4 +51,10 @@ public class CadastroAlunoService {
 	public List<Aluno> buscarPorNome (String busca) {
 		return manager.createQuery("select a from Aluno a where a.nome like '%"+busca+"%'",Aluno.class).getResultList();
 	}
+
+	public List<String> permissoes(EntityAluno aluno) {
+		return manager.createQuery("select distinct p.nome from EntityAluno a inner join a.grupos g inner join g.permissoes p where a = :aluno",String.class)
+				.setParameter("aluno", aluno)
+				.getResultList();
+	}
 }

@@ -60,4 +60,11 @@ public class CadastroFuncionarioService {
 		return manager.createQuery("select a from Funcionario a where a.nome like '%"+busca+"%'",Funcionario.class).getResultList();
 	}
 	
+	@Transactional
+	public List <String> permissoes(Funcionario funcionario){
+		return manager.createQuery("select distinct p.nome from Funcionario u inner join u.grupos g inner join g.permissoes p where u = :funcionario",String.class)
+				.setParameter("funcionario", funcionario)
+				.getResultList();
+	}
+	
 }
