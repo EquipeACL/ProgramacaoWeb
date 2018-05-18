@@ -11,5 +11,6 @@ import br.uepb.model.usuarios.Funcionario;
 public interface Funcionarios extends JpaRepository<Funcionario,Integer> {
 	
 	public Optional<Funcionario> findByNomeIgnoreCase(String nome);
+	public Optional<Funcionario> findByLoginIgnoreCase(String login);
 }
 

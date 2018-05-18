@@ -3,8 +3,6 @@ package br.uepb.biblio.config;
 import java.math.BigDecimal;
 import java.util.Locale;
 
-import nz.net.ultraq.thymeleaf.LayoutDialect;
-
 import org.springframework.beans.BeansException;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.ApplicationContextAware;
@@ -29,7 +27,9 @@ import org.thymeleaf.templateresolver.ITemplateResolver;
 
 import br.uepb.biblio.controller.LivrosController;
 import br.uepb.model.formatter.DateToString;
+import br.uepb.model.formatter.GrupoConverter;
 import br.uepb.model.formatter.StringToDate;
+import nz.net.ultraq.thymeleaf.LayoutDialect;
 /**
  * Essa é a classe de configuração WEB, responsável por realizar as configurações na página sempre que for solicitada sua renderização.
  * @author EquipeACL
@@ -116,6 +116,8 @@ public class WebConfig extends WebMvcConfigurerAdapter implements ApplicationCon
 		conversionService.addConverter(new StringToDate());
 		
 		conversionService.addConverter(new DateToString());
+		
+		conversionService.addConverter(new GrupoConverter());
 		
 		return conversionService;
 	}

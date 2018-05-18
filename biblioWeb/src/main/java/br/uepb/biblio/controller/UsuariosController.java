@@ -12,8 +12,11 @@ import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import br.uepb.biblio.repository.Funcionarios;
+import br.uepb.biblio.repository.Grupos;
 import br.uepb.biblio.service.CadastroFuncionarioService;
+import br.uepb.biblio.service.CadastroGrupoService;
 import br.uepb.biblio.service.exception.ItemDuplicadoException;
+import br.uepb.biblio.service.exception.LoginDuplicadoException;
 import br.uepb.model.usuarios.Funcionario;
 
 @Controller
@@ -21,14 +24,21 @@ import br.uepb.model.usuarios.Funcionario;
 public class UsuariosController {
 
 	@Autowired
-	CadastroFuncionarioService cadastroFuncionarioService;
+	private CadastroFuncionarioService cadastroFuncionarioService;
 	
 	@Autowired
-	Funcionarios funcionarios;
+	private CadastroGrupoService cadastroGrupoService;
 	
+	@Autowired
+	private Funcionarios funcionarios;
+	
+	@Autowired
+	private Grupos grupos;
 	@RequestMapping("/novo")
 	public ModelAndView novo(Funcionario funcionario) { 
 		ModelAndView mv = new ModelAndView("usuario/CadastroUsuario");
+		mv.addObject("grupos",cadastroGrupoService.buscaGrupos());
+		
 		return mv;
 		
 	}
@@ -45,6 +55,13 @@ public class UsuariosController {
 			result.rejectValue("nome", e.getMessage(),e.getMessage());
 			return (novo(funcionario));
 		}
+		catch(LoginDuplicadoException e) {
+			result.rejectValue("login", e.getMessage(),e.getMessage());
+			return (novo(funcionario));
+		}
+//		catch(SenhaObrigatoriaUsuarioException e){
+//			result.rejectValue("senha", e.getMessage(),e.getMessage());
+//		}
 		attributes.addFlashAttribute("mensagem", "Funcionário salvo com sucesso!");
 		
 		return new ModelAndView("redirect:/usuarios/novo");

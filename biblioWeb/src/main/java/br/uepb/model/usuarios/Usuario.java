@@ -71,13 +71,14 @@ public class Usuario implements Serializable {
 	@NotBlank(message = " O email é obrigatório")
 	protected String email;
 	
-	@NotBlank(message = " A senha é obrigatória")
+	 @NotBlank(message = " A senha é obrigatória")
 	protected String senha;
 	
 	@Transient
 	protected String confirmacaoSenha;
 	
 	//@NotNull(message = "Selecione pelo menos um grupo")
+	@Size(min=1,message = "Selecione pelo menos um grupo")
 	@ManyToMany
 	@JoinTable(name = "usuario_has_grupo",joinColumns = @JoinColumn(name = "usuario_id")
 												, inverseJoinColumns = @JoinColumn(name = "grupo_id"))
@@ -221,5 +222,8 @@ public class Usuario implements Serializable {
 		this.grupos = grupos;
 	}
 	
+	public boolean isNovo() {
+		return (Integer) id == null;
+	}
 	
 }

@@ -52,6 +52,7 @@
 
 		<version.commons-io>2.4</version.commons-io>
 
+		<spring-security-web.version>4.1.1.RELEASE</spring-security-web.version>
 	</properties>
 
 	<build>
@@ -264,7 +265,7 @@
 			<artifactId>javax.el-api</artifactId>
 			<version>3.0.0</version>
 		</dependency>
-		
+
 		<dependency>
 			<groupId>commons-io</groupId>
 			<artifactId>commons-io</artifactId>
@@ -277,7 +278,7 @@
 			<version>1.9.3</version>
 			<scope>compile</scope>
 		</dependency>
-		
+
 		<!-- TESTES CONTROLLER -->
 
 		<dependency>
@@ -319,41 +320,47 @@
 		<dependency>
 			<groupId>org.springframework</groupId>
 			<artifactId>spring-test</artifactId>
-			<version>3.2.3.RELEASE</version>
 			<scope>test</scope>
 		</dependency>
 
 		<!-- GERACAO DE RELATORIO -->
-	
+
 		<dependency>
 			<groupId>org.apache.poi</groupId>
 			<artifactId>poi</artifactId>
 			<version>3.10-FINAL</version>
 		</dependency>
-	
+
 		<dependency>
 			<groupId>net.sourceforge.barbecue</groupId>
 			<artifactId>barbecue</artifactId>
 			<version>1.5-beta1</version>
 		</dependency>
-	
+
 		<dependency>
 			<groupId>net.sf.jasperreports</groupId>
 			<artifactId>jasperreports</artifactId>
 			<version>5.0.1</version>
 		</dependency>
-	
-	
+
+
 		<dependency>
 			<groupId>net.sf.jasperreports</groupId>
 			<artifactId>jasperreports-fonts</artifactId>
 			<version>4.0.0</version>
 		</dependency>
-	
+
 		<dependency>
 			<groupId>xerces</groupId>
 			<artifactId>xercesImpl</artifactId>
 			<version>2.10.0</version>
+		</dependency>
+
+		<dependency>
+			<groupId>org.springframework.security</groupId>
+			<artifactId>spring-security-web</artifactId>
+			<version>${spring-security-web.version}</version>
+			<scope>compile</scope>
 		</dependency>
 	</dependencies>
 

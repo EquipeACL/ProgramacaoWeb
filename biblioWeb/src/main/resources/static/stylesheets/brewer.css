@@ -43,7 +43,22 @@
 
 }
 
+.bw-required > .control-label:after {
+	content: "*";
+}
+
 .item-selecionado span{
 	color:#ddd;
 }
 
+/*
+###################
+#Customização de componentes
+########################
+*/
+
+.checkbox input[type="checkbox"]:checked + input + label::after {
+    font-family: 'FontAwesome';
+    content: "\f00c";
+     
+}
