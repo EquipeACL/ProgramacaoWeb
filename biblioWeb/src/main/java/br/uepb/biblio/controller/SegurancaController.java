@@ -12,7 +12,7 @@ public class SegurancaController {
 	@GetMapping("/login")
 	public String login(@AuthenticationPrincipal User user){
 		if(user!= null) {
-			return "redirect:/tccs/novo";
+			return "redirect:/index";
 		}
 		return "Login";
 	}
@@ -21,5 +21,12 @@ public class SegurancaController {
 	public String acessoNegado() {
 		return "403";
 	}
+	
+	@GetMapping("/index")
+	
+	public String paginaInicial() {
+		return "index";
+	}
+	
 	
 }
