@@ -1,4 +1,5 @@
-﻿DROP DATABASE `biblioteca`;
+﻿
+DROP DATABASE `biblioteca`;
 CREATE DATABASE `biblioteca`;
 
 USE `biblioteca`;
@@ -718,20 +719,21 @@ insert into usuario_has_grupo values (2,2);
 insert into usuario_has_grupo values (3,1);
 insert into usuario_has_grupo values (3,2);
 
-use biblioteca;
 insert into permissao values(1,'CADASTRAR_USUARIO');
 insert into permissao values(2,'CADASTRAR_ALUNO');
 insert into permissao values(3,'CADASTRAR_ACERVO');
 
 insert into permissao values(4,'DELETAR_USUARIO');
 insert into permissao values(5,'DELETAR_ACERVO');
+insert into permissao values (6,'DELETAR_ALUNO');
 
-insert into permissao values(6,'PESQUISAR_USUARIO');
-insert into permissao values(7,'PESQUISAR_ACERVO');
+insert into permissao values(7,'PESQUISAR_USUARIO');
+insert into permissao values(8,'PESQUISAR_ACERVO');
+insert into permissao values (9,'PESQUISAR_ALUNO');
 
-insert into permissao values(8,'EDITAR_USUARIO');
-insert into permissao values(9,'EDITAR_ACERVO');
-
+insert into permissao values(10,'EDITAR_USUARIO');
+insert into permissao values(11,'EDITAR_ACERVO');
+insert into permissao values (12,'EDITAR_ALUNO');
 #permissões do admin
 INSERT into grupo_has_permissao values(1,1);
 INSERT into grupo_has_permissao values(1,2);
@@ -742,18 +744,22 @@ INSERT into grupo_has_permissao values(1,6);
 INSERT into grupo_has_permissao values(1,7);
 INSERT into grupo_has_permissao values(1,8);
 INSERT into grupo_has_permissao values(1,9);
+INSERT into grupo_has_permissao values(1,10);
+INSERT into grupo_has_permissao values(1,11);
+INSERT into grupo_has_permissao values(1,12);
 
 #permissões do Funcionario
 
 INSERT into grupo_has_permissao values(2,2);
 INSERT into grupo_has_permissao values(2,3);
-INSERT into grupo_has_permissao values(2,4);
+
 INSERT into grupo_has_permissao values(2,5);
 INSERT into grupo_has_permissao values(2,6);
 INSERT into grupo_has_permissao values(2,7);
 INSERT into grupo_has_permissao values(2,8);
 INSERT into grupo_has_permissao values(2,9);
-
+INSERT into grupo_has_permissao values(2,11);
+INSERT into grupo_has_permissao values(2,12);
 
 #permissões do aluno
 INSERT into grupo_has_permissao values(3,6);
