@@ -118,7 +118,11 @@ public class AutoresController {
 		return ResponseEntity.ok(retorno);
 	}
 
-
+	/**
+	 * Esse método é responsável por adicionar os parâmetros que vão ser exibidos na view renderizada ao acessar a rota autores/editar	
+	 * @param id, que é o id do objeto que vai ser editado no banco de dados.
+	 * @return model, que é um objeto ModelAndView que contém os parâmetros que foram adicionados para exibir na view.
+	 */
 	@RequestMapping("/editar")
 	public ModelAndView editar(String id) {
 		ModelAndView model = new ModelAndView("autor/CadastroAutor");
