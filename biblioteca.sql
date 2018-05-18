@@ -127,8 +127,7 @@ CREATE TABLE `aluno` (
   `email` varchar(45) NOT NULL,
   `anoIngresso` date NOT NULL,
   `periodoIngresso` int(11) NOT NULL,
-  `
-  ` varchar(45) NOT NULL,
+  `senha` varchar(120) NOT NULL,
   `curso_id` int(11) NOT NULL,
   `nivel` enum('G','E','M','D','P') DEFAULT NULL,
   PRIMARY KEY (`id`,`curso_id`),
@@ -685,6 +684,15 @@ CREATE TABLE `usuario_has_grupo` (
   KEY `grupo_id` (`grupo_id`),
   CONSTRAINT `usuario_has_grupo_ibfk_1` FOREIGN KEY (`usuario_id`) REFERENCES `usuario` (`id`),
   CONSTRAINT `usuario_has_grupo_ibfk_2` FOREIGN KEY (`grupo_id`) REFERENCES `grupo` (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+CREATE TABLE `aluno_has_grupo` (
+  `aluno_id` int(11) NOT NULL AUTO_INCREMENT,
+  `grupo_id` int(11) NOT NULL,
+  PRIMARY KEY (`aluno_id`,`grupo_id`),
+  KEY `grupo_id` (`grupo_id`),
+  CONSTRAINT `aluno_has_grupo_ibfk_1` FOREIGN KEY (`aluno_id`) REFERENCES `aluno` (`id`),
+  CONSTRAINT `aluno_has_grupo_ibfk_2` FOREIGN KEY (`grupo_id`) REFERENCES `grupo` (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 #
