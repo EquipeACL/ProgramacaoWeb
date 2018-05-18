@@ -690,4 +690,6 @@ CREATE TABLE `usuario_has_grupo` (
 # Data for table "usuario_has_grupo"
 #
 
-
+insert into grupo (id,nome) values (1,'Administrador');
+insert into grupo (id,nome) values (2,'Funcionario');
+insert into grupo (id,nome) values (3,'Aluno');
