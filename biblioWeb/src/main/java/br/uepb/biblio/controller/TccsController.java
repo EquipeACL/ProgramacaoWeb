@@ -2,6 +2,7 @@ package br.uepb.biblio.controller;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.List;
 
 import javax.validation.Valid;
 
@@ -31,6 +32,7 @@ import br.uepb.biblio.service.exception.ItemDuplicadoException;
 import br.uepb.model.acervo.Tcc;
 import br.uepb.model.enums.Tipo_nivel;
 import br.uepb.model.enums.Tipo_tcc;
+import br.uepb.model.jpaEntity.acervo.EntityTcc;
 
 @Controller
 @RequestMapping("/tccs")
@@ -151,6 +153,14 @@ public class TccsController {
 		attributes.addFlashAttribute("mensagem", "Tcc atualizado com sucesso!");
 		return new ModelAndView("redirect:/tccs/novo");
 	}
+	
+	@RequestMapping(value="/buscarAll",method = RequestMethod.POST, consumes = { MediaType.APPLICATION_JSON_VALUE })
+	public @ResponseBody ResponseEntity<?> buscarAll(){
+		
+		List<EntityTcc> retorno = tccsRepository.findAll();
+		
+		return ResponseEntity.ok(retorno);
+	} 
 	
 	@InitBinder
 	public void initBinder(WebDataBinder binder) {

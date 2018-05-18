@@ -3,6 +3,7 @@ package br.uepb.biblio.controller;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 import javax.validation.Valid;
 
@@ -31,6 +32,7 @@ import br.uepb.biblio.service.CrudLivroService;
 import br.uepb.biblio.service.exception.ItemDuplicadoException;
 import br.uepb.model.Autor;
 import br.uepb.model.acervo.Livro;
+import br.uepb.model.jpaEntity.acervo.EntityLivro;
 
 @Controller
 public class LivrosController {
@@ -153,6 +155,14 @@ public class LivrosController {
 		}
 		return ResponseEntity.ok().build();
 	}
+	
+	@RequestMapping(value="/livros/buscarAll",method = RequestMethod.POST, consumes = { MediaType.APPLICATION_JSON_VALUE })
+	public @ResponseBody ResponseEntity<?> buscarAll(){
+		
+		List<EntityLivro> retorno = livros.findAll();
+		
+		return ResponseEntity.ok(retorno);
+	} 
 	
 	@InitBinder
 	public void initBinder(WebDataBinder binder) {

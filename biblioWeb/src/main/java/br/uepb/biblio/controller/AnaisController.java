@@ -4,6 +4,7 @@ package br.uepb.biblio.controller;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 import javax.validation.Valid;
 
@@ -33,6 +34,7 @@ import br.uepb.biblio.service.exception.ItemDuplicadoException;
 import br.uepb.model.Autor;
 import br.uepb.model.acervo.Anal;
 import br.uepb.model.enums.Tipo_anal;
+import br.uepb.model.jpaEntity.acervo.EntityAnal;
 
 
 
@@ -150,6 +152,14 @@ public class AnaisController {
 		}
 		return ResponseEntity.ok().build();
 	}
+	
+	@RequestMapping(value="/buscarAll",method = RequestMethod.POST, consumes = { MediaType.APPLICATION_JSON_VALUE })
+	public @ResponseBody ResponseEntity<?> buscarAll(){
+		
+		List<EntityAnal> retorno = anaisRepository.findAll();
+		
+		return ResponseEntity.ok(retorno);
+	} 
 	
 	@InitBinder
 	public void initBinder(WebDataBinder binder) {

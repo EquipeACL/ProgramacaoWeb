@@ -2,6 +2,7 @@ package br.uepb.biblio.controller;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.List;
 
 import javax.validation.Valid;
 
@@ -25,6 +26,7 @@ import br.uepb.biblio.repository.Jornais;
 import br.uepb.biblio.service.CrudJornalService;
 import br.uepb.biblio.service.exception.ItemDuplicadoException;
 import br.uepb.model.acervo.Jornal;
+import br.uepb.model.jpaEntity.acervo.EntityJornal;
 
 @Controller
 @RequestMapping("/jornais")
@@ -110,6 +112,14 @@ public class JornaisController {
 		}
 		return ResponseEntity.ok().build();
 	}
+	
+	@RequestMapping(value="/buscarAll",method = RequestMethod.POST, consumes = { MediaType.APPLICATION_JSON_VALUE })
+	public @ResponseBody ResponseEntity<?> buscarAll(){
+		
+		List<EntityJornal> retorno = jornaisRepository.findAll();
+		
+		return ResponseEntity.ok(retorno);
+	} 
 	
 	@InitBinder
 	public void initBinder(WebDataBinder binder) {

@@ -26,8 +26,6 @@ public class CidadesController {
 		
 		List<EntityCidade> retorno = cidadesService.buscarPorUf(estado.getSigla());
 		
-		System.out.println("Tamanho da lista: "+retorno.size());
-		
 		return ResponseEntity.ok(retorno);
 	} 
 

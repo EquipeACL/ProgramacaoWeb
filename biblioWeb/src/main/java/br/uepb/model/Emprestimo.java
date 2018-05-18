@@ -1,13 +1,25 @@
 package br.uepb.model;
 
+import java.sql.Date;
 import java.util.ArrayList;
+
+import javax.validation.constraints.NotNull;
 
 import br.uepb.interfaces.EmprestimoIF;
 import br.uepb.interfaces.ItemEmprestimoIF;
 import br.uepb.model.usuarios.Aluno;
 
 public class Emprestimo {
+	 
+	@NotNull(message=" Data de emprestimo é obrigatorio")
+	private Date dataDoEmprestimo;	
+	
+	@NotNull(message=" Data de entrega é obrigatorio")
+	private Date dataDeEntrega;
+	
+	@NotNull(message=" Aluno é obrigatorio")
 	private Aluno aluno;
+	
 	private ArrayList<ItemEmprestimo> emprestimos;
 	
 	public Emprestimo(){
@@ -63,35 +75,21 @@ public class Emprestimo {
 	public void setEmprestimos(ArrayList<ItemEmprestimo> emprestimos) {
 		this.emprestimos = emprestimos;
 	}
-	@Override
-	public int hashCode() {
-		final int prime = 31;
-		int result = 1;
-		result = prime * result + ((aluno == null) ? 0 : aluno.hashCode());
-		result = prime * result
-				+ ((emprestimos == null) ? 0 : emprestimos.hashCode());
-		return result;
+
+	public Date getDataDoEmprestimo() {
+		return dataDoEmprestimo;
 	}
-	@Override
-	public boolean equals(Object obj) {
-		if (this == obj)
-			return true;
-		if (obj == null)
-			return false;
-		if (getClass() != obj.getClass())
-			return false;
-		Emprestimo other = (Emprestimo) obj;
-		if (aluno == null) {
-			if (other.aluno != null)
-				return false;
-		} else if (!aluno.equals(other.aluno))
-			return false;
-		if (emprestimos == null) {
-			if (other.emprestimos != null)
-				return false;
-		} else if (!emprestimos.equals(other.emprestimos))
-			return false;
-		return true;
+
+	public void setDataDoEmprestimo(Date dataDoEmprestimo) {
+		this.dataDoEmprestimo = dataDoEmprestimo;
+	}
+
+	public Date getDataDeEntrega() {
+		return dataDeEntrega;
+	}
+
+	public void setDataDeEntrega(Date dataDeEntrega) {
+		this.dataDeEntrega = dataDeEntrega;
 	}
 	
 

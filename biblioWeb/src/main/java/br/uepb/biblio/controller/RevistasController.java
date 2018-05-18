@@ -2,6 +2,7 @@ package br.uepb.biblio.controller;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.List;
 
 import javax.validation.Valid;
 
@@ -26,6 +27,7 @@ import br.uepb.biblio.repository.Revistas;
 import br.uepb.biblio.service.CrudRevistaService;
 import br.uepb.biblio.service.exception.ItemDuplicadoException;
 import br.uepb.model.acervo.Revista;
+import br.uepb.model.jpaEntity.acervo.EntityRevista;
 
 @Controller
 @RequestMapping("/revistas")
@@ -118,6 +120,14 @@ public class RevistasController {
 		}
 		return ResponseEntity.ok().build();
 	}
+	
+	@RequestMapping(value="/buscarAll",method = RequestMethod.POST, consumes = { MediaType.APPLICATION_JSON_VALUE })
+	public @ResponseBody ResponseEntity<?> buscarAll(){
+		
+		List<EntityRevista> retorno = revistaRepository.findAll();
+		
+		return ResponseEntity.ok(retorno);
+	} 
 	
 	@InitBinder
 	public void initBinder(WebDataBinder binder) {

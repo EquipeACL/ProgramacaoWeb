@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="pt" xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorator="'layout/LayoutPadrao'">
+
+<head>
+<title>Pesquisar Area do Conhecimento</title>
+</head>
+
+
+<body>
+	
+	<section layout:fragment="conteudo">
+		<div class="container-fluid">
+			<div class="page-header">
+				<div class="container-fluid">
+					<h1>Pesquisar Area do Conhecimento</h1>
+				</div>
+			</div>
+			<div class="container-fluid">
+				<section th:fragment="fragment-pesquisaEmprestimos">
+					<div class="row">
+					<form method="GET" class="form-vertical  js-form-loading" >
+					
+						<div class="form-group col-sm-6">
+								<input id="busca" name="busca" type="text" class="form-control" autofocus="autofocus" placeholder="Pesquisar Area do Conhecimento..."/>						
+						</div>
+						<div class="form-group col-sm-2">
+							<button class="btn btn-primary" type="submit">Pesquisar</button>
+						</div>						
+					</form>
+					
+					<div class="container-fluid">
+						<table class="table table-striped">
+							<thead>
+								<tr>
+									<th><input name="tudo" type="checkbox"></th>
+									<th>Matricula - Aluno</th>
+									<th>Data de Emprestimo</th>
+									<th>Data de Entrega</th>
+									<th>Iten(s)</th>
+								</tr>
+							</thead>
+							<tbody>
+								
+								<tr th:each="emprestimo : ${listaEmprestimos}" th:id="|emprestimo*{emprestimo.id}|">
+									<td><input th:id="|check*{emprestimo.id}|" th:name="|check*{emprestimo.id}|" type="checkbox"></td>
+									<td th:text="|*{emprestimo.aluno.matricula} - *{emprestimo.aluno.nome}|">Matricula e Nome do aluno</td>
+									<td th:text="*{emprestimo.dataDoEmprestimo}">Data de emprestimo</td>
+									<td th:text="*{emprestimo.dataDeEntrega}">Nome de entrega</td>
+									<td>
+										<select class="form-control">
+											<option th:each="cada:${emprestimo.emprestimos}" th:text="${cada.item.titulo}">Nome do item</option>
+										</select>
+									</td>
+								</tr>
+							
+							</tbody>
+						</table>
+					</div>
+				
+				</div>
+				</section>
+		   </div>
+	</div>
+	<div th:replace="areaConhecimento/RemoverAreaConhecimento :: modal"></div>
+	</section>
+	<th:block layout:fragment="javascript-extra">
+		<script th:src="@{/javascripts/areaConhecimento.remover.js}"></script>
+	</th:block>
+</body>
+</html>
