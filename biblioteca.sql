@@ -127,7 +127,8 @@ CREATE TABLE `aluno` (
   `email` varchar(45) NOT NULL,
   `anoIngresso` date NOT NULL,
   `periodoIngresso` int(11) NOT NULL,
-  `senha` varchar(45) NOT NULL,
+  `
+  ` varchar(45) NOT NULL,
   `curso_id` int(11) NOT NULL,
   `nivel` enum('G','E','M','D','P') DEFAULT NULL,
   PRIMARY KEY (`id`,`curso_id`),
@@ -664,7 +665,7 @@ CREATE TABLE `usuario` (
   `endereco` VARCHAR(45) NOT NULL,
   `telefone` VARCHAR(20) NOT NULL,
   `email` varchar(45) NOT NULL,
-  `senha` varchar(45) NOT NULL,
+  `senha` varchar(120) NOT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
