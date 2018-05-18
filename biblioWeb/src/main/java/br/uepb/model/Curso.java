@@ -13,6 +13,7 @@ import br.uepb.model.jpaEntity.EntityCurso;
  * A classe contém os respectivos getters and setters de seus atributos.
  * @author EquipeACL
  */
+
 public class Curso implements IFDependencia{
 	
 	private int id;

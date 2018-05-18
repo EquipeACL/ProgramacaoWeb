@@ -17,6 +17,7 @@ import br.uepb.biblio.service.CadastroFuncionarioService;
 import br.uepb.biblio.service.CadastroGrupoService;
 import br.uepb.biblio.service.exception.ItemDuplicadoException;
 import br.uepb.biblio.service.exception.LoginDuplicadoException;
+import br.uepb.biblio.service.exception.SenhaObrigatoriaUsuarioException;
 import br.uepb.model.usuarios.Funcionario;
 
 @Controller
@@ -59,9 +60,9 @@ public class UsuariosController {
 			result.rejectValue("login", e.getMessage(),e.getMessage());
 			return (novo(funcionario));
 		}
-//		catch(SenhaObrigatoriaUsuarioException e){
-//			result.rejectValue("senha", e.getMessage(),e.getMessage());
-//		}
+		catch(SenhaObrigatoriaUsuarioException e){
+			result.rejectValue("senha", e.getMessage(),e.getMessage());
+		}
 		attributes.addFlashAttribute("mensagem", "Funcionário salvo com sucesso!");
 		
 		return new ModelAndView("redirect:/usuarios/novo");

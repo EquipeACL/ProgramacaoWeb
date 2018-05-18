@@ -3,6 +3,8 @@ package br.uepb.model.usuarios;
 import javax.persistence.Entity;
 import javax.persistence.Table;
 
+import org.hibernate.validator.constraints.NotBlank;
+
 import br.uepb.validation.AtributoConfirmacao;
 
 /**
@@ -17,6 +19,16 @@ import br.uepb.validation.AtributoConfirmacao;
 public class Funcionario extends Usuario {
 	
 	
+	@NotBlank(message = " Nome de usuário é obrigatório")
+	protected String login;
+	
+	
+	public String getLogin() {
+		return login;
+	}
+	public void setLogin(String login) {
+		this.login = login;
+	}
 	private static final long serialVersionUID = 1L;
 	public Funcionario() {
 		
@@ -34,8 +46,8 @@ public class Funcionario extends Usuario {
 	 * @param nomeUsuario, nome de usuario no sistema do Funcion�rio
 	 */
 	public Funcionario(String cpf, String nomeCompleto, String rg, String naturalidade, String endereco, String telefone,
-			String email, String senhaAcesso, String nomeUsuario) {
-		super(cpf, nomeCompleto, rg, naturalidade, endereco, telefone, email, senhaAcesso);
+			String email, String senhaAcesso, String nomeUsuario,String senhaConfirmacao) {
+		super(cpf, nomeCompleto, rg, naturalidade, endereco, telefone, email, senhaAcesso,senhaConfirmacao);
 	}
 	
 }

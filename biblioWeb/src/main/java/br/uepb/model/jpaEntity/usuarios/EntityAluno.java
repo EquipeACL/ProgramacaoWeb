@@ -17,6 +17,7 @@ import org.hibernate.validator.constraints.NotEmpty;
 
 import br.uepb.model.enums.Tipo_nivel;
 import br.uepb.model.jpaEntity.EntityCurso;
+import br.uepb.model.usuarios.Aluno;
 /**
  * Essa classe � utilizada como modelo para um objeto do tipo Aluno;
  * A classe cont�m os respectivos getters and setters de seus atributos.
@@ -32,15 +33,12 @@ public class EntityAluno extends EntityUsuario {
 	@NotBlank(message=" Nome da mãe é obrigatório")
 	private String nomeMae;
 	
-	
+	@NotNull(message=" Curso é obrigatório")
 	@ManyToOne(cascade=CascadeType.MERGE)
 	@JoinColumn(name = "curso_id",nullable=false)
 	private EntityCurso curso;
 	
-	@Transient
-	@NotBlank(message=" Curso é obrigatório")
-	private String nome_curso;
-	
+
 	@NotNull(message=" Nivel do aluno é obrigatório")
 	@Enumerated(EnumType.STRING)
 	private Tipo_nivel nivel;
@@ -48,7 +46,7 @@ public class EntityAluno extends EntityUsuario {
 	@NotNull(message=" Data de ingresso é obrigatório")
 	private Date anoIngresso;
 	
-	@NotEmpty(message=" Periodo de ingresso é obrigatório")
+	@NotNull(message=" Periodo de ingresso é obrigatório")
 	private int periodoIngresso;
 
 	/**
@@ -77,11 +75,11 @@ public class EntityAluno extends EntityUsuario {
 	 */
 	public EntityAluno(String matricula, String cpf, String rg, String naturalidade, String nomeCompleto, String nomeMae,
 			String endereco, String telefone, EntityCurso curso, Tipo_nivel nivel, String email, Date anoIngresso,
-			int periodoIngresso, String senhaAcesso) {
-		super(cpf, nomeCompleto, rg, naturalidade, endereco, telefone, email, senhaAcesso);
+			int periodoIngresso, String senhaAcesso,String senhaConfirmacao) {
+		super(cpf, nomeCompleto, rg, naturalidade, endereco, telefone, email, senhaAcesso,senhaConfirmacao);
 		setMatricula(matricula);
 		setNomeMae(nomeMae);
-		setCurso(curso);
+		setEntityCurso(curso);
 		setNivel(nivel);
 		setAnoIngresso(anoIngresso);
 		setPeriodoIngresso(periodoIngresso);
@@ -102,16 +100,15 @@ public class EntityAluno extends EntityUsuario {
 	 * @param periodoIngresso, o per�odo de ingresso do aluno no curso
 	 * @param senhaAcesso, a senha de acesso ao sistema do aluno
 	 */
-	public EntityAluno(String cpf, String rg, String naturalidade, String nomeCompleto, String nomeMae,
-			String endereco, String telefone, EntityCurso curso, Tipo_nivel nivel, String email, Date anoIngresso, int periodoIngresso,
-			String senhaAcesso) {
-		super(cpf, nomeCompleto, rg, naturalidade, endereco, telefone, email, senhaAcesso);
-
-		setNomeMae(nomeMae);
-		setCurso(curso);
-		setNivel(nivel);
-		setAnoIngresso(anoIngresso);
-		setPeriodoIngresso(periodoIngresso);
+	public EntityAluno(Aluno aluno) {
+		super(aluno.getCpf(), aluno.getNome(), aluno.getRg(), aluno.getNaturalidade(), aluno.getEndereco(), aluno.getTelefone(), aluno.getEmail(), aluno.getSenha(),aluno.getConfirmacaoSenha());
+		setId(aluno.getId());
+		setNomeMae(aluno.getNomeMae());
+		setEntityCurso(new EntityCurso(aluno.getCurso()));
+		setNivel(aluno.getNivel());
+		setAnoIngresso(aluno.getAnoIngresso());
+		setPeriodoIngresso(aluno.getPeriodoIngresso());
+		setMatricula(aluno.getMatricula());
 		
 	}
 	
@@ -128,10 +125,10 @@ public class EntityAluno extends EntityUsuario {
 	public void setNomeMae(String nomeMae) {
 		this.nomeMae = nomeMae;
 	}
-	public EntityCurso getCurso() {
+	public EntityCurso getEntityCurso() {
 		return curso;
 	}
-	public void setCurso(EntityCurso curso) {
+	public void setEntityCurso(EntityCurso curso) {
 		this.curso = curso;
 	}
 	public Tipo_nivel getNivel() {
@@ -153,11 +150,13 @@ public class EntityAluno extends EntityUsuario {
 		this.periodoIngresso = periodoIngresso;
 	}
 	
-	public String getNome_curso() {
-		return nome_curso;
+	public EntityCurso getCurso() {
+		return curso;
 	}
-	public void setNome_curso(String nome_curso) {
-		this.nome_curso = nome_curso;
+	public void setCurso(EntityCurso curso) {
+		this.curso = curso;
 	}
+	
+	
 }
 

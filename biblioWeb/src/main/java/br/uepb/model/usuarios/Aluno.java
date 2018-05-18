@@ -31,14 +31,11 @@ public class Aluno extends Usuario {
 	@NotBlank(message=" Nome da mãe é obrigatório")
 	private String nomeMae;
 	
+	@NotNull(message=" Curso é obrigatório")
 	@ManyToOne(cascade=CascadeType.MERGE)
 	@JoinColumn(name = "curso_id",nullable=false)
 	private Curso curso;
-	
-	@Transient
-	@NotBlank(message=" Curso é obrigatório")
-	private String nome_curso;
-	
+		
 	@NotNull(message=" Nivel do aluno é obrigatório")
 	@Enumerated(EnumType.STRING)
 	private Tipo_nivel nivel;
@@ -46,7 +43,7 @@ public class Aluno extends Usuario {
 	@NotNull(message=" Data de ingresso é obrigatório")
 	private Date anoIngresso;
 	
-	@NotEmpty(message=" Periodo de ingresso é obrigatório")
+	@NotNull(message=" Periodo de ingresso é obrigatório")
 	private int periodoIngresso;
 
 	/**
@@ -75,8 +72,8 @@ public class Aluno extends Usuario {
 	 */
 	public Aluno(String matricula, String cpf, String rg, String naturalidade, String nomeCompleto, String nomeMae,
 			String endereco, String telefone, Curso curso, Tipo_nivel nivel, String email, Date anoIngresso,
-			int periodoIngresso, String senhaAcesso) {
-		super(cpf, nomeCompleto, rg, naturalidade, endereco, telefone, email, senhaAcesso);
+			int periodoIngresso, String senhaAcesso,String senhaConfirmacao) {
+		super(cpf, nomeCompleto, rg, naturalidade, endereco, telefone, email, senhaAcesso,senhaConfirmacao);
 		setMatricula(matricula);
 		setNomeMae(nomeMae);
 		setCurso(curso);
@@ -102,19 +99,20 @@ public class Aluno extends Usuario {
 	 */
 	public Aluno(String cpf, String rg, String naturalidade, String nomeCompleto, String nomeMae,
 			String endereco, String telefone, Curso curso, Tipo_nivel nivel, String email, Date anoIngresso, int periodoIngresso,
-			String senhaAcesso) {
-		super(cpf, nomeCompleto, rg, naturalidade, endereco, telefone, email, senhaAcesso);
+			String senhaAcesso,String senhaConfirmacao) {
+		super(cpf, nomeCompleto, rg, naturalidade, endereco, telefone, email, senhaAcesso,senhaConfirmacao);
 
 		setNomeMae(nomeMae);
 		setCurso(curso);
 		setNivel(nivel);
 		setAnoIngresso(anoIngresso);
 		setPeriodoIngresso(periodoIngresso);
-		gerarMatrcula();
+		gerarMatricula();
 		
 	}
 	
 	public Aluno(EntityAluno aluno){
+		
 		setId(aluno.getId());
 		setCpf(aluno.getCpf());
 		setNome(aluno.getNome());
@@ -123,12 +121,14 @@ public class Aluno extends Usuario {
 		setEndereco(aluno.getEndereco());
 		setTelefone(aluno.getTelefone());
 		setEmail(aluno.getEmail());
-		setSenha(aluno.getSenhaAcesso());
+		setSenha(aluno.getSenha());
+		setConfirmacaoSenha(aluno.getConfirmacaoSenha());
 		setNomeMae(aluno.getNomeMae());
-		setCurso(new Curso(aluno.getCurso()));
+		setCurso(new Curso(aluno.getEntityCurso()));
 		setNivel(aluno.getNivel());
 		setAnoIngresso(aluno.getAnoIngresso());
 		setPeriodoIngresso(aluno.getPeriodoIngresso());
+		gerarMatricula();
 	}
 	
 	public String getMatricula() {
@@ -169,20 +169,14 @@ public class Aluno extends Usuario {
 		this.periodoIngresso = periodoIngresso;
 	}
 	
-	public String getNome_curso() {
-		return nome_curso;
-	}
-	public void setNome_curso(String nome_curso) {
-		this.nome_curso = nome_curso;
-	}
 	/**
 	 * M�todo utilizaod para gerar a matr�cula do aluno, utilizando os atributos da pr�pria classe
 	 */
-	public void gerarMatrcula() {
-		;
+	public void gerarMatricula() {
 		this.matricula = "";
-		this.matricula+= String.valueOf(nivel).charAt(0)+this.curso.getSigla()+this.anoIngresso.toString().substring(2, 4)+this.periodoIngresso;
-		
+		this.matricula+= String.valueOf(nivel).charAt(0)+ this.getCurso().getSigla()+this.anoIngresso.toString().substring(2, 4)+this.periodoIngresso;
+		//this.matricula += this.getCurso().getSigla();
+		System.out.println(curso.getSigla());
 	}
 	
 }

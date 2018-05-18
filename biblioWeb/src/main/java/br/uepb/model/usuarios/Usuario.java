@@ -47,8 +47,7 @@ public class Usuario implements Serializable {
 	@NotBlank(message = " O nome é obrigatório")
 	protected String nome;
 	
-	@NotBlank(message = " Nome de usuário é obrigatório")
-	protected String login;
+
 	
 	
 	//@NotBlank(message = "Matrícula é obrigatória")
@@ -67,11 +66,11 @@ public class Usuario implements Serializable {
 	@NotBlank(message = " O telefone é obrigatório")
 	protected String telefone;
 	
-	@Size(min = 5, max = 20, message = " O tamanho do email deve estar entre 5 e 20")
+	@Size(min = 5, max = 45, message = " O tamanho do email deve estar entre 5 e 20")
 	@NotBlank(message = " O email é obrigatório")
 	protected String email;
 	
-	 @NotBlank(message = " A senha é obrigatória")
+	@NotBlank(message = " A senha é obrigatória")
 	protected String senha;
 	
 	@Transient
@@ -104,7 +103,7 @@ public class Usuario implements Serializable {
 	 * @param senha, senha de acesso ao sistema do Usu�rio
 	 */
 	public Usuario(String cpf, String nome, String rg, String naturalidade, String endereco, String telefone,
-			String email, String senha) {
+			String email, String senha, String senhaConfirmacao) {
 		setCpf(cpf);
 		setNome(nome);
 		setRg(rg);
@@ -113,6 +112,7 @@ public class Usuario implements Serializable {
 		setTelefone(telefone);
 		setEmail(email);
 		setSenha(senha);
+		setConfirmacaoSenha(senhaConfirmacao);
 		
 	}
 	
@@ -195,14 +195,6 @@ public class Usuario implements Serializable {
 	}
 	public void setSenha(String senha) {
 		this.senha = senha;
-	}
-
-	public String getLogin() {
-		return login;
-	}
-
-	public void setLogin(String login) {
-		this.login = login;
 	}
 
 

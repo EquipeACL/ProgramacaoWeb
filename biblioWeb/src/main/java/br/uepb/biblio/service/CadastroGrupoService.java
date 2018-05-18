@@ -21,4 +21,9 @@ public class CadastroGrupoService {
 	public List<Grupo> buscaGrupos() {
 		return manager.createQuery("select a from Grupo a where a.nome !='aluno'",Grupo.class).getResultList();
 	}
+	
+	@Transactional
+	public List<Grupo> buscaAluno() {
+		return manager.createQuery("select a from Grupo a where a.nome ='aluno'",Grupo.class).getResultList();
+	}
 }

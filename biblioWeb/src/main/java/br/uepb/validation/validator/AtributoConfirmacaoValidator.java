@@ -45,12 +45,10 @@ public class AtributoConfirmacaoValidator implements ConstraintValidator<Atribut
 	}
 
 	private boolean saoIguais(Object valorAtributo, Object valorAtributoConfirmacao) {
-		// 
 		return valorAtributo!= null && valorAtributo.equals(valorAtributoConfirmacao);
 	}
 
 	private boolean ambosNulos(Object valorAtributo, Object valorAtributoConfirmacao) {
-		// TODO Auto-generated method stub
 		return valorAtributo == null & valorAtributoConfirmacao == null;
 	}
 }

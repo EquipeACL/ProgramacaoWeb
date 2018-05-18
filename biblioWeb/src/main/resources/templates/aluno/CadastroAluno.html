@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="pt" xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorator="'layout/LayoutPadrao'">
+
+<head>
+<title>Cadastro de Aluno</title>
+</head>
+
+<body>
+	<section layout:fragment="conteudo">
+		<div class="page-header">
+			<div class="container-fluid">
+				<h1>Cadastro de Aluno</h1>
+			</div>
+		</div>
+
+		<div class="container-fluid">
+
+			<th:block th:include="fragments/MensagemSucesso"></th:block>
+
+			<form method="POST" class="form-vertical  js-form-loading"
+				th:object="${aluno}">
+
+				<th:block th:include="fragments/MensagensErroValidacao"></th:block>
+				<!-- Linha do Nome -->
+				<div class="row">
+					<div class="form-group col-sm-3 "
+						th:classappend="${#fields.hasErrors('cpf')}? has-error">
+						<label class="bw-required" for="cpf">CPF*</label> <input id="cpf"
+							type="text" class="form-control js-cpf" autofocus="autofocus"
+							th:field="*{cpf}" />
+					</div>
+					<div class="form-group col-sm-3 bw-required"
+						th:classappend="${#fields.hasErrors('rg')}? has-error">
+						<label for="rg">RG*</label> <input id="rg" type="text"
+							class="form-control" th:field="*{rg}" />
+					</div>
+					<div class="form-group col-sm-6"
+						th:classappend="${#fields.hasErrors('nome')}? has-error">
+						<label for="nome">Nome*</label> <input id="nome" type="text"
+							class="form-control" th:field="*{nome}" />
+					</div>
+				</div>
+
+				<div class="row">
+					<div class="form-group col-sm-3 bw-required"
+						th:classappend="${#fields.hasErrors('email')}? has-error">
+						<label for="email">E-mail*</label> <input id="email" type="text"
+							class="form-control" th:field="*{email}" />
+					</div>
+					<div class="form-group col-sm-2 bw-required"
+						th:classappend="${#fields.hasErrors('telefone')}? has-error">
+						<label for="telefone">Telefone*</label> <input id="telefone"
+							type="text" class="form-control js-phone-number"
+							th:field="*{telefone}" />
+					</div>
+					<div class="form-group col-sm-7 bw-required"
+						th:classappend="${#fields.hasErrors('endereco')}? has-error">
+						<label for="endereco">Endereço*</label><input id="endereco"
+							type="text" class="form-control" th:field="*{endereco}" />
+					</div>
+				</div>
+				<div class="row">
+					<div class="form-group col-sm-5 bw-required"
+						th:classappend="${#fields.hasErrors('nomeMae')}? has-error">
+						<label for="nomeMae">Nome da Mãe*</label> <input id="nomeMae"
+							type="text" class="form-control" th:field="*{nomeMae}" />
+					</div>
+					<div class="form-group col-sm-2 bw-required"
+						th:classappend="${#fields.hasErrors('naturalidade')}? has-error">
+						<label for="naturalidade">Naturalidade*</label><input
+							id="naturalidade" type="text" class="form-control"
+							th:field="*{naturalidade}" />
+					</div>
+					<div class="form-group col-sm-3 bw-required"
+						th:classappend="${#fields.hasErrors('anoIngresso')}? has-error">
+						<label for="anoIngresso">Ano de Ingresso*</label> <input
+							id="anoIngresso" type="date" class="form-control"
+							th:field="*{anoIngresso}" />
+					</div>
+					<div class="form-group col-sm-2 bw-required"
+						th:classappend="${#fields.hasErrors('endereco')}? has-error">
+						<label for="curso" class="control-label">Período de
+							Ingresso</label>
+						<div class="bw-field-action">
+							<select id="periodoIngresso" class="form-control"
+								th:field="*{periodoIngresso}">
+								<option th:value="1">1</option>
+								<option th:value="2">2</option>
+							</select>
+						</div>
+					</div>
+				</div>
+
+				<div class="row">
+
+					<div class="form-group col-sm-3"
+						th:classappend="${#fields.hasErrors('curso')}? has-error">
+						<label for="curso" class="control-label">Curso*</label>
+						<div class="bw-field-action">
+							<select id="curso" class="form-control" th:field="*{curso.id}">
+								<option value="0">Selecione o Curso</option>
+								<option th:each="curso: ${cursos}" th:value="${curso.id}"
+									th:text="${curso.nome}">Curso 1</option>
+							</select>
+						</div>
+					</div>
+					<div class="form-group col-sm-2"
+						th:classappend="${#fields.hasErrors('senha')}? has-error">
+						<label for="senha">Senha*</label> <input id="senha"
+							type="password" class="form-control" th:field="*{senha}" />
+					</div>
+					<div class="form-group col-sm-2"
+						th:classappend="${#fields.hasErrors('confirmacaoSenha')}? has-error">
+						<label for="confirmacaoSenha">Confirmação de Senha*</label> <input
+							id="confirmacaoSenha" type="password" class="form-control"
+							th:field="*{confirmacaoSenha}" />
+					</div>
+					<div class="form-group col-sm-3"
+						th:classappend="${#fields.hasErrors('nivel')}? has-error">
+						<label for="tipo" class="control-label">Formação do
+							Orientador</label> <select id="tipo" th:field="*{nivel}"
+							class="form-control">
+							<option value="">Selecione a Formação</option>
+							<option th:each="nivel: ${niveis}" th:value="${nivel}"
+								th:text="${nivel.descricao}"></option>
+						</select>
+					</div>
+					<div class="form-group  col-sm-2 col-lg-2 bw-required">
+						<label class="control-label">Grupos</label>
+						<div>
+
+							<th:block th:each="grupo: ${grupos}">
+								<div class="checkbox  checkbox-inline">
+									<input type="checkbox" th:value="${grupo.id}"
+										th:field="*{grupos}" /> <label
+										th:for="${#ids.prev('grupos')}" th:text="${grupo.nome}"></label>
+								</div>
+							</th:block>
+						</div>
+					</div>
+				</div>
+
+
+				<button type="submit" class="btn  btn-primary">Salvar</button>
+			</form>
+
+		</div>
+
+	</section>
+
+</body>
+
+</html>

@@ -1,13 +1,22 @@
 package br.uepb.model.jpaEntity.usuarios;
 
+import java.util.List;
+
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
 import javax.persistence.MappedSuperclass;
+import javax.persistence.Transient;
 import javax.validation.constraints.Size;
 
 import org.hibernate.validator.constraints.NotBlank;
 import org.hibernate.validator.constraints.NotEmpty;
+
+import br.uepb.model.Grupo;
+import br.uepb.validation.AtributoConfirmacao;
 
 
 /**
@@ -17,22 +26,20 @@ import org.hibernate.validator.constraints.NotEmpty;
  * @author EquipeACL
  */
 @MappedSuperclass
+@AtributoConfirmacao(atributo = "senha", atributoConfirmacao = "confirmacaoSenha",message = "Senhas não conferem")
 public abstract class EntityUsuario {
 	
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private int id;
 	
-	@NotEmpty(message = " CPF é obrigatório")
+	@NotBlank(message = " CPF é obrigatório")
 	protected String cpf;
 	
 	@NotBlank(message = " O nome é obrigatório")
 	protected String nome;
-	
-	@NotBlank(message = " Nome de usuário é obrigatório")
-	protected String login;	
-	
-	@NotEmpty(message = " RG é obrigatório")
+		
+	@NotBlank(message = " RG é obrigatório")
 	protected String rg;
 	
 	@NotBlank(message = " A naturalidade é obrigatória")
@@ -41,15 +48,33 @@ public abstract class EntityUsuario {
 	@NotBlank(message = " O endereço é obrigatório")
 	protected String endereco;
 	
-	@NotEmpty(message = " O telefone é obrigatório")
+	@NotBlank(message = " O telefone é obrigatório")
 	protected String telefone;
 	
-	@Size(min = 5, max = 20, message = " O tamanho do email deve estar entre 5 e 20")
+	@Size(min = 5, max = 45, message = " O tamanho do email deve estar entre 5 e 20")
 	@NotBlank(message = " O email é obrigatório")
 	protected String email;
 	
 	@NotBlank(message = " A senha é obrigatória")
-	protected String senhaAcesso;
+	protected String senha;
+	
+	@Transient
+	protected String confirmacaoSenha;
+	
+	
+	public List<Grupo> getGrupos() {
+		return grupos;
+	}
+
+	public void setGrupos(List<Grupo> grupos) {
+		this.grupos = grupos;
+	}
+
+	@Size(min=1,message = "Selecione pelo menos um grupo")
+	@ManyToMany
+	@JoinTable(name = "usuario_has_grupo",joinColumns = @JoinColumn(name = "usuario_id")
+												, inverseJoinColumns = @JoinColumn(name = "grupo_id"))
+	private List <Grupo> grupos;
 	
 	
 /*	@NotNull(message = "Selecione pelo menos um grupo")
@@ -75,10 +100,10 @@ public abstract class EntityUsuario {
 	 * @param endereco, endere�o completo do Usu�rio
 	 * @param telefone, telefone de contato do Usu�rio
 	 * @param email, endere�o de email do Usu�rio
-	 * @param senhaAcesso, senha de acesso ao sistema do Usu�rio
+	 * @param senha, senha de acesso ao sistema do Usu�rio
 	 */
 	public EntityUsuario(String cpf, String nome, String rg, String naturalidade, String endereco, String telefone,
-			String email, String senhaAcesso) {
+			String email, String senha,String confirmacaoSenha) {
 		setCpf(cpf);
 		setNome(nome);
 		setRg(rg);
@@ -86,8 +111,8 @@ public abstract class EntityUsuario {
 		setEndereco(endereco);
 		setTelefone(telefone);
 		setEmail(email);
-		setSenhaAcesso(senhaAcesso);
-		
+		setSenha(senha);
+		setConfirmacaoSenha(confirmacaoSenha);
 	}
 	
 
@@ -164,20 +189,23 @@ public abstract class EntityUsuario {
 	public void setEmail(String email) {
 		this.email = email;
 	}
-	public String getSenhaAcesso() {
-		return senhaAcesso;
+	public String getSenha() {
+		return senha;
 	}
-	public void setSenhaAcesso(String senhaAcesso) {
-		this.senhaAcesso = senhaAcesso;
-	}
-
-	public String getLogin() {
-		return login;
+	public void setSenha(String senha) {
+		this.senha = senha;
 	}
 
-	public void setLogin(String login) {
-		this.login = login;
+	public String getConfirmacaoSenha() {
+		return confirmacaoSenha;
 	}
+
+	public void setConfirmacaoSenha(String confirmacaoSenha) {
+		this.confirmacaoSenha = confirmacaoSenha;
+	}
+
+
+
 	
-	
+
 }
