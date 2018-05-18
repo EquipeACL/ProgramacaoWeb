@@ -7,6 +7,7 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -20,6 +21,8 @@ public class CadastroFuncionarioService {
 
 	@Autowired
 	Funcionarios funcionarios;
+	@Autowired
+	private PasswordEncoder passwordEncoder;
 	
 	@PersistenceContext
     private EntityManager manager;
@@ -38,6 +41,8 @@ public class CadastroFuncionarioService {
 //		if(funcionario.isNovo() &&StringUtils.isEmpty(funcionario.getSenha())) {
 //			throw new SenhaObrigatoriaUsuarioException("Senha é obrigatória para novo usuário");
 //		}
+		funcionario.setSenha(this.passwordEncoder.encode(funcionario.getSenha()));
+		funcionario.setConfirmacaoSenha(funcionario.getSenha());
 		funcionarios.save(funcionario);
 	}
 	

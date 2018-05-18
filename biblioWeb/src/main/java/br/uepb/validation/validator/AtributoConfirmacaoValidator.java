@@ -35,6 +35,7 @@ public class AtributoConfirmacaoValidator implements ConstraintValidator<Atribut
 			throw new RuntimeException("Erro recuperando valores dos atributos", e);
 		}
 		if(!valido) {
+			context.disableDefaultConstraintViolation();
 			String mensagem = context.getDefaultConstraintMessageTemplate();
 			ConstraintViolationBuilder violationBuilder = context.buildConstraintViolationWithTemplate(mensagem);
 			violationBuilder.addPropertyNode(atributoConfirmacao).addConstraintViolation();
