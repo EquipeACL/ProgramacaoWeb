@@ -8,11 +8,20 @@ import org.apache.commons.beanutils.BeanUtils;
 
 import br.uepb.validation.AtributoConfirmacao;
 
+/**
+ * Essa é a classe responsável por conter os métodos referentes a Validação do Atributo de Confirmação
+ * @author EquipeACL
+ *
+ */
 public class AtributoConfirmacaoValidator implements ConstraintValidator<AtributoConfirmacao, Object> {
 
 	private String atributo;
 	private String atributoConfirmacao;
 
+	/**
+	 * Esse é o metodo de inicialização do AtributoConfirmação
+	 * @param constraintAnnotaton, que é o parâmetro oriundo da interface
+	 */
 	@Override
 	public void initialize(AtributoConfirmacao constraintAnnotation) {
 
@@ -21,6 +30,12 @@ public class AtributoConfirmacaoValidator implements ConstraintValidator<Atribut
 
 	}
 
+	/**
+	 * Esse é o método responsável por validar um objeto dado um contexto
+	 * @param object, que é o objeto a ser validado
+	 * @param context, que é o contexto de validação do objeto
+	 * @return true or false, dependendo do sucesso ou falha da validação.
+	 */
 	@Override
 	public boolean isValid(Object object, ConstraintValidatorContext context) {
 
@@ -44,10 +59,22 @@ public class AtributoConfirmacaoValidator implements ConstraintValidator<Atribut
 		return valido;
 	}
 
+	/**
+	 * Método para verificar se dois objetos são iguais
+	 * @param valorAtributo, objeto a ser comparado
+	 * @param valorAtributoConfirmacao, objeto ou ser comparado
+	 * @return true or false, dependendo do sucesso ou falha da validaçãoo
+	 */
 	private boolean saoIguais(Object valorAtributo, Object valorAtributoConfirmacao) {
 		return valorAtributo!= null && valorAtributo.equals(valorAtributoConfirmacao);
 	}
 
+	/**
+	 * Método para verificar se dois objetos são nulos
+	 * @param valorAtributo, objeto a ser comparado
+	 * @param valorAtributoConfirmacao, objeto ou ser comparado
+	 * @return true or false, dependendo do sucesso ou falha da validaçãoo
+	 */
 	private boolean ambosNulos(Object valorAtributo, Object valorAtributoConfirmacao) {
 		return valorAtributo == null & valorAtributoConfirmacao == null;
 	}

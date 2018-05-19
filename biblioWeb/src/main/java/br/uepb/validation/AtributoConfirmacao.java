@@ -12,6 +12,11 @@ import javax.validation.constraints.Pattern;
 
 import br.uepb.validation.validator.AtributoConfirmacaoValidator;
 
+/**
+ * Essa é a interface responsável por conter os métodos referentes a Validação do Atributo de Confirmação
+ * @author EquipeACL
+ *
+ */
 @Target({ElementType.TYPE})
 @Retention(RetentionPolicy.RUNTIME)
 @Constraint(validatedBy = {AtributoConfirmacaoValidator.class})
