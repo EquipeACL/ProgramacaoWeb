@@ -12,7 +12,6 @@ import org.springframework.beans.propertyeditors.CustomDateEditor;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.InitBinder;
@@ -68,7 +67,7 @@ public class LivrosController {
 	 * @return mv, que é um objeto ModelAndView que contém os parâmetros que foram adicionados para exibir na view.
 	 */
 	@RequestMapping("/novo")
-	public ModelAndView novo(Livro livro,String busca) {
+	public ModelAndView novo(Livro livro,String busca,String filtro) {
 		ModelAndView mv = new ModelAndView("livro/CadastroLivro");
 		mv.addObject("editoras", editoras.findAll());
 		mv.addObject("areas", areas.findAll());
@@ -76,7 +75,11 @@ public class LivrosController {
 		mv.addObject("editoras",editoras.findAll());
 		mv.addObject("autores",autoresRepository.findAll());
 		if(busca!=null){
-			mv.addObject("listaLivros",livrosService.buscarPorTitulo(busca));
+			if(filtro != null && filtro.equals("autor")){
+				mv.addObject("listaLivros",livrosService.buscarPorAutor(busca));
+			}else{
+				mv.addObject("listaLivros",livrosService.buscarPorTitulo(busca));
+			}
 		}else{
 			mv.addObject("listaLivros",livros.findAll());
 		}
@@ -89,10 +92,14 @@ public class LivrosController {
 	 * @return mv, que é um objeto ModelAndView que contém os parâmetros que foram adicionados para exibir na view.
 	 */
 	@RequestMapping("/pesquisar")
-	public ModelAndView pesquisar(String busca) {
+	public ModelAndView pesquisar(String busca,String filtro) {
 		ModelAndView mv = new ModelAndView("livro/PesquisaLivro");
 		if(busca!=null){
-			mv.addObject("listaLivros",livrosService.buscarPorTitulo(busca));
+			if(filtro != null && filtro.equals("autor")){
+				mv.addObject("listaLivros",livrosService.buscarPorAutor(busca));
+			}else{
+				mv.addObject("listaLivros",livrosService.buscarPorTitulo(busca));
+			}
 		}else{
 			mv.addObject("listaLivros",livros.findAll());
 		}
@@ -127,7 +134,7 @@ public class LivrosController {
 	@RequestMapping(value = "/novo", method = RequestMethod.POST)
 	public ModelAndView cadastrar (@Valid Livro livro, BindingResult result, RedirectAttributes attributes) {
 		if(result.hasErrors()) {
-			return novo(livro,null);
+			return novo(livro,null,null);
 		}
 		
 		//Criando uma lista com os autores
@@ -141,7 +148,7 @@ public class LivrosController {
 			livrosService.salvar(livro);
 		} catch (ItemDuplicadoException e) {
 			result.rejectValue("titulo", e.getMessage(),e.getMessage());
-			return (novo(livro,null));
+			return (novo(livro,null,null));
 		}
 		
 		attributes.addFlashAttribute("mensagem", "Livro salvo com sucesso!");
@@ -158,7 +165,7 @@ public class LivrosController {
 	@RequestMapping(value = "/editar", method = RequestMethod.POST)
 	public ModelAndView atualizar (@Valid Livro livro, BindingResult result, RedirectAttributes attributes) {
 		if(result.hasErrors()) {
-			return novo(livro,null);
+			return novo(livro,null,null);
 		}
 		
 		//Criando uma lista com os autores
@@ -172,7 +179,7 @@ public class LivrosController {
 			livrosService.atualizar(livro);
 		} catch (ItemDuplicadoException e) {
 			result.rejectValue("titulo", e.getMessage(),e.getMessage());
-			return (novo(livro,null));
+			return (novo(livro,null,null));
 		}
 		
 		attributes.addFlashAttribute("mensagem", "Livro atualizado com sucesso!");

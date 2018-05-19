@@ -65,6 +65,16 @@ public class CrudTccService {
 	}
 	
 	/**
+	 * Esse é o método responsável por fazer uma busca por nome do autor no banco de dados
+	 * @param busca, que é a String que contém o nome do autor do Tcc no banco de dados
+	 * @return List<EntityTcc> contendo o(s) objeto(s) referente(s) à busca
+	 */
+	@Transactional
+	public List<EntityTcc> buscarPorAutor(String busca) {
+		return manager.createQuery("select an from EntityTcc an inner join an.autor la where la.id = ALL(select a.id from EntityAutor a where a.nome like '%"+busca+"%')",EntityTcc.class).getResultList();
+	}
+	
+	/**
 	 * Esse é o método responsável por atualizar um objeto no banco de dados
 	 * @param tcc, que é o objeto que irá ser atualizado no banco de dados.
 	 * @return true or false, dependendo do sucesso ou falha na atualização

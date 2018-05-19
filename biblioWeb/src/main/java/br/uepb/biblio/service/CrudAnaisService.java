@@ -14,7 +14,6 @@ import org.springframework.transaction.annotation.Transactional;
 import br.uepb.biblio.repository.Anais;
 import br.uepb.biblio.service.exception.ItemDuplicadoException;
 import br.uepb.model.acervo.Anal;
-import br.uepb.model.jpaEntity.EntityAutor;
 import br.uepb.model.jpaEntity.acervo.EntityAnal;
 
 /**
@@ -63,6 +62,17 @@ public class CrudAnaisService {
 	@Transactional
 	public List<EntityAnal> buscarPorTitulo (String busca) {
 		return manager.createQuery("select a from EntityAnal a where a.titulo like '%"+busca+"%'",EntityAnal.class).getResultList();
+	}	
+	
+	
+	/**
+	 * Esse é o método responsável por fazer uma busca por nome do autor no banco de dados
+	 * @param busca, que é a String que contém o nome do autor do Anal buscado no banco de dados
+	 * @return List<EntityAnal> contendo o(s) objeto(s) referente(s) à busca
+	 */
+	@Transactional
+	public List<EntityAnal> buscarPorAutor(String busca) {
+		return manager.createQuery("select an from EntityAnal an inner join an.autores la where la.nome like '%"+busca+"%')",EntityAnal.class).getResultList();
 	}	
 	
 	/**

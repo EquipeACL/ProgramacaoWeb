@@ -42,7 +42,12 @@ public class CadastroEditoraService {
 		if(optionalEditora.isPresent()) {
 			throw new ItemDuplicadoException("Editora já Cadastrada");
 		}
-		return editoras.saveAndFlush(newEntity);
+		try {
+			return editoras.saveAndFlush(newEntity);
+		} catch (Exception e) {
+			logger.error("Erro ao cadastrar editora",e);
+		}
+		return null;
 	}
 	
 	/**

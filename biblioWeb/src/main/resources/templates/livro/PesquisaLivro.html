@@ -35,7 +35,7 @@
 							<label for="filtro" class="form-group">Por:</label>
 						</div>
 						<div class="col-sm-2">
-							<select class="form-control" id="filtro">							
+							<select class="form-control" id="filtro" name="filtro">							
 											<option value="titulo">Titulo</option>
 											<option value="autor">Autor</option>
 							</select>														
@@ -52,7 +52,7 @@
 									<th>Editora</th>
 									<th>Data</th>
 									<th>Edição</th>
-									<th>N° de Paginas</th>
+									<th>Autores</th>
 									<th>Area do Conhecimento - Tema</th>
 									<th colspan="2">Ações</th>
 								</tr>
@@ -66,7 +66,11 @@
 									<td th:text="*{livro.editora.nome}">Editora</td>
 									<td th:text="${{livro.data}}">Data</td>
 									<td th:text="*{livro.edicao}">Edição</td>
-									<td th:text="*{livro.numero_paginas}">Quantidade de paginas</td>
+									<td>
+										<select>
+											<option th:each="autor:${livro.autores}" th:text="${autor.nome}">Autor1</option>
+										</select>
+									</td>
 									<td th:text="|*{livro.tema.area.nome}-*{livro.tema.nome}|">Area do conhecimento</td>
 									<td><button th:id="|removerLivroId*{livro.id}|" class="btn btn-danger" data-toggle="modal" data-target="#modalRemoverLivro" th:onclick="|setValorRemover(*{livro.id},'@{/livros/remover}')|" type="button">Remover</button></td>
 									<td><button class="btn btn-default" name="id" th:value="*{livro.id}" type="submit">Editar</button></td>

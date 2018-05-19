@@ -82,6 +82,17 @@ public class CrudMidiasEletronicasService {
 		return manager.createQuery("select m from EntityMidiasEletronicas m where m.titulo like '%"+busca+"%'",EntityMidiasEletronicas.class).getResultList();
 	}	
 	
+	
+	/**
+	 * Esse é o método responsável por fazer uma busca por tipo no banco de dados
+	 * @param busca, que é a String que contém o parâmetro de busca por MidiaEletronica no banco de dados
+	 * @return List<EntityJornal> contendo o(s) objeto(s) referente(s) à busca
+	 */
+	@Transactional
+	public List<EntityMidiasEletronicas> buscarPorTipo(String busca) {
+		return manager.createQuery("select m from EntityMidiasEletronicas m where m.tipo like '%"+busca+"%'",EntityMidiasEletronicas.class).getResultList();
+	}	
+	
 	/**
 	 * Esse é o método responsável por remover um objeto no banco de dados
 	 * @param id, que é o id do objeto que irá ser removido da tabela de MidiaEletronica no banco de dados.

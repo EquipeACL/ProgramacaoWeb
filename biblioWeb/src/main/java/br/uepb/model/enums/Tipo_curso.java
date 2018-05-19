@@ -7,7 +7,7 @@ package br.uepb.model.enums;
  */
 public enum Tipo_curso {
 	
-	GRADUACAO("GRADUACAO"), POS_GRADUCAO("POS_GRADUCAO");
+	GRADUACAO("GRADUACAO"), POS_GRADUACAO("POS_GRADUACAO");
 	private String descricao;
 	private Tipo_curso(String descricao) {
 		this.descricao = descricao;

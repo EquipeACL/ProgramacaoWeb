@@ -1,0 +1,22 @@
+.item-selecionado{
+	
+	border:1px solid silver;
+	border-color: black;
+	display:inline-block;
+	max-width:100%;
+	height:auto;
+	padding:4px;
+	line-height:1.42857143;
+	background-color: #1e94d2;
+	border:1px solid #ddd;
+	border-radius:4px;
+	-webkit-transition:all .2s ease-in-out;
+	-o-transition:all .2s ease-in-out;
+	transition:all .2s ease-in-out;
+	
+}
+
+.item-selecionado span{
+
+	color:#ddd;
+}

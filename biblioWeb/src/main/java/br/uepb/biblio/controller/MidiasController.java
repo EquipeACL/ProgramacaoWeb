@@ -11,7 +11,6 @@ import org.springframework.beans.propertyeditors.CustomDateEditor;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.InitBinder;
@@ -51,11 +50,15 @@ public class MidiasController {
 	 * @return mv, que é um objeto ModelAndView que contém os parâmetros que foram adicionados para exibir na view.
 	 */
 	@RequestMapping("/novo")
-	public ModelAndView novo(MidiasEletronicas midia, String busca) {
+	public ModelAndView novo(MidiasEletronicas midia, String busca,String filtro) {
 		ModelAndView model = new ModelAndView("midia/CadastroMidia");
 		model.addObject("tipos", Tipo_midia.values());
 		if(busca!=null){
-			model.addObject("listaMidias",midiasService.buscarPorTitulo(busca));
+			if(filtro!=null && filtro.equals("tipo")){
+				model.addObject("listaMidias",midiasService.buscarPorTipo(busca));
+			}else{
+				model.addObject("listaMidias",midiasService.buscarPorTitulo(busca));
+			}
 		}else{
 			model.addObject("listaMidias",midiasRepository.findAll());
 		}
@@ -68,11 +71,15 @@ public class MidiasController {
 	 * @return model, que é um objeto ModelAndView que contém os parâmetros que foram adicionados para exibir na view.
 	 */
 	@RequestMapping("/pesquisar")
-	public ModelAndView pesquisar(String busca) {
+	public ModelAndView pesquisar(String busca,String filtro) {
 		ModelAndView model = new ModelAndView("midia/PesquisaMidia");
 		model.addObject("tipos", Tipo_midia.values());
 		if(busca!=null){
-			model.addObject("listaMidias",midiasService.buscarPorTitulo(busca));
+			if(filtro!=null && filtro.equals("tipo")){
+				model.addObject("listaMidias",midiasService.buscarPorTipo(busca));
+			}else{
+				model.addObject("listaMidias",midiasService.buscarPorTitulo(busca));
+			}
 		}else{
 			model.addObject("listaMidias",midiasRepository.findAll());
 		}
@@ -104,14 +111,14 @@ public class MidiasController {
 	@RequestMapping(value = "/novo", method = RequestMethod.POST)
 	public ModelAndView cadastrar (@Valid MidiasEletronicas midia, BindingResult result, RedirectAttributes attributes) {
 		if(result.hasErrors()) {
-			return novo(midia,null);
+			return novo(midia,null,null);
 		}
 		//salvar no banco
 		try {
 			midiasService.salvar(midia);
 		} catch (ItemDuplicadoException e) {
 			result.rejectValue("titulo", e.getMessage(), e.getMessage());
-			return (novo(midia, null));
+			return (novo(midia, null,null));
 		}
 		attributes.addFlashAttribute("mensagem", "Midia salva com sucesso!");
 		return new ModelAndView("redirect:/midias/novo");
@@ -127,14 +134,14 @@ public class MidiasController {
 	@RequestMapping(value = "/editar", method = RequestMethod.POST)
 	public ModelAndView atualizar (@Valid MidiasEletronicas midia, BindingResult result, RedirectAttributes attributes) {
 		if(result.hasErrors()) {
-			return novo(midia,null);
+			return novo(midia,null,null);
 		}
 		//atualiza no banco
 		try {
 			midiasService.atualizar(midia);
 		} catch (ItemDuplicadoException e) {
 			result.rejectValue("titulo", e.getMessage(), e.getMessage());
-			return (novo(midia, null));
+			return (novo(midia, null,null));
 		}
 		attributes.addFlashAttribute("mensagem", "Midia atualizada com sucesso!");
 		return new ModelAndView("redirect:/midias/novo");

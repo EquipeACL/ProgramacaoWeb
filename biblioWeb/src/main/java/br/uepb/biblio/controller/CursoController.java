@@ -47,12 +47,16 @@ public class CursoController {
 	 * @return mv, que é um objeto ModelAndView que contém os parâmetros que foram adicionados para exibir na view.
 	 */
 	@RequestMapping("/novo")
-	public ModelAndView novo(Curso curso,String busca){
+	public ModelAndView novo(Curso curso,String busca,String filtro){
 		ModelAndView model = new ModelAndView("curso/CadastroCurso");
 		model.addObject("tiposCursos", Tipo_curso.values());
 		model.addObject("areas", areasRepository.findAll());
 		if(busca!=null){
-			model.addObject("listaCurso",cursosService.buscarPorNome(busca));
+			if(filtro!=null && filtro.equals("tipo")){
+				model.addObject("listaCurso",cursosService.buscarPorTipo(busca));
+			}else{
+				model.addObject("listaCurso",cursosService.buscarPorNome(busca));
+			}
 		}else{
 			model.addObject("listaCurso",cursosRepository.findAll());
 		}
@@ -100,14 +104,14 @@ public class CursoController {
 	@RequestMapping(value="/novo",method = RequestMethod.POST)
 	public ModelAndView cadastrar(@Valid Curso curso, BindingResult result, Model model, RedirectAttributes attributes) {
 		if(result.hasErrors()) {
-			return novo(curso,null);
+			return novo(curso,null,null);
 		}
 		
 		try{
 			cursosService.salvar(curso);
 		}catch(ItemDuplicadoException e){
 			result.rejectValue("nome", e.getMessage(),e.getMessage());
-			return (novo(curso,null));
+			return (novo(curso,null,null));
 		}
 		attributes.addFlashAttribute("mensagem", " Curso salvo com sucesso!");
 		return new ModelAndView("redirect:/cursos/novo");
@@ -123,13 +127,13 @@ public class CursoController {
 	@RequestMapping(value="/editar",method = RequestMethod.POST)
 	public ModelAndView atualizar(@Valid Curso curso, BindingResult result, Model model, RedirectAttributes attributes) {
 		if(result.hasErrors()) {
-			return novo(curso,null);
+			return novo(curso,null,null);
 		}		
 		try{
 			cursosService.atualizar(curso);
 		}catch(ItemDuplicadoException e){
 			result.rejectValue("nome", e.getMessage(),e.getMessage());
-			return (novo(curso,null));
+			return (novo(curso,null,null));
 		}
 		attributes.addFlashAttribute("mensagem", " Curso atualizado com sucesso!");
 		return new ModelAndView("redirect:/cursos/novo");

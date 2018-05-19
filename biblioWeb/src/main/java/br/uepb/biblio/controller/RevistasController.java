@@ -11,7 +11,6 @@ import org.springframework.beans.propertyeditors.CustomDateEditor;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.InitBinder;
@@ -54,11 +53,15 @@ public class RevistasController {
 	 * @return model, que é um objeto ModelAndView que contém os parâmetros que foram adicionados para exibir na view.
 	 */
 	@RequestMapping("/novo")
-	public ModelAndView novo(Revista revista, String busca) {
+	public ModelAndView novo(Revista revista, String busca,String filtro) {
 		ModelAndView model = new ModelAndView("/revista/CadastroRevista");
 		model.addObject("listaEditoras",editoraRepository.findAll());
 		if(busca!=null){
-			model.addObject("listaRevistas", revistaService.buscarPorTitulo(busca));
+			if(filtro!=null && filtro.equals("editora")){
+				model.addObject("listaRevistas", revistaService.buscarPorEditora(busca));
+			}else{
+				model.addObject("listaRevistas", revistaService.buscarPorTitulo(busca));
+			}
 		}else{
 			model.addObject("listaRevistas", revistaRepository.findAll());
 		}
@@ -71,10 +74,14 @@ public class RevistasController {
 	 * @return model, que é um objeto ModelAndView que contém os parâmetros que foram adicionados para exibir na view.
 	 */
 	@RequestMapping("/pesquisar")
-	public ModelAndView pesquisar(String busca) {
+	public ModelAndView pesquisar(String busca,String filtro) {
 		ModelAndView model = new ModelAndView("/revista/PesquisaRevista");
 		if(busca!=null){
-			model.addObject("listaRevistas", revistaService.buscarPorTitulo(busca));
+			if(filtro!=null && filtro.equals("editora")){
+				model.addObject("listaRevistas", revistaService.buscarPorEditora(busca));
+			}else{
+				model.addObject("listaRevistas", revistaService.buscarPorTitulo(busca));
+			}
 		}else{
 			model.addObject("listaRevistas", revistaRepository.findAll());
 		}
@@ -105,7 +112,7 @@ public class RevistasController {
 	@RequestMapping(value="/novo",method = RequestMethod.POST)
 	public ModelAndView cadastrar(@Valid Revista revista, BindingResult result, RedirectAttributes attributes) {
 		if(result.hasErrors()) {
-			return novo(revista,null);
+			return novo(revista,null,null);
 		}
 		//salvar no banco		
 		
@@ -113,7 +120,7 @@ public class RevistasController {
 			revistaService.salvar(revista);
 		} catch (ItemDuplicadoException e) {
 			result.rejectValue("titulo", e.getMessage(), e.getMessage());
-			return(novo(revista, null));
+			return(novo(revista, null,null));
 		}
 		attributes.addFlashAttribute("mensagem", "Revista salva com sucesso!");	
 		return new ModelAndView("redirect:/revistas/novo");
@@ -129,14 +136,14 @@ public class RevistasController {
 	@RequestMapping(value="/editar",method = RequestMethod.POST)
 	public ModelAndView atualizar(@Valid Revista revista, BindingResult result, RedirectAttributes attributes) {
 		if(result.hasErrors()) {
-			return novo(revista,null);
+			return novo(revista,null,null);
 		}
 		//atualiza no banco		
 		try {
 			revistaService.atualizar(revista);
 		} catch (ItemDuplicadoException e) {
 			result.rejectValue("titulo", e.getMessage(), e.getMessage());
-			return(novo(revista, null));
+			return(novo(revista, null,null));
 		}
 		attributes.addFlashAttribute("mensagem", "Revista atualizada com sucesso!");	
 		return new ModelAndView("redirect:/revistas/novo");

@@ -79,6 +79,16 @@ public class CadastroCursosService {
 		return manager.createQuery("select a from EntityCurso a where a.nome like '%"+busca+"%'",EntityCurso.class).getResultList();
 	}
 	
+	/**
+	 * Esse é o método responsável por fazer uma busca por tipo no banco de dados
+	 * @param busca, que é a String que contém o parâmetro de busca por Curso no banco de dados
+	 * @return List<EntityCurso> contendo o(s) objeto(s) referentes à busca
+	 */
+	@Transactional
+	public List<EntityCurso> buscarPorTipo(String busca) {
+		return manager.createQuery("select a from EntityCurso a where a.tipo like '%"+busca+"%'",EntityCurso.class).getResultList();
+	}
+	
 	
 	/**
 	 * Esse é o método responsável por remover um objeto no banco de dados

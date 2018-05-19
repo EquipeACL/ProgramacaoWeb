@@ -161,6 +161,7 @@ public class EditorasController {
 		Editora retorno = new Editora();
 		try {
 			//vai tentar salvar no banco
+			System.out.println(">>>> Chegou no controller editora e vai cadastrar");
 			retorno = new Editora(cadastroEditoraService.salvar(editora));
 		}
 		catch(ItemDuplicadoException e) {

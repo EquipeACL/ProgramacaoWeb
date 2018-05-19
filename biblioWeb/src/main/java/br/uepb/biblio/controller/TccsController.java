@@ -11,7 +11,6 @@ import org.springframework.beans.propertyeditors.CustomDateEditor;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.InitBinder;
@@ -68,7 +67,7 @@ public class TccsController {
 	 * @return model, que é um objeto ModelAndView que contém os parâmetros que foram adicionados para exibir na view.
 	 */
 	@RequestMapping("/novo")
-	public ModelAndView novo(Tcc tcc,String busca) {
+	public ModelAndView novo(Tcc tcc,String busca,String filtro) {
 		ModelAndView model = new ModelAndView("/tcc/CadastroTcc");
 		model.addObject("autores",autoresRepository.findAll());
 		model.addObject("orientadores",orientadoresRepository.findAll());
@@ -77,7 +76,11 @@ public class TccsController {
 		model.addObject("tipos",Tipo_tcc.values());
 		model.addObject("estados",estadosRepository.findAll());
 		if(busca!=null){
-			model.addObject("listaTcc",tccService.buscarPorTitulo(busca));
+			if(filtro!=null && filtro.equals("autor")){
+				model.addObject("listaTcc",tccService.buscarPorAutor(busca));
+			}else{
+				model.addObject("listaTcc",tccService.buscarPorTitulo(busca));
+			}
 		}else{
 			model.addObject("listaTcc",tccsRepository.findAll());
 		}
@@ -90,14 +93,18 @@ public class TccsController {
 	 * @return model que é um objeto ModelAndView que contém os parâmetros que foram adicionados para exibir na view.
 	 */
 	@RequestMapping("/pesquisar")
-	public ModelAndView pesquisar(String busca) {
+	public ModelAndView pesquisar(String busca,String filtro) {
 		ModelAndView model = new ModelAndView("/tcc/PesquisaTcc");
 		model.addObject("autores",autoresRepository.findAll());
 		model.addObject("orientadores",orientadoresRepository.findAll());
 		model.addObject("formacoes",Tipo_nivel.values());
 		model.addObject("tipos",Tipo_tcc.values());
 		if(busca!=null){
-			model.addObject("listaTcc",tccService.buscarPorTitulo(busca));
+			if(filtro!=null && filtro.equals("autor")){
+				model.addObject("listaTcc",tccService.buscarPorAutor(busca));
+			}else{
+				model.addObject("listaTcc",tccService.buscarPorTitulo(busca));
+			}
 		}else{
 			model.addObject("listaTcc",tccsRepository.findAll());
 		}
@@ -151,7 +158,7 @@ public class TccsController {
 	@RequestMapping(value="/novo",method = RequestMethod.POST)
 	public ModelAndView cadastrar(@Valid Tcc tcc, BindingResult result, RedirectAttributes attributes) {
 		if(result.hasErrors()) {
-			return novo(tcc,null);
+			return novo(tcc,null,null);
 		}
 				
 		// Setando o autor do tcc 
@@ -164,7 +171,7 @@ public class TccsController {
 			tccService.salvar(tcc);
 		} catch (ItemDuplicadoException e) {
 			result.rejectValue("titulo", e.getMessage(), e.getMessage());
-			return(novo(tcc, null));
+			return(novo(tcc, null,null));
 		}
 	
 		attributes.addFlashAttribute("mensagem", "Tcc salvo com sucesso!");
@@ -181,14 +188,14 @@ public class TccsController {
 	@RequestMapping(value="/editar",method = RequestMethod.POST)
 	public ModelAndView atualizar(@Valid Tcc tcc, BindingResult result, RedirectAttributes attributes) {
 		if(result.hasErrors()) {
-			return novo(tcc,null);
+			return novo(tcc,null,null);
 		}
 		//atualiza no banco		
 		try {
 			tccService.atualizar(tcc);
 		} catch (ItemDuplicadoException e) {
 			result.rejectValue("titulo", e.getMessage(), e.getMessage());
-			return(novo(tcc, null));
+			return(novo(tcc, null,null));
 		}
 	
 		attributes.addFlashAttribute("mensagem", "Tcc atualizado com sucesso!");

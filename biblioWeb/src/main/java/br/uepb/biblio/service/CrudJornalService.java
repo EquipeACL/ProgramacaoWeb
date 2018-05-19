@@ -63,6 +63,16 @@ public class CrudJornalService  {
 	}
 	
 	/**
+	 * Esse é o método responsável por fazer uma busca por data no banco de dados
+	 * @param busca, que é a String que contém o parâmetro de busca por Jornal no banco de dados
+	 * @return List<EntityJornal> contendo o(s) objeto(s) referente(s) à busca
+	 */
+	@Transactional
+	public List<EntityJornal> buscarPorData(String busca) {
+		return manager.createQuery("select j from EntityJornal j where j.data like '%"+busca+"%'",EntityJornal.class).getResultList();
+	}
+	
+	/**
 	 * Esse é o método responsável por atualizar um objeto no banco de dados
 	 * @param jornal, que é o objeto que irá ser atualizado no banco de dados.
 	 * @return true or false, dependendo do sucesso ou falha na atualização

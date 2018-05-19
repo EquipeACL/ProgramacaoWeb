@@ -40,6 +40,10 @@ public class Livro extends ItemAcervo implements IFAcervo{
 	@NotBlank(message = " Pelo menos um autor é obrigatório")
 	private String id_autor;
 	
+	public Livro(){
+		
+	}
+	
 	/**
 	 * Método construtor da classe Livro
 	 * Construtor vazio (utilizado para criar um objeto do tipo Livro sem parametros definidos)

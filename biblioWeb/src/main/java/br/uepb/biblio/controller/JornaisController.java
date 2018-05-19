@@ -11,7 +11,6 @@ import org.springframework.beans.propertyeditors.CustomDateEditor;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.InitBinder;
@@ -50,10 +49,14 @@ public class JornaisController {
 	 * @return mv, que é um objeto ModelAndView que contém os parâmetros que foram adicionados para exibir na view.
 	 */
 	@RequestMapping("/novo")
-	public ModelAndView novo(Jornal jornal,String busca) {
+	public ModelAndView novo(Jornal jornal,String busca,String filtro) {
 		ModelAndView model = new ModelAndView("jornal/CadastroJornal");
 		if(busca!=null){
-			model.addObject("listaJornais", jornaisService.buscarPorTitulo(busca));
+			if(filtro !=null && filtro.equals("data")){
+				model.addObject("listaJornais", jornaisService.buscarPorData(busca));
+			}else{
+				model.addObject("listaJornais", jornaisService.buscarPorTitulo(busca));
+			}
 		}else{
 			model.addObject("listaJornais", jornaisRepository.findAll());
 		}
@@ -66,10 +69,14 @@ public class JornaisController {
 	 * @return mv, que é um objeto ModelAndView que contém os parâmetros que foram adicionados para exibir na view.
 	 */
 	@RequestMapping("/pesquisar")
-	public ModelAndView pesquisar(String busca) {
+	public ModelAndView pesquisar(String busca,String filtro) {
 		ModelAndView model = new ModelAndView("jornal/PesquisaJornal");
 		if(busca!=null){
-			model.addObject("listaJornais", jornaisService.buscarPorTitulo(busca));
+			if(filtro !=null && filtro.equals("data")){
+				model.addObject("listaJornais", jornaisService.buscarPorData(busca));
+			}else{
+				model.addObject("listaJornais", jornaisService.buscarPorTitulo(busca));
+			}
 		}else{
 			model.addObject("listaJornais", jornaisRepository.findAll());
 		}
@@ -100,14 +107,14 @@ public class JornaisController {
 	@RequestMapping(value = "/novo", method = RequestMethod.POST)
 	public ModelAndView cadastrar (@Valid Jornal jornal, BindingResult result, RedirectAttributes attributes) {
 		if(result.hasErrors()) {
-			return novo(jornal,null);
+			return novo(jornal,null,null);
 		}
 		//salvar no banco
 		try {
 			jornaisService.salvar(jornal);
 		} catch (ItemDuplicadoException e) {
 			result.rejectValue("titulo", e.getMessage(),e.getMessage());
-			return (novo(jornal,null));
+			return (novo(jornal,null,null));
 		}
 		attributes.addFlashAttribute("mensagem", "Jornal salvo com sucesso!");
 		return new ModelAndView("redirect:/jornais/novo");
@@ -123,14 +130,14 @@ public class JornaisController {
 	@RequestMapping(value = "/editar", method = RequestMethod.POST)
 	public ModelAndView atualizar(@Valid Jornal jornal, BindingResult result, RedirectAttributes attributes) {
 		if(result.hasErrors()) {
-			return novo(jornal,null);
+			return novo(jornal,null,null);
 		}
 		//atualiza no banco
 		try {
 			jornaisService.atualizar(jornal);
 		} catch (Exception e) {
 			result.rejectValue("titulo", e.getMessage(),e.getMessage());
-			return (novo(jornal,null));
+			return (novo(jornal,null,null));
 		}
 		attributes.addFlashAttribute("mensagem", "Jornal atualizado com sucesso!");
 		return new ModelAndView("redirect:/jornais/novo");

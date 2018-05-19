@@ -64,6 +64,17 @@ public class CrudRevistaService {
 	}
 	
 	/**
+	 * Esse é o método responsável por fazer uma busca por nome da editora no banco de dados
+	 * @param busca, que é a String que contém o nome da editora da Revista buscada no banco de dados
+	 * @return List<EntityRevista> contendo o(s) objeto(s) referente(s) à busca
+	 */
+	@Transactional
+	public List<EntityRevista> buscarPorEditora (String busca) {
+		return manager.createQuery("select r from EntityRevista r inner join r.editora ed where ed.nome like '%"+busca+"%')",EntityRevista.class).getResultList();
+	}
+	
+	
+	/**
 	 * Esse é o método responsável por atualizar um objeto no banco de dados
 	 * @param revista, que é o objeto que irá ser atualizado no banco de dados.
 	 * @return true or false, dependendo do sucesso ou falha na atualização

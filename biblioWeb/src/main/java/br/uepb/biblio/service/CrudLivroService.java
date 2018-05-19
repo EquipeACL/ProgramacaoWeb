@@ -64,6 +64,16 @@ public class CrudLivroService {
 	}
 	
 	/**
+	 * Esse é o método responsável por fazer uma busca por autor no banco de dados
+	 * @param busca, que é a String que contém o nome do autor do Livro no banco de dados
+	 * @return List<EntityJornal> contendo o(s) objeto(s) referente(s) à busca
+	 */
+	@Transactional
+	public List<EntityLivro> buscarPorAutor(String busca) {
+		return manager.createQuery("select l from EntityLivro l inner join l.autores la where la.id = ALL(select a.id from EntityAutor a where a.nome like '%"+busca+"%')",EntityLivro.class).getResultList();
+	}
+	
+	/**
 	 * Esse é o método responsável por atualizar um objeto no banco de dados
 	 * @param livro, que é o objeto que irá ser atualizado no banco de dados.
 	 * @return true or false, dependendo do sucesso ou falha na atualização

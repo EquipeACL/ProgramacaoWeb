@@ -75,7 +75,11 @@ public class AnaisController {
 		mv.addObject("cidades",cidadesRepository.findAll());
 		mv.addObject("estados",estadosRepository.findAll());
 		if(busca!=null){
-			mv.addObject("listaAnais",anaisService.buscarPorTitulo(busca));			
+			if(filtro!=null && filtro.equals("autor")){
+				mv.addObject("listaAnais",anaisService.buscarPorAutor(busca));
+			}else{
+				mv.addObject("listaAnais",anaisService.buscarPorTitulo(busca));
+			}
 		}else{
 			mv.addObject("listaAnais",anaisRepository.findAll());
 		}
@@ -91,7 +95,11 @@ public class AnaisController {
 	public ModelAndView pesquisar(String busca, String filtro) {
 		ModelAndView mv = new ModelAndView("anais/PesquisaAnais");
 		if(busca!=null){
-			mv.addObject("listaAnais",anaisService.buscarPorTitulo(busca));
+			if(filtro!=null && filtro.equals("autor")){
+				mv.addObject("listaAnais",anaisService.buscarPorAutor(busca));
+			}else{
+				mv.addObject("listaAnais",anaisService.buscarPorTitulo(busca));
+			}
 		}else{
 			mv.addObject("listaAnais",anaisRepository.findAll());
 		}
