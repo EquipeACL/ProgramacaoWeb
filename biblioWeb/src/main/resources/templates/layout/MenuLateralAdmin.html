@@ -1,7 +1,8 @@
 <!DOCTYPE html>
 <html lang="pt" xmlns="http://www.w3.org/1999/xhtml"
 	xmlns:th="http://www.thymeleaf.org"
-	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4">
 
 <body>
 	<aside class="aw-layout-sidebar  js-sidebar"
@@ -12,161 +13,191 @@
 				<ul class="aw-menu__list">
 
 					<li class="aw-menu__item"><a th:href="@{/index}"><i
-							class="fa  fa-fw  fa-home"></i><span>Home</span></a>
-					</li>
-					
-					<li class="aw-menu__item ">
-						<a href="#">
-							<i class="fa  fa-fw  fa-user "></i><span>Autores</span>
-							<i class="aw-menu__navigation-icon  fa"></i>
-						</a>
+							class="fa  fa-fw  fa-home"></i><span>Home</span></a></li>
+
+					<li class="aw-menu__item "><a href="#"> <i
+							class="fa  fa-fw  fa-user "></i><span>Alunos</span> <i
+							class="aw-menu__navigation-icon  fa"></i>
+					</a>
+
+						<ul class="aw-menu__list  aw-menu__list--sublist">
+							<li class="aw-menu__item  aw-menu__item--link  is-active"
+								sec:authorize="hasAuthority('DELETER_ACERVO')"><a
+								th:href="@{/alunos/novo}"><i class="fa  fa-fw  fa-plus "></i>Cadastro
+									de Alunos</a></li>
+							<li class="aw-menu__item  aw-menu__item--link  is-active"><a
+								th:href="@{/alunos/pesquisar}"><i
+									class="fa  fa-fw  fa-search "></i>Pesquisa de Alunos</a></li>
+						</ul></li>
+
+					<li class="aw-menu__item "><a href="#"> <i
+							class="fa  fa-fw  fa-file-word-o "></i><span>Anais de
+								Congresso</span> <i class="aw-menu__navigation-icon  fa"></i>
+					</a>
 
 						<ul class="aw-menu__list  aw-menu__list--sublist">
 							<li class="aw-menu__item  aw-menu__item--link  is-active"><a
-								th:href="@{/autores/novo}"><i class="fa  fa-fw  fa-plus "></i>Cadastro de Autores</a></li>
+								th:href="@{/anais/novo}"><i class="fa  fa-fw  fa-plus "></i>Cadastro
+									de Anais</a></li>
 							<li class="aw-menu__item  aw-menu__item--link  is-active"><a
-								th:href="@{/autores/pesquisar}"><i class="fa  fa-fw  fa-search "></i>Pesquisa de Autores</a></li>
-						</ul>
-					</li>
-					
-					<li class="aw-menu__item">
-						<a href="#">
-							<i class="fa  fa-fw  fa-university "></i><span>Areas Conhecimento</span>
-							<i class="aw-menu__navigation-icon  fa"></i>
-						</a>
+								th:href="@{/anais/pesquisar}"><i
+									class="fa  fa-fw  fa-search "></i>Pesquisa de Anais</a></li>
+						</ul></li>
+
+					<li class="aw-menu__item"><a href="#"> <i
+							class="fa  fa-fw  fa-university "></i><span>Areas de
+								Conhecimento</span> <i class="aw-menu__navigation-icon  fa"></i>
+					</a>
 
 						<ul class="aw-menu__list  aw-menu__list--sublist">
 							<li class="aw-menu__item  aw-menu__item--link  is-active"><a
-								th:href="@{/areasconhecimento/novo}"><i class="fa  fa-fw  fa-plus "></i>Cadastro de Area do Conhecimento</a></li>
+								th:href="@{/areasconhecimento/novo}"><i
+									class="fa  fa-fw  fa-plus "></i>Cadastro de Areas do
+									Conhecimento</a></li>
 							<li class="aw-menu__item  aw-menu__item--link  is-active"><a
-								th:href="@{/areasconhecimento/pesquisar}"><i class="fa  fa-fw  fa-search "></i>Pesquisa de Area do Conhecimento</a></li>
-						</ul>
-					</li>
-					
-					<li class="aw-menu__item">
-						<a href="#">
-							<i class="fa  fa-fw  fa-university "></i><span>Temas</span>
-							<i class="aw-menu__navigation-icon  fa"></i>
-						</a>
+								th:href="@{/areasconhecimento/pesquisar}"><i
+									class="fa  fa-fw  fa-search "></i>Pesquisa de Areas do
+									Conhecimento</a></li>
+						</ul></li>
+
+					<li class="aw-menu__item "><a href="#"> <i
+							class="fa  fa-fw  fa-user "></i><span>Autores</span> <i
+							class="aw-menu__navigation-icon  fa"></i>
+					</a>
+
+						<ul class="aw-menu__list  aw-menu__list--sublist">
+							<li class="aw-menu__item  aw-menu__item--link  is-active"
+								sec:authorize="hasAuthority('DELETER_ACERVO')"><a
+								th:href="@{/autores/novo}"><i class="fa  fa-fw  fa-plus "></i>Cadastro
+									de Autores</a></li>
+							<li class="aw-menu__item  aw-menu__item--link  is-active"><a
+								th:href="@{/autores/pesquisar}"><i
+									class="fa  fa-fw  fa-search "></i>Pesquisa de Autores</a></li>
+						</ul></li>
+
+					<li class="aw-menu__item"><a href="#"> <i
+							class="fa  fa-fw  fa-print "></i><span>Editoras</span> <i
+							class="aw-menu__navigation-icon  fa"></i>
+					</a>
 
 						<ul class="aw-menu__list  aw-menu__list--sublist">
 							<li class="aw-menu__item  aw-menu__item--link  is-active"><a
-								th:href="@{/temas/novo}"><i class="fa  fa-fw  fa-plus "></i>Cadastro de Temas</a></li>
+								th:href="@{/editoras/novo}"><i class="fa  fa-fw  fa-plus "></i>Cadastro
+									de Editoras</a></li>
 							<li class="aw-menu__item  aw-menu__item--link  is-active"><a
-								th:href="@{/temas/pesquisar}"><i class="fa  fa-fw  fa-search "></i>Pesquisa de Temas</a></li>
-						</ul>
-					</li>
-					
-					<li class="aw-menu__item">
-						<a href="#">
-							<i class="fa  fa-fw  fa-print "></i><span>Editoras</span>
-							<i class="aw-menu__navigation-icon  fa"></i>
-						</a>
+								th:href="@{/editoras/pesquisar}"><i
+									class="fa  fa-fw  fa-search "></i>Pesquisa de Editoras</a></li>
+						</ul></li>
+					<li class="aw-menu__item "><a href="#"> <i
+							class="fa  fa-fw  fa-newspaper-o "></i><span>Jornais</span> <i
+							class="aw-menu__navigation-icon  fa"></i>
+					</a>
 
 						<ul class="aw-menu__list  aw-menu__list--sublist">
 							<li class="aw-menu__item  aw-menu__item--link  is-active"><a
-								th:href="@{/editoras/novo}"><i class="fa  fa-fw  fa-plus "></i>Cadastro de Editoras</a></li>
+								th:href="@{/jornais/novo}"><i class="fa  fa-fw  fa-plus "></i>Cadastro
+									de Jornais</a></li>
 							<li class="aw-menu__item  aw-menu__item--link  is-active"><a
-								th:href="@{/editoras/pesquisar}"><i class="fa  fa-fw  fa-search "></i>Pesquisa de Editoras</a></li>
-						</ul>
-					</li>
-					<li class="aw-menu__item">
-						<a href="#">
-							<i class="fa  fa-fw  fa-book "></i><span>Livros</span>
-							<i class="aw-menu__navigation-icon  fa"></i>
-						</a>
+								th:href="@{/jornais/pesquisar}"><i
+									class="fa  fa-fw  fa-search "></i>Pesquisa de Jornais</a></li>
+						</ul></li>
+					<li class="aw-menu__item"><a href="#"> <i
+							class="fa  fa-fw  fa-book "></i><span>Livros</span> <i
+							class="aw-menu__navigation-icon  fa"></i>
+					</a>
 
 						<ul class="aw-menu__list  aw-menu__list--sublist">
 							<li class="aw-menu__item  aw-menu__item--link  is-active"><a
-								th:href="@{/livros/novo}"><i class="fa  fa-fw  fa-plus "></i>Cadastro de Livros</a></li>
+								th:href="@{/livros/novo}"><i class="fa  fa-fw  fa-plus "></i>Cadastro
+									de Livros</a></li>
 							<li class="aw-menu__item  aw-menu__item--link  is-active"><a
-								th:href="@{/livros/pesquisar}"><i class="fa  fa-fw  fa-search "></i>Pesquisa de Livros</a></li>
-						</ul>
-					</li>
-					
-					<li class="aw-menu__item ">
-						<a href="#">
-							<i class="fa  fa-fw  fa-newspaper-o "></i><span>Jornais</span>
-							<i class="aw-menu__navigation-icon  fa"></i>
-						</a>
+								th:href="@{/livros/pesquisar}"><i
+									class="fa  fa-fw  fa-search "></i>Pesquisa de Livros</a></li>
+						</ul></li>
+
+					<li class="aw-menu__item"><a href="#"> <i
+							class="fa  fa-fw  fa-desktop "></i><span>Midias
+								Eletrônicas</span> <i class="aw-menu__navigation-icon  fa"></i>
+					</a>
 
 						<ul class="aw-menu__list  aw-menu__list--sublist">
 							<li class="aw-menu__item  aw-menu__item--link  is-active"><a
-								th:href="@{/jornais/novo}"><i class="fa  fa-fw  fa-plus "></i>Cadastro de Jornais</a></li>
+								th:href="@{/midias/novo}"><i class="fa  fa-fw  fa-plus "></i>Cadastro
+									de Midias</a></li>
 							<li class="aw-menu__item  aw-menu__item--link  is-active"><a
-								th:href="@{/jornais/pesquisar}"><i class="fa  fa-fw  fa-search "></i>Pesquisa de Jornais</a></li>
-						</ul>
-					</li>
-					
-					<li class="aw-menu__item ">
-						<a href="#">
-							<i class="fa  fa-fw  fa-file-word-o "></i><span>Anais</span>
-							<i class="aw-menu__navigation-icon  fa"></i>
-						</a>
+								th:href="@{/midias/pesquisar}"><i
+									class="fa  fa-fw  fa-search "></i>Pesquisa de Midias</a></li>
+						</ul></li>
+					<li class="aw-menu__item"><a href="#"> <i
+							class="fa  fa-fw  fa-user"></i><span>Orientadores</span> <i
+							class="aw-menu__navigation-icon  fa"></i>
+					</a>
 
 						<ul class="aw-menu__list  aw-menu__list--sublist">
 							<li class="aw-menu__item  aw-menu__item--link  is-active"><a
-								th:href="@{/anais/novo}"><i class="fa  fa-fw  fa-plus "></i>Cadastro de Anais</a></li>
+								th:href="@{/orientadores/novo}"><i
+									class="fa  fa-fw  fa-plus "></i>Cadastro de Orientadores</a></li>
 							<li class="aw-menu__item  aw-menu__item--link  is-active"><a
-								th:href="@{/anais/pesquisar}"><i class="fa  fa-fw  fa-search "></i>Pesquisa de Anais</a></li>
-						</ul>
-					</li>
-					
-					<li class="aw-menu__item ">
-						<a href="#">
-							<i class="fa  fa-fw  fa-book "></i><span>Revistas</span>
-							<i class="aw-menu__navigation-icon  fa"></i>
-						</a>
+								th:href="@{/orientadores/pesquisar}"><i
+									class="fa  fa-fw  fa-search "></i>Pesquisa de Orientadores</a></li>
+						</ul></li>
+					<li class="aw-menu__item "><a href="#"> <i
+							class="fa  fa-fw  fa-book "></i><span>Revistas</span> <i
+							class="aw-menu__navigation-icon  fa"></i>
+					</a>
 
 						<ul class="aw-menu__list  aw-menu__list--sublist">
 							<li class="aw-menu__item  aw-menu__item--link  is-active"><a
-								th:href="@{/revistas/novo}"><i class="fa  fa-fw  fa-plus "></i>Cadastro de Revistas</a></li>
+								th:href="@{/revistas/novo}"><i class="fa  fa-fw  fa-plus "></i>Cadastro
+									de Revistas</a></li>
 							<li class="aw-menu__item  aw-menu__item--link  is-active"><a
-								th:href="@{/revistas/pesquisar}"><i class="fa  fa-fw  fa-search "></i>Pesquisa de Revistas</a></li>
-						</ul>
-					</li>
-					
-					<li class="aw-menu__item ">
-						<a href="#">
-							<i class="fa  fa-fw  fa-file-word-o "></i><span>Tccs</span>
-							<i class="aw-menu__navigation-icon  fa"></i>
-						</a>
+								th:href="@{/revistas/pesquisar}"><i
+									class="fa  fa-fw  fa-search "></i>Pesquisa de Revistas</a></li>
+						</ul></li>
+					<li class="aw-menu__item"><a href="#"> <i
+							class="fa  fa-fw  fa-university "></i><span>Temas</span> <i
+							class="aw-menu__navigation-icon  fa"></i>
+					</a>
 
 						<ul class="aw-menu__list  aw-menu__list--sublist">
 							<li class="aw-menu__item  aw-menu__item--link  is-active"><a
-								th:href="@{/tccs/novo}"><i class="fa  fa-fw  fa-plus "></i>Cadastro de Tccs</a></li>
+								th:href="@{/temas/novo}"><i class="fa  fa-fw  fa-plus "></i>Cadastro
+									de Temas</a></li>
 							<li class="aw-menu__item  aw-menu__item--link  is-active"><a
-								th:href="@{/tccs/pesquisar}"><i class="fa  fa-fw  fa-search "></i>Pesquisa de Tccs</a></li>
-						</ul>
-					</li>
-					
-					<li class="aw-menu__item">
-						<a href="#">
-							<i class="fa  fa-fw  fa-desktop "></i><span>Midias Eletrônicas</span>
-							<i class="aw-menu__navigation-icon  fa"></i>
-						</a>
+								th:href="@{/temas/pesquisar}"><i
+									class="fa  fa-fw  fa-search "></i>Pesquisa de Temas</a></li>
+						</ul></li>
+
+
+					<li class="aw-menu__item "><a href="#"> <i
+							class="fa  fa-fw  fa-file-word-o "></i><span>Tccs</span> <i
+							class="aw-menu__navigation-icon  fa"></i>
+					</a>
 
 						<ul class="aw-menu__list  aw-menu__list--sublist">
 							<li class="aw-menu__item  aw-menu__item--link  is-active"><a
-								th:href="@{/midias/novo}"><i class="fa  fa-fw  fa-plus "></i>Cadastro de Midias</a></li>
+								th:href="@{/tccs/novo}"><i class="fa  fa-fw  fa-plus "></i>Cadastro
+									de Tccs</a></li>
 							<li class="aw-menu__item  aw-menu__item--link  is-active"><a
-								th:href="@{/midias/pesquisar}"><i class="fa  fa-fw  fa-search "></i>Pesquisa de Midias</a></li>
-						</ul>
-					</li>
-					
-					<li class="aw-menu__item">
-						<a href="#">
-							<i class="fa  fa-fw  fa-user"></i><span>Orientadores</span>
-							<i class="aw-menu__navigation-icon  fa"></i>
-						</a>
+								th:href="@{/tccs/pesquisar}"><i
+									class="fa  fa-fw  fa-search "></i>Pesquisa de Tccs</a></li>
+						</ul></li>
+					<li class="aw-menu__item "><a href="#"> <i
+							class="fa  fa-fw  fa-user "></i><span>Usuarios</span> <i
+							class="aw-menu__navigation-icon  fa"></i>
+					</a>
 
 						<ul class="aw-menu__list  aw-menu__list--sublist">
 							<li class="aw-menu__item  aw-menu__item--link  is-active"><a
-								th:href="@{/orientadores/novo}"><i class="fa  fa-fw  fa-plus "></i>Cadastro de Orientadores</a></li>
+								th:href="@{/usuarios/novo}"><i class="fa  fa-fw  fa-plus "></i>Cadastro
+									de Usuário</a></li>
 							<li class="aw-menu__item  aw-menu__item--link  is-active"><a
-								th:href="@{/orientadores/pesquisar}"><i class="fa  fa-fw  fa-search "></i>Pesquisa de Orientadores</a></li>
-						</ul>
-					</li>
+								th:href="@{/usuarios/pesquisar}"><i
+									class="fa  fa-fw  fa-search "></i>Pesquisa de Usuários</a></li>
+						</ul></li>
+
+
+
 
 				</ul>
 			</nav>
