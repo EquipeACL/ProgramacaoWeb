@@ -22,6 +22,13 @@ import br.uepb.biblio.service.exception.ItemDuplicadoException;
 import br.uepb.model.Emprestimo;
 import br.uepb.model.usuarios.Aluno;
 
+
+
+/**
+ * Essa é a classe Controller da classe Emprestimo, e é responsável por fazer a ponte entre as views referentes a esse objeto e os Models, de acordo com as solicitações realizadas nas rotas.
+ * @author EquipeACL
+ *
+ */
 @Controller
 @RequestMapping("/emprestimos")
 public class EmprestimoController{
@@ -32,6 +39,11 @@ public class EmprestimoController{
 	/*@Autowired
 	private CrudEmprestimos emprestimosService;*/
 	
+	/**
+	 * Esse método é responsável por adicionar os parâmetros que vão ser exibidos na view renderizada ao acessar a rota emprestimos/novo	
+	 * @param emprestimo, que é o objeto a ser acessado
+	 * @return model, que é um objeto ModelAndView que contém os parâmetros que foram adicionados para exibir na view.
+	 */
 	@RequestMapping("/novo")
 	public ModelAndView novo(Emprestimo emprestimo){
 		ModelAndView model = new ModelAndView("emprestimo/CadastroEmprestimo");
@@ -53,8 +65,15 @@ public class EmprestimoController{
 		return model;
 	}
 	
+	/**
+	 * Esse é o método que irá acessar a rota emprestimos/novo, porém com uma requisição do tipo POST, que servirá para salvar o objeto passado por parâmetro no banco
+	 * @param emprestimo, que é o objeto que será mapeado no formulário para salvar informações no banco de dados.
+	 * @param result, que serve para mapear se houve erros de preenchimento do formulário 
+	 * @param attributes, que serve para fornecer avisos na view (sucesso ou erro)
+	 * @return new ModelAndView("redirect:/emprestimos/novo"), que renderiza a página no endereço emprestimos/novo (caso haja sucesso na inserção) 
+	 */
 	@RequestMapping(value="/novo",method=RequestMethod.POST)
-	public ModelAndView cadastrar(@Valid Emprestimo emprestimo, BindingResult result, Model model, RedirectAttributes attributes){
+	public ModelAndView cadastrar(@Valid Emprestimo emprestimo, BindingResult result, RedirectAttributes attributes){
 		System.out.println("Quantidade de itens: "+emprestimo.getEmprestimos().size());
 		if(result.hasErrors()){
 			if(emprestimo.getAluno().getId()==0){
@@ -72,7 +91,10 @@ public class EmprestimoController{
 		return new ModelAndView("redirect:/emprestimos/novo");
 	}
 	
-	
+	/**
+	 * Esse método é responsável por formatar a data de acordo com o padrão do banco de dados.
+	 * @param binder, que é o objeto que será formatado de acordo com o padrão definido.
+	 */
 	@InitBinder
 	public void initBinder(WebDataBinder binder) {
 	    CustomDateEditor editor = new CustomDateEditor(new SimpleDateFormat("yyyy-MM-dd"), true);

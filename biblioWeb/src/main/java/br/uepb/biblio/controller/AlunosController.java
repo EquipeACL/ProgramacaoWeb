@@ -28,6 +28,12 @@ import br.uepb.model.Curso;
 import br.uepb.model.enums.Tipo_nivel;
 import br.uepb.model.usuarios.Aluno;
 
+/**
+ * Essa é a classe Controller da classe Aluno, e é responsável por fazer a ponte entre as views referentes a esse objeto e os Models, de acordo com as solicitações realizadas nas rotas.
+ * @author EquipeACL
+ *
+ */
+
 @Controller
 @RequestMapping("/alunos")
 public class AlunosController {
@@ -46,6 +52,11 @@ public class AlunosController {
 	@Autowired
 	private Grupos grupos;
 	
+	/**
+	 * Esse método é responsável por adicionar os parâmetros que vão ser exibidos na view renderizada ao acessar a rota alunos/novo	
+	 * @param aluno, que é o objeto a ser acessado
+	 * @return mv, que é um objeto ModelAndView que contém os parâmetros que foram adicionados para exibir na view.
+	 */
 	@RequestMapping("/novo")
 	ModelAndView novo(Aluno aluno) {
 		ModelAndView mv = new ModelAndView("aluno/CadastroAluno");
@@ -55,8 +66,15 @@ public class AlunosController {
 		return mv;
 	}
 	
+	/**
+	 * Esse é o método que irá acessar a rota alunos/novo, porém com uma requisição do tipo POST, que servirá para salvar o objeto passado por parâmetro no banco
+	 * @param aluno, que é o objeto que será mapeado no formulário para salvar informações no banco de dados.
+	 * @param result, que serve para mapear se houve erros de preenchimento do formulário 
+	 * @param attributes, que serve para fornecer avisos na view (sucesso ou erro)
+	 * @return new ModelAndView("redirect:/alunos/novo"), que renderiza a página no endereço alunos/novo (caso haja sucesso na inserção) 
+	 */
 	@RequestMapping(value = "/novo", method = RequestMethod.POST)
-	public ModelAndView cadastro(@Valid Aluno aluno, BindingResult result,RedirectAttributes attributes, Model model ) {
+	public ModelAndView cadastro(@Valid Aluno aluno, BindingResult result,RedirectAttributes attributes, Model model) {
 		if(result.hasErrors()) {
 			return novo(aluno);
 		}
@@ -82,6 +100,10 @@ public class AlunosController {
 		
 	}
 	
+	/**
+	 * Esse método é responsável por formatar a data de acordo com o padrão do banco de dados.
+	 * @param binder, que é o objeto que será formatado de acordo com o padrão definido.
+	 */
 	@InitBinder
 	public void initBinder(WebDataBinder binder) {
 	    CustomDateEditor editor = new CustomDateEditor(new SimpleDateFormat("yyyy-MM-dd"), true);

@@ -20,6 +20,11 @@ import br.uepb.biblio.service.exception.LoginDuplicadoException;
 import br.uepb.biblio.service.exception.SenhaObrigatoriaUsuarioException;
 import br.uepb.model.usuarios.Funcionario;
 
+/**
+ * Essa é a classe Controller da classe Usuario, e é responsável por fazer a ponte entre as views referentes a esse objeto e os Models, de acordo com as solicitações realizadas nas rotas.
+ * @author EquipeACL
+ *
+ */
 @Controller
 @RequestMapping("/usuarios")
 public class UsuariosController {
@@ -35,6 +40,12 @@ public class UsuariosController {
 	
 	@Autowired
 	private Grupos grupos;
+	
+	/**
+	 * Esse método é responsável por adicionar os parâmetros que vão ser exibidos na view renderizada ao acessar a rota usuarios/novo	
+	 * @param funcionario, que é o objeto a ser acessado
+	 * @return mv, que é um objeto ModelAndView que contém os parâmetros que foram adicionados para exibir na view.
+	 */
 	@RequestMapping("/novo")
 	public ModelAndView novo(Funcionario funcionario) { 
 		ModelAndView mv = new ModelAndView("usuario/CadastroUsuario");
@@ -44,6 +55,13 @@ public class UsuariosController {
 		
 	}
 	
+	/**
+	 * Esse é o método que irá acessar a rota funcionarios/novo, porém com uma requisição do tipo POST, que servirá para salvar o objeto passado por parâmetro no banco
+	 * @param funcionario, que é o objeto que será mapeado no formulário para salvar informações no banco de dados.
+	 * @param result, que serve para mapear se houve erros de preenchimento do formulário 
+	 * @param attributes, que serve para fornecer avisos na view (sucesso ou erro)
+	 * @return new ModelAndView("redirect:/usuarios/novo"), que renderiza a página no endereço usuarios/novo (caso haja sucesso na inserção) 
+	 */
 	@RequestMapping(value = "/novo", method = RequestMethod.POST)
 	public ModelAndView cadastro(@Valid Funcionario funcionario, BindingResult result,RedirectAttributes attributes, Model model ) {
 		if(result.hasErrors()) {
