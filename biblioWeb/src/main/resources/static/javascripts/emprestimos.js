@@ -5,6 +5,18 @@ var listaRevistas;
 var listaTccs;
 var listaMidias;
 var tipoDeItem = "";
+var seletorLivro = $('#seletorLivro');
+var seletorAnal = $('#seletorAnal');
+var seletorJornal = $('#seletorJornal');
+var seletorRevista = $('#seletorRevista');
+var seletorTcc = $('#seletorTcc');
+var seletorMidia = $('#seletorMidia');
+seletorLivro.hide();
+seletorAnal.hide();
+seletorJornal.hide();
+seletorRevista.hide();
+seletorTcc.hide();
+seletorMidia.hide();
 function carregar(contexto){
 	buscarLivrosAll(contexto+'livros/buscarAll');
 	buscarJornaisAll(contexto+'jornais/buscarAll');
@@ -160,64 +172,91 @@ function selecionouCategoria(){
 }
 function selecionouLivros(){
 	//console.log('Selecionou livros');
-	var combobox = $('#comboItens');
-	combobox.html('<option value="">Selecione o item</option>');
+	seletorLivro.show();
+	seletorAnal.hide();
+	seletorJornal.hide();
+	seletorRevista.hide();
+	seletorTcc.hide();
+	seletorMidia.hide();
+	var combobox = $('#comboLivro');
+	combobox.html('<option value="0">Selecione o item</option>');
 	for(var i in listaLivros){
 		combobox.append('<option value ='+listaLivros[i].id+'>'+listaLivros[i].titulo+'</option>');	
 	}
 	tipoDeItem = "Livro";
 }
 function selecionouJornais(){
+	seletorLivro.hide();
+	seletorAnal.hide();
+	seletorJornal.show();
+	seletorRevista.hide();
+	seletorTcc.hide();
+	seletorMidia.hide();
 	//console.log('Selecionou jornias');
-	var combobox =$('#comboItens');
-	combobox.html('<option value="">Selecione o item</option>');
+	var combobox =$('#comboJornal');
+	combobox.html('<option value="0">Selecione o item</option>');
 	for(var i in listaJornais){
 		combobox.append('<option value ='+listaJornais[i].id+'>'+listaJornais[i].titulo+'</option>');	
 	}
 	tipoDeItem = "Jornal";
 }
 function selecionouAnais(){
+	seletorLivro.hide();
+	seletorAnal.show();
+	seletorJornal.hide();
+	seletorRevista.hide();
+	seletorTcc.hide();
+	seletorMidia.hide();
 	//console.log('Selecionou anais');
-	var combobox =$('#comboItens');
-	combobox.html('<option value="">Selecione o item</option>');
+	var combobox =$('#comboAnal');
+	combobox.html('<option value="0">Selecione o item</option>');
 	for(var i in listaAnais){
 		combobox.append('<option value ='+listaAnais[i].id+'>'+listaAnais[i].titulo+'</option>');	
 	}	
 	tipoDeItem = "Anal";
 }
 function selecionouRevistas(){
+	seletorLivro.hide();
+	seletorAnal.hide();
+	seletorJornal.hide();
+	seletorRevista.show();
+	seletorTcc.hide();
+	seletorMidia.hide();
 	//console.log('Selecionou revistas');
-	var combobox =$('#comboItens');
-	combobox.html('<option value="">Selecione o item</option>');
+	var combobox =$('#comboRevista');
+	combobox.html('<option value="0">Selecione o item</option>');
 	for(var i in listaRevistas){
 		combobox.append('<option value ='+listaRevistas[i].id+'>'+listaRevistas[i].titulo+'</option>');	
 	}
 	tipoDeItem = "Revista";
 }
 function selecionouTccs(){
+	seletorLivro.hide();
+	seletorAnal.hide();
+	seletorJornal.hide();
+	seletorRevista.hide();
+	seletorTcc.show();
+	seletorMidia.hide();
 	//console.log('Selecionou tccs');
-	var combobox =$('#comboItens');
-	combobox.html('<option value="">Selecione o item</option>');
+	var combobox =$('#comboTcc');
+	combobox.html('<option value="0">Selecione o item</option>');
 	for(var i in listaTccs){
 		combobox.append('<option value ='+listaTccs[i].id+'>'+listaTccs[i].titulo+'</option>');	
 	}
 	tipoDeItem = "Tcc";
 }
 function selecionouMidias(){
+	seletorLivro.hide();
+	seletorAnal.hide();
+	seletorJornal.hide();
+	seletorRevista.hide();
+	seletorTcc.hide();
+	seletorMidia.show();
 	//console.log('Selecionou midias');
-	var combobox =$('#comboItens');
-	combobox.html('<option value="">Selecione o item</option>');
+	var combobox =$('#comboMidia');
+	combobox.html('<option value="0">Selecione o item</option>');
 	for(var i in listaMidias){
 		combobox.append('<option value ='+listaMidias[i].id+'>'+listaMidias[i].titulo+'</option>');	
 	}
 	tipoDeItem = "Midia";
-}
-
-function adicionarItem(){
-	var combobox =$('#comboItens');
-	var index = document.getElementById('comboItens').selectedIndex;
-	var itens = $('#itensSelecionados');
-	itens.append('<li class="item-selecionado col-sm-auto"><button type="button" class="close" data-dismiss="alert"><span aria-hidden="true">&times;</span></button><span>'+tipoDeItem+': '+combobox['0'][index].label+'</span></li>');
-	
-	
 }

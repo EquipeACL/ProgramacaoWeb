@@ -46,10 +46,7 @@
 						<label for="data" class="control-label">Data de Entrega</label>
 						<input id="data" type="date" class="form-control" th:field="*{dataDeEntrega}"/>
 					</div>
-					<div class="form-group col-sm-2">
-						<br>
-						<button class="btn  btn-primary" type="submit">Salvar</button>
-					</div>
+					
 					
 				</div>
 				
@@ -75,13 +72,42 @@
 						</div>
 												
 					</div>
-					<div class="form-group col-sm-12">
-						<div class="form-group col-sm-6">
-							<select id="comboItens" class="form-control" th:field="*{id_item}">
-								<option value="">Selecione o item</option>
+					<div class="form-group col-sm-12" id="item">
+						<div class="form-group col-sm-6" id="seletorAnal">
+							<select id="comboAnal" class="form-control" th:field="*{anal.id}">
+								<option value="0">Selecione o Anal</option>
 							</select>				
-						    </div>
+						</div>
+						<div class="form-group col-sm-6" id="seletorLivro">
+							<select id="comboLivro" class="form-control" th:field="*{livro.id}">
+								<option value="0">Selecione o Livro</option>
+							</select>				
+						</div>
+						<div class="form-group col-sm-6" id="seletorJornal">
+							<select id="comboJornal" class="form-control" th:field="*{jornal.id}">
+								<option value="0">Selecione o Jornal</option>
+							</select>				
+						</div>
+						<div class="form-group col-sm-6" id="seletorRevista">
+							<select id="comboRevista" class="form-control" th:field="*{revista.id}">
+								<option value="0">Selecione a Revista</option>
+							</select>				
+						</div>
+						<div class="form-group col-sm-6" id="seletorTcc">
+							<select id="comboTcc" class="form-control" th:field="*{tcc.id}">
+								<option value="0">Selecione o Tcc</option>
+							</select>				
+						</div>
+						<div class="form-group col-sm-6" id="seletorMidia">
+							<select id="comboMidia" class="form-control" th:field="*{midia.id}">
+								<option value="0">Selecione a Midia</option>
+							</select>				
+						</div>
 							
+					</div>
+					<div class="form-group row col-sm-2">
+						<br>
+						<button class="btn  btn-primary" type="submit">Salvar</button>
 					</div>
 				</div>
 				

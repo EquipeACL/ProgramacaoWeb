@@ -1,8 +1,14 @@
 ﻿
 DROP DATABASE `biblioteca`;
+
 CREATE DATABASE `biblioteca`;
 
+
 USE `biblioteca`;
+
+#
+# Structure for table "area_conhecimento"
+#
 
 CREATE TABLE `area_conhecimento` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
@@ -24,12 +30,13 @@ CREATE TABLE `autor` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `nome` varchar(45) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
 
 #
 # Data for table "autor"
 #
 
+INSERT INTO `autor` VALUES (2,'Adalcino Junior'),(3,'Mateus Silva');
 
 #
 # Structure for table "cidade"
@@ -41,7 +48,7 @@ CREATE TABLE `cidade` (
   `nome` varchar(255) NOT NULL,
   `uf` char(2) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=7610 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=7610 DEFAULT CHARSET=utf8;
 
 #
 # Data for table "cidade"
@@ -65,12 +72,13 @@ CREATE TABLE `anal` (
   PRIMARY KEY (`id`,`cidade_id`),
   KEY `fk_anal_cidade1_idx` (`cidade_id`),
   CONSTRAINT `fk_anal_cidade1` FOREIGN KEY (`cidade_id`) REFERENCES `cidade` (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
 
 #
 # Data for table "anal"
 #
 
+INSERT INTO `anal` VALUES (1,'ARTIGO','ANAL1','Enect2018','2018-05-19',2932,0),(2,'RESUMO','ANAL2','Enect2019','2018-05-19',3126,0),(3,'POSTER','ANAL3','Enect2019','2018-05-19',2194,0);
 
 #
 # Structure for table "autor_has_anal"
@@ -84,12 +92,13 @@ CREATE TABLE `autor_has_anal` (
   KEY `fk_autor_has_anal_autor_idx` (`autor_id`),
   CONSTRAINT `fk_autor_has_anal_anal1` FOREIGN KEY (`anal_id`) REFERENCES `anal` (`id`),
   CONSTRAINT `fk_autor_has_anal_autor` FOREIGN KEY (`autor_id`) REFERENCES `autor` (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
 
 #
 # Data for table "autor_has_anal"
 #
 
+INSERT INTO `autor_has_anal` VALUES (2,1),(2,3),(3,2);
 
 #
 # Structure for table "curso"
@@ -104,12 +113,13 @@ CREATE TABLE `curso` (
   PRIMARY KEY (`id`),
   KEY `fk_curso_area_conhecimento1_idx` (`area_conhecimento_id`),
   CONSTRAINT `fk_curso_area_conhecimento1` FOREIGN KEY (`area_conhecimento_id`) REFERENCES `area_conhecimento` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
 
 #
 # Data for table "curso"
 #
 
+INSERT INTO `curso` VALUES (2,'COMPUTACAO','CC','GRADUACAO',1),(3,'LETRAS','LE','POS_GRADUACAO',5);
 
 #
 # Structure for table "aluno"
@@ -134,12 +144,13 @@ CREATE TABLE `aluno` (
   PRIMARY KEY (`id`,`curso_id`),
   KEY `fk_aluno_curso_idx` (`curso_id`),
   CONSTRAINT `fk_aluno_curso` FOREIGN KEY (`curso_id`) REFERENCES `curso` (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
 
 #
 # Data for table "aluno"
 #
 
+INSERT INTO `aluno` VALUES (1,'GCC181','1-23','123','Aqui','Jose raimundo','Mae raimundo','Rua do emio','(11) 1','raimundo.com','2018-05-19',1,'$2a$10$AEMQ2tS3TcJk.BwpXrwJsuy9SnGiQd31TnMe3mLYjVXAPEuzptMgy',2,'GRADUACAO');
 
 #
 # Structure for table "editora"
@@ -149,115 +160,13 @@ CREATE TABLE `editora` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `nome` varchar(45) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=12 DEFAULT CHARSET=utf8;
 
 #
 # Data for table "editora"
 #
 
-INSERT INTO `editora` VALUES (9,'SARAIVA NOVA');
-
-#
-# Structure for table "emp_anal"
-#
-
-CREATE TABLE `emp_anal` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `id_aluno` int(11) DEFAULT NULL,
-  PRIMARY KEY (`id`),
-  KEY `id_aluno` (`id_aluno`),
-  CONSTRAINT `emp_anal_ibfk_1` FOREIGN KEY (`id_aluno`) REFERENCES `aluno` (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
-#
-# Data for table "emp_anal"
-#
-
-
-#
-# Structure for table "emp_jornal"
-#
-
-CREATE TABLE `emp_jornal` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `id_aluno` int(11) DEFAULT NULL,
-  PRIMARY KEY (`id`),
-  KEY `id_aluno` (`id_aluno`),
-  CONSTRAINT `emp_jornal_ibfk_1` FOREIGN KEY (`id_aluno`) REFERENCES `aluno` (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
-#
-# Data for table "emp_jornal"
-#
-
-
-#
-# Structure for table "emp_livro"
-#
-
-CREATE TABLE `emp_livro` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `id_aluno` int(11) DEFAULT NULL,
-  PRIMARY KEY (`id`),
-  KEY `id_aluno` (`id_aluno`),
-  CONSTRAINT `emp_livro_ibfk_1` FOREIGN KEY (`id_aluno`) REFERENCES `aluno` (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
-#
-# Data for table "emp_livro"
-#
-
-
-#
-# Structure for table "emp_midia"
-#
-
-CREATE TABLE `emp_midia` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `id_aluno` int(11) DEFAULT NULL,
-  PRIMARY KEY (`id`),
-  KEY `id_aluno` (`id_aluno`),
-  CONSTRAINT `emp_midia_ibfk_1` FOREIGN KEY (`id_aluno`) REFERENCES `aluno` (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
-#
-# Data for table "emp_midia"
-#
-
-
-#
-# Structure for table "emp_revista"
-#
-
-CREATE TABLE `emp_revista` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `id_aluno` int(11) DEFAULT NULL,
-  PRIMARY KEY (`id`),
-  KEY `id_aluno` (`id_aluno`),
-  CONSTRAINT `emp_revista_ibfk_1` FOREIGN KEY (`id_aluno`) REFERENCES `aluno` (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
-#
-# Data for table "emp_revista"
-#
-
-
-#
-# Structure for table "emp_tcc"
-#
-
-CREATE TABLE `emp_tcc` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `id_aluno` int(11) DEFAULT NULL,
-  PRIMARY KEY (`id`),
-  KEY `id_aluno` (`id_aluno`),
-  CONSTRAINT `emp_tcc_ibfk_1` FOREIGN KEY (`id_aluno`) REFERENCES `aluno` (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
-#
-# Data for table "emp_tcc"
-#
-
+INSERT INTO `editora` VALUES (9,'SARAIVA NOVA'),(10,'NOVA'),(11,'EDITORA');
 
 #
 # Structure for table "estado"
@@ -283,32 +192,29 @@ CREATE TABLE `grupo` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `nome` varchar(50) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
 
 #
 # Data for table "grupo"
 #
 
+INSERT INTO `grupo` VALUES (1,'Administrador'),(2,'Funcionario'),(3,'Aluno');
 
 #
-# Structure for table "item_anal"
+# Structure for table "aluno_has_grupo"
 #
 
-CREATE TABLE `item_anal` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `data_emp` date DEFAULT NULL,
-  `date_entrega` date DEFAULT NULL,
-  `id_anal` int(11) DEFAULT NULL,
-  `id_emprestimo` int(11) DEFAULT NULL,
-  PRIMARY KEY (`id`),
-  KEY `id_anal` (`id_anal`),
-  KEY `id_emprestimo` (`id_emprestimo`),
-  CONSTRAINT `item_anal_ibfk_2` FOREIGN KEY (`id_emprestimo`) REFERENCES `emp_anal` (`id`),
-  CONSTRAINT `item_anal_ibfk_1` FOREIGN KEY (`id_anal`) REFERENCES `anal` (`id`)
+CREATE TABLE `aluno_has_grupo` (
+  `aluno_id` int(11) NOT NULL AUTO_INCREMENT,
+  `grupo_id` int(11) NOT NULL,
+  PRIMARY KEY (`aluno_id`,`grupo_id`),
+  KEY `grupo_id` (`grupo_id`),
+  CONSTRAINT `aluno_has_grupo_ibfk_1` FOREIGN KEY (`aluno_id`) REFERENCES `aluno` (`id`),
+  CONSTRAINT `aluno_has_grupo_ibfk_2` FOREIGN KEY (`grupo_id`) REFERENCES `grupo` (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 #
-# Data for table "item_anal"
+# Data for table "aluno_has_grupo"
 #
 
 
@@ -322,34 +228,13 @@ CREATE TABLE `jornal` (
   `data` date NOT NULL,
   `edicao` int(11) NOT NULL DEFAULT '0',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=utf8;
 
 #
 # Data for table "jornal"
 #
 
-
-#
-# Structure for table "item_jornal"
-#
-
-CREATE TABLE `item_jornal` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `data_emp` date DEFAULT NULL,
-  `data_entrega` date DEFAULT NULL,
-  `id_jornal` int(11) DEFAULT NULL,
-  `id_emprestimo` int(11) DEFAULT NULL,
-  PRIMARY KEY (`id`),
-  KEY `id_jornal` (`id_jornal`),
-  KEY `id_emprestimo` (`id_emprestimo`),
-  CONSTRAINT `item_jornal_ibfk_2` FOREIGN KEY (`id_emprestimo`) REFERENCES `emp_jornal` (`id`),
-  CONSTRAINT `item_jornal_ibfk_1` FOREIGN KEY (`id_jornal`) REFERENCES `jornal` (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
-#
-# Data for table "item_jornal"
-#
-
+INSERT INTO `jornal` VALUES (1,'Jornal da Paraiba','2018-02-02',1),(9,'Correio','2018-05-19',1);
 
 #
 # Structure for table "midia"
@@ -362,34 +247,13 @@ CREATE TABLE `midia` (
   `data` date NOT NULL DEFAULT '0000-00-00',
   `edicao` int(11) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
 
 #
 # Data for table "midia"
 #
 
-
-#
-# Structure for table "item_midia"
-#
-
-CREATE TABLE `item_midia` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `data_emp` date DEFAULT NULL,
-  `data_entrega` date DEFAULT NULL,
-  `id_midia` int(11) DEFAULT NULL,
-  `id_emprestimo` int(11) DEFAULT NULL,
-  PRIMARY KEY (`id`),
-  KEY `id_midia` (`id_midia`),
-  KEY `item_midia_ibfk_2` (`id_emprestimo`),
-  CONSTRAINT `item_midia_ibfk_2` FOREIGN KEY (`id_emprestimo`) REFERENCES `emp_midia` (`id`),
-  CONSTRAINT `item_midia_ibfk_1` FOREIGN KEY (`id_midia`) REFERENCES `midia` (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
-#
-# Data for table "item_midia"
-#
-
+INSERT INTO `midia` VALUES (2,'AVIOES','CD','2018-05-19',0),(3,'SAFADAO','DVD','2018-05-19',0);
 
 #
 # Structure for table "orientador"
@@ -400,19 +264,20 @@ CREATE TABLE `orientador` (
   `nome` varchar(45) NOT NULL,
   `formacao` varchar(45) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
 
 #
 # Data for table "orientador"
 #
 
+INSERT INTO `orientador` VALUES (3,'CHICO','GRADUACAO');
 
 #
 # Structure for table "permissao"
 #
 
 CREATE TABLE `permissao` (
-  `id` int(11) NOT NULL ,
+  `id` int(11) NOT NULL,
   `nome` varchar(50) NOT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
@@ -421,6 +286,7 @@ CREATE TABLE `permissao` (
 # Data for table "permissao"
 #
 
+INSERT INTO `permissao` VALUES (1,'CADASTRAR_USUARIO'),(2,'CADASTRAR_ALUNO'),(3,'CADASTRAR_ACERVO'),(4,'DELETAR_USUARIO'),(5,'DELETAR_ACERVO'),(6,'DELETAR_ALUNO'),(7,'PESQUISAR_USUARIO'),(8,'PESQUISAR_ACERVO'),(9,'PESQUISAR_ALUNO'),(10,'EDITAR_USUARIO'),(11,'EDITAR_ACERVO'),(12,'EDITAR_ALUNO');
 
 #
 # Structure for table "grupo_has_permissao"
@@ -439,6 +305,7 @@ CREATE TABLE `grupo_has_permissao` (
 # Data for table "grupo_has_permissao"
 #
 
+INSERT INTO `grupo_has_permissao` VALUES (1,1),(1,2),(1,3),(1,4),(1,5),(1,6),(1,7),(1,8),(1,9),(1,10),(1,11),(1,12),(2,2),(2,3),(2,5),(2,6),(2,7),(2,8),(2,9),(2,11),(2,12),(3,6),(3,7);
 
 #
 # Structure for table "revista"
@@ -454,34 +321,13 @@ CREATE TABLE `revista` (
   PRIMARY KEY (`id`,`editora_id`),
   KEY `fk_revista_editora1_idx` (`editora_id`),
   CONSTRAINT `fk_revista_editora1` FOREIGN KEY (`editora_id`) REFERENCES `editora` (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
 
 #
 # Data for table "revista"
 #
 
-
-#
-# Structure for table "item_revista"
-#
-
-CREATE TABLE `item_revista` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `data_emp` date DEFAULT NULL,
-  `data_entrega` date DEFAULT NULL,
-  `id_revista` int(11) DEFAULT NULL,
-  `id_emprestimo` int(11) DEFAULT NULL,
-  PRIMARY KEY (`id`),
-  KEY `id_revista` (`id_revista`),
-  KEY `id_emprestimo` (`id_emprestimo`),
-  CONSTRAINT `item_revista_ibfk_2` FOREIGN KEY (`id_emprestimo`) REFERENCES `emp_revista` (`id`),
-  CONSTRAINT `item_revista_ibfk_1` FOREIGN KEY (`id_revista`) REFERENCES `revista` (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
-#
-# Data for table "item_revista"
-#
-
+INSERT INTO `revista` VALUES (1,'PLAYBOY',9,'2018-05-19',1,12),(2,'Capricho',10,'2018-05-19',1,1);
 
 #
 # Structure for table "tcc"
@@ -503,34 +349,13 @@ CREATE TABLE `tcc` (
   CONSTRAINT `fk_tcc_autor1` FOREIGN KEY (`autor_id`) REFERENCES `autor` (`id`),
   CONSTRAINT `fk_tcc_orientador1` FOREIGN KEY (`orientador_id`) REFERENCES `orientador` (`id`),
   CONSTRAINT `tcc_ibfk_1` FOREIGN KEY (`cidade_id`) REFERENCES `cidade` (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
 
 #
 # Data for table "tcc"
 #
 
-
-#
-# Structure for table "item_tcc"
-#
-
-CREATE TABLE `item_tcc` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `data_emp` date DEFAULT NULL,
-  `data_entrega` date DEFAULT NULL,
-  `id_tcc` int(11) DEFAULT NULL,
-  `id_emprestimo` int(11) DEFAULT NULL,
-  PRIMARY KEY (`id`),
-  KEY `id_tcc` (`id_tcc`),
-  KEY `id_emprestimo` (`id_emprestimo`),
-  CONSTRAINT `item_tcc_ibfk_2` FOREIGN KEY (`id_emprestimo`) REFERENCES `emp_tcc` (`id`),
-  CONSTRAINT `item_tcc_ibfk_1` FOREIGN KEY (`id_tcc`) REFERENCES `tcc` (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
-#
-# Data for table "item_tcc"
-#
-
+INSERT INTO `tcc` VALUES (1,'TRABALHO 1',2,3,'MONOGRAFIA','2018-05-19',0,2938),(2,'TRABALHO 2',3,3,'TESE','2018-05-19',0,3131);
 
 #
 # Structure for table "tema"
@@ -569,12 +394,51 @@ CREATE TABLE `livro` (
   KEY `fk_livro_tema1_idx` (`tema_id`),
   CONSTRAINT `fk_livro_editora1` FOREIGN KEY (`editora_id`) REFERENCES `editora` (`id`),
   CONSTRAINT `fk_livro_tema1` FOREIGN KEY (`tema_id`) REFERENCES `tema` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8;
 
 #
 # Data for table "livro"
 #
 
+INSERT INTO `livro` VALUES (3,123,'Deitel',9,'2018-05-19',1,125,1),(4,12345,'FlorDoCaribe',9,'2018-05-19',1,123,4);
+
+#
+# Structure for table "emprestimo"
+#
+
+CREATE TABLE `emprestimo` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `id_aluno` int(11) DEFAULT NULL,
+  `data_emp` date DEFAULT NULL,
+  `data_entrega` date DEFAULT NULL,
+  `id_livro` int(11) DEFAULT NULL,
+  `id_anal` int(10) DEFAULT NULL,
+  `id_jornal` int(10) DEFAULT NULL,
+  `id_revista` int(11) DEFAULT NULL,
+  `id_midia` int(11) DEFAULT NULL,
+  `id_tcc` int(11) DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  KEY `id_aluno` (`id_aluno`),
+  KEY `id_livro` (`id_livro`),
+  KEY `id_anal` (`id_anal`),
+  KEY `id_jornal` (`id_jornal`),
+  KEY `id_revista` (`id_revista`),
+  KEY `id_midia` (`id_midia`),
+  KEY `id_tcc` (`id_tcc`),
+  CONSTRAINT `emprestimo_ibfk_7` FOREIGN KEY (`id_tcc`) REFERENCES `tcc` (`id`),
+  CONSTRAINT `emprestimo_ibfk_1` FOREIGN KEY (`id_aluno`) REFERENCES `aluno` (`id`),
+  CONSTRAINT `emprestimo_ibfk_2` FOREIGN KEY (`id_livro`) REFERENCES `livro` (`id`),
+  CONSTRAINT `emprestimo_ibfk_3` FOREIGN KEY (`id_anal`) REFERENCES `anal` (`id`),
+  CONSTRAINT `emprestimo_ibfk_4` FOREIGN KEY (`id_jornal`) REFERENCES `jornal` (`id`),
+  CONSTRAINT `emprestimo_ibfk_5` FOREIGN KEY (`id_revista`) REFERENCES `revista` (`id`),
+  CONSTRAINT `emprestimo_ibfk_6` FOREIGN KEY (`id_midia`) REFERENCES `midia` (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
+
+#
+# Data for table "emprestimo"
+#
+
+INSERT INTO `emprestimo` VALUES (3,1,'2018-05-19','2018-05-19',NULL,NULL,NULL,NULL,2,NULL);
 
 #
 # Structure for table "reserva"
@@ -622,34 +486,13 @@ CREATE TABLE `autor_has_livro` (
   KEY `livro_id` (`livro_id`),
   CONSTRAINT `autor_has_livro_ibfk_1` FOREIGN KEY (`autor_id`) REFERENCES `autor` (`id`),
   CONSTRAINT `autor_has_livro_ibfk_2` FOREIGN KEY (`livro_id`) REFERENCES `livro` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
 
 #
 # Data for table "autor_has_livro"
 #
 
-
-#
-# Structure for table "item_livro"
-#
-
-CREATE TABLE `item_livro` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `data_emp` date DEFAULT NULL,
-  `data_entrega` date DEFAULT NULL,
-  `id_livro` int(11) DEFAULT NULL,
-  `id_emprestimo` int(11) DEFAULT NULL,
-  PRIMARY KEY (`id`),
-  KEY `id_livro` (`id_livro`),
-  KEY `id_emprestimo` (`id_emprestimo`),
-  CONSTRAINT `item_livro_ibfk_2` FOREIGN KEY (`id_emprestimo`) REFERENCES `emp_livro` (`id`),
-  CONSTRAINT `item_livro_ibfk_1` FOREIGN KEY (`id_livro`) REFERENCES `livro` (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
-#
-# Data for table "item_livro"
-#
-
+INSERT INTO `autor_has_livro` VALUES (2,3),(3,4);
 
 #
 # Structure for table "usuario"
@@ -657,22 +500,23 @@ CREATE TABLE `item_livro` (
 
 CREATE TABLE `usuario` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
-  `cpf` VARCHAR(15)  NOT NULL,
-  `rg` VARCHAR(11) NOT NULL,
-  `naturalidade` VARCHAR(45) NOT NULL,
-  `nome` VARCHAR(45) NOT NULL,
-  `login` VARCHAR(45) NOT NULL DEFAULT '',
-  `endereco` VARCHAR(45) NOT NULL,
-  `telefone` VARCHAR(20) NOT NULL,
+  `cpf` varchar(15) NOT NULL,
+  `rg` varchar(11) NOT NULL,
+  `naturalidade` varchar(45) NOT NULL,
+  `nome` varchar(45) NOT NULL,
+  `login` varchar(45) NOT NULL DEFAULT '',
+  `endereco` varchar(45) NOT NULL,
+  `telefone` varchar(20) NOT NULL,
   `email` varchar(45) NOT NULL,
   `senha` varchar(120) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
 
 #
 # Data for table "usuario"
 #
 
+INSERT INTO `usuario` VALUES (1,'097.035.854-77','34655','João Pessoa','Caio Lucena','caio','Rua Carlos Alberto Souza','(83) 99864-6328','caiolucena.cc@gmail.com','$2a$10$8IAlZZ5BX1huMcpp2kgrQ.pRfiWe2s1BDhH7YiKiqA8mdcsQvw24e'),(2,'700.640.484-89','34655','João Pessoa','Adalcino Junior','adal','Rua Campina Grande','(83) 99864-6328','adaljr@gmail.com','$2a$10$8IAlZZ5BX1huMcpp2kgrQ.pRfiWe2s1BDhH7YiKiqA8mdcsQvw24e'),(3,'123.040.484-89','34655','João Pessoa','Lucas Rocha','lucas','Rua Campina Grande','(83) 99864-6328','adaljr@gmail.com','$2a$10$8IAlZZ5BX1huMcpp2kgrQ.pRfiWe2s1BDhH7YiKiqA8mdcsQvw24e');
 
 #
 # Structure for table "usuario_has_grupo"
@@ -685,82 +529,10 @@ CREATE TABLE `usuario_has_grupo` (
   KEY `grupo_id` (`grupo_id`),
   CONSTRAINT `usuario_has_grupo_ibfk_1` FOREIGN KEY (`usuario_id`) REFERENCES `usuario` (`id`),
   CONSTRAINT `usuario_has_grupo_ibfk_2` FOREIGN KEY (`grupo_id`) REFERENCES `grupo` (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
-CREATE TABLE `aluno_has_grupo` (
-  `aluno_id` int(11) NOT NULL AUTO_INCREMENT,
-  `grupo_id` int(11) NOT NULL,
-  PRIMARY KEY (`aluno_id`,`grupo_id`),
-  KEY `grupo_id` (`grupo_id`),
-  CONSTRAINT `aluno_has_grupo_ibfk_1` FOREIGN KEY (`aluno_id`) REFERENCES `aluno` (`id`),
-  CONSTRAINT `aluno_has_grupo_ibfk_2` FOREIGN KEY (`grupo_id`) REFERENCES `grupo` (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
 
 #
 # Data for table "usuario_has_grupo"
 #
 
-insert into grupo (id,nome) values (1,'Administrador');
-insert into grupo (id,nome) values (2,'Funcionario');
-insert into grupo (id,nome) values (3,'Aluno');
-
-insert into usuario (id,cpf,rg,naturalidade,nome,login,endereco,telefone,email,senha) values (0,'097.035.854-77','34655','João Pessoa','Caio Lucena','caio','Rua Carlos Alberto Souza','(83) 99864-6328','caiolucena.cc@gmail.com','$2a$10$8IAlZZ5BX1huMcpp2kgrQ.pRfiWe2s1BDhH7YiKiqA8mdcsQvw24e');
-insert into usuario (id,cpf,rg,naturalidade,nome,login,endereco,telefone,email,senha) values (0,'700.640.484-89','34655','João Pessoa','Adalcino Junior','adal','Rua Campina Grande','(83) 99864-6328','adaljr@gmail.com','$2a$10$8IAlZZ5BX1huMcpp2kgrQ.pRfiWe2s1BDhH7YiKiqA8mdcsQvw24e');
-insert into usuario (id,cpf,rg,naturalidade,nome,login,endereco,telefone,email,senha) values (0,'123.040.484-89','34655','João Pessoa','Lucas Rocha','lucas','Rua Campina Grande','(83) 99864-6328','adaljr@gmail.com','$2a$10$8IAlZZ5BX1huMcpp2kgrQ.pRfiWe2s1BDhH7YiKiqA8mdcsQvw24e');
-
-insert into usuario_has_grupo values (1,1);
-insert into usuario_has_grupo values (1,2);
-
-
-insert into usuario_has_grupo values (2,1);
-insert into usuario_has_grupo values (2,2);
-
-
-insert into usuario_has_grupo values (3,1);
-insert into usuario_has_grupo values (3,2);
-
-insert into permissao values(1,'CADASTRAR_USUARIO');
-insert into permissao values(2,'CADASTRAR_ALUNO');
-insert into permissao values(3,'CADASTRAR_ACERVO');
-
-insert into permissao values(4,'DELETAR_USUARIO');
-insert into permissao values(5,'DELETAR_ACERVO');
-insert into permissao values (6,'DELETAR_ALUNO');
-
-insert into permissao values(7,'PESQUISAR_USUARIO');
-insert into permissao values(8,'PESQUISAR_ACERVO');
-insert into permissao values (9,'PESQUISAR_ALUNO');
-
-insert into permissao values(10,'EDITAR_USUARIO');
-insert into permissao values(11,'EDITAR_ACERVO');
-insert into permissao values (12,'EDITAR_ALUNO');
-#permissões do admin
-INSERT into grupo_has_permissao values(1,1);
-INSERT into grupo_has_permissao values(1,2);
-INSERT into grupo_has_permissao values(1,3);
-INSERT into grupo_has_permissao values(1,4);
-INSERT into grupo_has_permissao values(1,5);
-INSERT into grupo_has_permissao values(1,6);
-INSERT into grupo_has_permissao values(1,7);
-INSERT into grupo_has_permissao values(1,8);
-INSERT into grupo_has_permissao values(1,9);
-INSERT into grupo_has_permissao values(1,10);
-INSERT into grupo_has_permissao values(1,11);
-INSERT into grupo_has_permissao values(1,12);
-
-#permissões do Funcionario
-
-INSERT into grupo_has_permissao values(2,2);
-INSERT into grupo_has_permissao values(2,3);
-
-INSERT into grupo_has_permissao values(2,5);
-INSERT into grupo_has_permissao values(2,6);
-INSERT into grupo_has_permissao values(2,7);
-INSERT into grupo_has_permissao values(2,8);
-INSERT into grupo_has_permissao values(2,9);
-INSERT into grupo_has_permissao values(2,11);
-INSERT into grupo_has_permissao values(2,12);
-
-#permissões do aluno
-INSERT into grupo_has_permissao values(3,6);
-INSERT into grupo_has_permissao values(3,7);
+INSERT INTO `usuario_has_grupo` VALUES (1,1),(1,2),(2,1),(2,2),(3,1),(3,2);

@@ -152,7 +152,7 @@ public class TesteCaseCurso {
 		curso = new Curso(lista.get(0));
 		
 		curso.setNome("ComputaçãoNovo");
-		curso.setTipo(Tipo_curso.POS_GRADUCAO);
+		curso.setTipo(Tipo_curso.POS_GRADUACAO);
 		curso.setArea(area);
 		assertTrue(cursoDao.atualizar(curso));
 		

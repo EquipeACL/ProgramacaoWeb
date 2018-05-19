@@ -24,7 +24,7 @@
 					<form method="GET" class="form-vertical  js-form-loading" >
 					
 						<div class="form-group col-sm-6">
-								<input id="busca" name="busca" type="text" class="form-control" autofocus="autofocus" placeholder="Pesquisar Area do Conhecimento..."/>						
+								<input id="busca" name="busca" type="text" class="form-control" autofocus="autofocus" placeholder="Pesquisar Emprestimos..."/>						
 						</div>
 						<div class="form-group col-sm-2">
 							<button class="btn btn-primary" type="submit">Pesquisar</button>
@@ -39,7 +39,7 @@
 									<th>Matricula - Aluno</th>
 									<th>Data de Emprestimo</th>
 									<th>Data de Entrega</th>
-									<th>Iten(s)</th>
+									<th>Item( ID - Titulo )</th>
 								</tr>
 							</thead>
 							<tbody>
@@ -48,12 +48,13 @@
 									<td><input th:id="|check*{emprestimo.id}|" th:name="|check*{emprestimo.id}|" type="checkbox"></td>
 									<td th:text="|*{emprestimo.aluno.matricula} - *{emprestimo.aluno.nome}|">Matricula e Nome do aluno</td>
 									<td th:text="*{emprestimo.dataDoEmprestimo}">Data de emprestimo</td>
-									<td th:text="*{emprestimo.dataDeEntrega}">Nome de entrega</td>
-									<td>
-										<select class="form-control">
-											<option th:each="cada:${emprestimo.emprestimos}" th:text="${cada.item.titulo}">Nome do item</option>
-										</select>
-									</td>
+									<td th:text="*{emprestimo.dataDeEntrega}">Data de entrega</td>
+									<td th:if="*{emprestimo.anal}!=null" th:text="|Anal de Congresso: *{emprestimo.anal.id} - *{emprestimo.anal.titulo}|">Nome do Anal</td>
+									<td th:if="*{emprestimo.livro}!=null" th:text="|Livro: *{emprestimo.livro.id} - *{emprestimo.livro.titulo}|">Nome do Livro</td>
+									<td th:if="*{emprestimo.jornal}!=null" th:text="|Jornal: *{emprestimo.jornal.id} - *{emprestimo.jornal.titulo}|">Nome do Jornal</td>
+									<td th:if="*{emprestimo.revista}!=null" th:text="|Revista: *{emprestimo.revista.id} - *{emprestimo.revista.titulo}|">Nome da Revista</td>
+									<td th:if="*{emprestimo.tcc}!=null" th:text="|TCC: *{emprestimo.tcc.id} - *{emprestimo.tcc.titulo}|">Nome do Tcc</td>
+									<td th:if="*{emprestimo.midia}!=null" th:text="|Midia Eletrônica: *{emprestimo.midia.id} - *{emprestimo.midia.titulo}|">Nome da Midia</td>
 								</tr>
 							
 							</tbody>

@@ -47,7 +47,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 			.antMatchers("/orientadores/novo").hasAuthority("CADASTRAR_ACERVO")
 			.antMatchers("/temas/novo").hasAuthority("CADASTRAR_ACERVO")
 			.antMatchers("/midias/novo").hasAuthority("CADASTRAR_ACERVO")
-			
+						
 			.antMatchers("/usuarios/editar").hasAuthority("EDITAR_USUARIO")
 			.antMatchers("/alunos/editar").hasAuthority("EDITAR_ALUNO")
 			.antMatchers("/tccs/editar").hasAuthority("EDITAR_ACERVO")

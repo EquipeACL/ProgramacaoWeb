@@ -23,7 +23,7 @@ $(function() {
 	
 	function onBotaoSalvarClick(){
 		var nome = inputNomeEditora.val().trim();
-		console.log("nomeEditora: "+nome);
+		console.log("URLEditora: "+url);
 		$.ajax({
 			url:url,
 			method:'POST',

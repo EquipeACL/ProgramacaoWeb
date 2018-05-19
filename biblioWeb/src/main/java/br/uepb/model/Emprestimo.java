@@ -3,61 +3,75 @@ package br.uepb.model;
 import java.sql.Date;
 import java.util.ArrayList;
 
+import javax.persistence.CascadeType;
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
-import javax.persistence.Transient;
 import javax.validation.constraints.NotNull;
 
 import br.uepb.interfaces.EmprestimoIF;
-import br.uepb.model.acervo.Anal;
-import br.uepb.model.acervo.Jornal;
-import br.uepb.model.acervo.Livro;
-import br.uepb.model.acervo.MidiasEletronicas;
-import br.uepb.model.acervo.Revista;
-import br.uepb.model.acervo.Tcc;
+import br.uepb.model.jpaEntity.acervo.EntityAnal;
+import br.uepb.model.jpaEntity.acervo.EntityJornal;
+import br.uepb.model.jpaEntity.acervo.EntityLivro;
+import br.uepb.model.jpaEntity.acervo.EntityMidiasEletronicas;
+import br.uepb.model.jpaEntity.acervo.EntityRevista;
+import br.uepb.model.jpaEntity.acervo.EntityTcc;
+import br.uepb.model.jpaEntity.usuarios.EntityAluno;
 import br.uepb.model.usuarios.Aluno;
-/*@Entity
-@Table(name="emprestimo")*/
+@Entity
+@Table(name="emprestimo")
 public class Emprestimo {
-	@Transient
-	private String id_item;
-	 
+	
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	private int id;
+		 
 	@NotNull(message=" Data de emprestimo é obrigatorio")
+	@Column(name="data_emp")
 	private Date dataDoEmprestimo;	
 	
 	@NotNull(message=" Data de entrega é obrigatorio")
+	@Column(name="data_entrega")
 	private Date dataDeEntrega;
 	
 	@NotNull(message=" Aluno é obrigatorio")
-	private Aluno aluno;
+	@ManyToOne(cascade=CascadeType.REFRESH)
+	@JoinColumn(name = "id_aluno",nullable=false)
+	private EntityAluno aluno;
 	
-	@OneToOne(fetch = FetchType.LAZY)
+	@OneToOne(fetch=FetchType.EAGER)
     @JoinColumn(name = "id_livro")
-	private Livro livro;
+	private EntityLivro livro;
 	
-	@OneToOne(fetch = FetchType.LAZY)
+	@OneToOne(fetch=FetchType.EAGER)
     @JoinColumn(name = "id_anal")
-	private Anal anal;
+	private EntityAnal anal;
 	
-	@OneToOne(fetch = FetchType.LAZY)
+	@OneToOne(fetch=FetchType.EAGER)
     @JoinColumn(name = "id_revista")
-	private Revista revista;
+	private EntityRevista revista;
 	
-	@OneToOne(fetch = FetchType.LAZY)
+	@OneToOne(fetch=FetchType.EAGER)
     @JoinColumn(name = "id_midia")
-	private MidiasEletronicas midia;
+	private EntityMidiasEletronicas midia;
 	
-	@OneToOne(fetch = FetchType.LAZY)
+	@OneToOne(fetch=FetchType.EAGER)
     @JoinColumn(name = "id_tcc")
-	private Tcc tcc;
+	private EntityTcc tcc;
 	
-	private Jornal jornal;
+	@OneToOne(fetch=FetchType.EAGER)
+    @JoinColumn(name = "id_jornal")
+	private EntityJornal jornal;
 	
 	public Emprestimo(){
-		this.aluno = new Aluno();
+		this.aluno = new EntityAluno();
 		
 	}
 	
@@ -73,12 +87,20 @@ public class Emprestimo {
 		
 	}
 	
-		
-	public Aluno getAluno() {
+	
+	public int getId() {
+		return id;
+	}
+
+	public void setId(int id) {
+		this.id = id;
+	}
+
+	public EntityAluno getAluno() {
 		return aluno;
 	}
 	public void setAluno(Aluno aluno) {
-		this.aluno = aluno;
+		this.aluno = new EntityAluno(aluno);
 	}
 	
 	public Date getDataDoEmprestimo() {
@@ -97,62 +119,51 @@ public class Emprestimo {
 		this.dataDeEntrega = dataDeEntrega;
 	}
 
-	public Livro getLivro() {
+	public EntityLivro getLivro() {
 		return livro;
 	}
 
-	public void setLivro(Livro livro) {
+	public void setLivro(EntityLivro livro) {
 		this.livro = livro;
 	}
 
-	public Anal getAnal() {
+	public EntityAnal getAnal() {
 		return anal;
 	}
 
-	public void setAnal(Anal anal) {
+	public void setAnal(EntityAnal anal) {
 		this.anal = anal;
 	}
 
-	public Revista getRevista() {
+	public EntityRevista getRevista() {
 		return revista;
 	}
 
-	public void setRevista(Revista revista) {
+	public void setRevista(EntityRevista revista) {
 		this.revista = revista;
 	}
 
-	public MidiasEletronicas getMidia() {
+	public EntityMidiasEletronicas getMidia() {
 		return midia;
 	}
 
-	public void setMidia(MidiasEletronicas midia) {
+	public void setMidia(EntityMidiasEletronicas midia) {
 		this.midia = midia;
 	}
 
-	public Tcc getTcc() {
+	public EntityTcc getTcc() {
 		return tcc;
 	}
 
-	public void setTcc(Tcc tcc) {
+	public void setTcc(EntityTcc tcc) {
 		this.tcc = tcc;
 	}
 
-	public Jornal getJornal() {
+	public EntityJornal getJornal() {
 		return jornal;
 	}
 
-	public void setJornal(Jornal jornal) {
+	public void setJornal(EntityJornal jornal) {
 		this.jornal = jornal;
 	}
-
-	public String getId_item() {
-		return id_item;
-	}
-
-	public void setId_item(String id_item) {
-		this.id_item = id_item;
-	}
-	
-	
-
 }

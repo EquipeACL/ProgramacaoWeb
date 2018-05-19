@@ -1,9 +1,7 @@
 package br.uepb.biblio.controller;
 
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
 import java.util.Date;
-import java.util.List;
 
 import javax.validation.Valid;
 
@@ -18,21 +16,16 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import br.uepb.biblio.repository.Alunos;
 import br.uepb.biblio.repository.Anais;
+import br.uepb.biblio.repository.Emprestimos;
 import br.uepb.biblio.repository.Jornais;
 import br.uepb.biblio.repository.Livros;
 import br.uepb.biblio.repository.Midias;
 import br.uepb.biblio.repository.Revistas;
 import br.uepb.biblio.repository.Tccs;
-import br.uepb.biblio.service.exception.ItemDuplicadoException;
+import br.uepb.biblio.service.CrudEmprestimosService;
 import br.uepb.model.Emprestimo;
-import br.uepb.model.acervo.Anal;
-import br.uepb.model.acervo.Jornal;
-import br.uepb.model.acervo.Livro;
-import br.uepb.model.acervo.MidiasEletronicas;
-import br.uepb.model.acervo.Revista;
-import br.uepb.model.acervo.Tcc;
-import br.uepb.model.usuarios.Aluno;
 
 
 
@@ -63,11 +56,14 @@ public class EmprestimoController{
 	@Autowired
 	private Midias midiasRepository;
 	
-	/*@Autowired
-	private Alunos alunosRepository;*/
+	@Autowired
+	private Alunos alunosRepository;
 	
-	/*@Autowired
-	private CrudEmprestimos emprestimosService;*/
+	@Autowired
+	private CrudEmprestimosService emprestimosService;
+	
+	@Autowired
+	private Emprestimos emprestimosRepository;
 	
 	/**
 	 * Esse método é responsável por adicionar os parâmetros que vão ser exibidos na view renderizada ao acessar a rota emprestimos/novo	
@@ -77,21 +73,8 @@ public class EmprestimoController{
 	@RequestMapping("/novo")
 	public ModelAndView novo(Emprestimo emprestimo){
 		ModelAndView model = new ModelAndView("emprestimo/CadastroEmprestimo");
-		//model.addObject("alunos",alunosRepository.findAll());
-		List<Aluno> alunos = new ArrayList<Aluno>();
-		Aluno a = new Aluno();
-		a.setNome("Adalcino Jr");
-		a.setId(1);
-		alunos.add(a);
-		a = new Aluno();
-		a.setNome("Caio Cesar");
-		a.setId(2);
-		alunos.add(a);
-		a = new Aluno();
-		a.setNome("Lucas Cosmo");
-		a.setId(3);
-		alunos.add(a);
-		model.addObject("alunos",alunos);
+		model.addObject("alunos",alunosRepository.findAll());
+		model.addObject("listaEmprestimos", emprestimosRepository.findAll());
 		return model;
 	}
 	
@@ -103,38 +86,21 @@ public class EmprestimoController{
 	 * @return new ModelAndView("redirect:/emprestimos/novo"), que renderiza a página no endereço emprestimos/novo (caso haja sucesso na inserção) 
 	 */
 	@RequestMapping(value="/novo",method=RequestMethod.POST)
-	public ModelAndView cadastrar(@Valid Emprestimo emprestimo, String itemAcervo,BindingResult result, RedirectAttributes attributes){
-		System.out.println("Item selecionado: "+emprestimo.getId_item());
-		switch (itemAcervo) {
-		case "livros":
-			emprestimo.setLivro(new Livro(livrosRepository.findOne(Integer.parseInt(emprestimo.getId_item()))));
-			break;
-		case "revistas":
-			emprestimo.setRevista(new Revista(revistasRepository.findOne(Integer.parseInt(emprestimo.getId_item()))));
-			break;
-		case "tccs":
-			emprestimo.setTcc(new Tcc(tccsRepository.findOne(Integer.parseInt(emprestimo.getId_item()))));
-			break;
-		case "jornais":
-			emprestimo.setJornal(new Jornal(jornaisRepository.findOne(Integer.parseInt(emprestimo.getId_item()))));
-			break;
-		case "midias":
-			emprestimo.setMidia(new MidiasEletronicas(midiasRepository.findOne(Integer.parseInt(emprestimo.getId_item()))));
-			break;
-		case "anais":
-			emprestimo.setAnal(new Anal(anaisRepository.findOne(Integer.parseInt(emprestimo.getId_item()))));
-			break;
-		}
+	public ModelAndView cadastrar(@Valid Emprestimo emprestimo,BindingResult result, RedirectAttributes attributes){
 		if(result.hasErrors()){
 			if(emprestimo.getAluno().getId()==0){
-				result.reject("aluno","Selecione um aluno");
-			}			
+				result.reject("aluno"," Selecione um aluno");
+			}
+			if(emprestimo.getAnal().getId()==0 && emprestimo.getLivro().getId()==0 && emprestimo.getJornal().getId()==0
+					&& emprestimo.getRevista().getId()==0 && emprestimo.getTcc().getId()==0 && emprestimo.getMidia().getId()==0){
+				result.reject("item"," Selecione um item");
+			}
 			return novo(emprestimo);
 		}		
 		try{
-			//emprestimosService.salvar(emprestimo);
-		}catch(ItemDuplicadoException e){
-			result.rejectValue("nome", e.getMessage(),e.getMessage());
+			emprestimosService.salvar(emprestimo);
+		}catch(Exception e){
+			result.rejectValue("aluno", e.getMessage(),e.getMessage());
 			return (novo(emprestimo));
 		}
 		attributes.addFlashAttribute("mensagem", " Emprestimo salvo com sucesso!");

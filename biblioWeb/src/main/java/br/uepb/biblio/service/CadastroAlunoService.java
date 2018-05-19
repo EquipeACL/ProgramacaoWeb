@@ -1,7 +1,6 @@
 package br.uepb.biblio.service;
 
 import java.util.List;
-
 import java.util.Optional;
 
 import javax.persistence.EntityManager;
@@ -14,7 +13,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import br.uepb.biblio.repository.Alunos;
-import br.uepb.biblio.repository.Funcionarios;
 import br.uepb.biblio.service.exception.ItemDuplicadoException;
 import br.uepb.model.jpaEntity.usuarios.EntityAluno;
 import br.uepb.model.usuarios.Aluno;
