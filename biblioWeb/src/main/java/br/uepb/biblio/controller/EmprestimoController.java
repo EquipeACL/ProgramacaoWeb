@@ -105,6 +105,21 @@ public class EmprestimoController{
 		return model;
 	}
 	
+	@RequestMapping(value="/pesquisar",method=RequestMethod.POST)
+	public ModelAndView buscar(String busca,String filtro){
+		ModelAndView model = new ModelAndView("emprestimo/PesquisaEmprestimo");
+		if(busca!=null){
+			if(filtro!=null && filtro.equals("data")){
+				model.addObject("listaEmprestimos",emprestimosService.buscarPorData(busca));
+			}else{
+				model.addObject("listaEmprestimos",emprestimosService.buscarPorAluno(busca));
+			}
+		}else{
+			model.addObject("listaEmprestimos", emprestimosRepository.findAll());
+		}
+		return model;
+	}
+	
 	/**
 	 * Esse é o método que irá acessar a rota emprestimos/novo, porém com uma requisição do tipo POST, que servirá para salvar o objeto passado por parâmetro no banco
 	 * @param emprestimo, que é o objeto que será mapeado no formulário para salvar informações no banco de dados.
