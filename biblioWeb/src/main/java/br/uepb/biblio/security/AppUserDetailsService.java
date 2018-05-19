@@ -22,6 +22,11 @@ import br.uepb.biblio.service.CadastroFuncionarioService;
 import br.uepb.model.jpaEntity.usuarios.EntityAluno;
 import br.uepb.model.usuarios.Funcionario;
 
+/**
+ * Essa é a classe responsável por conter os serviços relacionados ao login e cadastro dos usuários do sistema.
+ * @author EquipeACL
+ *
+ */
 @Service
 public class AppUserDetailsService implements UserDetailsService {
 
@@ -38,6 +43,11 @@ public class AppUserDetailsService implements UserDetailsService {
 	@Autowired
 	private Alunos alunos;
 
+	/**
+	 * Esse método é responsável pelo direcionamento e validação na autenticação do usuário (admin ou funcionário) e do aluno no login.
+	 * @param login, que é a String que contém os dados de login do usuário
+	 * @return new User com as permissões do usuário que realizou o login
+	 */
 	@Override
 	public UserDetails loadUserByUsername(String login) throws UsernameNotFoundException {
 		Optional<Funcionario> funcionarioOptional = funcionarios.findByLoginIgnoreCase(login);
@@ -55,6 +65,11 @@ public class AppUserDetailsService implements UserDetailsService {
 
 	}
 
+	/**
+	 * Esse método é responsável por atribuir permissões de acesso de rotas a um Aluno
+	 * @param aluno, que é o aluno que irá receber as permissões
+	 * @return authorities, que são as autorizações do aluno (rotas que podem ser acessadas)
+	 */
 	private Collection<? extends GrantedAuthority> getPermissoes(EntityAluno aluno) {
 
 		Set<SimpleGrantedAuthority> authorities = new HashSet<>();
@@ -67,6 +82,11 @@ public class AppUserDetailsService implements UserDetailsService {
 		return authorities;
 	}
 
+	/**
+	 * Esse método é responsável por atribuir permissões de acesso de rotas a um Funcionário
+	 * @param aluno, que é o aluno que irá receber as permissões
+	 * @return authorities, que são as autorizações do funcionário (rotas que podem ser acessadas)
+	 */
 	private Collection<? extends GrantedAuthority> getPermissoes(Funcionario funcionario) {
 		Set<SimpleGrantedAuthority> authorities = new HashSet<>();
 
