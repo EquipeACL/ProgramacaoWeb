@@ -1,5 +1,4 @@
-﻿
-DROP DATABASE `biblioteca`;
+﻿DROP DATABASE `biblioteca`;
 
 CREATE DATABASE `biblioteca`;
 
@@ -286,7 +285,7 @@ CREATE TABLE `permissao` (
 # Data for table "permissao"
 #
 
-INSERT INTO `permissao` VALUES (1,'CADASTRAR_USUARIO'),(2,'CADASTRAR_ALUNO'),(3,'CADASTRAR_ACERVO'),(4,'DELETAR_USUARIO'),(5,'DELETAR_ACERVO'),(6,'DELETAR_ALUNO'),(7,'PESQUISAR_USUARIO'),(8,'PESQUISAR_ACERVO'),(9,'PESQUISAR_ALUNO'),(10,'EDITAR_USUARIO'),(11,'EDITAR_ACERVO'),(12,'EDITAR_ALUNO');
+INSERT INTO `permissao` VALUES (1,'CADASTRAR_USUARIO'),(2,'CADASTRAR_ALUNO'),(3,'CADASTRAR_ACERVO'),(4,'DELETAR_USUARIO'),(5,'DELETAR_ACERVO'),(6,'DELETAR_ALUNO'),(7,'PESQUISAR_USUARIO'),(8,'PESQUISAR_ACERVO'),(9,'PESQUISAR_ALUNO'),(10,'EDITAR_USUARIO'),(11,'EDITAR_ACERVO'),(12,'EDITAR_ALUNO'),(13,'CADASTRAR_EMPRESTIMO'),(14,'DELETAR_EMPRESTIMO'),(15,'EDITAR_EMPRESTIMO'),(16,'QUITAR_EMPRESTIMO');
 
 #
 # Structure for table "grupo_has_permissao"
@@ -305,7 +304,7 @@ CREATE TABLE `grupo_has_permissao` (
 # Data for table "grupo_has_permissao"
 #
 
-INSERT INTO `grupo_has_permissao` VALUES (1,1),(1,2),(1,3),(1,4),(1,5),(1,6),(1,7),(1,8),(1,9),(1,10),(1,11),(1,12),(2,2),(2,3),(2,5),(2,6),(2,7),(2,8),(2,9),(2,11),(2,12),(3,6),(3,7);
+INSERT INTO `grupo_has_permissao` VALUES (1,1),(1,2),(1,3),(1,4),(1,5),(1,6),(1,7),(1,8),(1,9),(1,10),(1,11),(1,12),(1,13),(1,14),(1,15),(1,16),(2,2),(2,3),(2,5),(2,6),(2,7),(2,8),(2,9),(2,11),(2,12),(2,13),(2,14),(2,15),(2,16),(3,6),(3,7);
 
 #
 # Structure for table "revista"
