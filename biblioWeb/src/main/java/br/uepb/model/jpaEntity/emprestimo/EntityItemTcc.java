@@ -10,6 +10,11 @@ import javax.persistence.Table;
 import br.uepb.interfaces.EmprestimoIF;
 import br.uepb.model.jpaEntity.acervo.EntityTcc;
 
+/**
+ * Essa classe é utilizada como modelo para um objeto do tipo EntityItemTcc.
+ * A classe contém os respectivos getters and setters de seus atributos.
+ * @author EquipeACL
+ */
 @Entity
 @Table(name="item_tcc")
 public class EntityItemTcc extends EntityItemEmprestimo{

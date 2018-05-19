@@ -10,6 +10,11 @@ import javax.persistence.Table;
 
 import br.uepb.model.jpaEntity.acervo.EntityLivro;
 
+/**
+ * Essa classe é utilizada como modelo para um objeto do tipo EntityItemEmprestimo.
+ * A classe contém os respectivos getters and setters de seus atributos.
+ * @author EquipeACL
+ */
 @Entity
 @Table(name="item_livro")
 public class EntityItemLivro extends EntityItemEmprestimo{

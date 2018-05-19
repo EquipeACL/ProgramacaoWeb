@@ -16,9 +16,16 @@ import br.uepb.biblio.service.exception.ItemNaoEncontradoException;
 import br.uepb.interfaces.EmprestimoIF;
 import br.uepb.interfaces.ItemEmprestimoIF;
 import br.uepb.model.jpaEntity.usuarios.EntityAluno;
+
+/**
+ * Essa classe é utilizada como modelo para um objeto do tipo EntityEmprestimoAnal.
+ * A classe contém os respectivos getters and setters de seus atributos.
+ * @author EquipeACL
+ */
 @Entity
 @Table(name="emp_anal")
 public class EntityEmprestimoAnal extends EntityEmprestimo implements EmprestimoIF{
+	
 	
 	@OneToMany(targetEntity=EntityItemAnal.class,cascade = CascadeType.ALL,mappedBy="emprestimo",fetch=FetchType.EAGER)
 	@Fetch(FetchMode.JOIN)

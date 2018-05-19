@@ -16,6 +16,12 @@ import br.uepb.biblio.service.exception.ItemNaoEncontradoException;
 import br.uepb.interfaces.EmprestimoIF;
 import br.uepb.interfaces.ItemEmprestimoIF;
 import br.uepb.model.jpaEntity.usuarios.EntityAluno;
+
+/**
+ * Essa classe é utilizada como modelo para um objeto do tipo EntityEmprestimoJornal.
+ * A classe contém os respectivos getters and setters de seus atributos.
+ * @author EquipeACL
+ */
 @Entity
 @Table(name="emp_jornal")
 public class EntityEmprestimoJornal extends EntityEmprestimo implements EmprestimoIF{

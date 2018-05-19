@@ -9,6 +9,11 @@ import javax.persistence.Table;
 
 import br.uepb.model.jpaEntity.acervo.EntityJornal;
 
+/**
+ * Essa classe é utilizada como modelo para um objeto do tipo EntityItemJornal.
+ * A classe contém os respectivos getters and setters de seus atributos.
+ * @author EquipeACL
+ */
 @Entity
 @Table(name="item_jornal")
 public class EntityItemJornal extends EntityItemEmprestimo{

@@ -7,6 +7,12 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.MappedSuperclass;
+
+/**
+ * Essa classe é utilizada como modelo para um objeto do tipo EntityItemEmprestimo.
+ * A classe contém os respectivos getters and setters de seus atributos.
+ * @author EquipeACL
+ */
 @MappedSuperclass
 public abstract class EntityItemEmprestimo {
 	@Id

@@ -9,6 +9,12 @@ import javax.persistence.ManyToOne;
 import javax.persistence.MappedSuperclass;
 
 import br.uepb.model.jpaEntity.usuarios.EntityAluno;
+
+/**
+ * Essa classe é utilizada como modelo para um objeto do tipo EntityEmprestimo.
+ * A classe contém os respectivos getters and setters de seus atributos.
+ * @author EquipeACL
+ */
 @MappedSuperclass
 public abstract class EntityEmprestimo {
 	@Id
