@@ -52,47 +52,36 @@
 					</div>
 					
 				</div>
-				<div class="row">
-					<div class="form-group col-sm-12">
-						<label for="autor" class="control-label">Iten(s)</label>
-						<div class="content-fluid">
-							<ul id="itensSelecionados" name="itensSelecionados"th:field="*{emprestimos}" >
-								
-							</ul>							
-						</div>
-					</div>
-				</div>
+				
 				<div class="row">
 					<div class="form-group col-sm-12">
 						<div class="form-group col-sm-2">
-							<input type="radio" value="livros" name="itemAcervo" onChange="selecionouCategoria()"/><label class="control-label">Livros </label>
+							<input type="radio" value="livros" name="itemAcervo" onChange="selecionouCategoria()"/><label class="control-label" >Livros </label>
 						</div>
 						<div class="form-group col-sm-2">
-							<input type="radio" value="jornais"name="itemAcervo" onChange="selecionouCategoria()"/><label class="control-label">Jornais</label>
+							<input type="radio" value="jornais"name="itemAcervo" onChange="selecionouCategoria()"/><label class="control-label" >Jornais</label>
 						</div>
 						<div class="form-group col-sm-2">
-							<input type="radio" value="anais" name="itemAcervo" onChange="selecionouCategoria()"/><label class="control-label">Anais</label>
+							<input type="radio" value="anais" name="itemAcervo" onChange="selecionouCategoria()"/><label class="control-label" >Anais</label>
 						</div>
 						<div class="form-group col-sm-2">
-							<input type="radio" value="revistas" name="itemAcervo" onChange="selecionouCategoria()"/><label class="control-label">Revistas</label>
+							<input type="radio" value="revistas" name="itemAcervo" onChange="selecionouCategoria()"/><label class="control-label" >Revistas</label>
 						</div>
 						<div class="form-group col-sm-2">
-							<input type="radio" value="tccs" name="itemAcervo" onChange="selecionouCategoria()"/><label class="control-label">Tccs</label>
+							<input type="radio" value="tccs" name="itemAcervo" onChange="selecionouCategoria()"/><label class="control-label" >Tccs</label>
 						</div>
 						<div class="form-group col-sm-2">
-							<input type="radio" value="midias" name="itemAcervo" onChange="selecionouCategoria()"/><label class="control-label">Midias Eletrônicas</label>
+							<input type="radio" value="midias" name="itemAcervo" onChange="selecionouCategoria()"/><label class="control-label" >Midias Eletrônicas</label>
 						</div>
 												
 					</div>
 					<div class="form-group col-sm-12">
 						<div class="form-group col-sm-6">
-							<select id="comboItens" class="form-control">
+							<select id="comboItens" class="form-control" th:field="*{id_item}">
 								<option value="">Selecione o item</option>
 							</select>				
 						    </div>
-							<div class="form-group col-sm-2">
-								<button class="btn btn-primary" onclick="adicionarItem()" type="button">Adicionar</button>
-						</div>
+							
 					</div>
 				</div>
 				

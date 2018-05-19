@@ -67,19 +67,20 @@ public class CadastroAlunoService {
 	 * @return List<Aluno> contendo o(s) objeto(s) referentes à busca
 	 */
 	@Transactional
-	public List<Aluno> buscarPorNome (String busca) {
-		return manager.createQuery("select a from EntityAluno a where a.nome like '%"+busca+"%'",Aluno.class).getResultList();
+	public List<EntityAluno> buscarPorNome (String busca) {
+		return manager.createQuery("select a from EntityAluno a where a.nome like '%"+busca+"%'",EntityAluno.class).getResultList();
 	}
 
 	
 	@Transactional
 	public boolean atualizar(Aluno aluno) {
+		
 		EntityAluno entAluno = new EntityAluno(aluno);
 		
 		entAluno.setSenha(this.passwordEncoder.encode(entAluno.getSenha()));
 		entAluno.setConfirmacaoSenha(entAluno.getSenha());
 		try {
-			alunos.save(entAluno);
+			alunos.save(entAluno); 
 			logger.info("Aluno atualizado com sucesso.");
 			return true;
 		} catch (Exception e) {

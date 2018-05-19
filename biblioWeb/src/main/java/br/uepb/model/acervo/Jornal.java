@@ -3,6 +3,7 @@ package br.uepb.model.acervo;
 import java.util.Date;
 
 import br.uepb.interfaces.IFAcervo;
+import br.uepb.model.jpaEntity.acervo.EntityJornal;
 
 /**
  * Classe utilizada como modelo para um objeto do tipo Jornal.
@@ -31,6 +32,16 @@ public class Jornal extends ItemAcervo implements IFAcervo{
 		setData(data);
 		setEdicao(edicao);
 	}
+	
+	public Jornal(EntityJornal jornal) {
+		if(jornal != null) {
+			setId(jornal.getId());
+			setTitulo(jornal.getTitulo());
+			setData(jornal.getData());
+			setEdicao(jornal.getEdicao());
+		}
+	}
+	
 	
 	public boolean validaItem() {
 		return true;

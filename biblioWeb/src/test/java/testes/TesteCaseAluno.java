@@ -29,6 +29,7 @@ import br.uepb.model.AreaConhecimento;
 import br.uepb.model.Curso;
 import br.uepb.model.enums.Tipo_curso;
 import br.uepb.model.enums.Tipo_nivel;
+import br.uepb.model.jpaEntity.usuarios.EntityAluno;
 import br.uepb.model.usuarios.Aluno;
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(classes = {AppInitializer.class,H2Config.class,ServiceConfig.class,SecurityConfig.class})
@@ -52,7 +53,7 @@ public class TesteCaseAluno {
 	private CadastroAlunoService alunoDao;
 	
 	@Before
-	public void setup(){
+	public void setUp(){
 		
 		area = new AreaConhecimento(1,"EXATAS");
 		curso = new Curso("Computacao","CP", area, Tipo_curso.GRADUACAO);
@@ -68,39 +69,51 @@ public class TesteCaseAluno {
 	public void testeCreateAluno() throws Exception {
 		aluno = new Aluno("123","123","CG","Lucas","Cleo","rua 2","123",curso,Tipo_nivel.GRADUACAO,"teste@gmail",new Date(System.currentTimeMillis()),1,"123","123");
 		assertTrue(alunoDao.salvar(aluno)!=null);
-		aluno = alunoDao.buscarPorNome("Lucas").get(0);
+		aluno = new Aluno(alunoDao.buscarPorNome("Lucas").get(0));
+		
 		assertTrue(alunoDao.remover(aluno.getId()));
 		assertTrue(cursoDao.remover(curso.getId()));
 		assertTrue(areasDao.remover(area.getId()));
 	}
 	
-	@Test
-	public void testeRemoveAluno() throws Exception {
-		aluno = new Aluno("123","123","CG","Lucas","Cleo","rua 2","123",curso,Tipo_nivel.GRADUACAO,"teste@gmail",new Date(System.currentTimeMillis()),1,"123","123");
-		assertTrue(alunoDao.salvar(aluno)!=null);
-		aluno = new Aluno("123","123","CG","Lucas","Cleo","rua 2","123",curso,Tipo_nivel.GRADUACAO,"teste@gmail",new Date(System.currentTimeMillis()),1,"123","123");
-		
-		assertTrue(alunoDao.salvar(aluno)!=null);
-		
-		for(Aluno a:alunoDao.buscarPorNome("Lucas")){
-			assertTrue(alunoDao.remover(a.getId()));
-		}	
-		assertTrue(cursoDao.remover(curso.getId()));
-		assertTrue(areasDao.remover(area.getId()));
-	}
+	
+//	@Test
+//	public void testeRemoveAluno() throws Exception {
+//		aluno = new Aluno("123","123","CG","Lucas","Cleo","rua 2","123",curso,Tipo_nivel.GRADUACAO,"teste@gmail",new Date(System.currentTimeMillis()),1,"123","123");
+//		assertTrue(alunoDao.salvar(aluno)!=null);
+//		
+//		
+//		for(EntityAluno a:alunoDao.buscarPorNome("Lucas")){
+//			assertTrue(alunoDao.remover(a.getId()));
+//		}	
+//		assertTrue(cursoDao.remover(curso.getId()));
+//		assertTrue(areasDao.remover(area.getId()));
+//	}
 	
 	@Test
-	public void testeUpdateAluno() throws Exception {
+	public void testeSearchAluno() throws Exception {
 		aluno = new Aluno("123","123","CG","Lucas","Cleo","rua 2","123",curso,Tipo_nivel.GRADUACAO,"teste@gmail",new Date(System.currentTimeMillis()),1,"123","123");
 		assertTrue(alunoDao.salvar(aluno)!=null);
-		aluno = alunoDao.buscarPorNome("Lucas").get(0);
-		aluno.setNome("Lucas Cosmo");
-		aluno.setEmail("email@gmail.com");
-		assertTrue(alunoDao.atualizar(aluno));	
-		assertEquals("Lucas Cosmo",aluno.getNome());
-		assertEquals("email@gmail.com",aluno.getEmail());
-		assertTrue(alunoDao.remover(aluno.getId()));
+		aluno = new Aluno();
+		
+		aluno = new Aluno("456","4546","CfdgfG","Caio","maeCaio","rua 3","123",curso,Tipo_nivel.GRADUACAO,"teste@gmail",new Date(System.currentTimeMillis()),1,"123","123");
+		assertTrue(alunoDao.salvar(aluno)!=null);
+		
+		Aluno a1 = new Aluno(alunoDao.buscarPorNome("Caio").get(0));
+		
+		Aluno a2 = new Aluno(alunoDao.buscarPorNome("Lucas").get(0));
+		
+		assertEquals(a1.getNome(), "Caio");
+		assertEquals(a1.getCpf(), "456");
+		
+		assertEquals(a2.getNome(), "Lucas");
+		assertEquals(a2.getCpf(), "123");
+		
+		assertTrue(alunoDao.remover(a1.getId()));
+		assertTrue(alunoDao.remover(a2.getId()));
+		
 		assertTrue(cursoDao.remover(curso.getId()));
+		
 		assertTrue(areasDao.remover(area.getId()));
 	}
 	

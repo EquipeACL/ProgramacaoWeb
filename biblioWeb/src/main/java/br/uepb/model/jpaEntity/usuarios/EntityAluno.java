@@ -109,6 +109,8 @@ public class EntityAluno extends EntityUsuario {
 		setAnoIngresso(aluno.getAnoIngresso());
 		setPeriodoIngresso(aluno.getPeriodoIngresso());
 		setMatricula(aluno.getMatricula());
+		setSenha(aluno.getSenha());
+		setConfirmacaoSenha(aluno.getConfirmacaoSenha());
 		
 	}
 	

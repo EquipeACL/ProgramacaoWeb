@@ -7,9 +7,9 @@ import java.util.List;
 
 import javax.validation.Valid;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.propertyeditors.CustomDateEditor;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.InitBinder;
@@ -18,8 +18,20 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import br.uepb.biblio.repository.Anais;
+import br.uepb.biblio.repository.Jornais;
+import br.uepb.biblio.repository.Livros;
+import br.uepb.biblio.repository.Midias;
+import br.uepb.biblio.repository.Revistas;
+import br.uepb.biblio.repository.Tccs;
 import br.uepb.biblio.service.exception.ItemDuplicadoException;
 import br.uepb.model.Emprestimo;
+import br.uepb.model.acervo.Anal;
+import br.uepb.model.acervo.Jornal;
+import br.uepb.model.acervo.Livro;
+import br.uepb.model.acervo.MidiasEletronicas;
+import br.uepb.model.acervo.Revista;
+import br.uepb.model.acervo.Tcc;
 import br.uepb.model.usuarios.Aluno;
 
 
@@ -32,6 +44,24 @@ import br.uepb.model.usuarios.Aluno;
 @Controller
 @RequestMapping("/emprestimos")
 public class EmprestimoController{
+	
+	@Autowired
+	private Livros livrosRepository;
+	
+	@Autowired
+	private Jornais jornaisRepository;
+	
+	@Autowired
+	private Revistas revistasRepository;
+	
+	@Autowired
+	private Anais anaisRepository;
+	
+	@Autowired
+	private Tccs tccsRepository;
+	
+	@Autowired
+	private Midias midiasRepository;
 	
 	/*@Autowired
 	private Alunos alunosRepository;*/
@@ -73,8 +103,28 @@ public class EmprestimoController{
 	 * @return new ModelAndView("redirect:/emprestimos/novo"), que renderiza a página no endereço emprestimos/novo (caso haja sucesso na inserção) 
 	 */
 	@RequestMapping(value="/novo",method=RequestMethod.POST)
-	public ModelAndView cadastrar(@Valid Emprestimo emprestimo, BindingResult result, RedirectAttributes attributes){
-		System.out.println("Quantidade de itens: "+emprestimo.getEmprestimos().size());
+	public ModelAndView cadastrar(@Valid Emprestimo emprestimo, String itemAcervo,BindingResult result, RedirectAttributes attributes){
+		System.out.println("Item selecionado: "+emprestimo.getId_item());
+		switch (itemAcervo) {
+		case "livros":
+			emprestimo.setLivro(new Livro(livrosRepository.findOne(Integer.parseInt(emprestimo.getId_item()))));
+			break;
+		case "revistas":
+			emprestimo.setRevista(new Revista(revistasRepository.findOne(Integer.parseInt(emprestimo.getId_item()))));
+			break;
+		case "tccs":
+			emprestimo.setTcc(new Tcc(tccsRepository.findOne(Integer.parseInt(emprestimo.getId_item()))));
+			break;
+		case "jornais":
+			emprestimo.setJornal(new Jornal(jornaisRepository.findOne(Integer.parseInt(emprestimo.getId_item()))));
+			break;
+		case "midias":
+			emprestimo.setMidia(new MidiasEletronicas(midiasRepository.findOne(Integer.parseInt(emprestimo.getId_item()))));
+			break;
+		case "anais":
+			emprestimo.setAnal(new Anal(anaisRepository.findOne(Integer.parseInt(emprestimo.getId_item()))));
+			break;
+		}
 		if(result.hasErrors()){
 			if(emprestimo.getAluno().getId()==0){
 				result.reject("aluno","Selecione um aluno");
