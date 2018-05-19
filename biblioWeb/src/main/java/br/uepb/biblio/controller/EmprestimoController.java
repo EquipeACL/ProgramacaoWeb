@@ -7,12 +7,16 @@ import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.propertyeditors.CustomDateEditor;
+import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.InitBinder;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
@@ -71,10 +75,33 @@ public class EmprestimoController{
 	 * @return model, que é um objeto ModelAndView que contém os parâmetros que foram adicionados para exibir na view.
 	 */
 	@RequestMapping("/novo")
-	public ModelAndView novo(Emprestimo emprestimo){
+	public ModelAndView novo(Emprestimo emprestimo,String busca,String filtro){
 		ModelAndView model = new ModelAndView("emprestimo/CadastroEmprestimo");
 		model.addObject("alunos",alunosRepository.findAll());
-		model.addObject("listaEmprestimos", emprestimosRepository.findAll());
+		if(busca!=null){
+			if(filtro!=null && filtro.equals("data")){
+				model.addObject("listaEmprestimos",emprestimosService.buscarPorData(busca));
+			}else{
+				model.addObject("listaEmprestimos",emprestimosService.buscarPorAluno(busca));
+			}
+		}else{
+			model.addObject("listaEmprestimos", emprestimosRepository.findAll());
+		}
+		return model;
+	}
+	
+	@RequestMapping("/pesquisar")
+	public ModelAndView pesquisar(String busca,String filtro){
+		ModelAndView model = new ModelAndView("emprestimo/PesquisaEmprestimo");
+		if(busca!=null){
+			if(filtro!=null && filtro.equals("data")){
+				model.addObject("listaEmprestimos",emprestimosService.buscarPorData(busca));
+			}else{
+				model.addObject("listaEmprestimos",emprestimosService.buscarPorAluno(busca));
+			}
+		}else{
+			model.addObject("listaEmprestimos", emprestimosRepository.findAll());
+		}
 		return model;
 	}
 	
@@ -95,17 +122,31 @@ public class EmprestimoController{
 					&& emprestimo.getRevista().getId()==0 && emprestimo.getTcc().getId()==0 && emprestimo.getMidia().getId()==0){
 				result.reject("item"," Selecione um item");
 			}
-			return novo(emprestimo);
+			return novo(emprestimo,null,null);
 		}		
 		try{
 			emprestimosService.salvar(emprestimo);
 		}catch(Exception e){
 			result.rejectValue("aluno", e.getMessage(),e.getMessage());
-			return (novo(emprestimo));
+			return (novo(emprestimo,null,null));
 		}
 		attributes.addFlashAttribute("mensagem", " Emprestimo salvo com sucesso!");
 		return new ModelAndView("redirect:/emprestimos/novo");
 	}
+	
+	
+	@RequestMapping(value = "/remover", method = RequestMethod.DELETE, consumes = { MediaType.APPLICATION_JSON_VALUE })
+	public @ResponseBody ResponseEntity<?> remover(@RequestBody Emprestimo emprestimo, RedirectAttributes attributes) {
+		try {
+			// vai tentar remover no banco
+			System.out.println(">>>> chegou no controller");
+			emprestimosService.remover(emprestimo.getId());
+		} catch (Exception e) {
+			return ResponseEntity.badRequest().body(e.getMessage());
+		}
+		return ResponseEntity.ok().build();
+	}
+	
 	
 	/**
 	 * Esse método é responsável por formatar a data de acordo com o padrão do banco de dados.

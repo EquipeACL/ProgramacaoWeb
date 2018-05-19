@@ -2,23 +2,23 @@
 <html lang="pt" xmlns="http://www.w3.org/1999/xhtml"
 	xmlns:th="http://www.thymeleaf.org">
 <body>
-	<div class="modal fade" id="modalRemoverAreaConhecimento" tabindex="-1" role="dialog"  th:fragment="modal">
+	<div class="modal fade" id="modalRemoverEmprestimo" tabindex="-1" role="dialog"  th:fragment="modal">
 		<div class="modal-dialog  modal-sm">
 			<div class="modal-content">
 				<div class="modal-header">
 					<button type="button" class="close" data-dismiss="modal">
 						<span aria-hidden="true">&times;</span>
 					</button>
-					<h4 class="modal-title">Remover Area do Conhecimento</h4>
+					<h4 class="modal-title">Remover Area do Emprestimo</h4>
 				</div>
 				
 				<div class="modal-body">
 					
 					<h4>Tem certeza que quer excluir este registro?</h4>
-					<input class="hidden" type="number" id="idRemover" name="idRemover"/>
-					<input class="hidden" type="text" id="urlRemover" name="urlRemover"/>
+					<input  class="hidden" type="number" id="idEmprestimoRemover" name="idEmprestimoRemover"/>
+					<input  class="hidden" type="text" id="urlEmprestimoRemover" name="urlEmprestimoRemover"/>
 					<button type="button" class="btn  btn-cancel" data-dismiss="modal">Cancelar</button>
-					<button type="button" class="btn  btn-primary js-remover-area-sim">Sim</button>
+					<button type="button" class="btn  btn-primary js-remover-emprestimo-sim">Sim</button>
 				</div>
 			</div>
 		</div>

@@ -1,5 +1,7 @@
 package br.uepb.biblio.service;
 
+import java.util.List;
+
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 
@@ -47,5 +49,31 @@ public class CrudEmprestimosService {
 			return null;
 		}
 	}
-
+	
+	
+	@Transactional
+	public List<Emprestimo> buscarPorData(String busca) {
+		return manager.createQuery("select e from Emprestimo e where e.dataDoEmprestimo like '%"+busca+"%' or e.dataDeEntrega like '%"+busca+"%'",Emprestimo.class).getResultList();
+	}	
+	
+	
+	@Transactional
+	public List<Emprestimo> buscarPorAluno(String busca) {
+		return manager.createQuery("select e from Emprestimo e inner join e.aluno a where a.nome like '%"+busca+"%'",Emprestimo.class).getResultList();
+	}
+	
+	@Transactional
+	public boolean remover(int id){
+		try {
+			emprestimos.delete(id);
+			logger.info("Emprestimo removido com sucesso.");
+			return true;
+		} catch (Exception e) {
+			logger.error("Erro ao remover emprestimo",e);
+			return false;
+		}
+	}
+	
+	
+	
 }

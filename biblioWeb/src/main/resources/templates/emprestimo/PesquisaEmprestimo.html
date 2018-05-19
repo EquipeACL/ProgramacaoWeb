@@ -28,6 +28,15 @@
 						</div>
 						<div class="form-group col-sm-2">
 							<button class="btn btn-primary" type="submit">Pesquisar</button>
+						</div>
+						<div class="col-sm-1">
+							<label for="filtro" class="form-group">Por:</label>
+						</div>
+						<div class="col-sm-2">
+							<select class="form-control" id="filtro" name="filtro">							
+											<option value="aluno">Aluno</option>
+											<option value="data">Data</option>
+							</select>														
 						</div>						
 					</form>
 					
@@ -40,6 +49,7 @@
 									<th>Data de Emprestimo</th>
 									<th>Data de Entrega</th>
 									<th>Item( ID - Titulo )</th>
+									<th>Ações</th>
 								</tr>
 							</thead>
 							<tbody>
@@ -55,6 +65,7 @@
 									<td th:if="*{emprestimo.revista}!=null" th:text="|Revista: *{emprestimo.revista.id} - *{emprestimo.revista.titulo}|">Nome da Revista</td>
 									<td th:if="*{emprestimo.tcc}!=null" th:text="|TCC: *{emprestimo.tcc.id} - *{emprestimo.tcc.titulo}|">Nome do Tcc</td>
 									<td th:if="*{emprestimo.midia}!=null" th:text="|Midia Eletrônica: *{emprestimo.midia.id} - *{emprestimo.midia.titulo}|">Nome da Midia</td>
+									<td><button th:id="|removerEmprestimoId*{anal.id}|" class="btn btn-danger btn-sm" data-toggle="modal" data-target="#modalRemoverEmprestimo" th:onclick="|setValorRemover(*{emprestimo.id},'@{/emprestimos/remover}')|" type="button">Remover</button></td>
 								</tr>
 							
 							</tbody>
