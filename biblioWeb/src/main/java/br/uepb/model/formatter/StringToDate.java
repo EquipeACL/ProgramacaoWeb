@@ -6,9 +6,19 @@ import java.util.Date;
 import org.apache.log4j.Logger;
 import org.springframework.core.convert.converter.Converter;
 
+/**
+ * Essa classe é responsável por conter o método que forece a conversão de String para data
+ * @author EquipeACL
+ *
+ */
 public class StringToDate implements Converter<String, Date>{
 	private static Logger logger = Logger.getLogger(StringToDate.class);
 		
+	/**
+	 * Método responsável por realizar a conversão de data para String
+	 * @param string, que é a data a ser convertida
+	 * @return data, que é a string com a data formatada
+	 */
 	@Override
 	public Date convert(String string) {
 		String temp[] = string.split("-");
