@@ -60,11 +60,14 @@ public class Curso implements IFDependencia{
 	}
 	
 	public Curso(EntityCurso curso){
-		setId(curso.getId());
-		setNome(curso.getNome());
-		setSigla(curso.getSigla());
-		setArea(new AreaConhecimento(curso.getArea()));
-		setTipo(curso.getTipo());
+		if(curso!= null) {
+			setId(curso.getId());
+			setNome(curso.getNome());
+			setSigla(curso.getSigla());
+			setArea(new AreaConhecimento(curso.getArea()));
+			setTipo(curso.getTipo());
+		}
+		
 	}
 	
 	public int getId() {

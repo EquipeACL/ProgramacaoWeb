@@ -33,7 +33,7 @@ import com.github.springtestdbunit.DbUnitTestExecutionListener;
         TransactionalTestExecutionListener.class,
         DbUnitTestExecutionListener.class,
         WithSecurityContextTestExecutionListener.class})
-@WithMockUser(username="caio",password="123",roles={"Funcionario","Administrador"})
+
 public class TesteCaseAreaConhecimento {
 
 	private AreaConhecimento area;

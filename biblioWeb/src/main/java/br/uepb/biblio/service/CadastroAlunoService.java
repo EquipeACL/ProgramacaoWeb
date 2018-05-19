@@ -68,7 +68,7 @@ public class CadastroAlunoService {
 	 */
 	@Transactional
 	public List<Aluno> buscarPorNome (String busca) {
-		return manager.createQuery("select a from Aluno a where a.nome like '%"+busca+"%'",Aluno.class).getResultList();
+		return manager.createQuery("select a from EntityAluno a where a.nome like '%"+busca+"%'",Aluno.class).getResultList();
 	}
 
 	

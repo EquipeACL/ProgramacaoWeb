@@ -36,7 +36,7 @@ import br.uepb.model.jpaEntity.EntityAutor;
         TransactionalTestExecutionListener.class,
         DbUnitTestExecutionListener.class,
         WithSecurityContextTestExecutionListener.class})
-@WithMockUser(username="caio",password="123",roles={"Funcionario","Administrador"})
+
 public class TesteCaseAutor {
 	private Autor autor;
 		

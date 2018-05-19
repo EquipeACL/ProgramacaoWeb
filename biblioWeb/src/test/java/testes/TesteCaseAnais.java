@@ -39,7 +39,7 @@ import br.uepb.model.jpaEntity.acervo.EntityAnal;
         TransactionalTestExecutionListener.class,
         DbUnitTestExecutionListener.class,
 WithSecurityContextTestExecutionListener.class})
-@WithMockUser(username="caio",password="123",roles={"Funcionario","Administrador"})
+
 public class TesteCaseAnais {
 	private Autor autor;
 	private Cidade cidade;
