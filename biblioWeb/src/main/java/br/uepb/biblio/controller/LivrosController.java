@@ -72,7 +72,7 @@ public class LivrosController {
 		mv.addObject("editoras", editoras.findAll());
 		mv.addObject("areas", areas.findAll());
 		mv.addObject("temas",temas.findAll());
-		mv.addObject("editoras",editoras.findAll());
+		//mv.addObject("editoras",editoras.findAll());
 		mv.addObject("autores",autoresRepository.findAll());
 		if(busca!=null){
 			if(filtro != null && filtro.equals("autor")){

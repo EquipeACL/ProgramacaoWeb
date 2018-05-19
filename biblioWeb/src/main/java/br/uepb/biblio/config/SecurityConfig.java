@@ -47,7 +47,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 			.antMatchers("/orientadores/novo").hasAuthority("CADASTRAR_ACERVO")
 			.antMatchers("/temas/novo").hasAuthority("CADASTRAR_ACERVO")
 			.antMatchers("/midias/novo").hasAuthority("CADASTRAR_ACERVO")
-						
+			.antMatchers("/emprestimo/novo").hasAnyAuthority("CADASTRAR_EMPRESTIMO")
+			
 			.antMatchers("/usuarios/editar").hasAuthority("EDITAR_USUARIO")
 			.antMatchers("/alunos/editar").hasAuthority("EDITAR_ALUNO")
 			.antMatchers("/tccs/editar").hasAuthority("EDITAR_ACERVO")
@@ -63,6 +64,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 			.antMatchers("/orientadores/editar").hasAuthority("EDITAR_ACERVO")
 			.antMatchers("/temas/editar").hasAuthority("EDITAR_ACERVO")
 			.antMatchers("/midias/editar").hasAuthority("EDITAR_ACERVO")
+			.antMatchers("/emprestimo/editar").hasAnyAuthority("EDITAR_EMPRESTIMO")
 			
 			.antMatchers("/usuarios/remover").hasAuthority("DELETAR_USUARIO")
 			.antMatchers("/alunos/remover").hasAuthority("DELETAR_ALUNO")
@@ -79,7 +81,9 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 			.antMatchers("/orientadores/remover").hasAuthority("DELETAR_ACERVO")			
 			.antMatchers("/temas/remover").hasAuthority("DELETAR_ACERVO")
 			.antMatchers("/midias/remover").hasAuthority("DELETAR_ACERVO")
+			.antMatchers("/emprestimo/REMOVER").hasAnyAuthority("DELETAR_EMPRESTIMO")
 			
+			.antMatchers("/emprestimo/quitar").hasAnyAuthority("QUITAR_EMPRESTIMO")
 			.anyRequest().authenticated()
 			
 			.and()
