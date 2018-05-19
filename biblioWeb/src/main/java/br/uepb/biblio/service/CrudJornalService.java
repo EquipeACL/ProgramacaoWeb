@@ -16,6 +16,11 @@ import br.uepb.biblio.service.exception.ItemDuplicadoException;
 import br.uepb.model.acervo.Jornal;
 import br.uepb.model.jpaEntity.acervo.EntityJornal;
 
+/**
+ * Essa é a classe de Serviço de Jornal, que contém os métodos responsáveis pelo CRUD desse objeto no banco de dados.
+ * @author EquipeACL
+ *
+ */
 @Service
 public class CrudJornalService  {
 	private static Logger logger = Logger.getLogger(CrudJornalService.class);
@@ -25,6 +30,10 @@ public class CrudJornalService  {
 	@PersistenceContext
     private EntityManager manager;
 	
+	/**
+	 * Esse é o método responsável por salvar um objeto no banco de dados
+	 * @param jornal, que é o objeto que irá ser salvo no banco de dados.
+	 */
 	@Transactional
 	public EntityJornal salvar (Jornal jornal) {
 		EntityJornal newEntity = new EntityJornal(jornal);
@@ -43,11 +52,21 @@ public class CrudJornalService  {
 		return null;
 	}
 	
+	/**
+	 * Esse é o método responsável por fazer uma busca por nome no banco de dados
+	 * @param busca, que é a String que contém o parâmetro de busca por Jornal no banco de dados
+	 * @return List<EntityJornal> contendo o(s) objeto(s) referente(s) à busca
+	 */
 	@Transactional
 	public List<EntityJornal> buscarPorTitulo (String busca) {
 		return manager.createQuery("select j from EntityJornal j where j.titulo like '%"+busca+"%'",EntityJornal.class).getResultList();
 	}
 	
+	/**
+	 * Esse é o método responsável por atualizar um objeto no banco de dados
+	 * @param jornal, que é o objeto que irá ser atualizado no banco de dados.
+	 * @return true or false, dependendo do sucesso ou falha na atualização
+	 */
 	@Transactional
 	public boolean atualizar(Jornal jornal) {
 		EntityJornal newEntity = new EntityJornal(jornal);
@@ -61,6 +80,11 @@ public class CrudJornalService  {
 		return true;
 	}
 	
+	/**
+	 * Esse é o método responsável por remover um objeto no banco de dados
+	 * @param id, que é o id do objeto que irá ser removido da tabela de Jornal no banco de dados.
+	 * @return true or false, dependendo do sucesso ou falha da remoção
+	 */
 	@Transactional
 	public boolean remover (int id) {
 		if(id>0){

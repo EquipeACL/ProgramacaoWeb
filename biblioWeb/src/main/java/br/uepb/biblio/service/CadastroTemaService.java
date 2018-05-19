@@ -16,6 +16,11 @@ import br.uepb.biblio.service.exception.ItemDuplicadoException;
 import br.uepb.model.Tema;
 import br.uepb.model.jpaEntity.EntityTema;
 
+/**
+ * Essa é a classe de Serviço do Tema, que contém os métodos responsáveis pelo CRUD desse objeto no banco de dados.
+ * @author EquipeACL
+ *
+ */
 @Service
 public class CadastroTemaService {
 	private static Logger logger = Logger.getLogger(CadastroTemaService.class);
@@ -25,6 +30,10 @@ public class CadastroTemaService {
 	@PersistenceContext
     private EntityManager manager;
 	
+	/**
+	 * Esse é o método responsável por salvar um objeto no banco de dados
+	 * @param tema, que é o objeto que irá ser salvo no banco de dados.
+	 */
 	@Transactional
 	public EntityTema salvar (Tema tema) {
 		EntityTema newEntity = new EntityTema(tema);
@@ -39,12 +48,22 @@ public class CadastroTemaService {
 			return null;
 		}
 	}
-		
+	
+	/**
+	 * Esse é o método responsável por fazer uma busca por nome no banco de dados
+	 * @param busca, que é a String que contém o parâmetro de busca por Orientador no banco de dados
+	 * @return List<EntityOrientador> contendo o(s) objeto(s) referentes à busca
+	 */
 	@Transactional
 	public List<EntityTema> buscarPorNome (String busca) {
 		return manager.createQuery("select a from EntityTema a where a.nome like '%"+busca+"%'",EntityTema.class).getResultList();
 	}
 	
+	/**
+	 * Esse é o método responsável por remover um objeto no banco de dados
+	 * @param id, que é o id do objeto que irá ser removido da tabela de Tema no banco de dados.
+	 * @return true or false, dependendo do sucesso ou falha da remoção
+	 */
 	@Transactional
 	public boolean remover (int  id) {
 		if(id > 0){
@@ -62,6 +81,11 @@ public class CadastroTemaService {
 		
 	}
 	
+	/**
+	 * Esse é o método responsável por atualizar um objeto no banco de dados
+	 * @param tema, que é o objeto que irá ser atualizado no banco de dados.
+	 * @return true or false, dependendo do sucesso ou falha na atualização
+	 */ 
 	@Transactional
 	public boolean atualizar(Tema tema) throws Exception {
 		EntityTema newEntity = new EntityTema(tema);
@@ -76,6 +100,11 @@ public class CadastroTemaService {
 		return true;
 	}
 	
+	/**
+	 * Esse método realiza uma busca de um objeto do tipo Tema no banco de dados pela área de conhecimento
+	 * @param id, que é o id da área de conhecimento
+	 * @return List<EntityTema> contendo o(s) parâmetro(s) resultante(s) da busca
+	 */
 	@Transactional
 	public List<EntityTema> buscarPorArea (int id) {
 		return manager.createQuery("select a from EntityTema a where a.area = '"+id+"'",EntityTema.class).getResultList();

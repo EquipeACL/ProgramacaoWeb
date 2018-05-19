@@ -16,6 +16,11 @@ import br.uepb.biblio.service.exception.ItemDuplicadoException;
 import br.uepb.model.Editora;
 import br.uepb.model.jpaEntity.EntityEditora;
 
+/**
+ * Essa é a classe de Serviço do Editora, que contém os métodos responsáveis pelo CRUD desse objeto no banco de dados.
+ * @author EquipeACL
+ *
+ */
 @Service
 public class CadastroEditoraService {
 	private Logger logger = Logger.getLogger(CadastroEditoraService.class);
@@ -25,6 +30,11 @@ public class CadastroEditoraService {
 	@PersistenceContext
     private EntityManager manager;
 	
+	
+	/**
+	 * Esse é o método responsável por salvar um objeto no banco de dados
+	 * @param editora, que é o objeto que irá ser salvo no banco de dados.
+	 */
 	@Transactional
 	public EntityEditora salvar(Editora editora) {
 		EntityEditora newEntity = new EntityEditora(editora);
@@ -35,11 +45,21 @@ public class CadastroEditoraService {
 		return editoras.saveAndFlush(newEntity);
 	}
 	
+	/**
+	 * Esse é o método responsável por fazer uma busca por nome no banco de dados
+	 * @param busca, que é a String que contém o parâmetro de busca por Editora no banco de dados
+	 * @return List<EntityEditora> contendo o(s) objeto(s) referentes à busca
+	 */
 	@Transactional
 	public List<EntityEditora> buscarPorNome (String busca) {
 		return manager.createQuery("select a from EntityEditora a where a.nome like '%"+busca+"%'",EntityEditora.class).getResultList();
 	}
 	
+	/**
+	 * Esse é o método responsável por atualizar um objeto no banco de dados
+	 * @param editora, que é o objeto que irá ser atualizado no banco de dados.
+	 * @return true or false, dependendo do sucesso ou falha na atualização
+	 */ 
 	@Transactional
 	public void atualizar(Editora editora) throws Exception {
 		EntityEditora newEntity = new EntityEditora(editora);
@@ -53,6 +73,11 @@ public class CadastroEditoraService {
 		}
 	}
 	
+	/**
+	 * Esse é o método responsável por remover um objeto no banco de dados
+	 * @param id, que é o id do objeto que irá ser removido da tabela de Editora no banco de dados.
+	 * @return true or false, dependendo do sucesso ou falha da remoção
+	 */
 	@Transactional
 	public boolean remover (int  id) {
 		if(id > 0){

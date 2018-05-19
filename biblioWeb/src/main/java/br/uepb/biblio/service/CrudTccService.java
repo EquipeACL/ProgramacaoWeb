@@ -17,6 +17,11 @@ import br.uepb.biblio.service.exception.ItemNaoEncontradoException;
 import br.uepb.model.acervo.Tcc;
 import br.uepb.model.jpaEntity.acervo.EntityTcc;
 
+/**
+ * Essa é a classe de Serviço de Tcc, que contém os métodos responsáveis pelo CRUD desse objeto no banco de dados.
+ * @author EquipeACL
+ *
+ */
 @Service
 public class CrudTccService {
 	private static Logger logger = Logger.getLogger(CrudTccService.class);
@@ -26,6 +31,10 @@ public class CrudTccService {
 	@PersistenceContext
     private EntityManager manager;
 	
+	/**
+	 * Esse é o método responsável por salvar um objeto no banco de dados
+	 * @param tcc, que é o objeto que irá ser salvo no banco de dados.
+	 */
 	@Transactional
 	public EntityTcc salvar (Tcc tcc) {
 		EntityTcc newEntity = new EntityTcc(tcc);
@@ -45,11 +54,21 @@ public class CrudTccService {
 
 	}
 	
+	/**
+	 * Esse é o método responsável por fazer uma busca por nome no banco de dados
+	 * @param busca, que é a String que contém o parâmetro de busca por Tcc no banco de dados
+	 * @return List<EntityTcc> contendo o(s) objeto(s) referente(s) à busca
+	 */
 	@Transactional
 	public List<EntityTcc> buscarPorTitulo (String busca) {
 		return manager.createQuery("select t from EntityTcc t where t.titulo like '%"+busca+"%'",EntityTcc.class).getResultList();
 	}
 	
+	/**
+	 * Esse é o método responsável por atualizar um objeto no banco de dados
+	 * @param tcc, que é o objeto que irá ser atualizado no banco de dados.
+	 * @return true or false, dependendo do sucesso ou falha na atualização
+	 */
 	@Transactional
 	public boolean atualizar(Tcc tcc) {
 		EntityTcc newEntity = new EntityTcc(tcc);
@@ -65,6 +84,11 @@ public class CrudTccService {
 		
 	}
 	
+	/**
+	 * Esse é o método responsável por remover um objeto no banco de dados
+	 * @param id, que é o id do objeto que irá ser removido da tabela de Tcc no banco de dados.
+	 * @return true or false, dependendo do sucesso ou falha da remoção
+	 */
 	@Transactional
 	public boolean remover(int id) throws ItemNaoEncontradoException {
 		

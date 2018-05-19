@@ -17,6 +17,11 @@ import br.uepb.model.acervo.Anal;
 import br.uepb.model.jpaEntity.EntityAutor;
 import br.uepb.model.jpaEntity.acervo.EntityAnal;
 
+/**
+ * Essa é a classe de Serviço de Anais, que contém os métodos responsáveis pelo CRUD desse objeto no banco de dados.
+ * @author EquipeACL
+ *
+ */
 @Service
 public class CrudAnaisService {
 	private static Logger logger = Logger.getLogger(CrudAnaisService.class);
@@ -27,6 +32,10 @@ public class CrudAnaisService {
 	@PersistenceContext
     private EntityManager manager;
 	
+	/**
+	 * Esse é o método responsável por salvar um objeto no banco de dados
+	 * @param anal, que é o objeto que irá ser salvo no banco de dados.
+	 */
 	@Transactional
 	public EntityAnal salvar (Anal anal) {
 		EntityAnal newEntity = new EntityAnal(anal);
@@ -45,11 +54,22 @@ public class CrudAnaisService {
 		return null;
 	}
 	
+	
+	/**
+	 * Esse é o método responsável por fazer uma busca por nome no banco de dados
+	 * @param busca, que é a String que contém o parâmetro de busca por Anal no banco de dados
+	 * @return List<EntityAnal> contendo o(s) objeto(s) referente(s) à busca
+	 */
 	@Transactional
 	public List<EntityAnal> buscarPorTitulo (String busca) {
 		return manager.createQuery("select a from EntityAnal a where a.titulo like '%"+busca+"%'",EntityAnal.class).getResultList();
 	}	
 	
+	/**
+	 * Esse é o método responsável por atualizar um objeto no banco de dados
+	 * @param anal, que é o objeto que irá ser atualizado no banco de dados.
+	 * @return true or false, dependendo do sucesso ou falha na atualização
+	 */
 	@Transactional
 	public boolean atualizar(Anal anal) throws Exception {
 		EntityAnal newEntity = new EntityAnal(anal);
@@ -64,7 +84,12 @@ public class CrudAnaisService {
 		}
 		return false;
 	}
-
+	
+	/**
+	 * Esse é o método responsável por remover um objeto no banco de dados
+	 * @param id, que é o id do objeto que irá ser removido da tabela de Anal no banco de dados.
+	 * @return true or false, dependendo do sucesso ou falha da remoção
+	 */
 	@Transactional
 	public boolean remover(int id) {
 		if (id != 0) {

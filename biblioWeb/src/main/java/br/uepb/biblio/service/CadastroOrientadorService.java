@@ -16,6 +16,12 @@ import br.uepb.biblio.service.exception.ItemDuplicadoException;
 import br.uepb.model.Orientador;
 import br.uepb.model.jpaEntity.EntityOrientador;
 
+
+/**
+ * Essa é a classe de Serviço do Orientador, que contém os métodos responsáveis pelo CRUD desse objeto no banco de dados.
+ * @author EquipeACL
+ *
+ */
 @Service
 public class CadastroOrientadorService {
 	private static Logger logger = Logger.getLogger(CadastroOrientadorService.class);
@@ -25,6 +31,10 @@ public class CadastroOrientadorService {
 	@PersistenceContext
 	private EntityManager manager;
 	
+	/**
+	 * Esse é o método responsável por salvar um objeto no banco de dados
+	 * @param orientador, que é o objeto que irá ser salvo no banco de dados.
+	 */
 	@Transactional
 	public EntityOrientador salvar(Orientador orientador) {
 		EntityOrientador newEntity = new EntityOrientador(orientador);
@@ -40,11 +50,21 @@ public class CadastroOrientadorService {
 		}
 	}
 	
+	/**
+	 * 
+	 * @param busca, que é a String que contém o parâmetro de busca por Orientador no banco de dados
+	 * @return List<EntityOrientador> contendo o(s) objeto(s) referentes à busca
+	 */
 	@Transactional
 	public List<EntityOrientador> buscarPorNome (String busca) {
 		return manager.createQuery("select a from EntityOrientador a where a.nome like '%"+busca+"%'",EntityOrientador.class).getResultList();
 	}
 	
+	/**
+	 * Esse é o método responsável por atualizar um objeto no banco de dados
+	 * @param orientador, que é o objeto que irá ser atualizado no banco de dados.
+	 * @return true or false, dependendo do sucesso ou falha na atualização
+	 */ 
 	@Transactional
 	public boolean atualizar(Orientador orientador) throws Exception {
 		EntityOrientador newEntity = new EntityOrientador(orientador);
@@ -60,6 +80,11 @@ public class CadastroOrientadorService {
 		return true;
 	}
 	
+	/**
+	 * Esse é o método responsável por remover um objeto no banco de dados
+	 * @param id, que é o id do objeto que irá ser removido da tabela de Orientador no banco de dados.
+	 * @return true or false, dependendo do sucesso ou falha da remoção
+	 */
 	@Transactional
 	public boolean remover (int  id) {
 		if(id > 0){

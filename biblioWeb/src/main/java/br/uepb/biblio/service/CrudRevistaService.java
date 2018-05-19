@@ -15,6 +15,12 @@ import br.uepb.biblio.repository.Revistas;
 import br.uepb.biblio.service.exception.ItemDuplicadoException;
 import br.uepb.model.acervo.Revista;
 import br.uepb.model.jpaEntity.acervo.EntityRevista;
+
+/**
+ * Essa é a classe de Serviço de Revista, que contém os métodos responsáveis pelo CRUD desse objeto no banco de dados.
+ * @author EquipeACL
+ *
+ */
 @Service
 public class CrudRevistaService {
 	private static Logger logger = Logger.getLogger(CrudRevistaService.class);
@@ -24,6 +30,10 @@ public class CrudRevistaService {
 	@PersistenceContext
     private EntityManager manager;
 	
+	/**
+	 * Esse é o método responsável por salvar um objeto no banco de dados
+	 * @param revista, que é o objeto que irá ser salvo no banco de dados.
+	 */
 	@Transactional
 	public EntityRevista salvar (Revista revista) {
 		EntityRevista newEntity = new EntityRevista(revista);
@@ -43,11 +53,21 @@ public class CrudRevistaService {
 		}
 	}
 	
+	/**
+	 * Esse é o método responsável por fazer uma busca por nome no banco de dados
+	 * @param busca, que é a String que contém o parâmetro de busca por Revista no banco de dados
+	 * @return List<EntityRevista> contendo o(s) objeto(s) referente(s) à busca
+	 */
 	@Transactional
 	public List<EntityRevista> buscarPorTitulo (String busca) {
 		return manager.createQuery("select r from EntityRevista r where r.titulo like '%"+busca+"%'",EntityRevista.class).getResultList();
 	}
 	
+	/**
+	 * Esse é o método responsável por atualizar um objeto no banco de dados
+	 * @param revista, que é o objeto que irá ser atualizado no banco de dados.
+	 * @return true or false, dependendo do sucesso ou falha na atualização
+	 */
 	@Transactional
 	public boolean atualizar (Revista revista) {
 		EntityRevista newEntity = new EntityRevista(revista);
@@ -62,6 +82,11 @@ public class CrudRevistaService {
 		
 	}
 	
+	/**
+	 * Esse é o método responsável por remover um objeto no banco de dados
+	 * @param id, que é o id do objeto que irá ser removido da tabela de Revista no banco de dados.
+	 * @return true or false, dependendo do sucesso ou falha da remoção
+	 */
 	@Transactional
 	public boolean remover(int id) {
 		if(id > 0){

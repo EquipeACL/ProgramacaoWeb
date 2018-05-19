@@ -16,6 +16,11 @@ import br.uepb.biblio.service.exception.ItemDuplicadoException;
 import br.uepb.model.acervo.MidiasEletronicas;
 import br.uepb.model.jpaEntity.acervo.EntityMidiasEletronicas;
 
+/**
+ * Essa é a classe de Serviço de MidiasEletronicas, que contém os métodos responsáveis pelo CRUD desse objeto no banco de dados.
+ * @author EquipeACL
+ *
+ */
 @Service
 public class CrudMidiasEletronicasService {
 	private static Logger logger = Logger.getLogger(CrudMidiasEletronicasService.class);
@@ -25,6 +30,10 @@ public class CrudMidiasEletronicasService {
 	@PersistenceContext
     private EntityManager manager;
 	
+	/**
+	 * Esse é o método responsável por salvar um objeto no banco de dados
+	 * @param midia, que é o objeto que irá ser salvo no banco de dados.
+	 */
 	@Transactional
 	public EntityMidiasEletronicas salvar (MidiasEletronicas midia) {
 		EntityMidiasEletronicas newEntity = new EntityMidiasEletronicas(midia);
@@ -44,6 +53,11 @@ public class CrudMidiasEletronicasService {
 		
 	}
 	
+	/**
+	 * Esse é o método responsável por atualizar um objeto no banco de dados
+	 * @param midia, que é o objeto que irá ser atualizado no banco de dados.
+	 * @return true or false, dependendo do sucesso ou falha na atualização
+	 */
 	@Transactional
 	public boolean atualizar (MidiasEletronicas midia) {
 		EntityMidiasEletronicas newEntity = new EntityMidiasEletronicas(midia);
@@ -58,11 +72,21 @@ public class CrudMidiasEletronicasService {
 		
 	}
 	
+	/**
+	 * Esse é o método responsável por fazer uma busca por nome no banco de dados
+	 * @param busca, que é a String que contém o parâmetro de busca por MidiaEletronica no banco de dados
+	 * @return List<EntityJornal> contendo o(s) objeto(s) referente(s) à busca
+	 */
 	@Transactional
 	public List<EntityMidiasEletronicas> buscarPorTitulo (String busca) {
 		return manager.createQuery("select m from EntityMidiasEletronicas m where m.titulo like '%"+busca+"%'",EntityMidiasEletronicas.class).getResultList();
 	}	
 	
+	/**
+	 * Esse é o método responsável por remover um objeto no banco de dados
+	 * @param id, que é o id do objeto que irá ser removido da tabela de MidiaEletronica no banco de dados.
+	 * @return true or false, dependendo do sucesso ou falha da remoção
+	 */
 	@Transactional
 	public boolean remover(int id) {
 		if (id != 0) {

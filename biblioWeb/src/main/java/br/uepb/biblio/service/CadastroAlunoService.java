@@ -16,6 +16,12 @@ import br.uepb.biblio.repository.Funcionarios;
 import br.uepb.biblio.service.exception.ItemDuplicadoException;
 import br.uepb.model.jpaEntity.usuarios.EntityAluno;
 import br.uepb.model.usuarios.Aluno;
+
+/**
+ * Essa é a classe de Serviço do Aluno, que contém os métodos responsáveis pelo CRUD desse objeto no banco de dados.
+ * @author EquipeACL
+ *
+ */
 @Service
 public class CadastroAlunoService {
 
@@ -31,6 +37,10 @@ public class CadastroAlunoService {
 	@PersistenceContext
     private EntityManager manager;
 	
+	/**
+	 * Esse é o método responsável por salvar um objeto no banco de dados
+	 * @param aluno, que é o objeto que irá ser salvo no banco de dados.
+	 */
 	@Transactional
 	public void salvar (Aluno aluno) {
 		EntityAluno entAluno = new EntityAluno(aluno);
@@ -47,11 +57,21 @@ public class CadastroAlunoService {
 		alunos.save(entAluno);
 	}
 
+	/**
+	 * Esse é o método responsável por fazer uma busca por nome no banco de dados
+	 * @param busca, que é a String que contém o parâmetro de busca por Aluno no banco de dados
+	 * @return List<Aluno> contendo o(s) objeto(s) referentes à busca
+	 */
 	@Transactional
 	public List<Aluno> buscarPorNome (String busca) {
 		return manager.createQuery("select a from Aluno a where a.nome like '%"+busca+"%'",Aluno.class).getResultList();
 	}
 
+	/**
+	 * Esse é o método responsável por fornecer as permissões a um objeto do tipo Aluno
+	 * @param aluno, que é o objeto cujo irá ter as permissões atribuídas a si
+	 * @return List<String> contendo as permissões referentes ao objeto passado por parâmetro
+	 */
 	public List<String> permissoes(EntityAluno aluno) {
 		return manager.createQuery("select distinct p.nome from EntityAluno a inner join a.grupos g inner join g.permissoes p where a = :aluno",String.class)
 				.setParameter("aluno", aluno)

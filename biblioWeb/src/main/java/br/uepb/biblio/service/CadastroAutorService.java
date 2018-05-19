@@ -16,6 +16,11 @@ import br.uepb.biblio.service.exception.ItemDuplicadoException;
 import br.uepb.model.Autor;
 import br.uepb.model.jpaEntity.EntityAutor;
 
+/**
+ * Essa é a classe de Serviço do Autor, que contém os métodos responsáveis pelo CRUD desse objeto no banco de dados.
+ * @author EquipeACL
+ *
+ */
 @Service
 public class CadastroAutorService {
 	private Logger logger = Logger.getLogger(CadastroAutorService.class);
@@ -25,6 +30,10 @@ public class CadastroAutorService {
 	@PersistenceContext
     private EntityManager manager;
 	
+	/**
+	 * Esse é o método responsável por salvar um objeto no banco de dados
+	 * @param autor, que é o objeto que irá ser salvo no banco de dados.
+	 */
 	@Transactional
 	public EntityAutor salvar (Autor autor) {
 		EntityAutor newEntity = new EntityAutor(autor);
@@ -40,12 +49,21 @@ public class CadastroAutorService {
 		}
 	}
 	
+	/**
+	 * Esse é o método responsável por fazer uma busca por nome no banco de dados
+	 * @param busca, que é a String que contém o parâmetro de busca por Autor no banco de dados
+	 * @return List<EntityAutor> contendo o(s) objeto(s) referentes à busca
+	 */
 	@Transactional
 	public List<EntityAutor> buscarPorNome (String busca) {
 		return manager.createQuery("select a from EntityAutor a where a.nome like '%"+busca+"%'",EntityAutor.class).getResultList();
 	}
 
-
+	/**
+	 * Esse é o método responsável por atualizar um objeto no banco de dados
+	 * @param autor, que é o objeto que irá ser atualizado no banco de dados.
+	 * @return true or false, dependendo do sucesso ou falha na atualização
+	 */
 	@Transactional
 	public boolean atualizar(Autor autor){
 		EntityAutor newEntity = new EntityAutor(autor);
@@ -58,6 +76,12 @@ public class CadastroAutorService {
 		}
 	}
 	
+	
+	/**
+	 * Esse é o método responsável por remover um objeto no banco de dados
+	 * @param autor, que é o objeto que irá ser removido da tabela de Autor no banco de dados.
+	 * @return true or false, dependendo do sucesso ou falha da remoção
+	 */
 	@Transactional
 	public boolean remover(EntityAutor autor) {
 		if (autor != null && autor.getId()!=0) {
@@ -69,6 +93,10 @@ public class CadastroAutorService {
 		
 	}
 	
+	/**
+	 * Esse é o método responsável por remover um objeto no banco de dados
+	 * @param id, que é o id do objeto que irá ser removido da tabela de Autor no banco de dados.
+	 */
 	@Transactional
 	public boolean remover(int id) {
 		if (id != 0) {

@@ -16,7 +16,11 @@ import br.uepb.biblio.service.exception.ItemDuplicadoException;
 import br.uepb.model.AreaConhecimento;
 import br.uepb.model.jpaEntity.EntityAreaConhecimento;
 
-
+/**
+ * Essa é a classe de Serviço do AreaConhecimento, que contém os métodos responsáveis pelo CRUD desse objeto no banco de dados.
+ * @author EquipeACL
+ *
+ */
 @Service
 public class CadastroAreaConhecimento {
 	private Logger logger = Logger.getLogger(CadastroAreaConhecimento.class);
@@ -26,6 +30,10 @@ public class CadastroAreaConhecimento {
 	@PersistenceContext
     private EntityManager manager;
 	
+	/**
+	 * Esse é o método responsável por salvar um objeto no banco de dados
+	 * @param area, que é o objeto que irá ser salvo no banco de dados.
+	 */
 	@Transactional
 	public EntityAreaConhecimento salvar (AreaConhecimento area) {
 		EntityAreaConhecimento newEntity = new EntityAreaConhecimento(area);
@@ -42,6 +50,11 @@ public class CadastroAreaConhecimento {
 		}
 	}
 	
+	/**
+	 * Esse é o método responsável por atualizar um objeto no banco de dados
+	 * @param area, que é o objeto que irá ser atualizado no banco de dados.
+	 * @return true or false, dependendo do sucesso ou falha na atualização
+	 */
 	@Transactional
 	public boolean atualizar(AreaConhecimento area) throws Exception {
 		EntityAreaConhecimento newEntity = new EntityAreaConhecimento(area);
@@ -56,11 +69,20 @@ public class CadastroAreaConhecimento {
 		return true;
 	}
 	
+	/**
+	 * Esse é o método responsável por fazer uma busca por nome no banco de dados
+	 * @param busca, que é a String que contém o parâmetro de busca por AreaConhecimento no banco de dados
+	 * @return List<Aluno> contendo o(s) objeto(s) referentes à busca
+	 */
 	@Transactional
 	public List<EntityAreaConhecimento> buscarPorNome (String busca) {
 		return manager.createQuery("select a from EntityAreaConhecimento a where a.nome like '%"+busca+"%'",EntityAreaConhecimento.class).getResultList();
 	}
 
+	/**
+	 * Esse é o método responsável por remover um objeto no banco de dados
+	 * @param id, que é o id do objeto que irá ser removido da tabela de AreaConhecimento no banco de dados.
+	 */
 	@Transactional
 	public boolean remover (int  id) {
 		if(id != 0){
