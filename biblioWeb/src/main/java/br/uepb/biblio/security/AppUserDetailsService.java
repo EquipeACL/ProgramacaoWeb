@@ -76,7 +76,7 @@ public class AppUserDetailsService implements UserDetailsService {
 
 		// lista de permissões do aluno
 		List <String> permissoes = cadastroAlunoService.permissoes(aluno);
-		permissoes.forEach(p -> authorities.add(new SimpleGrantedAuthority("ROLE_" + p.toUpperCase())));
+		permissoes.forEach(p -> authorities.add(new SimpleGrantedAuthority(p.toUpperCase())));
 		
 		
 		return authorities;
@@ -92,7 +92,7 @@ public class AppUserDetailsService implements UserDetailsService {
 
 		// lista de permissões do Funcionario
 		List <String> permissoes = cadastroFuncionarioService.permissoes(funcionario);
-		permissoes.forEach(p -> authorities.add(new SimpleGrantedAuthority("ROLE_" + p.toUpperCase())));
+		permissoes.forEach(p -> authorities.add(new SimpleGrantedAuthority(p.toUpperCase())));
 		
 		
 		return authorities;

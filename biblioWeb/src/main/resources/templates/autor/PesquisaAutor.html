@@ -2,7 +2,9 @@
 <html lang="pt" xmlns="http://www.w3.org/1999/xhtml"
 	xmlns:th="http://www.thymeleaf.org"
 	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-	layout:decorator="'layout/LayoutPadrao'">
+	layout:decorator="'layout/LayoutPadrao'"
+		xmlns:data="http://www.thymeleaf.org/extras/data"
+		xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4">
 
 <head>
 <title>Pesquisar Autor</title>
@@ -43,11 +45,11 @@
 							</thead>
 							<tbody>
 								<tr th:each="autor : ${listaAutores}" th:id="|autor*{autor.id}|">
-									<form  method="GET" th:action="@{editar}">
+									<form  method="GET" th:action="@{editar}" >
 										<td><input th:id="|check*{autor.nome}|" th:name="|check*{autor.nome}|"type="checkbox"></td>
 										<td th:text="*{autor.nome}">Teste1</td>
-										<td><button th:id="|removerAutorId*{autor.id}|" class="btn btn-danger btn-sm" data-toggle="modal" data-target="#modalRemoverAutor" th:onclick="|setValorRemover(*{autor.id},'@{/autores/remover}')|" type="button">Remover</button></td>
-										<td><button class="btn btn-default btn-sm" name="id" th:value="*{autor.id}" type="submit">Editar</button></td>
+										<td sec:authorize="hasRole('DELETER_ACERVO')"><button  th:id="|removerAutorId*{autor.id}|" class="btn btn-danger btn-sm" data-toggle="modal" data-target="#modalRemoverAutor" th:onclick="|setValorRemover(*{autor.id},'@{/autores/remover}')|" type="button">Remover</button></td>
+										<td sec:authorize = "hasRole('EDITAR _ACERVO')"><button  class="btn btn-default btn-sm" name="id" th:value="*{autor.id}" type="submit">Editar</button></td>
 									</form>
 								</tr>
 							</tbody>
