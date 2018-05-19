@@ -134,9 +134,8 @@
 
 							<th:block th:each="grupo: ${grupos}">
 								<div class="checkbox  checkbox-inline">
-									<input type="checkbox" th:value="${grupo.id}"
-										th:field="*{grupos}" /> <label
-										th:for="${#ids.prev('grupos')}" th:text="${grupo.nome}"></label>
+									<input type="checkbox" th:value ="${grupo.id}" th:field ="*{grupos}" /> 
+									<label th:for = "${#ids.prev('grupos')}" th:text ="${grupo.nome}"></label>
 								</div>
 							</th:block>
 						</div>
@@ -148,9 +147,18 @@
 			</form>
 
 		</div>
-
-	</section>
-
+		<div class="container-fluid">	
+			<hr>
+			<!-- incluindo a pesquisa -->
+			<div th:insert="aluno/PesquisaAluno :: fragment-pesquisaAlunos"></div>
+			
+		</div>
+	<div th:replace="aluno/RemoverAluno :: modal"></div>
+		</section>
+		<th:block layout:fragment="javascript-extra">
+			<script th:src="@{/javascripts/aluno.remover.js}"></script>
+		</th:block>
+	
 </body>
 
 </html>

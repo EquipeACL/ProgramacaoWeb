@@ -8,6 +8,8 @@ import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.test.context.support.WithMockUser;
+import org.springframework.security.test.context.support.WithSecurityContextTestExecutionListener;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.TestExecutionListeners;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
@@ -17,6 +19,7 @@ import org.springframework.test.context.transaction.TransactionalTestExecutionLi
 import com.github.springtestdbunit.DbUnitTestExecutionListener;
 
 import br.uepb.biblio.config.H2Config;
+import br.uepb.biblio.config.SecurityConfig;
 import br.uepb.biblio.config.ServiceConfig;
 import br.uepb.biblio.config.init.AppInitializer;
 import br.uepb.biblio.service.CrudMidiasEletronicasService;
@@ -24,10 +27,12 @@ import br.uepb.model.acervo.MidiasEletronicas;
 import br.uepb.model.enums.Tipo_midia;
 import br.uepb.model.jpaEntity.acervo.EntityMidiasEletronicas;
 @RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration(classes = {AppInitializer.class,H2Config.class,ServiceConfig.class})
+@ContextConfiguration(classes = {AppInitializer.class,H2Config.class,ServiceConfig.class,SecurityConfig.class})
 @TestExecutionListeners({DependencyInjectionTestExecutionListener.class,
         TransactionalTestExecutionListener.class,
-        DbUnitTestExecutionListener.class})
+        DbUnitTestExecutionListener.class,
+        WithSecurityContextTestExecutionListener.class})
+@WithMockUser(username="caio",password="123",roles={"Funcionario","Administrador"})
 public class TesteCaseMidia {
 	
 	private MidiasEletronicas midia;

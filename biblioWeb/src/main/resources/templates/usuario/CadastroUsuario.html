@@ -106,8 +106,16 @@
 			</form>
 
 		</div>
-
+		<div class="container-fluid">	
+			<hr>
+			<!-- incluindo a pesquisa -->
+			<div th:insert="usuario/PesquisaUsuario :: fragment-pesquisaUsuario"></div>
+			
+		</div>
 	</section>
+	<th:block layout:fragment="javascript-extra">
+			<script th:src="@{/javascripts/usuario.remover.js}"></script>
+	</th:block>
 
 </body>
 

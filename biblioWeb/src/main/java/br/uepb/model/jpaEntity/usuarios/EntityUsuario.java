@@ -2,6 +2,7 @@ package br.uepb.model.jpaEntity.usuarios;
 
 import java.util.List;
 
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -12,8 +13,9 @@ import javax.persistence.MappedSuperclass;
 import javax.persistence.Transient;
 import javax.validation.constraints.Size;
 
+import org.hibernate.annotations.Fetch;
+import org.hibernate.annotations.FetchMode;
 import org.hibernate.validator.constraints.NotBlank;
-import org.hibernate.validator.constraints.NotEmpty;
 
 import br.uepb.model.Grupo;
 import br.uepb.validation.AtributoConfirmacao;
@@ -69,9 +71,10 @@ public abstract class EntityUsuario {
 	public void setGrupos(List<Grupo> grupos) {
 		this.grupos = grupos;
 	}
-
+	
+	@Fetch(FetchMode.SELECT)
 	@Size(min=1,message = "Selecione pelo menos um grupo")
-	@ManyToMany
+	@ManyToMany(fetch=FetchType.EAGER)
 	@JoinTable(name = "aluno_has_grupo",joinColumns = @JoinColumn(name = "aluno_id")
 												, inverseJoinColumns = @JoinColumn(name = "grupo_id"))
 	private List <Grupo> grupos;

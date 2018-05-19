@@ -1,11 +1,13 @@
 package br.uepb.biblio.service;
 
 import java.util.List;
+
 import java.util.Optional;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 
+import org.jboss.logging.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -16,7 +18,6 @@ import br.uepb.biblio.repository.Funcionarios;
 import br.uepb.biblio.service.exception.ItemDuplicadoException;
 import br.uepb.model.jpaEntity.usuarios.EntityAluno;
 import br.uepb.model.usuarios.Aluno;
-
 /**
  * Essa é a classe de Serviço do Aluno, que contém os métodos responsáveis pelo CRUD desse objeto no banco de dados.
  * @author EquipeACL
@@ -25,11 +26,9 @@ import br.uepb.model.usuarios.Aluno;
 @Service
 public class CadastroAlunoService {
 
+	private static Logger logger = Logger.getLogger(CadastroAlunoService.class);
 	@Autowired
 	private Alunos alunos;
-	
-	@Autowired
-	private Funcionarios funcionarios;
 	
 	@Autowired
 	private PasswordEncoder passwordEncoder;
@@ -42,7 +41,7 @@ public class CadastroAlunoService {
 	 * @param aluno, que é o objeto que irá ser salvo no banco de dados.
 	 */
 	@Transactional
-	public void salvar (Aluno aluno) {
+	public EntityAluno salvar (Aluno aluno) {
 		EntityAluno entAluno = new EntityAluno(aluno);
 		
 		Optional <EntityAluno> alunoOptional = alunos.findByCpfIgnoreCase(aluno.getCpf());
@@ -54,9 +53,14 @@ public class CadastroAlunoService {
 		
 		entAluno.setSenha(this.passwordEncoder.encode(entAluno.getSenha()));
 		entAluno.setConfirmacaoSenha(entAluno.getSenha());
-		alunos.save(entAluno);
+		try {
+			return alunos.saveAndFlush(entAluno);
+		} catch (Exception e) {
+			logger.error("Erro ao cadastrar aluno.",e);
+			return null;
+		}
 	}
-
+	
 	/**
 	 * Esse é o método responsável por fazer uma busca por nome no banco de dados
 	 * @param busca, que é a String que contém o parâmetro de busca por Aluno no banco de dados
@@ -67,6 +71,38 @@ public class CadastroAlunoService {
 		return manager.createQuery("select a from Aluno a where a.nome like '%"+busca+"%'",Aluno.class).getResultList();
 	}
 
+	
+	@Transactional
+	public boolean atualizar(Aluno aluno) {
+		EntityAluno entAluno = new EntityAluno(aluno);
+		
+		entAluno.setSenha(this.passwordEncoder.encode(entAluno.getSenha()));
+		entAluno.setConfirmacaoSenha(entAluno.getSenha());
+		try {
+			alunos.save(entAluno);
+			logger.info("Aluno atualizado com sucesso.");
+			return true;
+		} catch (Exception e) {
+			logger.error("Erro ao atualizar aluno.",e);
+			return false;
+		}
+	}
+	
+	@Transactional
+	public boolean remover(int id) {
+		if(id>0) {
+			try {
+				alunos.delete(id);
+				logger.info("Aluno removido com sucesso.");
+				return true;
+			} catch (Exception e) {
+				logger.error("Erro ao remover aluno.",e);
+				
+			}
+		}
+		return false;
+	}
+	
 	/**
 	 * Esse é o método responsável por fornecer as permissões a um objeto do tipo Aluno
 	 * @param aluno, que é o objeto cujo irá ter as permissões atribuídas a si

@@ -3,6 +3,7 @@ package br.uepb.model.usuarios;
 import java.io.Serializable;
 import java.util.List;
 
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -14,6 +15,8 @@ import javax.persistence.Transient;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
+import org.hibernate.annotations.Fetch;
+import org.hibernate.annotations.FetchMode;
 import org.hibernate.validator.constraints.NotBlank;
 
 import br.uepb.model.Grupo;
@@ -76,9 +79,9 @@ public class Usuario implements Serializable {
 	@Transient
 	protected String confirmacaoSenha;
 	
-	//@NotNull(message = "Selecione pelo menos um grupo")
+	@Fetch(FetchMode.SELECT)
 	@Size(min=1,message = "Selecione pelo menos um grupo")
-	@ManyToMany
+	@ManyToMany(fetch=FetchType.EAGER)
 	@JoinTable(name = "usuario_has_grupo",joinColumns = @JoinColumn(name = "usuario_id")
 												, inverseJoinColumns = @JoinColumn(name = "grupo_id"))
 	private List <Grupo> grupos;
