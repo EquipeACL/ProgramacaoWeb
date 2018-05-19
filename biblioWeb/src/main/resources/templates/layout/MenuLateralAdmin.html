@@ -74,7 +74,21 @@
 								th:href="@{/autores/pesquisar}"><i
 									class="fa  fa-fw  fa-search "></i>Pesquisa de Autores</a></li>
 						</ul></li>
+					<li class="aw-menu__item "><a href="#"> <i
+							class="fa  fa-fw  fa-graduation-cap "></i><span>Cursos</span> <i
+							class="aw-menu__navigation-icon  fa"></i>
+					</a>
 
+						<ul class="aw-menu__list  aw-menu__list--sublist">
+							<li class="aw-menu__item  aw-menu__item--link  is-active"
+								sec:authorize="hasAuthority('DELETER_ACERVO')"><a
+								th:href="@{/cursos/novo}"><i class="fa  fa-fw  fa-plus "></i>Cadastro
+									de Cursos</a></li>
+							<li class="aw-menu__item  aw-menu__item--link  is-active"><a
+								th:href="@{/cursos/pesquisar}"><i
+									class="fa  fa-fw  fa-search "></i>Pesquisa de Cursos</a></li>
+						</ul></li>
+						
 					<li class="aw-menu__item"><a href="#"> <i
 							class="fa  fa-fw  fa-print "></i><span>Editoras</span> <i
 							class="aw-menu__navigation-icon  fa"></i>
@@ -195,10 +209,6 @@
 								th:href="@{/usuarios/pesquisar}"><i
 									class="fa  fa-fw  fa-search "></i>Pesquisa de Usuários</a></li>
 						</ul></li>
-
-
-
-
 				</ul>
 			</nav>
 
