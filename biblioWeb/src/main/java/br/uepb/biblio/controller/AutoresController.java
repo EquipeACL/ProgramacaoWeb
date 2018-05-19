@@ -16,7 +16,7 @@ import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import br.uepb.biblio.repository.Autores;
-import br.uepb.biblio.service.CadastroAutorService;
+import br.uepb.biblio.service.CrudAutorService;
 import br.uepb.biblio.service.exception.ItemDuplicadoException;
 import br.uepb.model.Autor;
 
@@ -33,7 +33,7 @@ public class AutoresController {
 	private Autores autoresRepository;
 	
 	@Autowired
-	private CadastroAutorService cadastroAutorService;
+	private CrudAutorService cadastroAutorService;
 	
 	/**
 	 * Esse método é responsável por adicionar os parâmetros que vão ser exibidos na view renderizada ao acessar a rota autores/novo	

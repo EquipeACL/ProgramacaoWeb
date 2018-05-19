@@ -23,8 +23,8 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import br.uepb.biblio.repository.Alunos;
 import br.uepb.biblio.repository.Cursos;
-import br.uepb.biblio.service.CadastroAlunoService;
-import br.uepb.biblio.service.CadastroGrupoService;
+import br.uepb.biblio.service.CrudAlunoService;
+import br.uepb.biblio.service.CrudGrupoService;
 import br.uepb.biblio.service.exception.ItemDuplicadoException;
 import br.uepb.biblio.service.exception.SenhaObrigatoriaUsuarioException;
 import br.uepb.model.Curso;
@@ -39,10 +39,10 @@ import br.uepb.model.usuarios.Aluno;
 @RequestMapping("/alunos")
 public class AlunosController {
 	@Autowired
-	private CadastroAlunoService cadastroAlunoService;
+	private CrudAlunoService cadastroAlunoService;
 	
 	@Autowired
-	private CadastroGrupoService cadastroGrupoService;
+	private CrudGrupoService cadastroGrupoService;
 	
 	@Autowired
 	private Cursos cursos;

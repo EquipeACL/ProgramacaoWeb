@@ -24,8 +24,8 @@ import br.uepb.biblio.config.H2Config;
 import br.uepb.biblio.config.SecurityConfig;
 import br.uepb.biblio.config.ServiceConfig;
 import br.uepb.biblio.config.init.AppInitializer;
-import br.uepb.biblio.service.CadastroAutorService;
-import br.uepb.biblio.service.CidadesService;
+import br.uepb.biblio.service.CrudAutorService;
+import br.uepb.biblio.service.CrudService;
 import br.uepb.biblio.service.CrudAnaisService;
 import br.uepb.model.Autor;
 import br.uepb.model.Cidade;
@@ -49,10 +49,10 @@ public class TesteCaseAnais {
 	private CrudAnaisService anaisDao;
 	
 	@Autowired
-	private CadastroAutorService autorDao;
+	private CrudAutorService autorDao;
 	
 	@Autowired
-	private CidadesService cidadesService;
+	private CrudService cidadesService;
 	
 	@Before
 	public void setup() throws Exception {

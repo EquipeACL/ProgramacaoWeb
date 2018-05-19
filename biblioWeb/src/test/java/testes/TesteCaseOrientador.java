@@ -22,7 +22,7 @@ import br.uepb.biblio.config.H2Config;
 import br.uepb.biblio.config.SecurityConfig;
 import br.uepb.biblio.config.ServiceConfig;
 import br.uepb.biblio.config.init.AppInitializer;
-import br.uepb.biblio.service.CadastroOrientadorService;
+import br.uepb.biblio.service.CrudOrientadorService;
 import br.uepb.model.Orientador;
 import br.uepb.model.jpaEntity.EntityOrientador;
 
@@ -40,7 +40,7 @@ public class TesteCaseOrientador {
 	private Orientador orientador;
 	
 	@Autowired
-	private CadastroOrientadorService orientadorDao;
+	private CrudOrientadorService orientadorDao;
 	
 	@Before
 	public void setup() throws Exception{

@@ -22,8 +22,8 @@ import br.uepb.model.jpaEntity.EntityCidade;
  *
  */
 @Service
-public class CidadesService {
-	private static Logger logger = Logger.getLogger(CidadesService.class);
+public class CrudService {
+	private static Logger logger = Logger.getLogger(CrudService.class);
 	@Autowired
 	private Cidades cidades;
 	

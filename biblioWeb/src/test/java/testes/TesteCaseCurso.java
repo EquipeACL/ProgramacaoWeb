@@ -21,8 +21,8 @@ import br.uepb.biblio.config.H2Config;
 import br.uepb.biblio.config.SecurityConfig;
 import br.uepb.biblio.config.ServiceConfig;
 import br.uepb.biblio.config.init.AppInitializer;
-import br.uepb.biblio.service.CadastroAreaConhecimento;
-import br.uepb.biblio.service.CadastroCursosService;
+import br.uepb.biblio.service.CrudAreaConhecimento;
+import br.uepb.biblio.service.CrudCursosService;
 import br.uepb.biblio.service.exception.ItemDuplicadoException;
 import br.uepb.model.AreaConhecimento;
 import br.uepb.model.Curso;
@@ -43,10 +43,10 @@ public class TesteCaseCurso {
 	private AreaConhecimento area;
 	
 	@Autowired
-	private CadastroAreaConhecimento areaDao;
+	private CrudAreaConhecimento areaDao;
 	
 	@Autowired
-	private CadastroCursosService cursoDao;
+	private CrudCursosService cursoDao;
 	
 	@Before
 	public void setup() throws Exception{

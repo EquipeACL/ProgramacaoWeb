@@ -23,8 +23,8 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import br.uepb.biblio.repository.Funcionarios;
 import br.uepb.biblio.repository.Grupos;
-import br.uepb.biblio.service.CadastroFuncionarioService;
-import br.uepb.biblio.service.CadastroGrupoService;
+import br.uepb.biblio.service.CrudFuncionarioService;
+import br.uepb.biblio.service.CrudGrupoService;
 import br.uepb.biblio.service.exception.ItemDuplicadoException;
 import br.uepb.biblio.service.exception.LoginDuplicadoException;
 import br.uepb.biblio.service.exception.SenhaObrigatoriaUsuarioException;
@@ -41,10 +41,10 @@ import br.uepb.model.usuarios.Funcionario;
 public class UsuariosController {
 
 	@Autowired
-	private CadastroFuncionarioService cadastroFuncionarioService;
+	private CrudFuncionarioService cadastroFuncionarioService;
 	
 	@Autowired
-	private CadastroGrupoService cadastroGrupoService;
+	private CrudGrupoService cadastroGrupoService;
 	
 	@Autowired
 	private Funcionarios funcionarios;

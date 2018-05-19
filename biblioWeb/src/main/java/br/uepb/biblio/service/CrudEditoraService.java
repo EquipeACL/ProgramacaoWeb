@@ -22,8 +22,8 @@ import br.uepb.model.jpaEntity.EntityEditora;
  *
  */
 @Service
-public class CadastroEditoraService {
-	private Logger logger = Logger.getLogger(CadastroEditoraService.class);
+public class CrudEditoraService {
+	private Logger logger = Logger.getLogger(CrudEditoraService.class);
 	@Autowired
 	private Editoras editoras;
 	

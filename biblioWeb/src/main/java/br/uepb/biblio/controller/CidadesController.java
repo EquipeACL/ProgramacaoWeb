@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import br.uepb.biblio.service.CidadesService;
+import br.uepb.biblio.service.CrudService;
 import br.uepb.model.Estado;
 import br.uepb.model.jpaEntity.EntityCidade;
 
@@ -25,7 +25,7 @@ import br.uepb.model.jpaEntity.EntityCidade;
 public class CidadesController {
 	
 	@Autowired
-	private CidadesService cidadesService;
+	private CrudService cidadesService;
 	
 	/**
 	 * Esse método é responsável por fazer a busca das cidades cadastradas no banco, pelo parâmetro UF

@@ -22,8 +22,8 @@ import br.uepb.model.jpaEntity.EntityAreaConhecimento;
  *
  */
 @Service
-public class CadastroAreaConhecimento {
-	private Logger logger = Logger.getLogger(CadastroAreaConhecimento.class);
+public class CrudAreaConhecimento {
+	private Logger logger = Logger.getLogger(CrudAreaConhecimento.class);
 	@Autowired
 	private AreasConhecimento areasConhecimento;
 	

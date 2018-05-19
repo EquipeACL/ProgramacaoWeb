@@ -24,10 +24,10 @@ import br.uepb.biblio.config.H2Config;
 import br.uepb.biblio.config.SecurityConfig;
 import br.uepb.biblio.config.ServiceConfig;
 import br.uepb.biblio.config.init.AppInitializer;
-import br.uepb.biblio.service.CadastroAreaConhecimento;
-import br.uepb.biblio.service.CadastroAutorService;
-import br.uepb.biblio.service.CadastroEditoraService;
-import br.uepb.biblio.service.CadastroTemaService;
+import br.uepb.biblio.service.CrudAreaConhecimento;
+import br.uepb.biblio.service.CrudAutorService;
+import br.uepb.biblio.service.CrudEditoraService;
+import br.uepb.biblio.service.CrudTemaService;
 import br.uepb.biblio.service.CrudLivroService;
 import br.uepb.model.AreaConhecimento;
 import br.uepb.model.Autor;
@@ -48,16 +48,16 @@ public class TesteCaseLivro {
 	private CrudLivroService livroDao;
 
 	@Autowired
-	private CadastroEditoraService editoraDao;
+	private CrudEditoraService editoraDao;
 	
 	@Autowired
-	private CadastroAreaConhecimento areaDao;
+	private CrudAreaConhecimento areaDao;
 	
 	@Autowired
-	private CadastroTemaService temaDao;
+	private CrudTemaService temaDao;
 
 	@Autowired
-	private CadastroAutorService autorDao;
+	private CrudAutorService autorDao;
 	
 	private Livro livro;
 	private Editora editora;

@@ -16,7 +16,7 @@ import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import br.uepb.biblio.repository.Editoras;
-import br.uepb.biblio.service.CadastroEditoraService;
+import br.uepb.biblio.service.CrudEditoraService;
 import br.uepb.biblio.service.exception.ItemDuplicadoException;
 import br.uepb.model.Editora;
 
@@ -34,7 +34,7 @@ public class EditorasController {
 	private Editoras editorasRepository;
 	
 	@Autowired
-	private CadastroEditoraService cadastroEditoraService;
+	private CrudEditoraService cadastroEditoraService;
 	
 	/**
 	 * Esse método é responsável por adicionar os parâmetros que vão ser exibidos na view renderizada ao acessar a rota editoras/novo	

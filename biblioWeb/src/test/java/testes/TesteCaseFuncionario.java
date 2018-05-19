@@ -21,7 +21,7 @@ import br.uepb.biblio.config.H2Config;
 import br.uepb.biblio.config.SecurityConfig;
 import br.uepb.biblio.config.ServiceConfig;
 import br.uepb.biblio.config.init.AppInitializer;
-import br.uepb.biblio.service.CadastroFuncionarioService;
+import br.uepb.biblio.service.CrudFuncionarioService;
 import br.uepb.model.usuarios.Funcionario;
 
 @RunWith(SpringJUnit4ClassRunner.class)
@@ -35,7 +35,7 @@ public class TesteCaseFuncionario {
 	
 	
 	@Autowired
-	private CadastroFuncionarioService funcionarioDAO;
+	private CrudFuncionarioService funcionarioDAO;
 	
 	@Before
 	public void setup() {

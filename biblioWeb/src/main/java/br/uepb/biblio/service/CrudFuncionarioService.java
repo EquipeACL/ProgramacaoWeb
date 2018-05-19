@@ -23,8 +23,8 @@ import br.uepb.model.usuarios.Funcionario;
  *
  */
 @Service
-public class CadastroFuncionarioService {
-	private static Logger logger = Logger.getLogger(CadastroFuncionarioService.class);
+public class CrudFuncionarioService {
+	private static Logger logger = Logger.getLogger(CrudFuncionarioService.class);
 	@Autowired
 	Funcionarios funcionarios;
 	

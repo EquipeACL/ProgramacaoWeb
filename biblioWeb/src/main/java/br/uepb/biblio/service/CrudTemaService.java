@@ -22,8 +22,8 @@ import br.uepb.model.jpaEntity.EntityTema;
  *
  */
 @Service
-public class CadastroTemaService {
-	private static Logger logger = Logger.getLogger(CadastroTemaService.class);
+public class CrudTemaService {
+	private static Logger logger = Logger.getLogger(CrudTemaService.class);
 	@Autowired
 	private Temas temas;
 	

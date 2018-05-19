@@ -22,8 +22,8 @@ import br.uepb.model.jpaEntity.EntityAutor;
  *
  */
 @Service
-public class CadastroAutorService {
-	private Logger logger = Logger.getLogger(CadastroAutorService.class);
+public class CrudAutorService {
+	private Logger logger = Logger.getLogger(CrudAutorService.class);
 	@Autowired
 	private Autores autores;
 	

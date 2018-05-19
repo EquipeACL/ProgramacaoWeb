@@ -22,9 +22,9 @@ import br.uepb.model.usuarios.Aluno;
  *
  */
 @Service
-public class CadastroAlunoService {
+public class CrudAlunoService {
 
-	private static Logger logger = Logger.getLogger(CadastroAlunoService.class);
+	private static Logger logger = Logger.getLogger(CrudAlunoService.class);
 	@Autowired
 	private Alunos alunos;
 	

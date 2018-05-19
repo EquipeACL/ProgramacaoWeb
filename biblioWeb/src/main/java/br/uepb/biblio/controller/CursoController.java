@@ -17,7 +17,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import br.uepb.biblio.repository.AreasConhecimento;
 import br.uepb.biblio.repository.Cursos;
-import br.uepb.biblio.service.CadastroCursosService;
+import br.uepb.biblio.service.CrudCursosService;
 import br.uepb.biblio.service.exception.ItemDuplicadoException;
 import br.uepb.model.Curso;
 import br.uepb.model.enums.Tipo_curso;
@@ -38,7 +38,7 @@ public class CursoController {
 	private AreasConhecimento areasRepository;
 	
 	@Autowired
-	private CadastroCursosService cursosService;
+	private CrudCursosService cursosService;
 
 	/**
 	 * Esse método é responsável por adicionar os parâmetros que vão ser exibidos na view renderizada ao acessar a rota cursos/novo	

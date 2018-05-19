@@ -22,8 +22,8 @@ import br.uepb.model.jpaEntity.EntityCurso;
  *
  */
 @Service
-public class CadastroCursosService {
-	private static Logger logger = Logger.getLogger(CadastroCursosService.class);
+public class CrudCursosService {
+	private static Logger logger = Logger.getLogger(CrudCursosService.class);
 	@Autowired
 	private Cursos cursos;
 	

@@ -25,7 +25,7 @@ import br.uepb.biblio.config.H2Config;
 import br.uepb.biblio.config.SecurityConfig;
 import br.uepb.biblio.config.ServiceConfig;
 import br.uepb.biblio.config.init.AppInitializer;
-import br.uepb.biblio.service.CadastroAutorService;
+import br.uepb.biblio.service.CrudAutorService;
 import br.uepb.biblio.service.exception.ItemDuplicadoException;
 import br.uepb.model.Autor;
 import br.uepb.model.jpaEntity.EntityAutor;
@@ -41,7 +41,7 @@ public class TesteCaseAutor {
 	private Autor autor;
 		
 	@Autowired
-	private CadastroAutorService autorDao;
+	private CrudAutorService autorDao;
 	
 	@Before
 	public void setup() throws Exception{

@@ -21,8 +21,8 @@ import br.uepb.biblio.config.H2Config;
 import br.uepb.biblio.config.SecurityConfig;
 import br.uepb.biblio.config.ServiceConfig;
 import br.uepb.biblio.config.init.AppInitializer;
-import br.uepb.biblio.service.CadastroAreaConhecimento;
-import br.uepb.biblio.service.CadastroTemaService;
+import br.uepb.biblio.service.CrudAreaConhecimento;
+import br.uepb.biblio.service.CrudTemaService;
 import br.uepb.biblio.service.exception.ItemDuplicadoException;
 import br.uepb.model.AreaConhecimento;
 import br.uepb.model.Tema;
@@ -42,10 +42,10 @@ public class TesteCaseTema {
 	private AreaConhecimento area;
 	
 	@Autowired
-	private CadastroTemaService temaDAO;
+	private CrudTemaService temaDAO;
 	
 	@Autowired
-	private CadastroAreaConhecimento areaDAO;
+	private CrudAreaConhecimento areaDAO;
 	
 	
 	@Before

@@ -16,7 +16,7 @@ import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import br.uepb.biblio.repository.Orientadores;
-import br.uepb.biblio.service.CadastroOrientadorService;
+import br.uepb.biblio.service.CrudOrientadorService;
 import br.uepb.biblio.service.exception.ItemDuplicadoException;
 import br.uepb.model.Orientador;
 import br.uepb.model.enums.Tipo_nivel;
@@ -34,7 +34,7 @@ public class OrientadoresController {
 	private Orientadores orientadoresRepository;
 	
 	@Autowired
-	CadastroOrientadorService cadastroOrientadorService;
+	CrudOrientadorService cadastroOrientadorService;
 	
 	/**
 	 * Esse método é responsável por adicionar os parâmetros que vão ser exibidos na view renderizada ao acessar a rota orientadores/novo	

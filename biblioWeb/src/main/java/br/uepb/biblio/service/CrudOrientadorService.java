@@ -23,8 +23,8 @@ import br.uepb.model.jpaEntity.EntityOrientador;
  *
  */
 @Service
-public class CadastroOrientadorService {
-	private static Logger logger = Logger.getLogger(CadastroOrientadorService.class);
+public class CrudOrientadorService {
+	private static Logger logger = Logger.getLogger(CrudOrientadorService.class);
 	@Autowired
 	private Orientadores orientadores;
 	

@@ -17,8 +17,8 @@ import org.springframework.stereotype.Service;
 
 import br.uepb.biblio.repository.Alunos;
 import br.uepb.biblio.repository.Funcionarios;
-import br.uepb.biblio.service.CadastroAlunoService;
-import br.uepb.biblio.service.CadastroFuncionarioService;
+import br.uepb.biblio.service.CrudAlunoService;
+import br.uepb.biblio.service.CrudFuncionarioService;
 import br.uepb.model.jpaEntity.usuarios.EntityAluno;
 import br.uepb.model.usuarios.Funcionario;
 
@@ -34,10 +34,10 @@ public class AppUserDetailsService implements UserDetailsService {
 	private Funcionarios funcionarios;
 
 	@Autowired
-	private CadastroFuncionarioService cadastroFuncionarioService;
+	private CrudFuncionarioService cadastroFuncionarioService;
 	
 	@Autowired
-	private CadastroAlunoService cadastroAlunoService;
+	private CrudAlunoService cadastroAlunoService;
 	
 	
 	@Autowired

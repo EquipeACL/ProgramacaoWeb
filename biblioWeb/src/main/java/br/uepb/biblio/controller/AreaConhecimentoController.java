@@ -17,7 +17,7 @@ import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import br.uepb.biblio.repository.AreasConhecimento;
-import br.uepb.biblio.service.CadastroAreaConhecimento;
+import br.uepb.biblio.service.CrudAreaConhecimento;
 import br.uepb.biblio.service.exception.ItemDuplicadoException;
 import br.uepb.model.AreaConhecimento;
 
@@ -30,7 +30,7 @@ import br.uepb.model.AreaConhecimento;
 @RequestMapping("/areasconhecimento")
 public class AreaConhecimentoController {
 	@Autowired
-	private CadastroAreaConhecimento cadastroAreaConhecimento;
+	private CrudAreaConhecimento cadastroAreaConhecimento;
 	
 	@Autowired
 	private AreasConhecimento repositoryAreas;

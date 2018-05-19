@@ -17,7 +17,7 @@ import br.uepb.model.jpaEntity.EntityOrientador;
  *
  */
 @Service
-public class CadastroGrupoService {
+public class CrudGrupoService {
 	
 	@PersistenceContext
 	private EntityManager manager;

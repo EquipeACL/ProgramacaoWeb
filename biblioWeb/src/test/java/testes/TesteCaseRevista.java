@@ -26,7 +26,7 @@ import br.uepb.biblio.config.H2Config;
 import br.uepb.biblio.config.SecurityConfig;
 import br.uepb.biblio.config.ServiceConfig;
 import br.uepb.biblio.config.init.AppInitializer;
-import br.uepb.biblio.service.CadastroEditoraService;
+import br.uepb.biblio.service.CrudEditoraService;
 import br.uepb.biblio.service.CrudRevistaService;
 import br.uepb.model.Editora;
 import br.uepb.model.acervo.Revista;
@@ -46,7 +46,7 @@ public class TesteCaseRevista {
 	private CrudRevistaService revDao;
 	
 	@Autowired
-	private CadastroEditoraService edDao;
+	private CrudEditoraService edDao;
 	
 	
 	@Before

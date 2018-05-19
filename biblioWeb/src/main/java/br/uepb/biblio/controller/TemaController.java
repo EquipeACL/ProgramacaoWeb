@@ -19,7 +19,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import br.uepb.biblio.repository.AreasConhecimento;
 import br.uepb.biblio.repository.Temas;
-import br.uepb.biblio.service.CadastroTemaService;
+import br.uepb.biblio.service.CrudTemaService;
 import br.uepb.biblio.service.exception.ItemDuplicadoException;
 import br.uepb.model.AreaConhecimento;
 import br.uepb.model.Tema;
@@ -42,7 +42,7 @@ public class TemaController{
 	private Temas temas;
 	
 	@Autowired
-	private CadastroTemaService temaService;
+	private CrudTemaService temaService;
 	
 	
 	/**
