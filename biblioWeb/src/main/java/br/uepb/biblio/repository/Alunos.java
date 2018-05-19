@@ -7,6 +7,11 @@ import org.springframework.stereotype.Repository;
 
 import br.uepb.model.jpaEntity.usuarios.EntityAluno;
 
+/**
+ * Esse é o repositório da classe Alunos, responsável por conter  métodos que tratam a Entidade Aluno
+ * @author EquipeACL
+ *
+ */
 @Repository
 public interface Alunos extends JpaRepository<EntityAluno,Integer>{
 	

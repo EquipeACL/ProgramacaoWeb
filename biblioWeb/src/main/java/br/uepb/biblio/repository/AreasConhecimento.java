@@ -7,6 +7,11 @@ import org.springframework.stereotype.Repository;
 
 import br.uepb.model.jpaEntity.EntityAreaConhecimento;
 
+/**
+ * Esse é o repositório da classe AreasConhecimento, responsável por conter  métodos que tratam a Entidade AreaConhecimento
+ * @author EquipeACL
+ *
+ */
 @Repository
 public interface AreasConhecimento extends JpaRepository<EntityAreaConhecimento,Integer>{
 
