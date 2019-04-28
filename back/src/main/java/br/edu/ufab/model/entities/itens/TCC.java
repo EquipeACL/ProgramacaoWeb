@@ -5,6 +5,7 @@ import java.util.Set;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
+import javax.persistence.FetchType;
 import javax.persistence.ManyToMany;
 import javax.validation.constraints.NotNull;
 
@@ -12,13 +13,14 @@ import br.edu.ufab.model.entities.Orientador;
 import br.edu.ufab.model.enums.TipoDeTCC;
 
 /**
- * Classe que representa uma view dos dados de tcc. Como estamos
- * usando hibernate, a classe Tcc � uma entidade e  seus atributos ser�o os campos
- * que ser�o gerados, conforme mostramos abaixo,
+ * Classe que representa uma entidade do tipo Tcc.
+ * Como estamos usando hibernate, a classe Tcc  será uma entidade no banco de dados e seus atributos serão os campos
+ * que serão gerados, conforme mostramos abaixo,
  * 
  * @author Murilo Gustavo e Taynar Sousa 
+ * @author Alterações por: EquipeACL
  * 
- * Sprint3-18/05/2018
+ * 
  * */
 
 @Entity
@@ -28,7 +30,7 @@ public class TCC extends TrabalhoAcademico {
 	@Enumerated(EnumType.STRING)
 	private TipoDeTCC tipo;
 	
-	@ManyToMany
+	@ManyToMany(fetch =FetchType.EAGER)
 	private Set<Orientador> orientadores;
 
 	public TipoDeTCC getTipo() {

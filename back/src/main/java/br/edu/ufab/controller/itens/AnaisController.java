@@ -27,7 +27,6 @@ import br.edu.ufab.model.entities.itens.Anais;
 import br.edu.ufab.model.enums.TipoDeAnais;
 import br.edu.ufab.model.repositories.AutorRepository;
 import br.edu.ufab.model.repositories.itens.AnaisRepository;
-import br.edu.ufab.propertyeditors.AutorPropertyEditor;
 /**
  * Classe responsavel por responder as requisições feitas para /anais
  * 
@@ -37,9 +36,8 @@ import br.edu.ufab.propertyeditors.AutorPropertyEditor;
  * */
 @RestController
 @RequestMapping("/anais")
-public class AnaisController {
+public class AnaisController{
 
-	@Autowired private AutorPropertyEditor autorPropertyEditor;
 	@Autowired private AutorRepository autorRepository;
 	@Autowired private AnaisRepository anaisRepository;
 	
@@ -97,8 +95,4 @@ public class AnaisController {
 		return ResponseEntity.ok(anais);
 	}
 	
-	@InitBinder
-	public void initBinder(WebDataBinder webDataBinder){
-		webDataBinder.registerCustomEditor(Autor.class, autorPropertyEditor);
-	}	
 }

@@ -2,24 +2,23 @@ package br.edu.ufab.model.entities.itens;
 
 import java.util.Set;
 
+import javax.persistence.FetchType;
 import javax.persistence.Inheritance;
 import javax.persistence.InheritanceType;
 import javax.persistence.ManyToMany;
 import javax.persistence.MappedSuperclass;
 import javax.validation.constraints.NotBlank;
 
-import org.hibernate.annotations.Fetch;
-import org.hibernate.annotations.FetchMode;
-
 import br.edu.ufab.model.entities.Autor;
 
 /**
- * Classe sse abstrata que gera os campos de local e autores.
- * Esta classe herda de ItemAcervo, pois Trabalho academico � um tipo de Item do Acervo.
+ * Classe abstrata que gera os campos de local e autores.
+ * Esta classe herda de ItemAcervo, pois Trabalho academico é um tipo de Item do Acervo.
  * 
  * @author Murilo Gustavo e Taynar Sousa 
+ * @author Alterações por: EquipeACL
  * 
- * Sprint3-18/05/2018
+ * 
  * */
 
 @MappedSuperclass
@@ -29,7 +28,8 @@ public abstract class TrabalhoAcademico extends ItemAcervo {
 	@NotBlank(message=" Local é obrigatório")
 	private String local;
 	
-	@ManyToMany
+
+	@ManyToMany(fetch =FetchType.EAGER)
 	private Set<Autor> autores;
 
 	public String getLocal() {

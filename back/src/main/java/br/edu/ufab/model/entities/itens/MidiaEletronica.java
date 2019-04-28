@@ -10,13 +10,14 @@ import javax.validation.constraints.NotNull;
 import br.edu.ufab.model.enums.TipoDeMidia;
 
 /**
- * Classe que representa uma view dos dados de midia. Como estamos
- * usando hibernate, a classe MidiaEletronica � uma entidade e  seus atributos ser�o os campos
- * que ser�o gerados, conforme mostramos abaixo,
+ * Classe que representa uma entidade do tipo MidiaEletronica.
+ * Como estamos usando hibernate, a classe MidiaEletronica será uma entidade no banco de dados e seus atributos serão os campos
+ * que serão gerados, conforme mostramos abaixo,
  * 
  * @author Murilo Gustavo e Taynar Sousa 
+ * @author Alterações por: EquipeACL
  * 
- * Sprint3-18/05/2018
+ * 
  * */
 
 @Entity

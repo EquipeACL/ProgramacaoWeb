@@ -15,21 +15,21 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import br.edu.ufab.exception.Exception;
 import br.edu.ufab.model.entities.Curso;
 import br.edu.ufab.model.entities.pessoas.Aluno;
+import br.edu.ufab.model.enums.PeriodoDeIngresso;
 import br.edu.ufab.model.repositories.CursoRepository;
 import br.edu.ufab.model.repositories.pessoas.AlunoRepository;
-import br.edu.ufab.propertyeditors.CursoPropertyEditor;
 
 /**
- * Classe rresponsavel por responder as requisições feitas para /alunos
+ * Classe responsavel por responder as requisições feitas para /alunos
  * 
  * @author EquipeACL 
  * 
@@ -39,13 +39,18 @@ import br.edu.ufab.propertyeditors.CursoPropertyEditor;
 @RequestMapping("/alunos")
 public class AlunoController {
 	
-	@Autowired private CursoPropertyEditor cursoPropertyEditor;
+
 	@Autowired private CursoRepository cursoRepository;
 	@Autowired private AlunoRepository alunoRepository;
 	
 	@GetMapping
 	public List<Aluno> listar() {
 		return (List<Aluno>) alunoRepository.findAll();
+	}
+	
+	@GetMapping("/periodos")
+	public PeriodoDeIngresso[] listarPeriodos() {
+		return PeriodoDeIngresso.values();
 	}
 	
 	@GetMapping("/{id}")
@@ -63,6 +68,7 @@ public class AlunoController {
 		if ( bindingResult.hasErrors() ) {
 			throw new Exception();
 		} else {
+			aluno.gerarMatricula();
 			Aluno retorno = alunoRepository.save(aluno);
 			return ResponseEntity.ok(retorno);
 		}
@@ -80,20 +86,19 @@ public class AlunoController {
 		
 	}
 	
-	@PutMapping("/{id}")
+	@RequestMapping(value="/{id}",method=RequestMethod.PUT)
 	public @ResponseBody ResponseEntity<Aluno> atualizar(@PathVariable long id,@Valid @RequestBody Aluno aluno) {
 		Optional<Aluno> existente = alunoRepository.findById(id);
 		if(existente == null){
 			return ResponseEntity.notFound().build();
+		}
+		if(!existente.get().getCurso().equals(aluno.getCurso())){
+			aluno.gerarMatricula();
 		}
 		BeanUtils.copyProperties(aluno,existente,"id");
 		BeanUtils.copyProperties(existente,aluno);
 		aluno = alunoRepository.save(aluno);
 		return ResponseEntity.ok(aluno);		
 	}
-	
-	@InitBinder
-	public void initBinder(WebDataBinder webDataBinder){
-		webDataBinder.registerCustomEditor(Curso.class, cursoPropertyEditor);
-	}
+
 }

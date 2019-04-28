@@ -1,17 +1,18 @@
 package br.edu.ufab.model.entities.itens;
 
-import java.util.Date;
+import java.sql.Date;
 
 import javax.persistence.Entity;
 import javax.validation.constraints.NotNull;
 /**
- * Classe que representa uma view dos dados de revista. Como estamos
- * usando hibernate, a classe Revista � uma entidade e  seus atributos ser�o os campos
- * que ser�o gerados, conforme mostramos abaixo,
+ * Classe que representa uma entidade do tipo Revista.
+ * Como estamos usando hibernate, a classe Revista será uma entidade no banco de dados e seus atributos serão os campos
+ * que serão gerados, conforme mostramos abaixo,
  * 
  * @author Murilo Gustavo e Taynar Sousa 
+ * @author Alterações por: EquipeACL
  * 
- * Sprint3-18/05/2018
+ * 
  * */
 @Entity
 public class Revista extends Impresso {

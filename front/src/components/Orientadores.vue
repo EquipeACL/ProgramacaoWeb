@@ -1,6 +1,7 @@
 <template>
-  <div class="container-fluied">
-      <table class="table table-hover table-condensed table-striped table-bordered">
+  <div class="container-fluid">
+      <Menu></Menu>
+			<table class="table table-hover table-condensed table-striped table-bordered">
 				<thead>
 					<tr>
 						<th style="width: 10%">#</th>

@@ -8,13 +8,13 @@ import javax.validation.constraints.NotNull;
 
 import br.edu.ufab.model.enums.TipoDeAnais;
 /**
- * Classe que representa uma view dos dados de anais. Como estamos
- * usando hibernate, a classe Anais � uma entidade e  seus atributos ser�o os campos
- * que ser�o gerados, conforme mostramos abaixo,
+ * Classe que representa uma entidade do tipo Anais.
+ * Como estamos usando hibernate, a classe Anais será uma entidade no banco de daods e seus atributos serão os campos
+ * que serão gerados, conforme mostramos abaixo,
  * 
  * @author Murilo Gustavo e Taynar Sousa 
+ * @author Alterações por: EquipeACL
  * 
- * Sprint3-18/05/2018
  * */
 @Entity
 public class Anais extends TrabalhoAcademico {

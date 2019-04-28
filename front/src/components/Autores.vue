@@ -1,5 +1,7 @@
+/* eslint-disable */
 <template>
   <div class="container-fluid">
+			<Menu></Menu> 
       <table class="table table-hover table-condensed table-striped table-bordered">
 				<thead>
 					<tr>
@@ -85,7 +87,7 @@
 </div>
 	
 </template>
-/* eslint-disable */
+
 <script>
 
 import axios from "axios";
@@ -134,6 +136,10 @@ export default {
       }).then(
         result => {
 					this.carregarListaAutores()
+					this.autor={
+						id:"",
+						nome: ""
+					}
 				},
 				error => {
 					console.error(error);
@@ -179,8 +185,10 @@ export default {
       }).then(
 				result => {
 					this.carregarListaAutores()
-					this.autor.id = "";
-					this.autor.nome = "";
+					this.autor={
+						id:"",
+						nome: ""
+					}
 				},
 				error => {
 					console.error(error);
@@ -197,14 +205,23 @@ $(function() {
   var nome = modal.find("#nome");
 
   modal.on("shown.bs.modal", onModalShow);
-  modal.on("hide.bs.modal", onModalClose);
+	modal.on("hide.bs.modal", onModalClose);
+	
+	var modalAlterar = $("#modal-autor-editar");
+  
+  modalAlterar.on("shown.bs.modal", onModalShow);
+  modalAlterar.on("hide.bs.modal", onModalClose);
 
   function onModalShow() {
     nome.focus();
   }
 
   function onModalClose() {
-    nome.val("");
+		nome.val("");
+		this.autor={
+			id:"",
+			nome: ""
+		}
   }
 });
 </script>

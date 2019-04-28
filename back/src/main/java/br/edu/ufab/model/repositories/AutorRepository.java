@@ -6,7 +6,10 @@ import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
 
 import br.edu.ufab.model.entities.Autor;
-
+/**
+ * Repositorio utilizado para utilizar operações crud com a entidade Autor.
+ * @author EquipeACL
+ */
 @Repository
 public interface AutorRepository extends CrudRepository<Autor, Long> {
 	

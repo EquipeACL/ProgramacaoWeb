@@ -31,7 +31,7 @@ import br.edu.ufab.model.repositories.AutorRepository;
  * */
 @RestController
 @RequestMapping("/autores")
-public class AutorController {
+public class AutorController{
 
 	@Autowired private AutorRepository autorRepository;
 	

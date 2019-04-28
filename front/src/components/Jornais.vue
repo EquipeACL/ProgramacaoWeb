@@ -1,17 +1,17 @@
 <template>
 <div class="container-fluid">
-    <table
-	class="table table-hover table-condensed table-striped table-bordered">
+    <Menu></Menu>
+    <table class="table table-hover table-condensed table-striped table-bordered">
 	<thead>
 		<tr>
-			<td style="width: 5%">#</td>
-			<td style="width: 25%">Titulo</td>
-			<td style="width: 15%">Edicao</td>
-			<td style="width: 15%">Editora</td>
-			<td style="width: 10%">N° de Paginas</td>
-			<td style="width: 10%">Data</td>
-			<td style="width: 10%">Editar</td>
-			<td style="width: 10%">Deletar</td>
+			<th style="width: 5%">#</th>
+			<th style="width: 25%">Titulo</th>
+			<th style="width: 15%">Edicao</th>
+			<th style="width: 15%">Editora</th>
+			<th style="width: 10%">N° de Paginas</th>
+			<th style="width: 10%">Data</th>
+			<th style="width: 10%">Editar</th>
+			<th style="width: 10%">Deletar</th>
 		</tr>
 	</thead>
 	<tbody>

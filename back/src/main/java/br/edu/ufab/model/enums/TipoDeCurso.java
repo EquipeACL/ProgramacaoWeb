@@ -1,9 +1,13 @@
 package br.edu.ufab.model.enums;
-
+/**
+ * Enum utilizado para classificar os possiveis tipos de curso.
+ * @author EquipeACL
+ *
+ */
 public enum TipoDeCurso {
 
-	GRADUAÇÃO("Graduação"),
-	ESPECIALIZAÇÃO("Especialização"),
+	GRADUACAO("Graduação"),
+	ESPECIALIZACAO("Especialização"),
 	MESTRADO("Mestrado"),
 	DOUTORADO("Doutorado");
 	

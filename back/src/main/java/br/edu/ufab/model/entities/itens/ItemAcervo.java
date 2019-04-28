@@ -8,11 +8,12 @@ import javax.persistence.InheritanceType;
 import javax.persistence.MappedSuperclass;
 import javax.validation.constraints.NotBlank;
 /**
- * Classe sse abstrata que gera os campos de id e titulo.
+ * Classe abstrata que gera os campos de id e titulo.
  * 
  * @author Murilo Gustavo e Taynar Sousa 
+ * @author Alterações por: EquipeACL
  * 
- * Sprint3-18/05/2018
+ *
  * */
 @MappedSuperclass
 @Inheritance(strategy = InheritanceType.TABLE_PER_CLASS)

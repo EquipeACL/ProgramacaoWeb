@@ -8,12 +8,13 @@ import javax.persistence.Inheritance;
 import javax.persistence.InheritanceType;
 import javax.persistence.MappedSuperclass;
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 /**
  * Classe abstrata que pega todos os dados da Pessoa.
  * 
  * @author Murilo Gustavo e Taynar Sousa 
+ * @author Alterações por: EquipeACL
  * 
- * Sprint3-18/05/2018
  * */
 @MappedSuperclass
 @Inheritance(strategy = InheritanceType.TABLE_PER_CLASS)
@@ -41,7 +42,7 @@ public abstract class Pessoa {
 	@NotBlank(message=" Telefone é obrigatório")
 	private String telefone;
 	
-	@NotBlank(message=" Data de nascimento é obrigatório")
+	@NotNull(message=" Data de nascimento é obrigatório")
 	private Date datanascimento;
 	
 	@NotBlank(message=" Senha é obrigatório")

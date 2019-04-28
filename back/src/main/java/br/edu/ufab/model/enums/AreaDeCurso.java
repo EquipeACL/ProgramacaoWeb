@@ -1,5 +1,9 @@
 package br.edu.ufab.model.enums;
-
+/**
+ * Enum utilizado para classificar as possiveis areas de um curso.
+ * @author EquipeACL
+ *
+ */
 public enum AreaDeCurso {
 
 	CIENCIAS_HUMANAS("Ciências Humanas"),

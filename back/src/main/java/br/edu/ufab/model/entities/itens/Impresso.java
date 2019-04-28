@@ -9,12 +9,12 @@ import javax.validation.constraints.NotNull;
 
 import br.edu.ufab.model.entities.Editora;
 /**
- * Classe sse abstrata que gera os campos de edicao,editora e numero de paginas.
- * Esta classe herda de ItemAcervo, pois Impresso � um tipo de Item do Acervo.
+ * Classe abstrata que gera os campos de edicao,editora e numero de paginas.
+ * Esta classe herda de ItemAcervo, pois Impresso  é um tipo de Item do Acervo.
  * 
  * @author Murilo Gustavo e Taynar Sousa 
+ * @author Alterações por: EquipeACL
  * 
- * Sprint3-18/05/2018
  * */
 @MappedSuperclass
 @Inheritance(strategy = InheritanceType.TABLE_PER_CLASS)

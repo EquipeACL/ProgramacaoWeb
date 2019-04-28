@@ -21,6 +21,8 @@ import org.springframework.web.bind.annotation.RestController;
 
 import br.edu.ufab.exception.Exception;
 import br.edu.ufab.model.entities.itens.MidiaEletronica;
+import br.edu.ufab.model.enums.TipoDeMidia;
+import br.edu.ufab.model.enums.TipoDeTCC;
 import br.edu.ufab.model.repositories.itens.MidiaEletronicaRepository;
 /**
  * Classe responsavel por responder as requisições feitas para /midias
@@ -39,6 +41,13 @@ public class MidiaEletronicaController {
 	public List<MidiaEletronica> listar() {
 		return (List<MidiaEletronica>) midiaEletronicaRepository.findAll();
 	}
+	
+	@GetMapping("/tipos")
+	public TipoDeMidia[] listarTipos() {
+		return TipoDeMidia.values();
+	}
+	
+	
 	
 	@GetMapping("/{id}")
 	public ResponseEntity<Optional<MidiaEletronica>> buscar(@PathVariable long id) {

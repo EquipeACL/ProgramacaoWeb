@@ -26,7 +26,7 @@ import br.edu.ufab.model.entities.Editora;
 import br.edu.ufab.model.entities.itens.Revista;
 import br.edu.ufab.model.repositories.EditoraRepository;
 import br.edu.ufab.model.repositories.itens.RevistaRepository;
-import br.edu.ufab.propertyeditors.EditoraPropertyEditor;
+
 /**
  * Classe responsavel por responder as requisições feitas para /revistas
  * 
@@ -38,7 +38,6 @@ import br.edu.ufab.propertyeditors.EditoraPropertyEditor;
 @RequestMapping("/revistas")
 public class RevistaController {
 	
-	@Autowired private EditoraPropertyEditor editoraPropertyEditor;
 	@Autowired private EditoraRepository editoraRepository;
 	@Autowired private RevistaRepository revistaRepository;
 	
@@ -90,9 +89,5 @@ public class RevistaController {
 		revista = revistaRepository.save(revista);
 		return ResponseEntity.ok(revista);		
 	}
-	
-	@InitBinder
-	public void initBinder(WebDataBinder webDataBinder){
-		webDataBinder.registerCustomEditor(Editora.class, editoraPropertyEditor);
-	}
+
 }

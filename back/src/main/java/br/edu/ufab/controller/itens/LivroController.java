@@ -9,10 +9,8 @@ import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
@@ -22,14 +20,10 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import br.edu.ufab.exception.Exception;
-import br.edu.ufab.model.entities.Autor;
-import br.edu.ufab.model.entities.Editora;
 import br.edu.ufab.model.entities.itens.Livro;
 import br.edu.ufab.model.repositories.AutorRepository;
 import br.edu.ufab.model.repositories.EditoraRepository;
 import br.edu.ufab.model.repositories.itens.LivroRepository;
-import br.edu.ufab.propertyeditors.AutorPropertyEditor;
-import br.edu.ufab.propertyeditors.EditoraPropertyEditor;
 
 /**
  * Classe responsavel por responder as requisições feitas para /livros
@@ -42,9 +36,7 @@ import br.edu.ufab.propertyeditors.EditoraPropertyEditor;
 @RequestMapping("/livros")
 public class LivroController {
 
-	@Autowired private EditoraPropertyEditor editoraPropertyEditor;
 	@Autowired private EditoraRepository editoraRepository;
-	@Autowired private AutorPropertyEditor autorPropertyEditor;
 	@Autowired private AutorRepository autorRepository;
 	@Autowired private LivroRepository livroRepository;
 	
@@ -97,9 +89,4 @@ public class LivroController {
 		return ResponseEntity.ok(livro);
 	}
 	
-	@InitBinder
-	public void initBinder(WebDataBinder webDataBinder){
-		webDataBinder.registerCustomEditor(Editora.class, editoraPropertyEditor);
-		webDataBinder.registerCustomEditor(Autor.class, autorPropertyEditor);
-	}
 }

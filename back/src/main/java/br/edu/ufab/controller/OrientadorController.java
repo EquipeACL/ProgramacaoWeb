@@ -68,7 +68,7 @@ public class OrientadorController {
 			return ResponseEntity.notFound().build();
 		}		
 		orientadorRepository.deleteById(id);
-		return ResponseEntity.ok().build();
+		return ResponseEntity.noContent().build();
 		
 	}
 	

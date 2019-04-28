@@ -1,5 +1,9 @@
 package br.edu.ufab.model.enums;
-
+/**
+ * Enum utilizado para classificar os possiveis tipos de midia eletronica.
+ * @author EquipeACL
+ *
+ */
 public enum TipoDeMidia {
 
 	CD("CD"), DVD("DVD");

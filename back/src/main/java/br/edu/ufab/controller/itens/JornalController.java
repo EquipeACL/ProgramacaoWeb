@@ -9,10 +9,8 @@ import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
@@ -22,11 +20,9 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import br.edu.ufab.exception.Exception;
-import br.edu.ufab.model.entities.Editora;
 import br.edu.ufab.model.entities.itens.Jornal;
 import br.edu.ufab.model.repositories.EditoraRepository;
 import br.edu.ufab.model.repositories.itens.JornalRepository;
-import br.edu.ufab.propertyeditors.EditoraPropertyEditor;
 /**
  * Classe responsavel por responder as requisições feitas para /jornais
  * 
@@ -38,7 +34,6 @@ import br.edu.ufab.propertyeditors.EditoraPropertyEditor;
 @RequestMapping("/jornais")
 public class JornalController {
 
-	@Autowired private EditoraPropertyEditor editoraPropertyEditor;
 	@Autowired private EditoraRepository editoraRepository;
 	@Autowired private JornalRepository jornalRepository;
 	
@@ -91,8 +86,5 @@ public class JornalController {
 		return ResponseEntity.ok(jornal);		
 	}
 	
-	@InitBinder
-	public void initBinder(WebDataBinder webDataBinder){
-		webDataBinder.registerCustomEditor(Editora.class, editoraPropertyEditor);
-	}
+
 }

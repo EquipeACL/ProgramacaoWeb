@@ -10,7 +10,12 @@ import org.springframework.web.servlet.config.annotation.CorsRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
 import org.springframework.web.servlet.i18n.FixedLocaleResolver;
-
+/**
+ * Classe utilizada para dar o start na API Restful.
+ * 
+ * @author EquipeACL
+ *
+ */
 @SpringBootApplication
 public class AppInitializer {
 

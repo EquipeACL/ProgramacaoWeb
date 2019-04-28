@@ -9,10 +9,8 @@ import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
@@ -22,15 +20,11 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import br.edu.ufab.exception.Exception;
-import br.edu.ufab.model.entities.Autor;
-import br.edu.ufab.model.entities.Orientador;
 import br.edu.ufab.model.entities.itens.TCC;
 import br.edu.ufab.model.enums.TipoDeTCC;
 import br.edu.ufab.model.repositories.AutorRepository;
 import br.edu.ufab.model.repositories.OrientadorRepository;
 import br.edu.ufab.model.repositories.itens.TCCRepository;
-import br.edu.ufab.propertyeditors.AutorPropertyEditor;
-import br.edu.ufab.propertyeditors.OrientadorPropertyEditor;
 /**
  * Classe responsavel por responder as requisições feitas para /tccs
  * 
@@ -42,9 +36,7 @@ import br.edu.ufab.propertyeditors.OrientadorPropertyEditor;
 @RequestMapping("/tccs")
 public class TCCController {
 	
-	@Autowired private AutorPropertyEditor autorPropertyEditor;
 	@Autowired private AutorRepository autorRepository;
-	@Autowired private OrientadorPropertyEditor orientadorPropertyEditor;
 	@Autowired private OrientadorRepository oriendadorRepository;
 	@Autowired private TCCRepository tccRepository;
 	
@@ -101,10 +93,5 @@ public class TCCController {
 		return ResponseEntity.ok(tcc);
 		
 	}
-	
-	@InitBinder
-	public void initBinder(WebDataBinder webDataBinder){
-		webDataBinder.registerCustomEditor(Autor.class, autorPropertyEditor);
-		webDataBinder.registerCustomEditor(Orientador.class, orientadorPropertyEditor);
-	}
+
 }

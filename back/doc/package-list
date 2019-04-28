@@ -1,0 +1,15 @@
+br.edu.ufab
+br.edu.ufab.config
+br.edu.ufab.controller
+br.edu.ufab.controller.itens
+br.edu.ufab.controller.pessoas
+br.edu.ufab.exception
+br.edu.ufab.model.entities
+br.edu.ufab.model.entities.itens
+br.edu.ufab.model.entities.pessoas
+br.edu.ufab.model.enums
+br.edu.ufab.model.repositories
+br.edu.ufab.model.repositories.itens
+br.edu.ufab.model.repositories.pessoas
+br.edu.ufab.security.filter
+testRestController
